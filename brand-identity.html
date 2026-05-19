@@ -1,208 +1,1746 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>sai kanagat. — brand identity</title>
-<meta name="description" content="The personal brand identity system used across every artefact Sai ships. Paper, ink, sienna." />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sai Kanagat — Brand System</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --paper: oklch(0.975 0.004 260);
-    --paper-warm: #f0eee9;
-    --ink: oklch(0.16 0.012 260);
-    --accent: oklch(0.42 0.21 265);
-    --accent-ink: oklch(0.28 0.18 268);
-    --accent-soft: oklch(0.93 0.04 265);
-    --n-100: oklch(0.955 0.008 82);
-    --n-300: oklch(0.85 0.012 78);
-    --n-500: oklch(0.56 0.014 70);
-    --n-700: oklch(0.32 0.012 62);
-    --sans: 'Bricolage Grotesque', system-ui, sans-serif;
-    --serif: 'Newsreader', Georgia, serif;
-    --mono: 'IBM Plex Mono', ui-monospace, monospace;
-    --r-3: 8px; --r-4: 12px; --r-full: 999px;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { background: var(--paper-warm); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
-  a { color: inherit; text-decoration: none; }
-  img { display: block; max-width: 100%; height: auto; }
-
-  .nav-bar {
-    position: sticky; top: 0; z-index: 50;
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 18px 32px;
-    background: rgba(240, 238, 233, 0.85); backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--n-300);
-  }
-  .nav-brand { display: flex; align-items: center; gap: 10px; font-family: var(--sans); font-weight: 500; letter-spacing: -0.012em; }
-  .nav-disc { width: 16px; height: 16px; border-radius: 50%; background: var(--ink); }
-  .nav-back { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; padding: 8px 14px; border: 1px solid var(--n-300); border-radius: var(--r-full); transition: background .2s ease, color .2s ease; }
-  .nav-back:hover { background: var(--ink); color: var(--paper-warm); border-color: var(--ink); }
-
-  .hero { padding: clamp(60px, 12vh, 140px) clamp(24px, 6vw, 96px) 60px; max-width: 1180px; margin: 0 auto; }
-  .eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent-ink); margin-bottom: 18px; }
-  h1.display {
-    font-family: var(--serif); font-style: italic; font-weight: 500;
-    font-size: clamp(56px, 9vw, 128px); letter-spacing: -0.025em; line-height: 0.95;
-  }
-  h1.display .dot { color: var(--accent); }
-  .lede { max-width: 680px; margin-top: 32px; font-size: clamp(18px, 1.4vw, 22px); line-height: 1.6; color: var(--n-700); }
-  .lede em { font-family: var(--serif); font-style: italic; color: var(--ink); }
-
-  section.bay { max-width: 1180px; margin: 0 auto; padding: clamp(60px, 9vh, 96px) clamp(24px, 6vw, 96px); border-top: 1px solid var(--n-300); }
-  section.bay h2 { font-family: var(--sans); font-weight: 500; font-size: clamp(28px, 3.5vw, 48px); letter-spacing: -0.02em; margin-bottom: 18px; }
-  section.bay h2 .num { font-family: var(--mono); font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent-ink); display: block; margin-bottom: 8px; }
-  section.bay p { max-width: 680px; color: var(--n-700); }
-  section.bay p + p { margin-top: 14px; }
-
-  .principles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; margin-top: 36px; }
-  .principle { background: var(--paper); border: 1px solid var(--n-300); border-radius: var(--r-4); padding: 22px; }
-  .principle .label { font-family: var(--serif); font-style: italic; font-size: 22px; letter-spacing: -0.015em; margin-bottom: 10px; }
-  .principle .label .dot { color: var(--accent); }
-  .principle .body { color: var(--n-700); font-size: 15px; line-height: 1.55; }
-
-  .palette { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; margin-top: 36px; }
-  .swatch { border-radius: var(--r-4); overflow: hidden; border: 1px solid var(--n-300); }
-  .swatch .chip { aspect-ratio: 1.3; }
-  .swatch .meta { padding: 14px 16px; background: var(--paper); font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; color: var(--n-700); }
-  .swatch .meta strong { display: block; color: var(--ink); font-weight: 500; font-family: var(--sans); font-size: 14px; letter-spacing: 0; margin-bottom: 4px; }
-
-  .type-rows { display: grid; gap: 18px; margin-top: 36px; }
-  .type-row { display: grid; grid-template-columns: 200px 1fr; gap: 24px; align-items: baseline; padding: 18px 0; border-bottom: 1px dashed var(--n-300); }
-  .type-row .role { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--n-500); }
-  .type-row .specimen.sans { font-family: var(--sans); font-size: clamp(28px, 4vw, 56px); letter-spacing: -0.02em; }
-  .type-row .specimen.serif { font-family: var(--serif); font-style: italic; font-weight: 500; font-size: clamp(28px, 4vw, 56px); letter-spacing: -0.02em; }
-  .type-row .specimen.mono { font-family: var(--mono); font-size: clamp(13px, 1.2vw, 18px); letter-spacing: 0.12em; text-transform: uppercase; color: var(--n-700); }
-
-  .logo-set { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin-top: 36px; }
-  .logo-cell { aspect-ratio: 1.4; display: flex; align-items: center; justify-content: center; background: var(--paper); border: 1px solid var(--n-300); border-radius: var(--r-4); position: relative; }
-  .logo-cell.ink { background: var(--ink); color: var(--paper-warm); }
-  .logo-cell.accent { background: var(--accent); color: var(--paper-warm); }
-  .lock { display: flex; align-items: center; gap: 12px; }
-  .lock-disc { width: 38px; height: 38px; border-radius: 50%; background: currentColor; }
-  .lock-word { font-family: var(--sans); font-weight: 500; letter-spacing: -0.012em; font-size: 22px; }
-  .lock-word .dot { color: var(--accent); }
-  .logo-cell.ink .lock-word .dot { color: var(--accent-soft); }
-  .stacked { display: flex; flex-direction: column; align-items: center; gap: 10px; }
-  .mono-mark { width: 96px; height: 96px; border-radius: 50%; background: currentColor; display: flex; align-items: center; justify-content: center; }
-  .mono-mark span { font-family: var(--serif); font-style: italic; font-weight: 500; color: var(--paper-warm); font-size: 38px; letter-spacing: -0.02em; }
-  .logo-cell.ink .mono-mark span { color: var(--ink); }
-  .expressive { font-family: var(--serif); font-style: italic; font-weight: 500; font-size: 38px; letter-spacing: -0.02em; }
-  .expressive .dot { color: var(--accent); }
-  .logo-cell .caption { position: absolute; bottom: 12px; left: 14px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--n-500); }
-  .logo-cell.ink .caption, .logo-cell.accent .caption { color: rgba(240,238,233,0.6); }
-
-  .gallery-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; margin-top: 36px; }
-  .gallery-strip img { width: 100%; border-radius: var(--r-4); border: 1px solid var(--n-300); aspect-ratio: 4/3; object-fit: cover; cursor: zoom-in; }
-
-  .voice-table { width: 100%; border-collapse: collapse; margin-top: 28px; font-size: 15px; }
-  .voice-table th { text-align: left; padding: 12px 0; font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--n-500); border-bottom: 1px solid var(--n-300); }
-  .voice-table td { padding: 16px 0; border-bottom: 1px dashed var(--n-300); vertical-align: top; }
-  .voice-table .yes { font-family: var(--serif); font-style: italic; color: var(--ink); }
-  .voice-table .no { color: var(--n-500); text-decoration: line-through; }
-
-  .closer { padding: clamp(80px, 14vh, 180px) clamp(24px, 6vw, 96px); max-width: 1180px; margin: 0 auto; text-align: center; border-top: 1px solid var(--n-300); }
-  .closer .signoff { font-family: var(--serif); font-style: italic; font-weight: 500; font-size: clamp(36px, 5vw, 64px); letter-spacing: -0.02em; }
-  .closer .signoff .dot { color: var(--accent); }
-  .closer .signature { font-family: var(--mono); font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--n-500); margin-top: 28px; }
-</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="css/brand-identity-system.css">
 </head>
 <body>
-<a href="#main" class="skip-link">Skip to content</a>
 
-<nav class="nav-bar">
-  <a href="index.html" class="nav-brand"><span class="nav-disc"></span> sai kanagat<span style="color:var(--accent);">.</span></a>
-  <a href="work.html" class="nav-back">← back to work</a>
-</nav>
+<!-- ========================= COVER ========================= -->
+<section class="cover">
+  <div class="cover-top">
+    <span class="wm wm-sm"><span class="sk">SK.</span>&nbsp;SAI&nbsp;KANAGAT</span>
+    <span class="meta">BRAND SYSTEM · VOL. 02 · MAY 2026</span>
+  </div>
 
-<header class="hero">
-  <div class="eyebrow">— Brand identity · v2.0 · May 2026</div>
-  <h1 class="display">design things,<br>that sell<span class="dot">.</span></h1>
-  <p class="lede">A complete and confident visual language for everything I make — websites, decks, writing, invoices, and the small details in between. Anchored by one accent (ultramarine), one disc mark, and a typographic trio that does most of the talking. <em>Six rules, on repeat.</em></p>
-</header>
+  <div class="cover-mid">
+    <div class="eyebrow" style="margin-bottom:24px;">001 — THE BRAND BOOK</div>
+    <h1>SAI<br>KANAGAT —<br><em>design things<br>that sell.</em></h1>
+    <p class="lede" style="margin-top:48px;">The complete operating system for a one-person studio working at the intersection of industrial craft and digital growth. Built to be used — by me, by collaborators, by the people who'll write copy and design ads when I can't.</p>
+  </div>
 
-<section class="bay">
-  <h2><span class="num">— 00 · principles</span>six rules, <em>on repeat.</em></h2>
-  <div class="principles-grid">
-    <div class="principle"><div class="label">design things that sell<span class="dot">.</span></div><div class="body">Every artefact has a job — convert, convince, communicate. Beauty is a means, never the brief.</div></div>
-    <div class="principle"><div class="label">both sides of the brief<span class="dot">.</span></div><div class="body">Industrial craft + digital strategy. Lead with one, back it with the other. Never abandon either.</div></div>
-    <div class="principle"><div class="label">made to last<span class="dot">.</span></div><div class="body">Editorial structure, generous whitespace, real grids. Decisions you'd defend in five years.</div></div>
-    <div class="principle"><div class="label">built to grow<span class="dot">.</span></div><div class="body">Performance > perfection. If a tweak earns better CTR, ship it. Measure everything.</div></div>
-    <div class="principle"><div class="label">one accent, used loudly<span class="dot">.</span></div><div class="body">Ultramarine carries every signal. Used sparingly it punches; sprinkled around it whispers.</div></div>
-    <div class="principle"><div class="label">one italic per surface<span class="dot">.</span></div><div class="body">Newsreader italic is the system's smile. Always one true italic per surface — never both feet on the design floor.</div></div>
+  <div class="cover-bot">
+    <div class="kv">VOLUME<b>02 · v2.0</b></div>
+    <div class="kv">UPDATED<b>May 2026</b></div>
+    <div class="kv">FORMAT<b>HTML · PDF · MD</b></div>
+    <div class="kv">BASED IN<b>Bologna, Italy</b></div>
+    <div class="kv">AUTHOR<b>Sai Kanagat</b></div>
   </div>
 </section>
 
-<section class="bay">
-  <h2><span class="num">— 01 · logo</span>a lowercase wordmark anchored by a single filled disc</h2>
-  <p>Eames-warm, Ive-restrained. The disc is the brand's heartbeat — it appears at every scale and is the one ornament the system permits.</p>
-  <div class="logo-set">
-    <div class="logo-cell"><div class="lock"><div class="lock-disc"></div><div class="lock-word">sai kanagat<span class="dot">.</span></div></div><div class="caption">primary lockup</div></div>
-    <div class="logo-cell ink"><div class="lock"><div class="lock-disc"></div><div class="lock-word">sai kanagat<span class="dot">.</span></div></div><div class="caption">primary · ink</div></div>
-    <div class="logo-cell"><div class="stacked"><div class="lock-disc" style="width:54px;height:54px;"></div><div class="lock-word" style="font-size:18px;">sai kanagat<span class="dot">.</span></div></div><div class="caption">stacked</div></div>
-    <div class="logo-cell"><div class="mono-mark"><span>sk</span></div><div class="caption">monogram</div></div>
-    <div class="logo-cell ink"><div class="expressive">sai kanagat<span class="dot">.</span></div><div class="caption">expressive · editorial</div></div>
-    <div class="logo-cell accent"><div class="lock"><div class="lock-disc" style="background:var(--paper-warm);"></div><div class="lock-word">sai kanagat</div></div><div class="caption">accent reserve</div></div>
+<div class="page">
+
+<!-- ========================= 00 · CONTENTS ========================= -->
+<section class="section" id="intro">
+  <div class="section-head">
+    <div class="num">00 / contents</div>
+    <div>
+      <h2>The <em>brief</em>.</h2>
+      <p>Industrial designer turned digital marketer. Bologna-based. The brand sits where the drawing board meets the dashboard — confident, considered, and built to convert. Every page of this book exists to keep that voice consistent across everything I make.</p>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="sticky">
+      <a href="#intro">00 · contents</a>
+      <a href="#principles">01 · principles</a>
+      <a href="#logo">02 · logo</a>
+      <a href="#color">03 · color</a>
+      <a href="#type">04 · typography</a>
+      <a href="#space">05 · spacing</a>
+      <a href="#elev">06 · elevation</a>
+      <a href="#icons">07 · iconography</a>
+      <a href="#imagery">08 · imagery</a>
+      <a href="#components">09 · components</a>
+      <a href="#voice">10 · voice &amp; tone</a>
+      <a href="#social">11 · social media</a>
+      <a href="#ads">12 · advertising</a>
+      <a href="#marketing">13 · marketing</a>
+      <a href="#templates">14 · stationery</a>
+      <a href="#applications">15 · applications</a>
+    </div>
+    <div>
+      <div class="subhead"><span>how to read this</span><span class="right">est. reading time · 18 min</span></div>
+      <p>Two operating modes, one voice. "<b>Made to last</b>" — the design side. Considered, structured, materials-aware. "<b>Built to grow</b>" — the marketing side. Sharper, more energetic, performance-aware. Everything in this book serves one of those two modes, and most things serve both.</p>
+      <p>The system is intentionally small. Two tones (ink + paper). One accent (ultramarine). Three typefaces. A handful of components. Everything else is patience, hierarchy, and restraint.</p>
+      <div class="demo-row" style="margin-top:32px;">
+        <span class="badge ink"><span class="dot"></span>VOL. 02</span>
+        <span class="badge accent"><span class="dot"></span>ULTRAMARINE TWO-TONE</span>
+        <span class="badge"><span class="dot"></span>BRICOLAGE GROTESQUE + NEWSREADER</span>
+      </div>
+    </div>
   </div>
 </section>
 
-<section class="bay">
-  <h2><span class="num">— 02 · color</span>three primaries and a warm neutral scale</h2>
-  <p>Anchor in ink, breathe in paper. Invert for moments, not pages. Sienna is for what matters — one accented element per visible region.</p>
-  <div class="palette">
-    <div class="swatch"><div class="chip" style="background:var(--paper-warm);"></div><div class="meta"><strong>paper</strong>oklch(0.975 0.004 260)</div></div>
-    <div class="swatch"><div class="chip" style="background:var(--ink);"></div><div class="meta"><strong>ink</strong>oklch(0.16 0.012 260)</div></div>
-    <div class="swatch"><div class="chip" style="background:var(--accent);"></div><div class="meta"><strong>ultramarine</strong>oklch(0.42 0.21 265)</div></div>
-    <div class="swatch"><div class="chip" style="background:var(--accent-ink);"></div><div class="meta"><strong>ultramarine · deep</strong>oklch(0.28 0.18 268)</div></div>
-    <div class="swatch"><div class="chip" style="background:var(--accent-soft);"></div><div class="meta"><strong>ultramarine · soft</strong>oklch(0.93 0.04 265)</div></div>
+<!-- ========================= 01 · PRINCIPLES ========================= -->
+<section class="section" id="principles">
+  <div class="section-head">
+    <div class="num">01 / principles</div>
+    <div>
+      <h2>Six rules, <em>on repeat.</em></h2>
+      <p>The ideas the whole system answers to. Whenever the brand needs to decide between two options, the more aligned with these wins. Print this page; tape it above the desk.</p>
+    </div>
+  </div>
+  <div class="body">
+    <div class="sticky">
+      <div>made to last</div>
+      <div>built to grow</div>
+      <div>both sides</div>
+    </div>
+    <div>
+      <div class="voice-grid">
+        <div class="voice-card">
+          <div class="quad">Design things that sell.</div>
+          <p style="margin:0;font-size:14px;">Every artifact has a job — to convert, to convince, to communicate. Beauty is a means, never the brief.</p>
+        </div>
+        <div class="voice-card">
+          <div class="quad">Both sides of the brief.</div>
+          <p style="margin:0;font-size:14px;">Industrial craft + digital strategy. Always lead with one and back it with the other. Never abandon either.</p>
+        </div>
+        <div class="voice-card">
+          <div class="quad">Made to last.</div>
+          <p style="margin:0;font-size:14px;">Editorial structure, generous whitespace, real grids. Decisions you'd defend in five years.</p>
+        </div>
+        <div class="voice-card">
+          <div class="quad">Built to grow.</div>
+          <p style="margin:0;font-size:14px;">Performance &gt; perfection. If a tweak earns better CTR, ship it. Measure everything.</p>
+        </div>
+        <div class="voice-card">
+          <div class="quad">One accent, used loudly.</div>
+          <p style="margin:0;font-size:14px;">Ultramarine carries every signal. Used sparingly, it punches; sprinkled around, it whispers.</p>
+        </div>
+        <div class="voice-card">
+          <div class="quad">Italian, not generic.</div>
+          <p style="margin:0;font-size:14px;">Newsreader carries every italic moment. Always one true italic per surface — the system's smile. Never both feet on the design floor.</p>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
-<section class="bay">
-  <h2><span class="num">— 03 · type</span>three families. one serif moment per page, max</h2>
-  <div class="type-rows">
-    <div class="type-row"><div class="role">sans — bricolage grotesque</div><div class="specimen sans">making things, well.</div></div>
-    <div class="type-row"><div class="role">serif — newsreader · italic</div><div class="specimen serif">making things, well.</div></div>
-    <div class="type-row"><div class="role">mono — ibm plex mono</div><div class="specimen mono">— making things, well.</div></div>
+<!-- ========================= 02 · LOGO ========================= -->
+<section class="section" id="logo">
+  <div class="section-head">
+    <div class="num">02 / logo</div>
+    <div>
+      <h2>The <em>mark.</em></h2>
+      <p>A geometric mark — a square split diagonally, half ink, half ultramarine. Two halves of one whole: industrial craft and digital growth, both sides of the brief. It works alone (favicon, avatar, watermark) and locks up with the wordmark for the full signature.</p>
+    </div>
   </div>
-  <p style="margin-top: 28px;">Tighten as you grow. Display goes to −0.015. Body sits at 0. Labels open up to +0.12 with UPPERCASE. Mono is a label, not a paragraph.</p>
-</section>
 
-<section class="bay">
-  <h2><span class="num">— 04 · voice</span>plain, considered sentences. lowercase headers when it feels right.</h2>
-  <table class="voice-table">
-    <thead><tr><th>where</th><th>say</th><th>don't say</th></tr></thead>
-    <tbody>
-      <tr><td>Web copy</td><td class="yes">"making things, well."</td><td class="no">"Unlock world-class creativity."</td></tr>
-      <tr><td>Buttons</td><td class="yes">"Start a project"</td><td class="no">"Click here!!"</td></tr>
-      <tr><td>Errors</td><td class="yes">"that email doesn't look right — mind checking?"</td><td class="no">"INVALID INPUT."</td></tr>
-      <tr><td>Empty states</td><td class="yes">"nothing here yet. that's the right kind of nothing."</td><td class="no">"No data found."</td></tr>
-      <tr><td>Email signoff</td><td class="yes">— sai &nbsp;/&nbsp; warmly, sai</td><td class="no">Best regards,</td></tr>
-    </tbody>
-  </table>
-</section>
+  <div class="body">
+    <div class="sticky">
+      <div>primary</div>
+      <div>the mark alone</div>
+      <div>stacked</div>
+      <div>clearspace</div>
+      <div>minimum sizes</div>
+      <div>misuse</div>
+    </div>
+    <div>
 
-<section class="bay">
-  <h2><span class="num">— 05 · the system applied</span>frames, layouts, fit-checks</h2>
-  <div class="gallery-strip">
-    <img src="assets/images/BRAND/01-cover.jpg" alt="Brand cover composition">
-    <img src="assets/images/BRAND/02-system.jpg" alt="Design system overview">
-    <img src="assets/images/BRAND/04-frames.jpg" alt="Layout frames">
-    <img src="assets/images/BRAND/05-layout.jpg" alt="Page layout">
-    <img src="assets/images/BRAND/06-cview.jpg" alt="Constructive view">
-    <img src="assets/images/BRAND/07-fitall.jpg" alt="Fit-all preview">
+      <div class="subhead"><span>primary lockup</span><span class="right">[mark] · SAI KANAGAT</span></div>
+      <div class="logo-grid">
+        <div class="logo-card">
+          <span class="tag">positive — paper</span>
+          <span class="wm-hero"><span class="sk">SK.</span>&nbsp;SAI KANAGAT</span>
+        </div>
+        <div class="logo-card dark">
+          <span class="tag">reversed — ink</span>
+          <span class="wm-hero"><span class="sk">SK.</span>&nbsp;SAI KANAGAT</span>
+        </div>
+        <div class="logo-card tinted">
+          <span class="tag">tinted — soft accent</span>
+          <span class="wm-hero"><span class="sk">SK.</span>&nbsp;SAI KANAGAT</span>
+        </div>
+        <div class="logo-card accent">
+          <span class="tag">accent — ultramarine</span>
+          <span class="wm-hero"><span class="sk" style="color: oklch(0.85 0.13 268);">SK.</span>&nbsp;SAI KANAGAT</span>
+        </div>
+      </div>
+
+      <div class="subhead"><span>the mark alone</span><span class="right">favicon · avatar · watermark · embossing</span></div>
+      <div style="display:flex; gap:18px; flex-wrap:wrap; align-items:center;">
+        <span class="monogram" aria-label="the mark"></span>
+        <span class="monogram round" aria-label="the mark, circle"></span>
+        <span class="monogram accent" aria-label="the mark, accent"></span>
+        <span class="monogram accent round" aria-label="the mark, accent circle"></span>
+        <span class="monogram outline" aria-label="the mark, outline"></span>
+        <span class="monogram outline round" aria-label="the mark, outline circle"></span>
+      </div>
+      <p style="margin-top:14px;"><b>Six container shapes</b> — square, circle, outline, and three color treatments. The mark itself never changes proportion or rotates (other than the rotated diamond variant below).</p>
+
+      <div class="subhead"><span>stacked &amp; expressive</span><span class="right">covers · posters · merch</span></div>
+      <div class="logo-grid">
+        <div class="logo-card" style="flex-direction:column; gap:18px; align-items:flex-start; padding:48px;">
+          <span class="tag">stacked with sub-line</span>
+          <span class="mark r2" style="width:64px; height:64px;" aria-label="the mark"></span>
+          <div style="font-family:var(--sans); font-weight:700; font-size:32px; line-height:0.94; letter-spacing:-0.035em; text-transform:uppercase;">SAI<br>KANAGAT</div>
+          <div style="font-family:var(--mono); font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted);">INDUSTRIAL × DIGITAL · BOLOGNA</div>
+        </div>
+        <div class="logo-card" style="padding:48px; gap:24px; flex-direction:column; align-items:flex-start;">
+          <span class="tag">rotated — diamond variant</span>
+          <span class="mark r2 rotate" style="width:96px; height:96px; margin: 36px 0 36px 36px;" aria-label="the mark, rotated"></span>
+          <div style="font-family:var(--mono); font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted);">USED FOR STICKERS · ALL-OVER PATTERNS · LOADERS</div>
+        </div>
+      </div>
+
+      <div class="subhead"><span>clearspace</span><span class="right">minimum padding = x · height of the mark</span></div>
+      <div class="clearspace">
+        <span class="wm-hero" style="font-size:44px;"><span class="sk">SK.</span>&nbsp;SAI KANAGAT</span>
+      </div>
+
+      <div class="subhead"><span>minimum sizes</span></div>
+      <div class="token-table">
+        <div class="token-row"><span class="key">screen — full lockup</span><span class="val">≥ 20 px tall</span><span class="bar" style="width:20px; height:20px;"></span></div>
+        <div class="token-row"><span class="key">screen — mark</span><span class="val">≥ 16 px square</span><span class="bar" style="width:16px; height:16px;"></span></div>
+        <div class="token-row"><span class="key">print — full lockup</span><span class="val">≥ 9 mm tall</span><span class="bar" style="width:16px; height:16px;"></span></div>
+        <div class="token-row"><span class="key">print — mark</span><span class="val">≥ 8 mm square</span><span class="bar" style="width:18px; height:18px;"></span></div>
+      </div>
+
+      <div class="subhead"><span>misuse</span><span class="right">never · do · not</span></div>
+      <div class="do-dont">
+        <div class="item yes"><span class="verdict">do</span>
+          <span class="wm-hero" style="font-size:22px;"><span class="sk">SK.</span>&nbsp;SAI KANAGAT</span>
+          <span class="label">approved lockup</span>
+        </div>
+        <div class="item no"><span class="verdict">don't</span>
+          <span class="wm-hero" style="font-size:22px; transform: skewX(-12deg);"><span class="sk">SK.</span>&nbsp;SAI KANAGAT</span>
+          <span class="label">no distortion</span>
+        </div>
+        <div class="item no"><span class="verdict">don't</span>
+          <span class="wm-hero" style="font-size:22px; font-family: 'Comic Sans MS', cursive;"><span class="sk">SK.</span>&nbsp;SAI KANAGAT</span>
+          <span class="label">no substitutions</span>
+        </div>
+        <div class="item no"><span class="verdict">don't</span>
+          <span class="wm-hero" style="font-size:22px; background:linear-gradient(90deg,#f00,#0f0,#00f); -webkit-background-clip:text; background-clip:text; color:transparent;"><span class="sk" style="color:#0a0;">SK.</span>&nbsp;SAI KANAGAT</span>
+          <span class="label">no gradients</span>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
-<section class="closer">
-  <div class="signoff">— set in bricolage, newsreader<br>and ibm plex mono<span class="dot">.</span></div>
-  <div class="signature">— sai kanagat, 2026</div>
+<!-- ========================= 03 · COLOR ========================= -->
+<section class="section" id="color">
+  <div class="section-head">
+    <div class="num">03 / color</div>
+    <div>
+      <h2>Two tones, <em>one accent.</em></h2>
+      <p>A cool paper, a deep ink, and a single electric ultramarine. The ultramarine is the brand's signature — used like a single confident gesture. If it appears more than once per visible region, the layout is wrong.</p>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="sticky">
+      <div>primary</div>
+      <div>neutrals</div>
+      <div>supports</div>
+      <div>rules</div>
+      <div>accessibility</div>
+    </div>
+    <div>
+
+      <div class="subhead"><span>primary palette</span></div>
+      <div class="swatch-row">
+        <div class="swatch">
+          <div class="chip" style="background:var(--paper);"></div>
+          <div class="meta-row"><div><div class="name">Paper</div><div class="code">oklch(0.975 0.004 260)</div></div><div class="code">--paper</div></div>
+        </div>
+        <div class="swatch">
+          <div class="chip" style="background:var(--ink);"></div>
+          <div class="meta-row"><div><div class="name">Ink</div><div class="code">oklch(0.16 0.012 260)</div></div><div class="code">--ink</div></div>
+        </div>
+        <div class="swatch">
+          <div class="chip" style="background:var(--accent);"></div>
+          <div class="meta-row"><div><div class="name">Ultramarine</div><div class="code">oklch(0.42 0.21 265)</div></div><div class="code">--accent</div></div>
+        </div>
+      </div>
+
+      <div class="subhead"><span>cool neutral scale</span><span class="right">n-50 → n-950</span></div>
+      <div class="scale">
+        <div class="step" style="background:var(--n-50);"><span>50</span></div>
+        <div class="step" style="background:var(--n-100);"><span>100</span></div>
+        <div class="step" style="background:var(--n-200);"><span>200</span></div>
+        <div class="step" style="background:var(--n-300);"><span>300</span></div>
+        <div class="step" style="background:var(--n-400);"><span>400</span></div>
+        <div class="step" style="background:var(--n-500);"><span>500</span></div>
+        <div class="step dark" style="background:var(--n-600);"><span>600</span></div>
+        <div class="step dark" style="background:var(--n-700);"><span>700</span></div>
+        <div class="step dark" style="background:var(--n-800);"><span>800</span></div>
+        <div class="step dark" style="background:var(--n-900);"><span>900</span></div>
+        <div class="step dark" style="background:var(--n-950);"><span>950</span></div>
+      </div>
+
+      <div class="subhead"><span>accent supports & system colors</span></div>
+      <div class="swatch-row">
+        <div class="swatch"><div class="chip" style="background:var(--accent-ink);"></div><div class="meta-row"><div><div class="name">Ultramarine · Deep</div><div class="code">oklch(0.28 0.18 268)</div></div><div class="code">--accent-ink</div></div></div>
+        <div class="swatch"><div class="chip" style="background:var(--accent-up);"></div><div class="meta-row"><div><div class="name">Ultramarine · Bright</div><div class="code">oklch(0.55 0.22 262)</div></div><div class="code">--accent-up</div></div></div>
+        <div class="swatch"><div class="chip" style="background:var(--accent-soft);"></div><div class="meta-row"><div><div class="name">Ultramarine · Soft</div><div class="code">oklch(0.93 0.04 265)</div></div><div class="code">--accent-soft</div></div></div>
+      </div>
+      <div class="swatch-row" style="margin-top:16px;">
+        <div class="swatch"><div class="chip" style="background:var(--pos);"></div><div class="meta-row"><div><div class="name">Positive · Forest</div><div class="code">oklch(0.55 0.13 145)</div></div><div class="code">--pos</div></div></div>
+        <div class="swatch"><div class="chip" style="background:var(--neg);"></div><div class="meta-row"><div><div class="name">Negative · Crimson</div><div class="code">oklch(0.50 0.18 25)</div></div><div class="code">--neg</div></div></div>
+        <div class="swatch"><div class="chip" style="background:var(--warn);"></div><div class="meta-row"><div><div class="name">Warning · Amber</div><div class="code">oklch(0.70 0.14 70)</div></div><div class="code">--warn</div></div></div>
+      </div>
+      <p style="margin-top:14px;">System colors (positive / negative / warning) are reserved for <b>function</b>: dashboards, form errors, campaign performance. Never let them creep into brand surfaces or marketing collateral.</p>
+
+      <div class="subhead"><span>how to use them</span></div>
+      <div class="tone-rules">
+        <div class="card"><span class="pill">do</span>
+          <h4>Anchor in ink. Breathe in paper.</h4>
+          <p style="margin:8px 0 0;">Body text in ink, surfaces in paper. Neutrals fill the in-between for rules, hints, dividers, disabled states.</p>
+        </div>
+        <div class="card ink"><span class="pill">do</span>
+          <h4 style="color:var(--paper);">Invert for moments.</h4>
+          <p style="margin:8px 0 0; color: rgba(248,249,253,0.78);">Paper-on-ink is for hero moments — covers, callouts, banners. Not a default state.</p>
+        </div>
+        <div class="card"><span class="pill" style="background:var(--ink);">use sparingly</span>
+          <h4>Ultramarine signals.</h4>
+          <p style="margin:8px 0 0;">Primary CTA, focused state, the emphasized word, the single italic moment. Never decoration.</p>
+        </div>
+        <div class="card"><span class="pill" style="background:var(--n-700);">never</span>
+          <h4>No gradients. No drop-shadow glows.</h4>
+          <p style="margin:8px 0 0;">If a thing needs another color, the layout is wrong. Solve hierarchy with size, weight, and space.</p>
+        </div>
+      </div>
+
+      <div class="subhead"><span>contrast & accessibility</span><span class="right">WCAG 2.2</span></div>
+      <div class="token-table">
+        <div class="token-row"><span class="key">ink on paper</span><span class="val">17.2 : 1 · AAA</span><span style="background:var(--paper); color:var(--ink); padding:6px 12px; border-radius:var(--r-2); border:1px solid var(--rule);">Default body text.</span></div>
+        <div class="token-row"><span class="key">paper on ink</span><span class="val">17.2 : 1 · AAA</span><span style="background:var(--ink); color:var(--paper); padding:6px 12px; border-radius:var(--r-2);">Reversed for hero moments.</span></div>
+        <div class="token-row"><span class="key">paper on ultramarine</span><span class="val">8.4 : 1 · AAA</span><span style="background:var(--accent); color:var(--paper); padding:6px 12px; border-radius:var(--r-2);">CTAs &amp; accent surfaces.</span></div>
+        <div class="token-row"><span class="key">ultramarine-deep on paper</span><span class="val">11.6 : 1 · AAA</span><span style="background:var(--paper); color:var(--accent-ink); padding:6px 12px; border-radius:var(--r-2); border:1px solid var(--rule);">Inline links &amp; accent text.</span></div>
+        <div class="token-row"><span class="key">n-500 on paper</span><span class="val">4.6 : 1 · AA</span><span style="background:var(--paper); color:var(--n-500); padding:6px 12px; border-radius:var(--r-2); border:1px solid var(--rule);">Hints &amp; captions only.</span></div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<script src="js/lightbox.js"></script>
-<script src="js/interactions.js"></script>
+<!-- ========================= 04 · TYPE ========================= -->
+<section class="section" id="type">
+  <div class="section-head">
+    <div class="num">04 / typography</div>
+    <div>
+      <h2>Three families, <em>in dialogue.</em></h2>
+      <p>A contemporary grotesque does the heavy lifting — display, headlines, body, UI. A warm editorial serif appears only for the italic moment, the one place each surface earns a smile. A workhorse mono carries the labels, dates, page numbers and metadata. That's it. Three families, no exceptions.</p>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="sticky">
+      <div>families</div>
+      <div>specimens</div>
+      <div>scale</div>
+      <div>rules</div>
+    </div>
+    <div>
+
+      <div class="subhead"><span>families</span></div>
+      <div class="swatch-row">
+        <div class="swatch">
+          <div class="chip" style="background:var(--paper); display:flex; align-items:flex-end; padding:24px; font-family:var(--sans); font-size:96px; font-weight:700; letter-spacing:-0.04em; color:var(--ink); line-height:1;">Aa</div>
+          <div class="meta-row"><div><div class="name">Bricolage Grotesque</div><div class="code">sans · display, UI &amp; body</div></div><div class="code">200–800</div></div>
+        </div>
+        <div class="swatch">
+          <div class="chip" style="background:var(--paper); display:flex; align-items:flex-end; padding:24px; font-family:var(--serif); font-style:italic; font-size:108px; letter-spacing:-0.035em; color:var(--accent-ink); line-height:1;">Aa</div>
+          <div class="meta-row"><div><div class="name">Newsreader</div><div class="code">serif · italic accents only</div></div><div class="code">400 / 400 italic</div></div>
+        </div>
+        <div class="swatch">
+          <div class="chip" style="background:var(--paper); display:flex; align-items:flex-end; padding:24px; font-family:var(--mono); font-size:78px; font-weight:500; letter-spacing:-0.01em; color:var(--ink); line-height:1;">Aa</div>
+          <div class="meta-row"><div><div class="name">IBM Plex Mono</div><div class="code">mono · labels, data, code</div></div><div class="code">400 / 500</div></div>
+        </div>
+      </div>
+
+      <div class="subhead"><span>scale &amp; specimens</span></div>
+      <div class="spec">
+        <div class="label"><b>display · sans</b>64px · sans · 700 · 1.0 · −0.04 tracking · UPPER</div>
+        <div class="sample display">design things that sell.</div>
+      </div>
+      <div class="spec">
+        <div class="label"><b>display · serif</b>64px · serif · italic · 1.0 · −0.025</div>
+        <div class="sample serif">made to last.</div>
+      </div>
+      <div class="spec">
+        <div class="label"><b>h1</b>48px · sans · 700 · 1.05 · −0.03 · UPPER</div>
+        <div class="sample h1">Both sides of the brief.</div>
+      </div>
+      <div class="spec">
+        <div class="label"><b>h2</b>36px · sans · 600 · 1.10 · −0.022</div>
+        <div class="sample h2">Industrial craft meets digital growth.</div>
+      </div>
+      <div class="spec">
+        <div class="label"><b>h3</b>28px · sans · 600 · 1.20 · −0.012</div>
+        <div class="sample h3">Make every touchpoint count.</div>
+      </div>
+      <div class="spec">
+        <div class="label"><b>body</b>18px · sans · 400 · 1.55</div>
+        <div class="sample body">Body copy sits at 18 px to feel generous on the page. Line-height stays at 1.55 across most blocks; tighten to 1.4 for short marketing lines and loosen to 1.7 for long-form reading.</div>
+      </div>
+      <div class="spec">
+        <div class="label"><b>small</b>14px · sans · 400 · 1.50 · n-700</div>
+        <div class="sample small">Captions, helper text, dense UI. Avoid going smaller than 14 px on screen.</div>
+      </div>
+      <div class="spec">
+        <div class="label"><b>mono label</b>12px · mono · 400 · 0.16 tracking · UPPER</div>
+        <div class="sample mono">001 — Industrial × Digital · Bologna, Italy</div>
+      </div>
+
+      <div class="subhead"><span>character — sans, serif italic, mono</span></div>
+      <div class="aa-glyphs">
+        <div class="sans">A</div><div class="sans">G</div><div class="sans">K</div><div class="sans">a</div><div class="sans">g</div><div class="sans">&amp;</div>
+        <div class="serif">A</div><div class="serif">G</div><div class="serif">K</div><div class="serif">a</div><div class="serif">g</div><div class="serif">&amp;</div>
+        <div class="mono">A</div><div class="mono">G</div><div class="mono">K</div><div class="mono">a</div><div class="mono">g</div><div class="mono">@</div>
+      </div>
+
+      <div class="subhead"><span>rules of thumb</span></div>
+      <div class="voice-grid">
+        <div class="voice-card">
+          <div class="quad">Pair, don't stack.</div>
+          <p style="margin:0;font-size:14px;">One italic moment per surface. The serif earns its weight by being rare. Everything else is the grotesque.</p>
+        </div>
+        <div class="voice-card">
+          <div class="quad">Tighten as you grow.</div>
+          <p style="margin:0;font-size:14px;">Display goes to −0.04. Body sits at 0. Mono labels open to +0.16 with UPPERCASE.</p>
+        </div>
+        <div class="voice-card">
+          <div class="quad">UPPER for shouting, sentence for talking.</div>
+          <p style="margin:0;font-size:14px;">Headlines, navigation, and mono labels are uppercase. Body, lede, and captions are sentence-case.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= 05 · SPACING & RADII ========================= -->
+<section class="section" id="space">
+  <div class="section-head">
+    <div class="num">05 / spacing &amp; radii</div>
+    <div>
+      <h2>The <em>grid</em>, generous.</h2>
+      <p>A 4-pixel base. Ten steps. Big jumps for big rhythm — section gaps live at 96 px. Avoid in-between values; the system gets ugly fast when you start fudging.</p>
+    </div>
+  </div>
+  <div class="body">
+    <div class="sticky">
+      <div>spacing scale</div>
+      <div>radii</div>
+      <div>grids</div>
+    </div>
+    <div>
+      <div class="subhead"><span>spacing scale (4-px base)</span></div>
+      <div class="token-table">
+        <div class="token-row"><span class="key">--s-1</span><span class="val">4 px</span><span class="bar" style="width:4px"></span></div>
+        <div class="token-row"><span class="key">--s-2</span><span class="val">8 px</span><span class="bar" style="width:8px"></span></div>
+        <div class="token-row"><span class="key">--s-3</span><span class="val">12 px</span><span class="bar" style="width:12px"></span></div>
+        <div class="token-row"><span class="key">--s-4</span><span class="val">16 px</span><span class="bar" style="width:16px"></span></div>
+        <div class="token-row"><span class="key">--s-5</span><span class="val">24 px</span><span class="bar" style="width:24px"></span></div>
+        <div class="token-row"><span class="key">--s-6</span><span class="val">32 px</span><span class="bar" style="width:32px"></span></div>
+        <div class="token-row"><span class="key">--s-7</span><span class="val">48 px</span><span class="bar" style="width:48px"></span></div>
+        <div class="token-row"><span class="key">--s-8</span><span class="val">64 px</span><span class="bar" style="width:64px"></span></div>
+        <div class="token-row"><span class="key">--s-9</span><span class="val">96 px</span><span class="bar" style="width:96px"></span></div>
+        <div class="token-row"><span class="key">--s-10</span><span class="val">128 px</span><span class="bar" style="width:128px"></span></div>
+      </div>
+
+      <div class="subhead"><span>radii</span></div>
+      <div class="radii-row">
+        <div class="radii-card"><div class="box" style="border-radius:0"></div><div class="key"><b>r-0</b>0</div></div>
+        <div class="radii-card"><div class="box" style="border-radius:2px"></div><div class="key"><b>r-1</b>2</div></div>
+        <div class="radii-card"><div class="box" style="border-radius:4px"></div><div class="key"><b>r-2</b>4</div></div>
+        <div class="radii-card"><div class="box" style="border-radius:8px"></div><div class="key"><b>r-3</b>8</div></div>
+        <div class="radii-card"><div class="box" style="border-radius:12px"></div><div class="key"><b>r-4</b>12</div></div>
+        <div class="radii-card"><div class="box" style="border-radius:50%"></div><div class="key"><b>r-full</b>999</div></div>
+      </div>
+      <p style="margin-top:14px;"><b>Defaults:</b> r-3 for cards &amp; inputs · r-4 for surfaces &amp; modals · r-full for buttons &amp; pills · r-0 for tables, print, ads (display ad networks render them sharp anyway).</p>
+
+      <div class="subhead"><span>grid</span><span class="right">12 col · 24 gutter · 1240 max</span></div>
+      <div class="card" style="padding:0; overflow:hidden;">
+        <div style="display:grid; grid-template-columns: repeat(12, 1fr); gap:24px; padding:24px;">
+          <div style="grid-column: span 12; height:8px; background:var(--n-100); border-radius:var(--r-1);"></div>
+          <div style="grid-column: span 8; height:8px; background:var(--ink); border-radius:var(--r-1);"></div>
+          <div style="grid-column: span 4; height:8px; background:var(--n-300); border-radius:var(--r-1);"></div>
+          <div style="grid-column: span 6; height:8px; background:var(--accent); border-radius:var(--r-1);"></div>
+          <div style="grid-column: span 6; height:8px; background:var(--n-200); border-radius:var(--r-1);"></div>
+          <div style="grid-column: span 4; height:8px; background:var(--n-300); border-radius:var(--r-1);"></div>
+          <div style="grid-column: span 4; height:8px; background:var(--n-300); border-radius:var(--r-1);"></div>
+          <div style="grid-column: span 4; height:8px; background:var(--n-300); border-radius:var(--r-1);"></div>
+        </div>
+        <div style="border-top:1px solid var(--rule); padding:14px 24px; display:flex; gap:24px; font-family:var(--mono); font-size:12px; color:var(--muted); letter-spacing:0.08em; text-transform:uppercase;">
+          <span>12 columns</span><span>24 px gutter</span><span>max 1240 px</span><span>outer 48 px</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= 06 · ELEVATION ========================= -->
+<section class="section" id="elev">
+  <div class="section-head">
+    <div class="num">06 / elevation</div>
+    <div>
+      <h2>Shadows that <em>don't show off.</em></h2>
+      <p>Five steps from flat to floating. Warm-cool cast — never pure black. Use the lowest step that does the job.</p>
+    </div>
+  </div>
+  <div class="body">
+    <div class="sticky">
+      <div>scale</div><div>usage</div>
+    </div>
+    <div>
+      <div class="shadow-row">
+        <div class="shadow-card s0"><div class="key"><b>shadow-0</b>flat</div></div>
+        <div class="shadow-card s1"><div class="key"><b>shadow-1</b>UI chrome</div></div>
+        <div class="shadow-card s2"><div class="key"><b>shadow-2</b>cards · default</div></div>
+        <div class="shadow-card s3"><div class="key"><b>shadow-3</b>popovers</div></div>
+        <div class="shadow-card s4"><div class="key"><b>shadow-4</b>modals · sheets</div></div>
+      </div>
+      <p style="margin-top:18px;">All shadows are cast cool — <span class="meta">rgba(8,12,28,…)</span>. Pure black breaks the temperature of the paper.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= 07 · ICONOGRAPHY ========================= -->
+<section class="section" id="icons">
+  <div class="section-head">
+    <div class="num">07 / iconography</div>
+    <div>
+      <h2>Lines, <em>not fills.</em></h2>
+      <p>A 24-pixel square, 1.4 px stroke, round caps. Single-color only. No two-toned icons, no decorative glyphs. Icons are quiet — the type and accent do the work.</p>
+    </div>
+  </div>
+  <div class="body">
+    <div class="sticky"><div>set</div><div>specs</div></div>
+    <div>
+      <div class="icon-grid">
+        <div class="icon-cell"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg></div>
+        <div class="icon-cell"><svg viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6"/></svg></div>
+        <div class="icon-cell"><svg viewBox="0 0 24 24"><path d="M20 12H4M10 6l-6 6 6 6"/></svg></div>
+        <div class="icon-cell"><svg viewBox="0 0 24 24"><path d="M12 4v16M6 10l6-6 6 6"/></svg></div>
+        <div class="icon-cell"><svg viewBox="0 0 24 24"><path d="M12 20V4M6 14l6 6 6-6"/></svg></div>
+        <div class="icon-cell"><svg viewBox="0 0 24 24"><path d="M5 5l14 14M5 19L19 5"/></svg></div>
+        <div class="icon-cell"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></div>
+        <div class="icon-cell"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+
+        <div class="icon-cell"><svg viewBox="0 0 24 24"><path d="M21 21l-5-5M3 11a8 8 0 1 0 16 0 8 8 0 0 0-16 0z"/></svg></div>
+        <div class="icon-cell"><svg viewBox="0 0 24 24"><path d="M4 6h16v12H4zM4 6l8 7 8-7"/></svg></div>
+        <div class="icon-cell"><svg viewBox="0 0 24 24"><path d="M12 3l9 4-9 4-9-4 9-4zM3 12l9 4 9-4M3 17l9 4 9-4"/></svg></div>
+        <div class="icon-cell"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="1"/><path d="M8 3v4M16 3v4M4 10h16"/></svg></div>
+        <div class="icon-cell"><svg viewBox="0 0 24 24"><path d="M4 19l4-12 4 8 4-6 4 10"/></svg></div>
+        <div class="icon-cell"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-7 8-7s8 3 8 7"/></svg></div>
+        <div class="icon-cell"><svg viewBox="0 0 24 24"><path d="M3 12l3 3 7-7M12 18l3 3 7-13"/></svg></div>
+        <div class="icon-cell"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div>
+
+        <div class="icon-cell"><svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg></div>
+        <div class="icon-cell"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M8 10l3 3 5-6"/></svg></div>
+        <div class="icon-cell"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="1"/><path d="M3 10h18"/></svg></div>
+        <div class="icon-cell"><svg viewBox="0 0 24 24"><path d="M12 3l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></div>
+        <div class="icon-cell"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4zM4 9h16M9 4v16"/></svg></div>
+        <div class="icon-cell"><svg viewBox="0 0 24 24"><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/><path d="M4 18V6h12l4 4v8"/></svg></div>
+        <div class="icon-cell"><svg viewBox="0 0 24 24"><path d="M4 21V8l8-5 8 5v13M9 21v-7h6v7"/></svg></div>
+        <div class="icon-cell"><svg viewBox="0 0 24 24"><path d="M3 18V6l9 4 9-4v12"/></svg></div>
+      </div>
+
+      <div class="icon-rules">
+        <div class="icon-rule"><div class="demo-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/></svg></div><small><b>24 × 24 box</b><br>2 px optical padding</small></div>
+        <div class="icon-rule"><div class="demo-icon"><svg viewBox="0 0 24 24" stroke-width="1.4"><path d="M4 12h16M14 6l6 6-6 6"/></svg></div><small><b>1.4 px stroke</b><br>round caps &amp; joins</small></div>
+        <div class="icon-rule"><div class="demo-icon"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/></svg></div><small><b>2 px corner radius</b><br>on rectangular shapes</small></div>
+        <div class="icon-rule"><div class="demo-icon"><svg viewBox="0 0 24 24" style="stroke:var(--accent-ink);"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><small><b>Single-color only</b><br>ink, accent, or paper</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= 08 · IMAGERY ========================= -->
+<section class="section" id="imagery">
+  <div class="section-head">
+    <div class="num">08 / imagery</div>
+    <div>
+      <h2>Photography that <em>breathes.</em></h2>
+      <p>Two photographic modes. <b>Object &amp; material</b> for the design side — natural light, deep shadows, no overlays. <b>Editorial portrait</b> for the marketing side — single subject, off-center, room to crop for stories. Color comes from the subject, never the filter.</p>
+    </div>
+  </div>
+  <div class="body">
+    <div class="sticky">
+      <div>modes</div><div>composition</div><div>treatment</div>
+    </div>
+    <div>
+      <div class="img-grid">
+        <div class="ph"><span class="ph-label">hero · object · 4:3</span></div>
+        <div class="ph dark"><span class="ph-label">moody · material · 4:3</span></div>
+        <div class="ph accent"><span class="ph-label">graphic block · 4:3</span></div>
+        <div class="ph tall"><span class="ph-label">portrait · 3:4</span></div>
+        <div class="ph"><span class="ph-label">detail · macro</span></div>
+        <div class="ph dark"><span class="ph-label">scene · workshop</span></div>
+      </div>
+
+      <div class="img-principles">
+        <div class="voice-card">
+          <div class="quad">One light.</div>
+          <p style="margin:0;font-size:14px;">A single soft source from window-left. Long, defined shadows. Mixed lighting reads as stock.</p>
+        </div>
+        <div class="voice-card">
+          <div class="quad">Crop tight or breathe wide.</div>
+          <p style="margin:0;font-size:14px;">Fill the frame with one subject, or give it five times the room. No in-betweens, no awkward thirds.</p>
+        </div>
+        <div class="voice-card">
+          <div class="quad">No text overlays.</div>
+          <p style="margin:0;font-size:14px;">When type needs a place, give it the page next to the image. The image stays an image. Exception: social captions on full-bleed visuals.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= 09 · COMPONENTS ========================= -->
+<section class="section" id="components">
+  <div class="section-head">
+    <div class="num">09 / components</div>
+    <div>
+      <h2>A <em>small kit.</em></h2>
+      <p>The pieces every product needs, and nothing else. If you find yourself overriding a value, fix the token, not the component.</p>
+    </div>
+  </div>
+  <div class="body">
+    <div class="sticky">
+      <div>buttons</div><div>forms</div><div>cards</div><div>navigation</div><div>badges</div>
+    </div>
+    <div>
+
+      <div class="subhead"><span>buttons</span></div>
+      <div class="demo">
+        <span class="demo-label">primary · accent · ghost · link</span>
+        <div class="demo-row">
+          <button class="btn btn-primary">Read the system →</button>
+          <button class="btn btn-accent">Start a project</button>
+          <button class="btn btn-ghost">Secondary</button>
+          <a class="btn btn-link" href="#">An inline link</a>
+        </div>
+        <div class="demo-row">
+          <button class="btn btn-primary btn-sm">Small</button>
+          <button class="btn btn-primary">Default</button>
+          <button class="btn btn-primary btn-lg">Large</button>
+          <button class="btn btn-ghost" disabled style="opacity:0.4; cursor:not-allowed;">Disabled</button>
+        </div>
+      </div>
+
+      <div class="subhead"><span>form controls</span></div>
+      <div class="demo">
+        <span class="demo-label">inputs · toggles · checks</span>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:32px; padding-top:18px;">
+          <div>
+            <div class="field"><label>Your name</label><input type="text" placeholder="Sai Kanagat" /><div class="hint">As you'd like it displayed</div></div>
+            <div class="field"><label>Email</label><input type="email" placeholder="hi@saikanagat.com" /></div>
+            <div class="field"><label>Project type</label><select><option>Brand identity</option><option>Website</option><option>Paid campaign</option><option>Visual merchandising</option></select></div>
+          </div>
+          <div>
+            <div class="field"><label>Tell me more</label><textarea rows="4" placeholder="What are you making, and for whom?"></textarea></div>
+            <div class="field">
+              <label>Preferences</label>
+              <div style="display:flex; flex-direction:column; gap:10px; margin-top:6px;">
+                <label class="check"><input type="checkbox" checked> Send me the weekly note</label>
+                <label class="check"><input type="checkbox"> I have a budget in mind</label>
+                <label class="check" style="gap:14px;"><span class="toggle"><input type="checkbox" checked><span class="track"></span><span class="thumb"></span></span><span>Notify me by email</span></label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="subhead"><span>cards</span></div>
+      <div class="demo">
+        <span class="demo-label">surface · elevated · ink · accent</span>
+        <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:16px; padding-top:18px;">
+          <div class="card"><div class="h"><h4>Surface</h4><span class="badge">default</span></div><p style="margin:0;font-size:14px;">A 1 px rule, 12 px radius. The majority of content.</p></div>
+          <div class="card elev"><div class="h"><h4>Elevated</h4><span class="badge accent">shadow-2</span></div><p style="margin:0;font-size:14px;">No border, warm-cool shadow. For "this matters" surfaces.</p></div>
+          <div class="card ink"><div class="h"><h4 style="color:var(--paper);">Inverted</h4><span class="badge" style="background:rgba(248,249,253,0.16); color:var(--paper);">ink</span></div><p style="margin:0;font-size:14px;color:rgba(248,249,253,0.78);">For callouts &amp; quiet hero moments.</p></div>
+          <div class="card accent"><div class="h"><h4 style="color:var(--paper);">Accent</h4><span class="badge" style="background:rgba(248,249,253,0.18);color:var(--paper);">cta</span></div><p style="margin:0;font-size:14px;color:rgba(248,249,253,0.85);">One per page, max. The big confident gesture.</p></div>
+        </div>
+      </div>
+
+      <div class="subhead"><span>navigation</span></div>
+      <div class="demo">
+        <span class="demo-label">top bar · tabs · breadcrumb</span>
+        <div style="padding-top:22px; display:flex; flex-direction:column; gap:18px;">
+          <div class="nav-bar">
+            <span class="wm wm-md"><span class="sk">SK.</span>&nbsp;SAI KANAGAT</span>
+            <div class="links"><a href="#" class="active">Work</a><a href="#">Process</a><a href="#">Gallery</a><a href="#">Blog</a><a href="#">About</a><a href="#">Contact</a></div>
+            <button class="btn btn-accent btn-sm">Start a project</button>
+          </div>
+          <div class="tabs">
+            <a href="#" class="active">Overview</a><a href="#">Foundations</a><a href="#">Components</a><a href="#">Social</a><a href="#">Ads</a><a href="#">Templates</a>
+          </div>
+          <div class="breadcrumb">SAI KANAGAT · BRAND SYSTEM · <b>FOUNDATIONS · COLOR</b></div>
+        </div>
+      </div>
+
+      <div class="subhead"><span>badges &amp; tags</span></div>
+      <div class="demo">
+        <span class="demo-label">neutral · accent · ink · solid · status</span>
+        <div class="demo-row">
+          <span class="badge">draft</span>
+          <span class="badge accent">recommended</span>
+          <span class="badge ink">case study</span>
+          <span class="badge solid-accent">live campaign</span>
+          <span class="badge"><span class="dot" style="background:var(--pos);"></span>shipped</span>
+          <span class="badge"><span class="dot" style="background:var(--neg);"></span>archived</span>
+          <span class="badge"><span class="dot" style="background:var(--warn);"></span>in review</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= 10 · VOICE & TONE ========================= -->
+<section class="section" id="voice">
+  <div class="section-head">
+    <div class="num">10 / voice &amp; tone</div>
+    <div>
+      <h2>How it should <em>sound.</em></h2>
+      <p>The brand voice is the same voice in every room — but the volume changes. Quietly confident in long-form. Sharp in a paid ad. Warm in an email. Always plain. Never marketing-speak. Italian-design-school precision, with a digital-marketer's energy.</p>
+    </div>
+  </div>
+  <div class="body">
+    <div class="sticky">
+      <div>brand voice</div>
+      <div>register by channel</div>
+      <div>do &amp; don't</div>
+      <div>vocabulary</div>
+    </div>
+    <div>
+
+      <div class="subhead"><span>the voice, in one sentence</span></div>
+      <div class="card elev" style="padding:36px;">
+        <div class="lede" style="font-size:32px; max-width:none; color:var(--ink);">
+          <span style="color:var(--accent-ink);">Confident</span> like an industrial designer who's spent ten years getting the radius right —
+          <span style="color:var(--accent-ink);">honest</span> like a marketer who's seen the dashboards —
+          <span style="color:var(--accent-ink);">warm</span> like the person who's still answering emails.
+        </div>
+      </div>
+
+      <div class="subhead"><span>register by channel</span></div>
+      <div class="voice-grid">
+        <div class="voice-card">
+          <div class="quad">Portfolio.</div>
+          <p style="margin:0; font-size:14px;"><b>Editorial.</b> Long sentences, considered pauses. Italic moments. Numbers, but only the ones that mattered.</p>
+          <div class="row yes"><div class="k">say</div><div class="v">"Designed for the AD Verde Collection photoshoot — Milan, autumn 2022."</div></div>
+          <div class="row no"><div class="k">not</div><div class="v">"Crushed it on a HUGE photoshoot ✨"</div></div>
+        </div>
+        <div class="voice-card">
+          <div class="quad">Instagram caption.</div>
+          <p style="margin:0; font-size:14px;"><b>Punchy, then human.</b> One headline. One thought. Soft CTA.</p>
+          <div class="row yes"><div class="k">say</div><div class="v">"Three months in Bologna, three rebrands shipped. Here's what changed in the latest one →"</div></div>
+          <div class="row no"><div class="k">not</div><div class="v">"BIG ANNOUNCEMENT 🚨🚨🚨 you won't believe…"</div></div>
+        </div>
+        <div class="voice-card">
+          <div class="quad">Reels / TikTok.</div>
+          <p style="margin:0; font-size:14px;"><b>Fast, opinionated.</b> Hook in 1.5s. One claim per beat. End with a question.</p>
+          <div class="row yes"><div class="k">say</div><div class="v">"Most brand books are useless. Mine has ad templates. Here's why →"</div></div>
+          <div class="row no"><div class="k">not</div><div class="v">"Hey guys, today we're going to talk about…"</div></div>
+        </div>
+        <div class="voice-card">
+          <div class="quad">Paid ad.</div>
+          <p style="margin:0; font-size:14px;"><b>One benefit. One verb.</b> Italic accent on the word that matters.</p>
+          <div class="row yes"><div class="k">say</div><div class="v">"Brand systems that <i>actually ship.</i>"</div></div>
+          <div class="row no"><div class="k">not</div><div class="v">"Premium creative solutions for forward-thinking brands."</div></div>
+        </div>
+        <div class="voice-card">
+          <div class="quad">Email.</div>
+          <p style="margin:0; font-size:14px;"><b>Warm and direct.</b> Lowercase greeting. Three short paragraphs. Always sign personally.</p>
+          <div class="row yes"><div class="k">say</div><div class="v">"hi Maria — quick note on the rebrand. (…) — sai"</div></div>
+          <div class="row no"><div class="k">not</div><div class="v">"Dear Ms. Rossi, I trust this email finds you well…"</div></div>
+        </div>
+        <div class="voice-card">
+          <div class="quad">Invoice / contract.</div>
+          <p style="margin:0; font-size:14px;"><b>Precise, plain.</b> Mono labels, sentence-case sums. No jargon, no surprises.</p>
+          <div class="row yes"><div class="k">say</div><div class="v">"Brand identity — wordmark, palette, type system."</div></div>
+          <div class="row no"><div class="k">not</div><div class="v">"Comprehensive holistic brand transformation initiative."</div></div>
+        </div>
+      </div>
+
+      <div class="subhead"><span>do / don't · global</span></div>
+      <div class="token-table">
+        <div class="token-row"><span class="key">say</span><span class="val">"Design things that sell."</span><span>The tagline. The premise. The whole brand in four words.</span></div>
+        <div class="token-row"><span class="key">say</span><span class="val">"Both sides of the brief."</span><span>Use whenever you need to position the dual practice.</span></div>
+        <div class="token-row"><span class="key">say</span><span class="val">"Made to last. Built to grow."</span><span>The two operating modes — pair them, never separate.</span></div>
+        <div class="token-row"><span class="key">don't</span><span class="val">"Synergy / Solutions / Curated"</span><span>The marketing-speak triad. Banned on sight.</span></div>
+        <div class="token-row"><span class="key">don't</span><span class="val">"Game-changing / Disruptive"</span><span>Empty calorie words. Replace with a real one.</span></div>
+        <div class="token-row"><span class="key">don't</span><span class="val">"Excited to announce!"</span><span>If it's exciting, the news will say so. Skip the throat-clear.</span></div>
+      </div>
+
+      <div class="subhead"><span>brand vocabulary · use these</span></div>
+      <div class="voice-grid">
+        <div class="voice-card">
+          <h4 style="margin-top:0;">Words that mean us</h4>
+          <p style="margin:0; font-size:14px;"><b>craft</b> · <b>system</b> · <b>signal</b> · <b>shape</b> · <b>build</b> · <b>ship</b> · <b>compose</b> · <b>quietly</b> · <b>opinionated</b> · <b>fluent</b> · <b>fluent in both</b> · <b>made by hand</b> · <b>both sides</b></p>
+        </div>
+        <div class="voice-card">
+          <h4 style="margin-top:0;">Words to retire</h4>
+          <p style="margin:0; font-size:14px;"><s>solutions</s> · <s>holistic</s> · <s>curated</s> · <s>journey</s> · <s>elevate</s> · <s>unlock</s> · <s>game-changing</s> · <s>passionate</s> · <s>cutting-edge</s> · <s>seamless</s> · <s>world-class</s></p>
+        </div>
+        <div class="voice-card">
+          <h4 style="margin-top:0;">Punctuation tics</h4>
+          <p style="margin:0; font-size:14px;">Em-dashes — sparingly, for a beat. One italic per surface. Lowercase greetings. Periods at the end of taglines (it's a full sentence). No emoji, unless 🍝 in a Bologna joke.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= 11 · SOCIAL MEDIA ========================= -->
+<section class="section" id="social">
+  <div class="section-head">
+    <div class="num">11 / social media</div>
+    <div>
+      <h2>Built for <em>the feed.</em></h2>
+      <p>The visual system, applied to every surface where the brand earns its keep. Each platform gets its own grid, its own pacing, its own register — but the wordmark, the accent and the italic moment are non-negotiable.</p>
+    </div>
+  </div>
+  <div class="body">
+    <div class="sticky">
+      <div>avatars &amp; banners</div>
+      <div>instagram · feed</div>
+      <div>instagram · carousel</div>
+      <div>instagram · story</div>
+      <div>reels &amp; tiktok</div>
+      <div>linkedin</div>
+      <div>captions library</div>
+    </div>
+    <div>
+
+      <div class="subhead"><span>avatars &amp; profile banners</span><span class="right">2x export · always</span></div>
+      <div style="display:grid; grid-template-columns: auto 1fr; gap:24px; align-items:center;">
+        <div style="display:flex; flex-direction:column; gap:14px; align-items:center;">
+          <span class="avatar">SK<span class="dot">.</span></span>
+          <span class="meta">avatar · ink (default)</span>
+        </div>
+        <div class="banner">
+          <div class="blob"></div>
+          <div class="meta-line">— LINKEDIN · X · 1500 × 500</div>
+          <div class="head" style="color:var(--paper);">Design things <em>that sell.</em></div>
+          <div style="display:flex; justify-content:space-between; align-items:flex-end; position:relative;">
+            <span class="wm-hero" style="font-size:30px; color:var(--paper);"><span class="sk" style="color: oklch(0.85 0.13 268);">SK.</span>&nbsp;SAI KANAGAT</span>
+            <span class="meta" style="color:rgba(248,249,253,0.6);">SAIKANAGAT.COM</span>
+          </div>
+        </div>
+      </div>
+      <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:14px; margin-top:14px;">
+        <div style="display:flex; flex-direction:column; gap:8px; align-items:center;"><span class="avatar accent" style="width:96px; height:96px; font-size:60px;">SK<span class="dot">.</span></span><span class="meta">accent</span></div>
+        <div style="display:flex; flex-direction:column; gap:8px; align-items:center;"><span class="avatar paper" style="width:96px; height:96px; font-size:60px;"><span style="color:var(--accent-ink);">SK</span><span class="dot" style="color:var(--accent);">.</span></span><span class="meta">paper</span></div>
+        <div style="display:flex; flex-direction:column; gap:8px; align-items:center;"><span class="avatar" style="width:96px; height:96px; font-size:60px;">SK<span class="dot">.</span></span><span class="meta">ink</span></div>
+        <div style="display:flex; flex-direction:column; gap:8px; align-items:center;"><span class="avatar" style="width:96px; height:96px; background:var(--accent); color:var(--paper); font-family:var(--sans); font-style:normal; font-weight:700; font-size:36px;letter-spacing:-0.025em; padding:0;">SK.</span><span class="meta">sans · variant</span></div>
+      </div>
+
+      <div class="subhead"><span>instagram · feed · 4 : 5 (1080 × 1350)</span><span class="right">@saikanagat</span></div>
+      <div class="platform-grid">
+        <div class="post ig-feed ink">
+          <div class="pmeta" style="color:rgba(248,249,253,0.6);">001 · ANNOUNCE</div>
+          <div></div>
+          <div>
+            <div class="ptag" style="color:rgba(248,249,253,0.7); margin-bottom:14px;">— A NEW PROJECT</div>
+            <div class="pserif" style="color:var(--paper);">Built to <em style="color: oklch(0.82 0.14 268);">grow.</em></div>
+            <div class="ptitle" style="color:var(--paper); font-size:30px; margin-top:8px;">A REBRAND FOR<br>NORTHWIND CO.</div>
+          </div>
+          <div class="pfoot">
+            <span class="wm wm-sm" style="color:var(--paper);"><span class="sk" style="color: oklch(0.85 0.13 268);">SK.</span>&nbsp;SAI KANAGAT</span>
+            <span class="ptag" style="color:rgba(248,249,253,0.6);">SWIPE →</span>
+          </div>
+        </div>
+        <div class="post ig-feed">
+          <div class="pmeta">002 · STAT</div>
+          <div></div>
+          <div>
+            <div class="ptag" style="margin-bottom:14px;">— CASE STUDY · CARLOS MOTA</div>
+            <div class="ptitle" style="font-size:74px; letter-spacing:-0.04em;">3.2<span class="sk" style="font-family:var(--serif); font-style:italic; color:var(--accent-ink); font-weight:400; text-transform:none; letter-spacing:-0.04em;">×</span></div>
+            <div class="pbody" style="margin-top:4px; font-size:13px;">ROAS on the paid campaign — Q4 2024.</div>
+          </div>
+          <div class="pfoot">
+            <span class="wm wm-sm"><span class="sk">SK.</span>&nbsp;SAI KANAGAT</span>
+            <span class="ptag">READ ON SITE</span>
+          </div>
+        </div>
+        <div class="post ig-feed accent">
+          <div class="pmeta" style="color:rgba(248,249,253,0.7);">003 · TAGLINE</div>
+          <div></div>
+          <div class="pserif" style="color:var(--paper); font-size:50px;">design things <em style="color:var(--ink);">that sell.</em></div>
+          <div class="pfoot">
+            <span class="wm wm-sm" style="color:var(--paper);"><span class="sk" style="color:var(--ink);">SK.</span>&nbsp;SAI KANAGAT</span>
+          </div>
+        </div>
+        <div class="post ig-feed">
+          <div class="pmeta">004 · QUOTE</div>
+          <div></div>
+          <div>
+            <div class="ptag" style="margin-bottom:14px;">— FROM THE NEW ESSAY</div>
+            <div class="pserif" style="font-size:36px;">"Every object tells a <em>story</em> before anyone reads a label."</div>
+            <div class="pbody" style="margin-top:10px; font-family:var(--mono); font-size:11px; letter-spacing:0.1em; text-transform:uppercase;">— ON INDUSTRIAL DESIGN, 2026</div>
+          </div>
+          <div class="pfoot">
+            <span class="wm wm-sm"><span class="sk">SK.</span>&nbsp;SAI KANAGAT</span>
+            <span class="ptag">READ →</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="subhead"><span>instagram · square · 1 : 1 (1080 × 1080)</span><span class="right">used for grid balancing</span></div>
+      <div class="platform-grid">
+        <div class="post ig-sq">
+          <div class="pmeta">005 · LIST</div>
+          <div></div>
+          <div>
+            <div class="ptag" style="margin-bottom:8px;">— TOOLKIT 01</div>
+            <div class="pserif" style="font-size:30px; margin-bottom:6px;">Six tools <em>I live in.</em></div>
+            <div class="pbody" style="font-size:12px;">Figma · Webflow · After Effects · Notion · Linear · GA4.</div>
+          </div>
+          <div class="pfoot"><span class="wm wm-sm"><span class="sk">SK.</span>&nbsp;SAI KANAGAT</span><span class="ptag">SAVE</span></div>
+        </div>
+        <div class="post ig-sq ink">
+          <div class="pmeta" style="color:rgba(248,249,253,0.6);">006 · QUOTE</div>
+          <div></div>
+          <div class="pserif" style="color:var(--paper); font-size:32px;">"Most brand books are <em style="color: oklch(0.82 0.14 268);">useless.</em><br>Mine has ad templates."</div>
+          <div class="pfoot"><span class="wm wm-sm" style="color:var(--paper);"><span class="sk" style="color: oklch(0.85 0.13 268);">SK.</span>&nbsp;SAI KANAGAT</span></div>
+        </div>
+        <div class="post ig-sq accent">
+          <div class="pmeta" style="color:rgba(248,249,253,0.7);">007 · NUMBER</div>
+          <div></div>
+          <div>
+            <div class="ptitle" style="font-size:120px; color:var(--paper); letter-spacing:-0.06em;">40%</div>
+            <div class="pbody" style="color:rgba(248,249,253,0.85); font-size:13px;">organic growth · Q3 — Q4 2024</div>
+          </div>
+          <div class="pfoot"><span class="wm wm-sm" style="color:var(--paper);"><span class="sk" style="color:var(--ink);">SK.</span>&nbsp;SAI KANAGAT</span></div>
+        </div>
+        <div class="post ig-sq">
+          <div class="pmeta">008 · DETAIL</div>
+          <div></div>
+          <div class="ph" style="aspect-ratio:auto; height:65%; margin: 6px 0;"></div>
+          <div class="pfoot"><span class="wm wm-sm"><span class="sk">SK.</span>&nbsp;SAI KANAGAT</span><span class="ptag">ARABELLA · 03</span></div>
+        </div>
+      </div>
+
+      <div class="subhead"><span>instagram · carousel · 5 slides</span><span class="right">cover + 3 content + cta</span></div>
+      <div class="carousel">
+        <div class="post ig-sq ink">
+          <div class="pmeta" style="color:rgba(248,249,253,0.6);">01 / 05</div><div></div>
+          <div class="pserif" style="color:var(--paper); font-size:22px;">5 lessons from <em style="color: oklch(0.82 0.14 268);">a rebrand.</em></div>
+          <div class="pfoot"><span class="wm wm-sm" style="color:var(--paper);"><span class="sk" style="color: oklch(0.85 0.13 268);">SK.</span></span><span class="ptag" style="color:rgba(248,249,253,0.6);">SWIPE →</span></div>
+        </div>
+        <div class="post ig-sq">
+          <div class="pmeta">02 / 05</div><div></div>
+          <div>
+            <div class="ptag" style="margin-bottom:4px;">— LESSON 01</div>
+            <div class="ptitle">START WITH ONE COLOR.</div>
+            <div class="pbody" style="margin-top:6px; font-size:11px;">Pick the accent before the palette. Everything else flows.</div>
+          </div>
+          <div class="pfoot"><span class="wm wm-sm"><span class="sk">SK.</span></span><span class="ptag">02 / 05</span></div>
+        </div>
+        <div class="post ig-sq">
+          <div class="pmeta">03 / 05</div><div></div>
+          <div>
+            <div class="ptag" style="margin-bottom:4px;">— LESSON 02</div>
+            <div class="ptitle">SHIP THE BOOK FIRST.</div>
+            <div class="pbody" style="margin-top:6px; font-size:11px;">A brand book on day one is worth more than a perfect one on day ninety.</div>
+          </div>
+          <div class="pfoot"><span class="wm wm-sm"><span class="sk">SK.</span></span><span class="ptag">03 / 05</span></div>
+        </div>
+        <div class="post ig-sq">
+          <div class="pmeta">04 / 05</div><div></div>
+          <div>
+            <div class="ptag" style="margin-bottom:4px;">— LESSON 03</div>
+            <div class="ptitle">MEASURE WHAT MATTERED.</div>
+            <div class="pbody" style="margin-top:6px; font-size:11px;">If a tweak earned better CTR, it earned its place. Beauty without measurement is decoration.</div>
+          </div>
+          <div class="pfoot"><span class="wm wm-sm"><span class="sk">SK.</span></span><span class="ptag">04 / 05</span></div>
+        </div>
+        <div class="post ig-sq accent">
+          <div class="pmeta" style="color:rgba(248,249,253,0.7);">05 / 05</div><div></div>
+          <div>
+            <div class="pserif" style="color:var(--paper); font-size:22px;">Want a <em style="color:var(--ink);">rebrand?</em></div>
+            <div class="pbody" style="margin-top:6px; color:rgba(248,249,253,0.85); font-size:11px;">DM me, or saikanagat.com.</div>
+          </div>
+          <div class="pfoot"><span class="wm wm-sm" style="color:var(--paper);"><span class="sk" style="color:var(--ink);">SK.</span></span><span class="ptag" style="color:rgba(248,249,253,0.7);">DM →</span></div>
+        </div>
+      </div>
+
+      <div class="subhead"><span>instagram story · 9 : 16 (1080 × 1920)</span><span class="right">stickers · CTAs · tap-throughs</span></div>
+      <div class="platform-grid">
+        <div class="post story ink">
+          <div class="pmeta" style="color:rgba(248,249,253,0.6); top:18px;">NEW POST · 18 MAY</div>
+          <div></div>
+          <div class="pserif" style="color:var(--paper); font-size:42px;">Both sides of the <em style="color: oklch(0.82 0.14 268);">brief.</em></div>
+          <div>
+            <div style="display:inline-flex; align-items:center; gap:8px; padding:8px 14px; background:var(--accent); color:var(--paper); border-radius:var(--r-full); font-family:var(--sans); font-weight:600; font-size:13px; text-transform:uppercase; letter-spacing:0.04em;">Read it →</div>
+          </div>
+          <div class="pfoot"><span class="wm wm-sm" style="color:var(--paper);"><span class="sk" style="color: oklch(0.85 0.13 268);">SK.</span>&nbsp;SAI KANAGAT</span></div>
+        </div>
+        <div class="post story">
+          <div class="ph" style="position:absolute; inset:0; aspect-ratio:auto; border-radius:0; z-index:0;"></div>
+          <div style="position:relative; z-index:1; display:flex; flex-direction:column; justify-content:space-between; height:100%;">
+            <div class="pmeta">— BEHIND THE WORK</div>
+            <div></div>
+            <div style="background:var(--accent); display:inline-block; padding:8px 14px; align-self:flex-start; color:var(--paper); font-family:var(--sans); font-weight:700; font-size:18px; line-height:1.2; text-transform:uppercase; letter-spacing:-0.01em;">DAY 23 / 30</div>
+            <div class="pfoot"><span class="wm wm-sm"><span class="sk">SK.</span>&nbsp;SAI KANAGAT</span></div>
+          </div>
+        </div>
+        <div class="post story accent">
+          <div class="pmeta" style="color:rgba(248,249,253,0.7);">QUESTION</div>
+          <div></div>
+          <div class="pserif" style="color:var(--paper); font-size:40px;">What's the worst <em style="color:var(--ink);">rebrand</em> of 2026?</div>
+          <div>
+            <div style="background:var(--paper); padding:10px 14px; border-radius:var(--r-3); display:inline-block; font-family:var(--mono); font-size:12px; color:var(--muted); letter-spacing:0.06em;">→ TAP TO REPLY</div>
+          </div>
+          <div class="pfoot"><span class="wm wm-sm" style="color:var(--paper);"><span class="sk" style="color:var(--ink);">SK.</span></span></div>
+        </div>
+        <div class="post story ink">
+          <div class="pmeta" style="color:rgba(248,249,253,0.6);">POLL</div>
+          <div></div>
+          <div>
+            <div class="ptitle" style="color:var(--paper); font-size:24px; margin-bottom:12px;">WHICH DIRECTION?</div>
+            <div style="display:flex; gap:8px;">
+              <div style="flex:1; padding:12px; background:rgba(248,249,253,0.12); border-radius:var(--r-3); color:var(--paper); font-family:var(--sans); font-weight:600; font-size:14px; text-align:center;">Option A · 62%</div>
+              <div style="flex:1; padding:12px; background:var(--accent); border-radius:var(--r-3); color:var(--paper); font-family:var(--sans); font-weight:600; font-size:14px; text-align:center;">Option B · 38%</div>
+            </div>
+          </div>
+          <div class="pfoot"><span class="wm wm-sm" style="color:var(--paper);"><span class="sk" style="color: oklch(0.85 0.13 268);">SK.</span></span></div>
+        </div>
+      </div>
+
+      <div class="subhead"><span>reels &amp; tiktok cover · 9 : 16</span><span class="right">3-second hook</span></div>
+      <div class="platform-grid">
+        <div class="post story" style="background:var(--n-900);">
+          <div class="ph dark" style="position:absolute; inset:0; aspect-ratio:auto; border-radius:0; z-index:0;"></div>
+          <div class="tt-cap"><span class="text">most brand books are <span class="em">useless.</span></span></div>
+          <div class="tt-ui"><div class="pill">♡</div><div>12k</div><div class="pill">↪</div><div>843</div></div>
+          <div class="tt-handle">@saikanagat<span class="sk" style="font-family:var(--serif); font-style:italic; color: oklch(0.85 0.13 268); font-weight:400; letter-spacing:-0.04em; margin-left:2px;">.</span></div>
+        </div>
+        <div class="post story accent">
+          <div class="pmeta" style="color:rgba(248,249,253,0.7);">REEL · 32s</div>
+          <div></div>
+          <div class="pserif" style="color:var(--paper); font-size:48px;">3 ways to <em style="color:var(--ink);">spot</em> a fake rebrand.</div>
+          <div class="tt-ui"><div class="pill" style="background:rgba(248,249,253,0.22);">♡</div><div style="color:var(--paper);">8.4k</div></div>
+          <div class="pfoot"><span class="wm wm-sm" style="color:var(--paper);"><span class="sk" style="color:var(--ink);">SK.</span></span></div>
+        </div>
+        <div class="post story ink">
+          <div class="pmeta" style="color:rgba(248,249,253,0.6);">SERIES · 04 / 07</div>
+          <div></div>
+          <div>
+            <div class="ptitle" style="color: oklch(0.82 0.14 268); font-size:28px;">RULE 04</div>
+            <div class="ptitle" style="color:var(--paper); font-size:54px; margin-top:4px;">ALWAYS<br>SHIP THE<br>BOOK.</div>
+          </div>
+          <div class="pfoot"><span class="wm wm-sm" style="color:var(--paper);"><span class="sk" style="color: oklch(0.85 0.13 268);">SK.</span></span><span class="ptag" style="color:rgba(248,249,253,0.6);">SWIPE FOR PT 5</span></div>
+        </div>
+        <div class="post story">
+          <div class="pmeta">TUTORIAL</div>
+          <div></div>
+          <div class="pserif" style="font-size:42px;">Build a <em>palette</em> in 60 seconds.</div>
+          <div class="pbody" style="font-size:13px;">A free pattern from the SK system.</div>
+          <div class="pfoot"><span class="wm wm-sm"><span class="sk">SK.</span></span><span class="ptag">@SAIKANAGAT</span></div>
+        </div>
+      </div>
+
+      <div class="subhead"><span>linkedin post cards · 1200 × 627</span><span class="right">credibility · case studies · hires</span></div>
+      <div class="platform-grid two">
+        <div class="post" style="aspect-ratio: 1200/627; padding: 36px 40px;">
+          <div class="pmeta">CASE STUDY · 02 / 23</div>
+          <div></div>
+          <div>
+            <div class="pserif" style="font-size:38px;">From brief to <em>3.2× ROAS.</em></div>
+            <div class="pbody" style="margin-top:8px; font-size:14px; max-width:36ch;">How I rebuilt Carlos Mota's paid funnel in six weeks — without changing the budget.</div>
+          </div>
+          <div class="pfoot"><span class="wm wm-sm"><span class="sk">SK.</span>&nbsp;SAI KANAGAT</span><span class="ptag">READ ON LINKEDIN</span></div>
+        </div>
+        <div class="post ink" style="aspect-ratio: 1200/627; padding:36px 40px;">
+          <div class="pmeta" style="color:rgba(248,249,253,0.6);">AVAILABLE</div>
+          <div></div>
+          <div>
+            <div class="ptitle" style="color:var(--paper); font-size:46px;">DESIGN + MARKETING<br>ROLES · ITALY</div>
+            <div class="pbody" style="color:rgba(248,249,253,0.78); margin-top:10px; font-size:14px;">Open to brand &amp; marketing positions across Italy &amp; remote. Drawing board to dashboard.</div>
+          </div>
+          <div class="pfoot"><span class="wm wm-sm" style="color:var(--paper);"><span class="sk" style="color: oklch(0.85 0.13 268);">SK.</span>&nbsp;SAI KANAGAT</span><span class="ptag" style="color:rgba(248,249,253,0.6);">SAIKANAGAT.COM</span></div>
+        </div>
+      </div>
+
+      <div class="subhead"><span>captions library · ready to use</span><span class="right">copy &amp; paste</span></div>
+      <div class="token-table">
+        <div class="token-row"><span class="key" style="font-family:var(--mono);">LAUNCH</span><span class="val" style="grid-column: span 2; max-width:none; font-size:13px;">"new project, live. <i>{client name}</i> — a rebrand for the kind of company you'd actually want to work with. swipe →"</span></div>
+        <div class="token-row"><span class="key" style="font-family:var(--mono);">CASE STUDY</span><span class="val" style="grid-column: span 2; max-width:none; font-size:13px;">"six weeks. one rebrand. <b>3.2× ROAS.</b> the work, the numbers, and what I'd do differently — on the site (link in bio)."</span></div>
+        <div class="token-row"><span class="key" style="font-family:var(--mono);">PROCESS</span><span class="val" style="grid-column: span 2; max-width:none; font-size:13px;">"how I make brand books that <i>actually ship</i>: pick the accent first, write the voice second, design the components third. that's it. that's the post."</span></div>
+        <div class="token-row"><span class="key" style="font-family:var(--mono);">OPINION</span><span class="val" style="grid-column: span 2; max-width:none; font-size:13px;">"unpopular: most brand systems fail because they're built by designers who've never run a paid campaign. <i>made to last</i> only matters if it's also <i>built to grow.</i>"</span></div>
+        <div class="token-row"><span class="key" style="font-family:var(--mono);">QUESTION</span><span class="val" style="grid-column: span 2; max-width:none; font-size:13px;">"what's the worst rebrand of 2026 so far? — drop it in the replies, I'll write a piece about the best/worst this weekend."</span></div>
+        <div class="token-row"><span class="key" style="font-family:var(--mono);">QUIET</span><span class="val" style="grid-column: span 2; max-width:none; font-size:13px;">"bologna at 7am. coffee, and the longest open task list of the year. — sai"</span></div>
+      </div>
+
+      <div class="subhead"><span>hashtag stack · use these, sparingly</span></div>
+      <p style="margin-top:4px;"><span style="font-family:var(--mono); font-size:13px; letter-spacing:0.04em; color:var(--n-700);">#design #branding #industrialdesign #digitalmarketing #brandstrategy #bologna #italia #marketingdesign #brandsystem #conversion #typography</span></p>
+      <p>Cap at <b>8</b> per post. Mix two specific (#brandsystem, #bologna) with two generic (#design, #marketing). The rest is noise.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= 12 · ADVERTISING ========================= -->
+<section class="section" id="ads">
+  <div class="section-head">
+    <div class="num">12 / advertising</div>
+    <div>
+      <h2>Paid <em>placements.</em></h2>
+      <p>Where the brand has to earn attention in a fraction of a second. One italic moment per ad. One CTA per ad. Everything else is signal-clearing. Templates below cover Meta, Google Display, and Google Search.</p>
+    </div>
+  </div>
+  <div class="body">
+    <div class="sticky">
+      <div>meta feed ad</div>
+      <div>meta story ad</div>
+      <div>google display</div>
+      <div>google search</div>
+      <div>youtube pre-roll</div>
+      <div>copy formulas</div>
+    </div>
+    <div>
+
+      <div class="subhead"><span>meta · feed ad · 1080 × 1080</span><span class="right">Facebook · Instagram</span></div>
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
+        <div class="meta-feed">
+          <div class="mf-head">
+            <div class="av">SK<span class="dot">.</span></div>
+            <div>
+              <div class="name">Sai Kanagat</div>
+              <div class="sub">Sponsored · <span style="opacity:0.6;">⊙</span></div>
+            </div>
+          </div>
+          <div class="mf-copy">Brand systems that <i>actually ship</i> — from a designer who's also run the dashboards. 👇</div>
+          <div class="mf-image" style="aspect-ratio: 1/1;">
+            <div class="blob"></div>
+            <div class="head">Design things <em style="color: oklch(0.85 0.13 268);">that sell.</em></div>
+          </div>
+          <div class="mf-cta">
+            <div class="ctxt"><span style="font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em;">SAIKANAGAT.COM</span><b>Get a brand book in 14 days.</b></div>
+            <div class="b">Learn More</div>
+          </div>
+        </div>
+
+        <div class="meta-feed">
+          <div class="mf-head">
+            <div class="av">SK<span class="dot">.</span></div>
+            <div>
+              <div class="name">Sai Kanagat</div>
+              <div class="sub">Sponsored · <span style="opacity:0.6;">⊙</span></div>
+            </div>
+          </div>
+          <div class="mf-copy">Most brand books gather dust. Mine has ad templates, post layouts, and an invoice format — all in one file.</div>
+          <div class="mf-image" style="aspect-ratio: 1/1; background:var(--paper);">
+            <div style="position:absolute; inset:0; padding:32px; display:flex; flex-direction:column; justify-content:space-between; color:var(--ink);">
+              <div style="font-family:var(--mono); font-size:11px; color:var(--muted); letter-spacing:0.16em; text-transform:uppercase;">— FREE TEMPLATE</div>
+              <div style="font-family:var(--serif); font-style:italic; font-size:38px; line-height:1; letter-spacing:-0.025em;">The brand book <span style="color:var(--accent-ink);">that ships.</span></div>
+              <div style="font-family:var(--sans); font-weight:700; font-size:18px; letter-spacing:-0.015em; text-transform:uppercase;">Download → sk.</div>
+            </div>
+          </div>
+          <div class="mf-cta">
+            <div class="ctxt"><span style="font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em;">SAIKANAGAT.COM/TEMPLATE</span><b>Free download · 14-page guide.</b></div>
+            <div class="b">Download</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="subhead"><span>meta · story ad · 1080 × 1920</span><span class="right">full-bleed · single CTA</span></div>
+      <div class="platform-grid">
+        <div class="post story ink">
+          <div class="pmeta" style="color:rgba(248,249,253,0.6);">SPONSORED</div>
+          <div></div>
+          <div class="pserif" style="color:var(--paper); font-size:48px;">Brand systems<br>that <em style="color: oklch(0.82 0.14 268);">actually ship.</em></div>
+          <div>
+            <div style="background:var(--accent); padding:14px 22px; color:var(--paper); font-family:var(--sans); font-weight:700; font-size:15px; border-radius:var(--r-full); text-align:center; text-transform:uppercase; letter-spacing:0.04em;">Start a project →</div>
+            <div style="font-family:var(--mono); font-size:10px; color:rgba(248,249,253,0.5); letter-spacing:0.1em; margin-top:10px; text-transform:uppercase;">SWIPE UP · SAIKANAGAT.COM</div>
+          </div>
+        </div>
+        <div class="post story accent">
+          <div class="pmeta" style="color:rgba(248,249,253,0.8);">SPONSORED · LIMITED</div>
+          <div></div>
+          <div>
+            <div class="ptitle" style="color:var(--paper); font-size:96px; letter-spacing:-0.05em;">14 DAYS.</div>
+            <div class="pserif" style="color:var(--ink); font-size:30px; margin-top:6px;">One <em>complete</em> brand book.</div>
+          </div>
+          <div>
+            <div style="background:var(--ink); padding:14px 22px; color:var(--paper); font-family:var(--sans); font-weight:700; font-size:15px; border-radius:var(--r-full); text-align:center; text-transform:uppercase; letter-spacing:0.04em;">Book a call →</div>
+          </div>
+        </div>
+        <div class="post story" style="background:var(--paper);">
+          <div class="ph" style="position:absolute; inset:0; aspect-ratio:auto; border-radius:0; z-index:0;"></div>
+          <div style="position:relative; z-index:1; display:flex; flex-direction:column; justify-content:space-between; height:100%;">
+            <div class="pmeta">SPONSORED · FREE GUIDE</div>
+            <div></div>
+            <div style="background:var(--ink); padding:18px 22px; align-self:flex-start; color:var(--paper); font-family:var(--serif); font-style:italic; font-size:30px; line-height:1; letter-spacing:-0.02em;">The brand book <span style="color: oklch(0.82 0.14 268);">that ships.</span></div>
+            <div><div style="background:var(--accent); padding:14px 22px; color:var(--paper); font-family:var(--sans); font-weight:700; font-size:15px; border-radius:var(--r-full); text-align:center; text-transform:uppercase; letter-spacing:0.04em;">Download free →</div></div>
+          </div>
+        </div>
+        <div class="post story ink">
+          <div class="pmeta" style="color:rgba(248,249,253,0.6);">SPONSORED · UGC STYLE</div>
+          <div></div>
+          <div>
+            <div class="ph dark" style="aspect-ratio:1; border-radius:var(--r-3); margin-bottom:14px;"></div>
+            <div class="pbody" style="color:var(--paper); font-size:15px; line-height:1.3;">"Hired Sai for a rebrand. We shipped in 18 days. <i style="color: oklch(0.82 0.14 268);">It paid for itself in week three.</i>"<br><span style="font-family:var(--mono); font-size:10px; color:rgba(248,249,253,0.5); letter-spacing:0.1em; text-transform:uppercase;">— MARIA, FOUNDER · NORTHWIND</span></div>
+          </div>
+          <div><div style="background:var(--accent); padding:14px 22px; color:var(--paper); font-family:var(--sans); font-weight:700; font-size:14px; border-radius:var(--r-full); text-align:center; text-transform:uppercase; letter-spacing:0.04em;">See case study →</div></div>
+        </div>
+      </div>
+
+      <div class="subhead"><span>google display · standard sizes</span><span class="right">300×250 · 728×90 · 160×600</span></div>
+      <div class="ads-grid">
+        <div style="display:flex; flex-direction:column; gap:14px;">
+          <div class="ad-mrec">
+            <span class="ad-tag">AD · 300 × 250 · MREC</span>
+            <div>
+              <div class="serif">design <em>things</em></div>
+              <div class="head">that sell.</div>
+            </div>
+            <div class="small">Brand systems built by a designer who's also run the dashboards.</div>
+            <div class="cta">SEE THE WORK →</div>
+          </div>
+          <div class="ad-mrec ink">
+            <span class="ad-tag" style="color:rgba(248,249,253,0.6);">AD · MREC · INK</span>
+            <div>
+              <div class="head">14 DAYS.<br>ONE BRAND BOOK.</div>
+            </div>
+            <div class="small">From wordmark to ad templates. Ships ready to use.</div>
+            <div class="cta">START A PROJECT →</div>
+          </div>
+          <div class="ad-mrec accent">
+            <span class="ad-tag" style="color:rgba(248,249,253,0.6);">AD · MREC · ACCENT</span>
+            <div>
+              <div class="head" style="color:var(--paper);">BOTH SIDES OF<br>THE BRIEF.</div>
+            </div>
+            <div class="small">Industrial × digital. Bologna &amp; remote.</div>
+            <div class="cta" style="color:var(--paper);">BOOK A CALL →</div>
+          </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:14px; align-items:flex-start;">
+          <div class="ad-sky">
+            <span class="ad-tag">AD · 160 × 600 · SKYSCRAPER</span>
+            <div>
+              <div class="serif">A brand book.</div>
+              <div class="head" style="margin-top:6px;">SHIPPED IN 14.</div>
+            </div>
+            <div class="small">Wordmark, palette, type, components, ad templates — one file, ready to use.</div>
+            <div class="cta">DOWNLOAD FREE →</div>
+          </div>
+          <div class="ad-sky" style="background:var(--ink); color:var(--paper); border-color:var(--ink);">
+            <span class="ad-tag" style="color:rgba(248,249,253,0.6);">SKYSCRAPER · INK</span>
+            <div>
+              <div class="head" style="color:var(--paper);">DESIGN<br>THINGS<br>THAT<br><em style="font-family:var(--serif); font-style:italic; color: oklch(0.85 0.13 268); font-weight:400; text-transform:none; letter-spacing:-0.02em;">sell.</em></div>
+            </div>
+            <a class="cta" style="background:var(--accent);">START →</a>
+          </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:14px;">
+          <div class="ad-lb">
+            <span class="ad-tag">AD · 728 × 90 · LEADERBOARD</span>
+            <span class="mark"><span class="sk">SK.</span>&nbsp;SAI KANAGAT</span>
+            <span class="head">Design things <em>that sell.</em></span>
+            <a class="cta">See the work →</a>
+          </div>
+          <div class="ad-lb ink">
+            <span class="ad-tag" style="color:rgba(248,249,253,0.6);">LEADERBOARD · INK</span>
+            <span class="mark"><span class="sk" style="color: oklch(0.85 0.13 268);">SK.</span>&nbsp;SAI KANAGAT</span>
+            <span class="head" style="color:var(--paper);">A complete brand book — <em style="color: oklch(0.82 0.14 268);">in 14 days.</em></span>
+            <a class="cta">Book a call →</a>
+          </div>
+          <div class="ad-lb">
+            <span class="ad-tag">LEADERBOARD · MINIMAL</span>
+            <span class="mark"><span class="sk">SK.</span></span>
+            <span class="head" style="font-family:var(--sans); font-style:normal; font-weight:700; text-transform:uppercase; font-size:18px; letter-spacing:-0.02em; color:var(--ink);">Both sides of the brief.</span>
+            <a class="cta">Start a project →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="subhead"><span>google search · text ad</span><span class="right">3 headlines · 2 descriptions</span></div>
+      <div class="search-ad">
+        <div><span class="sa-tag">Ad</span><span class="sa-url">saikanagat.com/brand-systems</span></div>
+        <div class="sa-title">Brand Systems That Actually Ship — Sai Kanagat</div>
+        <div class="sa-desc">A complete brand book in 14 days. Wordmark, palette, type, components, and ad templates — all in one file. Industrial designer × digital marketer, based in Bologna. <b>3.2× ROAS</b> on the last paid campaign.</div>
+        <div class="sa-links">
+          <a href="#">Recent work →</a>
+          <a href="#">Process →</a>
+          <a href="#">Pricing →</a>
+          <a href="#">Contact →</a>
+        </div>
+      </div>
+      <p style="margin-top:14px;"><b>Headline rotation</b> (use any three): <span class="meta">"Brand Systems That Actually Ship"</span> · <span class="meta">"Design Things That Sell"</span> · <span class="meta">"Both Sides Of The Brief"</span> · <span class="meta">"A Brand Book In 14 Days"</span> · <span class="meta">"Industrial × Digital · Bologna"</span></p>
+
+      <div class="subhead"><span>youtube pre-roll · 16 : 9</span><span class="right">5-second skip · static fallback</span></div>
+      <div class="deck-row">
+        <div class="slide ink">
+          <div class="blob"></div>
+          <div class="s-head"><span class="wm wm-sm" style="color:var(--paper);"><span class="sk" style="color: oklch(0.85 0.13 268);">SK.</span>&nbsp;SAI KANAGAT</span><span class="pn">SKIP IN 5</span></div>
+          <div style="position:relative;">
+            <div class="meta" style="color:rgba(248,249,253,0.7); margin-bottom:14px;">— SAIKANAGAT.COM</div>
+            <div class="title" style="color:var(--paper);">DON'T SKIP — <em>your brand</em> shouldn't either.</div>
+          </div>
+          <div class="foot">PRE-ROLL · COVER</div>
+        </div>
+        <div class="slide">
+          <div class="s-head"><span class="wm wm-sm"><span class="sk">SK.</span>&nbsp;SAI KANAGAT</span><span class="pn">SKIP →</span></div>
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:18px; align-items:center;">
+            <div>
+              <div class="meta" style="margin-bottom:6px;">— A 14-DAY BRAND BOOK</div>
+              <div class="title" style="font-size:30px;">Made to last. <em>Built to grow.</em></div>
+              <div style="margin-top:14px; display:inline-block; background:var(--accent); padding:9px 14px; border-radius:var(--r-full); font-family:var(--sans); font-weight:700; font-size:12px; color:var(--paper); text-transform:uppercase; letter-spacing:0.04em;">VISIT SITE →</div>
+            </div>
+            <div class="ph" style="aspect-ratio: 4/3; border-radius:8px;"></div>
+          </div>
+          <div class="foot">PRE-ROLL · CONTENT</div>
+        </div>
+      </div>
+
+      <div class="subhead"><span>copy formulas · use these</span></div>
+      <div class="token-table">
+        <div class="token-row"><span class="key" style="font-family:var(--mono);">HEADLINE</span><span class="val" style="grid-column: span 2; max-width:none; font-size:13px;">[<i>concrete benefit</i>] + [<i>italic accent word</i>]. e.g. <b>"Brand systems that <i>actually ship.</i>"</b></span></div>
+        <div class="token-row"><span class="key" style="font-family:var(--mono);">SUBHEAD</span><span class="val" style="grid-column: span 2; max-width:none; font-size:13px;">[<i>concrete proof</i>] + [<i>human aside</i>]. e.g. <b>"A complete book in 14 days. Yes — including the ads."</b></span></div>
+        <div class="token-row"><span class="key" style="font-family:var(--mono);">CTA</span><span class="val" style="grid-column: span 2; max-width:none; font-size:13px;">2–3 words, action verb, ALL CAPS in mono. Approved: <b>START A PROJECT · BOOK A CALL · DOWNLOAD FREE · SEE THE WORK</b></span></div>
+        <div class="token-row"><span class="key" style="font-family:var(--mono);">SOCIAL PROOF</span><span class="val" style="grid-column: span 2; max-width:none; font-size:13px;">A real number, before the adjective. <b>"3.2× ROAS"</b> beats <b>"high-performing campaigns"</b> every time.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= 13 · MARKETING COLLATERAL ========================= -->
+<section class="section" id="marketing">
+  <div class="section-head">
+    <div class="num">13 / marketing collateral</div>
+    <div>
+      <h2>Email &amp; <em>the web.</em></h2>
+      <p>Where the brand earns trust over time — newsletters, transactional emails, landing pages. Slower, longer, but the same voice and the same italic moment.</p>
+    </div>
+  </div>
+  <div class="body">
+    <div class="sticky">
+      <div>email · newsletter</div>
+      <div>email · transactional</div>
+      <div>landing hero</div>
+      <div>case study card</div>
+    </div>
+    <div>
+
+      <div class="subhead"><span>newsletter · the weekly note</span><span class="right">600px · single-column</span></div>
+      <div style="display:flex; gap:20px; flex-wrap:wrap;">
+        <div class="email">
+          <div class="ehead">
+            <span class="wm wm-md" style="color:var(--paper);"><span class="sk" style="color: oklch(0.85 0.13 268);">SK.</span>&nbsp;SAI KANAGAT</span>
+            <span class="meta" style="color: rgba(248,249,253,0.65);">№ 014 · 18 MAY 2026</span>
+          </div>
+          <div class="ebody">
+            <div class="meta" style="margin-bottom:10px;">— THE WEEKLY NOTE</div>
+            <h2>Most brand books are <em>useless.</em><br>Here's why mine isn't.</h2>
+            <p>I shipped the v2.0 brand book this week. Wordmark, palette, type, components, social formats, ad templates, an invoice, a CV — all in one file. Took fourteen days.</p>
+            <p>Three things I learned, and one tool you can steal.</p>
+            <div style="margin-top:14px;"><a class="btn btn-accent">Read the full note →</a></div>
+          </div>
+          <div class="efoot">
+            <span>SAIKANAGAT.COM</span>
+            <span>UNSUBSCRIBE · MANAGE</span>
+          </div>
+        </div>
+
+        <div class="email">
+          <div class="ehead" style="background:var(--accent);">
+            <span class="wm wm-md" style="color:var(--paper);"><span class="sk" style="color: oklch(0.85 0.13 268);">SK.</span>&nbsp;SAI KANAGAT</span>
+            <span class="meta" style="color: rgba(248,249,253,0.85);">— A NOTE</span>
+          </div>
+          <div class="ebody">
+            <h2>Hi Maria —<br>quick note on the <em>rebrand.</em></h2>
+            <p>The v2.0 files are ready. Brand book, social kit, ad templates, and the first three deliverables — all in the shared folder.</p>
+            <p>One small ask: skim the voice &amp; tone section before Friday's call. That's where most of the decisions live.</p>
+            <p>— sai</p>
+            <div style="margin-top:14px;"><a class="btn btn-primary">Open the shared folder →</a></div>
+          </div>
+          <div class="efoot">
+            <span>HI@SAIKANAGAT.COM</span>
+            <span>BOLOGNA · 18 MAY 2026</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="subhead"><span>landing hero — saikanagat.com</span></div>
+      <div class="land-hero">
+        <div class="nav">
+          <span class="wm wm-md"><span class="sk">SK.</span>&nbsp;SAI KANAGAT</span>
+          <div class="links"><a href="#">Work</a><a href="#">Process</a><a href="#">Gallery</a><a href="#">Blog</a><a href="#">About</a><a href="#">Contact</a></div>
+          <button class="btn btn-accent btn-sm">Start a project</button>
+        </div>
+        <div class="body">
+          <div class="l">
+            <div class="meta">001 — INDUSTRIAL × DIGITAL · BOLOGNA</div>
+            <h1>SAI<br>KANAGAT —<br><em>design things<br>that sell.</em></h1>
+            <p>The rare intersection of industrial craft and digital growth strategy. Brand systems that ship, campaigns that compound.</p>
+            <div class="ctas">
+              <a class="btn btn-primary">See the work →</a>
+              <a class="btn btn-ghost">Read the book</a>
+            </div>
+          </div>
+          <div class="r">
+            <div class="blob"></div>
+            <div class="att">— A NOTE FROM MARIA · NORTHWIND</div>
+            <div class="quote">"Sai shipped a complete brand in 18 days. <em>It paid for itself in week three.</em>"</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="subhead"><span>case study card</span><span class="right">portfolio · linkedin · proposal decks</span></div>
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
+        <div class="card elev" style="padding:0; overflow:hidden;">
+          <div class="ph wide" style="border-radius:0;"></div>
+          <div style="padding:24px;">
+            <div class="meta" style="margin-bottom:10px;">— 02 / 2022–23 · VISUAL MERCH</div>
+            <h3 style="margin:0 0 8px;">JUICY CHEMISTRY — <em style="font-family:var(--serif); font-style:italic; font-weight:400; color:var(--accent-ink); letter-spacing:-0.015em; text-transform:none;">brand activation.</em></h3>
+            <p style="margin:0 0 14px; font-size:14px;">A spatial campaign across six retail surfaces. Modular system, low-impact materials, two-week build.</p>
+            <div style="display:flex; gap:14px; align-items:baseline;">
+              <span class="badge accent">+40% ORG</span>
+              <span class="badge">SPATIAL</span>
+              <span class="badge">2 WK</span>
+            </div>
+          </div>
+        </div>
+        <div class="card ink elev" style="padding:0; overflow:hidden;">
+          <div class="ph wide dark" style="border-radius:0;"></div>
+          <div style="padding:24px;">
+            <div class="meta" style="margin-bottom:10px; color:rgba(248,249,253,0.6);">— 01 / 2022 · ART DIRECTION</div>
+            <h3 style="margin:0 0 8px; color:var(--paper);">CARLOS MOTA — <em style="font-family:var(--serif); font-style:italic; font-weight:400; color: oklch(0.85 0.14 268); letter-spacing:-0.015em; text-transform:none;">verde collection.</em></h3>
+            <p style="margin:0 0 14px; font-size:14px; color:rgba(248,249,253,0.78);">Furniture campaign for AD. From concept to shoot in five weeks. Sold out in seven.</p>
+            <div style="display:flex; gap:14px; align-items:baseline;">
+              <span class="badge solid-accent">3.2× ROAS</span>
+              <span class="badge" style="background:rgba(248,249,253,0.16);color:var(--paper);">FURNITURE</span>
+              <span class="badge" style="background:rgba(248,249,253,0.16);color:var(--paper);">AD MAGAZINE</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= 14 · STATIONERY ========================= -->
+<section class="section" id="templates">
+  <div class="section-head">
+    <div class="num">14 / stationery</div>
+    <div>
+      <h2>The system, <em>in hand.</em></h2>
+      <p>Business cards, CV, invoice, slide deck. The day-to-day artifacts of a one-person studio. Each draws only from the tokens above.</p>
+    </div>
+  </div>
+  <div class="body">
+    <div class="sticky">
+      <div>business cards</div>
+      <div>resume / CV</div>
+      <div>invoice</div>
+      <div>slide deck</div>
+    </div>
+    <div>
+
+      <div class="subhead"><span>business cards · 85 × 55 mm</span></div>
+      <div class="bizcard-wrap">
+        <div class="bizcard front">
+          <div class="top">
+            <span class="wm wm-sm"><span class="sk">SK.</span>&nbsp;SAI KANAGAT</span>
+            <span class="mono" style="color:var(--muted);">N. 001 / 2026</span>
+          </div>
+          <div>
+            <h3 class="name">SAI KANAGAT</h3>
+            <div class="role">industrial designer × digital marketer.</div>
+          </div>
+          <div class="contact" style="color:var(--n-700);">
+            HI@SAIKANAGAT.COM<br>
+            +39 · 333 · 555 · 0000<br>
+            SAIKANAGAT.COM
+          </div>
+        </div>
+        <div class="bizcard back">
+          <div class="big-sk">SK.</div>
+          <div class="top">
+            <span class="mono" style="color:rgba(248,249,253,0.6); position:relative;">BACK</span>
+            <span class="mono" style="color:rgba(248,249,253,0.6); position:relative;">BOLOGNA · IT</span>
+          </div>
+          <div style="font-family:var(--serif); font-style:italic; font-size:28px; max-width:65%; line-height:1.05; position:relative; letter-spacing:-0.02em;">
+            design things <span style="color: oklch(0.85 0.14 268);">that sell.</span>
+          </div>
+          <div class="contact" style="color:rgba(248,249,253,0.8); position:relative;">
+            BRAND · WEB · CAMPAIGNS · STRATEGY
+          </div>
+        </div>
+        <div class="bizcard alt-front">
+          <div class="big-sk">SK.</div>
+          <div class="top">
+            <span class="wm wm-sm" style="color:var(--paper);"><span class="sk" style="color: oklch(0.85 0.14 268);">SK.</span>&nbsp;SAI KANAGAT</span>
+            <span class="mono" style="color:rgba(248,249,253,0.7); position:relative;">VAR · ACCENT</span>
+          </div>
+          <div style="position:relative;">
+            <h3 class="name" style="color:var(--paper);">SAI KANAGAT</h3>
+            <div class="role" style="color: rgba(248,249,253,0.85);">industrial designer × digital marketer.</div>
+          </div>
+          <div class="contact" style="color:rgba(248,249,253,0.85); position:relative;">
+            HI@SAIKANAGAT.COM &nbsp;·&nbsp; SAIKANAGAT.COM
+          </div>
+        </div>
+        <div class="bizcard front" style="background:var(--n-50); border:1px solid var(--rule);">
+          <div class="top">
+            <span class="mono" style="color:var(--muted);">CONTACT</span>
+            <span class="mono" style="color:var(--muted);">V · MINIMAL</span>
+          </div>
+          <div style="font-family:var(--serif); font-style:italic; font-size:48px; line-height:0.92; letter-spacing:-0.03em;">
+            Sai <span style="color:var(--accent-ink);">Kanagat.</span>
+          </div>
+          <div class="contact" style="color:var(--n-700);">
+            HI@SAIKANAGAT.COM &nbsp;·&nbsp; +39 · 333 · 555 · 0000
+          </div>
+        </div>
+      </div>
+
+      <div class="subhead"><span>resume / CV · A4</span></div>
+      <div class="cv">
+        <div class="cv-head">
+          <div>
+            <h2>SAI <em>KANAGAT.</em></h2>
+            <div class="role">INDUSTRIAL × DIGITAL · BOLOGNA, IT</div>
+          </div>
+          <div class="contact">
+            HI@SAIKANAGAT.COM<br>
+            +39 · 333 · 555 · 0000<br>
+            SAIKANAGAT.COM &nbsp;·&nbsp; /SAIKANAGAT
+          </div>
+        </div>
+        <div class="cv-body">
+          <div class="cv-side">
+            <div class="blk"><h5>about</h5><p>Industrial designer turned digital marketer. I help brands build products worth talking about — and then build the campaigns that make people talk.</p></div>
+            <div class="blk"><h5>design</h5><p>Industrial &amp; product design</p><p>Visual merchandising</p><p>Spatial brand experience</p><p>CMF &amp; materials research</p><p>3D rendering · prototyping</p></div>
+            <div class="blk"><h5>marketing</h5><p>Brand strategy</p><p>Social &amp; content</p><p>Paid (Meta · Google)</p><p>SEO · organic growth</p><p>Email &amp; CRM</p></div>
+            <div class="blk"><h5>tools</h5><p>Figma · Webflow</p><p>InDesign · Affinity</p><p>After Effects · Blender</p><p>GA4 · Meta Ads</p></div>
+            <div class="blk"><h5>education</h5><p><b>BFA · Industrial Design</b><br><span style="color:var(--muted); font-family:var(--mono); font-size:8px;">2018 — 2022</span></p></div>
+          </div>
+          <div class="cv-main">
+            <h5>selected experience</h5>
+            <div class="role-blk">
+              <div class="ttl"><b>Brand &amp; marketing — independent</b><span>2024 — PRESENT</span></div>
+              <div class="sub">Working with founders, end to end.</div>
+              <ul><li>Five brand systems across consumer &amp; furniture; full books, websites, decks, ad sets.</li>
+                  <li>Average 3.2× ROAS on paid media for retained clients.</li>
+                  <li>Quarterly retainers for two brands across design &amp; marketing.</li></ul>
+            </div>
+            <div class="role-blk">
+              <div class="ttl"><b>Visual merchandising — Juicy Chemistry</b><span>2022 — 2023</span></div>
+              <div class="sub">Spatial brand activation across six retail surfaces.</div>
+              <ul><li>40% organic-traffic lift across activation window.</li>
+                  <li>Modular merchandising system still in use across 11 stores.</li></ul>
+            </div>
+            <div class="role-blk">
+              <div class="ttl"><b>Art direction — Carlos Mota, Verde Collection</b><span>2022</span></div>
+              <div class="sub">Furniture campaign for AD magazine.</div>
+              <ul><li>Concept to shoot in five weeks; sold out in seven.</li>
+                  <li>3.2× ROAS on the supporting paid campaign.</li></ul>
+            </div>
+            <h5 style="margin-top:14px;">selected projects</h5>
+            <div class="role-blk">
+              <div class="ttl"><b>ARABellA — Bamboo Furniture Collection</b><span>2023 · THESIS</span></div>
+              <div class="sub">Graduation thesis on sustainable furniture.</div>
+            </div>
+            <div class="role-blk">
+              <div class="ttl"><b>Agora — interactive demo</b><span>2025</span></div>
+              <div class="sub">A research prototype on visual merchandising.</div>
+            </div>
+          </div>
+        </div>
+        <div class="cv-foot">
+          <span>SAI KANAGAT — CURRICULUM VITAE</span>
+          <span>PAGE 01 / 02</span>
+        </div>
+      </div>
+
+      <div class="subhead"><span>invoice · A4</span></div>
+      <div class="invoice">
+        <div class="inv-head">
+          <div class="l">
+            <h2>INVOICE <em>no. 026.</em></h2>
+            <div style="font-family:var(--mono); font-size:9px; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted); margin-top:6px;">ISSUED · 18 MAY 2026</div>
+          </div>
+          <div class="r">
+            FROM<br>
+            <b>SAI KANAGAT</b><br>
+            hi@saikanagat.com<br>
+            +39 · 333 · 555 · 0000<br>
+            saikanagat.com
+          </div>
+        </div>
+        <div class="inv-meta">
+          <div><div class="k">BILLED TO</div><div class="v"><b>Northwind Co.</b><br>Via Indipendenza 11<br>40121 Bologna, IT</div></div>
+          <div><div class="k">INVOICE №.</div><div class="v">SK-026-2026</div></div>
+          <div><div class="k">ISSUED</div><div class="v">18 May 2026</div></div>
+          <div><div class="k">DUE</div><div class="v">01 June 2026</div></div>
+        </div>
+        <table>
+          <thead><tr><th>DESCRIPTION</th><th>QTY</th><th class="num">RATE</th><th class="num">AMOUNT</th></tr></thead>
+          <tbody>
+            <tr><td>Brand identity — wordmark, palette, type system</td><td>1</td><td class="num">€ 4,800</td><td class="num">€ 4,800</td></tr>
+            <tr><td>Website — 6 pages, design &amp; build</td><td>1</td><td class="num">€ 6,200</td><td class="num">€ 6,200</td></tr>
+            <tr><td>Launch campaign — social kit + 4 emails</td><td>1</td><td class="num">€ 1,600</td><td class="num">€ 1,600</td></tr>
+            <tr><td>Monthly retainer — design &amp; marketing</td><td>2 mo</td><td class="num">€ 1,400</td><td class="num">€ 2,800</td></tr>
+          </tbody>
+        </table>
+        <div class="totals">
+          <div class="ln"><span>Subtotal</span><span class="num">€ 15,400.00</span></div>
+          <div class="ln"><span>IVA · 22%</span><span class="num">€ 3,388.00</span></div>
+          <div class="ln grand"><span>TOTAL DUE</span><span class="v num">€ 18,788.00</span></div>
+        </div>
+        <div class="inv-foot">
+          <span>PAY BY BANK · IBAN IT60 X054 2811 1010 0000 0123 456</span>
+          <span>THANKS — SAI</span>
+        </div>
+      </div>
+
+      <div class="subhead"><span>slide deck · 16 : 9</span></div>
+      <div class="deck-row">
+        <div class="slide ink">
+          <div class="blob"></div>
+          <div class="s-head"><span class="wm wm-sm" style="color:var(--paper);"><span class="sk" style="color: oklch(0.85 0.14 268);">SK.</span>&nbsp;SAI KANAGAT</span><span class="pn">01 / 24</span></div>
+          <div style="position:relative;">
+            <div class="meta" style="color:rgba(248,249,253,0.7); margin-bottom:14px;">— PROPOSAL · NORTHWIND CO.</div>
+            <div class="title" style="color:var(--paper);">A REBRAND<br>FOR <em>spring '26.</em></div>
+          </div>
+          <div class="foot">COVER · INK VARIANT</div>
+        </div>
+        <div class="slide">
+          <div class="s-head"><span class="wm wm-sm"><span class="sk">SK.</span>&nbsp;SAI KANAGAT</span><span class="pn">02 / 24</span></div>
+          <div>
+            <div class="meta" style="margin-bottom:10px;">01 — THE QUESTION</div>
+            <div class="title">HOW DO WE BUILD<br>A <em>quiet</em> KIND<br>OF BRAND?</div>
+            <div class="body-c" style="margin-top:14px;">A short answer in three parts. Restraint as a posture, the accent as a pacing tool, the italic as a smile.</div>
+          </div>
+          <div class="foot">CONTENT · PAPER</div>
+        </div>
+        <div class="slide accent">
+          <div class="blob"></div>
+          <div class="s-head"><span class="wm wm-sm" style="color:var(--paper);"><span class="sk" style="color:var(--ink);">SK.</span>&nbsp;SAI KANAGAT</span><span class="pn" style="color:var(--paper);">03 / 24</span></div>
+          <div style="position:relative;">
+            <div class="title" style="color:var(--paper); font-size:54px; max-width:75%;">SECTION BREAK — <em style="color:var(--ink);">on color.</em></div>
+          </div>
+          <div class="foot">SECTION · ACCENT</div>
+        </div>
+        <div class="slide">
+          <div class="s-head"><span class="wm wm-sm"><span class="sk">SK.</span>&nbsp;SAI KANAGAT</span><span class="pn">04 / 24</span></div>
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:18px; align-items:center;">
+            <div>
+              <div class="meta" style="margin-bottom:8px;">03 — THE PRINCIPLE</div>
+              <div class="title" style="font-size:32px;">ONE ACCENT,<br><em>used sparingly.</em></div>
+              <div class="body-c" style="margin-top:10px;">Ultramarine does the work of every red and orange we'd otherwise reach for. It signals — it doesn't decorate.</div>
+            </div>
+            <div class="ph" style="aspect-ratio: 4/3; border-radius:8px;"></div>
+          </div>
+          <div class="foot">TWO-COL · WITH IMAGE</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= 15 · APPLICATIONS ========================= -->
+<section class="section" id="applications">
+  <div class="section-head">
+    <div class="num">15 / applications</div>
+    <div>
+      <h2>The brand, <em>in the wild.</em></h2>
+      <p>A short index of places the system lives outside the screen. Use these as a checklist when planning a launch — if one of them is unbranded, the system is leaking.</p>
+    </div>
+  </div>
+  <div class="body">
+    <div class="sticky">
+      <div>checklist</div>
+      <div>tote · merch</div>
+      <div>signage · environment</div>
+    </div>
+    <div>
+      <div class="subhead"><span>brand checklist</span></div>
+      <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:0; border:1px solid var(--rule); border-radius:var(--r-3); overflow:hidden;">
+        <div style="padding:18px 22px; border-right:1px solid var(--rule); border-bottom:1px solid var(--rule);">
+          <h5 style="font-family:var(--mono); font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted); margin:0 0 10px;">design surfaces</h5>
+          <p style="margin:0; font-size:14px;">portfolio · case studies · pitch decks · proposal PDFs · client decks · CV · invoice · contracts</p>
+        </div>
+        <div style="padding:18px 22px; border-right:1px solid var(--rule); border-bottom:1px solid var(--rule);">
+          <h5 style="font-family:var(--mono); font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted); margin:0 0 10px;">marketing surfaces</h5>
+          <p style="margin:0; font-size:14px;">instagram feed/story/reel · tiktok · linkedin · X · newsletter · email signature · landing pages · ad sets</p>
+        </div>
+        <div style="padding:18px 22px; border-bottom:1px solid var(--rule);">
+          <h5 style="font-family:var(--mono); font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted); margin:0 0 10px;">physical surfaces</h5>
+          <p style="margin:0; font-size:14px;">business cards · letterhead · invoices · packaging · merch · event signage · stickers</p>
+        </div>
+        <div style="padding:18px 22px; border-right:1px solid var(--rule);">
+          <h5 style="font-family:var(--mono); font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted); margin:0 0 10px;">digital surfaces</h5>
+          <p style="margin:0; font-size:14px;">website · blog · demos · GitHub readme · agora prototype · social bios · email clients</p>
+        </div>
+        <div style="padding:18px 22px; border-right:1px solid var(--rule);">
+          <h5 style="font-family:var(--mono); font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted); margin:0 0 10px;">behaviors</h5>
+          <p style="margin:0; font-size:14px;">tone of voice · email register · meeting kickoff · pitch opening · handoff document · changelog</p>
+        </div>
+        <div style="padding:18px 22px;">
+          <h5 style="font-family:var(--mono); font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted); margin:0 0 10px;">never</h5>
+          <p style="margin:0; font-size:14px;">— stock photography that isn't yours · auto-generated AI imagery · gradients on brand surfaces · emoji-stuffed captions · ALL-CAPS body copy</p>
+        </div>
+      </div>
+
+      <div class="subhead"><span>tote · sticker · merch</span></div>
+      <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:16px;">
+        <div class="logo-card" style="aspect-ratio:1; min-height:0; padding:0; flex-direction:column; background:var(--n-100); border:1px solid var(--rule);">
+          <div style="font-family:var(--sans); font-weight:700; font-size:54px; letter-spacing:-0.04em; text-transform:uppercase; line-height:0.9; text-align:center;">SAI<br>KANAGAT</div>
+          <div style="font-family:var(--serif); font-style:italic; font-size:24px; color:var(--accent-ink); margin-top:8px; letter-spacing:-0.02em;">— made to last.</div>
+          <span class="tag">TOTE · NATURAL · 1 COLOR</span>
+        </div>
+        <div class="logo-card" style="aspect-ratio:1; min-height:0; padding:0; flex-direction:column; gap:12px; background:var(--accent); color:var(--paper); border-color:var(--accent);">
+          <span class="mark mark-xl r2 reverse" style="width:120px; height:120px;" aria-label="the mark"></span>
+          <span class="tag" style="color:rgba(248,249,253,0.7);">STICKER · ACCENT</span>
+        </div>
+        <div class="logo-card dark" style="aspect-ratio:1; min-height:0; padding:0; flex-direction:column; gap:8px; align-items:flex-start; padding:24px;">
+          <div style="font-family:var(--mono); font-size:10px; letter-spacing:0.16em; text-transform:uppercase; color: rgba(248,249,253,0.6);">— A NOTEBOOK</div>
+          <div style="margin-top:auto;">
+            <div style="font-family:var(--sans); font-weight:700; font-size:34px; letter-spacing:-0.03em; line-height:0.95; text-transform:uppercase; color:var(--paper);">DESIGN<br>THINGS<br>THAT<br><em style="font-family:var(--serif); font-style:italic; color: oklch(0.85 0.14 268); font-weight:400; text-transform:none; letter-spacing:-0.02em;">sell.</em></div>
+          </div>
+          <span class="tag">NOTEBOOK · INK</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= FOOTER ========================= -->
+<footer class="footer">
+  <div>
+    <h5>THE BRAND</h5>
+    <p>A complete brand system for <span class="em">Sai Kanagat</span> — industrial designer × digital marketer, based in Bologna, Italy.</p>
+  </div>
+  <div>
+    <h5>VERSION</h5>
+    <p>v2.0 — May 2026</p>
+    <p>Next review: November 2026.</p>
+  </div>
+  <div>
+    <h5>FILES</h5>
+    <p>design-system.html</p>
+    <p>design-system.css</p>
+    <p>design-system.md</p>
+  </div>
+  <div>
+    <h5>CONTACT</h5>
+    <p>hi@saikanagat.com</p>
+    <p>saikanagat.com</p>
+    <p>/saikanagat</p>
+  </div>
+
+  <div class="colophon">
+    <span>SET IN BRICOLAGE GROTESQUE · NEWSREADER · IBM PLEX MONO</span>
+    <span>— SAI KANAGAT, BOLOGNA, 2026</span>
+  </div>
+</footer>
+
+</div><!-- /.page -->
+
 </body>
 </html>

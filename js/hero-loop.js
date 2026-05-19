@@ -60,7 +60,7 @@
     <g id="accentHalf" opacity="0">\
       <circle id="accentCircle" cx="0" cy="0" r="' + (GIANT/2) + '" fill="' + ACCENT + '" clip-path="url(#rightHalf)" />\
     </g>\
-    <line x1="-' + (GIANT/2 - 4) + '" y1="0" x2="' + (GIANT/2 - 4) + '" y2="0" stroke="' + PAPER + '" stroke-width="0.6" opacity="0.55" />\
+    <line x1="-' + (GIANT/2 - 4) + '" y1="0" x2="' + (GIANT/2 - 4) + '" y2="0" stroke="' + PAPER + '" stroke-width="0.4" opacity="0" />\
   </g>\
   <circle id="beatRing" cx="' + CX + '" cy="' + CY + '" r="' + (FINAL/2 + 10) + '" fill="none" stroke="' + ACCENT + '" stroke-width="1.5" opacity="0" />\
   <g id="wordmark" transform="translate(' + CX + ',' + (CY + FINAL/2 + GAP + WM_SIZE/2 - 6) + ')" opacity="0">\
