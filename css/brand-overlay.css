@@ -55,6 +55,16 @@
   --motion-slow: 500ms;
   --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* transform / interaction tokens — read by js/interactions.js */
+  --tilt-max: 4;            /* card 3D tilt max in degrees (Marin-restraint) */
+  --tilt-perspective: 1000; /* px */
+  --magnetic-radius: 110;   /* button attract radius in px */
+  --magnetic-strength: 0.28;/* pull factor 0–1 */
+  --hover-lift: 3px;        /* card lift on hover */
+  --hover-shift: 24px;      /* editorial row slide on hover */
+  --breath-amp: 0.0035;     /* hero loop subtle breathing */
+
   --shadow-1: 0 1px 0 rgba(20,14,8,0.04), 0 1px 2px rgba(20,14,8,0.05);
   --shadow-2: 0 1px 2px rgba(20,14,8,0.04), 0 6px 16px rgba(20,14,8,0.06);
   --shadow-3: 0 4px 8px rgba(20,14,8,0.05), 0 16px 36px rgba(20,14,8,0.08);

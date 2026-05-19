@@ -6,11 +6,16 @@
 (function(){
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  // ---- MAGNETIC BUTTONS ----
-  // Pull buttons toward the cursor when within an attract radius.
-  // Snap back on leave with spring easing.
-  var MAG_RADIUS = 110;
-  var MAG_STRENGTH = 0.35;
+  // Read interaction tokens from CSS (single source of truth)
+  function readToken(name, fallback){
+    var v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    var n = parseFloat(v);
+    return isNaN(n) ? fallback : n;
+  }
+  var MAG_RADIUS   = readToken('--magnetic-radius', 110);
+  var MAG_STRENGTH = readToken('--magnetic-strength', 0.28);
+  var TILT_MAX     = readToken('--tilt-max', 4);
+  var TILT_PERSPECTIVE = readToken('--tilt-perspective', 1000);
 
   function bindMagnetic(){
     document.querySelectorAll('.btn, .nav-score-btn, .filter-pill, .btn-primary, .btn-outline, .btn-outline-yellow, .nav-back, .demo-back, .lb-close, .lb-prev, .lb-next, [data-magnetic]').forEach(function(el){
@@ -37,10 +42,7 @@
   }
 
   // ---- 3D CARD TILT ----
-  // Tilt cards toward cursor with a parallax shine.
-  var TILT_MAX = 8; // degrees
-  var TILT_PERSPECTIVE = 1000;
-
+  // Tilt cards toward cursor. TILT_MAX + TILT_PERSPECTIVE come from CSS tokens above.
   function bindTilt(){
     document.querySelectorAll('.work-card, .demo-tile, .blog-row, .principle, .swatch, .agent-card, [data-tilt]').forEach(function(el){
       if (el.dataset.tiltBound === 'true') return;
