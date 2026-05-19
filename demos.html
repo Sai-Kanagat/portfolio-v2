@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Demos — Sai Kanagat</title>
+  <meta name="description" content="Live, interactive browser demos by Sai Kanagat — Agora opinion sandbox, hand-tracked cursor, webcam-driven physics." />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/brand-overlay.css" />
+  <style>
+    .demos-page { padding: 120px 32px 80px; max-width: 1280px; margin: 0 auto; box-sizing: border-box; }
+    .demos-page h1 { font-family: var(--font-display, 'Unbounded', sans-serif); font-weight: 900; font-size: clamp(44px, 7vw, 96px); letter-spacing: -0.04em; line-height: 0.95; margin: 0 0 24px; }
+    .demos-page h1 .outline { color: transparent; -webkit-text-stroke: 1.5px var(--black); }
+    .demos-lede { max-width: 720px; font-size: 1rem; line-height: 1.65; color: var(--grey-mid); margin-bottom: 60px; }
+    .demos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 28px; }
+    .demo-tile {
+      position: relative; display: block; text-decoration: none; color: var(--white);
+      border: 1px solid var(--grey-line); border-radius: 2px; overflow: hidden;
+      aspect-ratio: 4 / 5; background: var(--black);
+      transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s ease;
+    }
+    .demo-tile:hover { transform: translateY(-4px); box-shadow: 0 24px 48px rgba(0,0,0,0.45); }
+    .demo-tile-bg { position: absolute; inset: 0; }
+    .demo-tile-content {
+      position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between;
+      padding: 28px; z-index: 2;
+      background: linear-gradient(180deg, rgba(10,10,10,0.15) 0%, rgba(10,10,10,0.05) 40%, rgba(10,10,10,0.85) 100%);
+    }
+    .demo-tile-num { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--yellow); }
+    .demo-tile-title { font-family: var(--font-display, 'Unbounded', sans-serif); font-weight: 900; font-size: clamp(24px, 2.6vw, 38px); letter-spacing: -0.02em; line-height: 1; }
+    .demo-tile-meta { display: flex; flex-direction: column; gap: 12px; }
+    .demo-tile-desc { font-size: 0.78rem; line-height: 1.55; color: rgba(245,240,232,0.78); }
+    .demo-tile-cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--yellow); font-weight: 700;
+    }
+    .demo-tile-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+    .demo-tile-tag { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase; padding: 4px 8px; border: 1px solid rgba(245,240,232,0.3); border-radius: 2px; color: rgba(245,240,232,0.85); }
+    /* tile backgrounds */
+    .bg-agora { background: radial-gradient(circle at 30% 30%, #1a1a0a 0%, #0a0a0a 70%); }
+    .bg-agora::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle at 22% 35%, #ccff00 0%, transparent 4%), radial-gradient(circle at 65% 55%, #ff5a3c 0%, transparent 3%), radial-gradient(circle at 45% 70%, #3cb4ff 0%, transparent 3%), radial-gradient(circle at 75% 25%, #f5f0e8 0%, transparent 2.5%), radial-gradient(circle at 35% 50%, #ccff00 0%, transparent 2%), radial-gradient(circle at 80% 75%, #3cb4ff 0%, transparent 3%); opacity: 0.85; }
+    .bg-hands { background: linear-gradient(135deg, #0a0a0a 0%, #0a1c1a 100%); }
+    .bg-hands::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle at 50% 50%, rgba(204,255,0,0.18) 0%, transparent 40%), repeating-linear-gradient(45deg, transparent 0 20px, rgba(245,240,232,0.04) 20px 21px); }
+    .bg-balls { background: linear-gradient(135deg, #0a0a0a 0%, #1a1a0a 100%); }
+    .bg-balls::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle at 25% 30%, #ccff00 0%, transparent 6%), radial-gradient(circle at 70% 40%, #ff5a3c 0%, transparent 5%), radial-gradient(circle at 50% 75%, #3cb4ff 0%, transparent 5%), radial-gradient(circle at 80% 70%, #ffaa00 0%, transparent 5%); opacity: 0.9; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="index.html" class="nav-logo">SK<span>.</span></a>
+  <div class="nav-links" id="navLinks">
+    <a href="work.html" data-en="Work" data-it="Lavori">Work</a>
+    <a href="process.html" data-en="Process" data-it="Processo">Process</a>
+    <a href="gallery.html" data-en="Gallery" data-it="Galleria">Gallery</a>
+    <a href="blog.html" data-en="Blog" data-it="Blog">Blog</a>
+    <a href="about.html" data-en="About" data-it="Chi Sono">About</a>
+    <a href="demos.html" data-en="Demos" data-it="Demo">Demos</a>
+    <a href="contact.html" data-en="Contact" data-it="Contatti">Contact</a>
+    <a href="https://content-vigilante-vercel.vercel.app" target="_blank" rel="noopener" class="nav-score-btn" data-en="Content Vigilante" data-it="Content Vigilante">Content Vigilante</a>
+  </div>
+  <div class="lang-toggle" aria-label="Language"><button type="button" data-l="en" class="is-active">EN</button><span>/</span><button type="button" data-l="it">IT</button></div>
+  <div class="nav-tag">Available — EU &amp; Remote</div>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="page">
+  <main class="demos-page">
+    <div class="section-label" style="margin-bottom: 28px;"><span class="num">000</span> <span data-en="Live Demos" data-it="Demo Live">Live Demos</span></div>
+    <h1><span class="outline">DE</span>MOS</h1>
+    <p class="demos-lede" data-en="Three interactive browser experiments. Each one runs entirely in your browser — no downloads, no installs. Allow camera where prompted; nothing is uploaded." data-it="Tre esperimenti interattivi. Tutto gira nel tuo browser — niente download, niente installazioni. Concedi l'accesso alla webcam quando richiesto; nulla viene caricato online.">Three interactive browser experiments. Each one runs entirely in your browser — no downloads, no installs. Allow camera where prompted; nothing is uploaded.</p>
+
+    <div class="demos-grid">
+
+      <a href="demos/agora.html" class="demo-tile">
+        <div class="demo-tile-bg bg-agora"></div>
+        <div class="demo-tile-content">
+          <div>
+            <div class="demo-tile-num">01 · Lite Version</div>
+            <h2 class="demo-tile-title" style="margin: 14px 0 0;">Agora<br><span style="color: rgba(245,240,232,0.6); font-size: 0.42em; letter-spacing: 0.18em;">OPINION SANDBOX</span></h2>
+          </div>
+          <div class="demo-tile-meta">
+            <p class="demo-tile-desc">Type any scenario — pricing change, policy proposal, brand pivot — and a synthetic crowd of personas reacts in real time. Get a full prediction report at the end with stance distribution, key influencers and an inflection timeline.</p>
+            <div class="demo-tile-tags">
+              <span class="demo-tile-tag">Multi-agent</span>
+              <span class="demo-tile-tag">Prediction</span>
+              <span class="demo-tile-tag">Canvas</span>
+            </div>
+            <div class="demo-tile-cta">Launch Agora →</div>
+          </div>
+        </div>
+      </a>
+
+      <a href="demos/hands.html" class="demo-tile">
+        <div class="demo-tile-bg bg-hands"></div>
+        <div class="demo-tile-content">
+          <div>
+            <div class="demo-tile-num">02 · Camera Required</div>
+            <h2 class="demo-tile-title" style="margin: 14px 0 0;">Hand Cursor<br><span style="color: rgba(245,240,232,0.6); font-size: 0.42em; letter-spacing: 0.18em;">GESTURE CONTROL</span></h2>
+          </div>
+          <div class="demo-tile-meta">
+            <p class="demo-tile-desc">Move your computer's cursor with your hand. Point to move, pinch thumb &amp; index to click. Pop the targets. Built on MediaPipe Hands — runs entirely in-browser, camera feed never leaves your machine.</p>
+            <div class="demo-tile-tags">
+              <span class="demo-tile-tag">Computer Vision</span>
+              <span class="demo-tile-tag">MediaPipe</span>
+              <span class="demo-tile-tag">Gestural</span>
+            </div>
+            <div class="demo-tile-cta">Launch Hand Cursor →</div>
+          </div>
+        </div>
+      </a>
+
+      <a href="demos/balls.html" class="demo-tile">
+        <div class="demo-tile-bg bg-balls"></div>
+        <div class="demo-tile-content">
+          <div>
+            <div class="demo-tile-num">03 · Camera Required</div>
+            <h2 class="demo-tile-title" style="margin: 14px 0 0;">Colour Physics<br><span style="color: rgba(245,240,232,0.6); font-size: 0.42em; letter-spacing: 0.18em;">WEBCAM GREENSCREEN</span></h2>
+          </div>
+          <div class="demo-tile-meta">
+            <p class="demo-tile-desc">Pick a colour. Hold up any object matching that colour to your webcam — phone case, bottle cap, your shirt — and it becomes a physics paddle. Falling balls bounce off it in real time.</p>
+            <div class="demo-tile-tags">
+              <span class="demo-tile-tag">HSV Tracking</span>
+              <span class="demo-tile-tag">Physics</span>
+              <span class="demo-tile-tag">Canvas</span>
+            </div>
+            <div class="demo-tile-cta">Launch Colour Physics →</div>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-logo">SK<span>.</span></div>
+    <p class="footer-copy">© 2026 Sai Kanagat. All rights reserved.</p>
+    <div class="footer-socials">
+      <a href="https://linkedin.com/in/sai-kanagat" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:saikanagat1117@gmail.com">Email</a>
+    </div>
+  </footer>
+</div>
+
+<script src="js/lang.js"></script>
+<script src="js/lightbox.js"></script>
+<script src="js/interactions.js"></script>
+<script>
+document.getElementById('hamburger')?.addEventListener('click', () => document.getElementById('navLinks').classList.toggle('open'));
+</script>
+</body>
+</html>

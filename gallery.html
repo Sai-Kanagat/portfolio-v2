@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery — Sai Kanagat</title>
+  <meta name="description" content="Visual gallery of design and marketing work by Sai Kanagat." />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/brand-overlay.css" />
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="index.html" class="nav-logo">SK<span>.</span></a>
+  <div class="nav-links" id="navLinks">
+    <a href="work.html" data-en="Work" data-it="Lavori">Work</a>
+    <a href="process.html" data-en="Process" data-it="Processo">Process</a>
+    <a href="gallery.html" class="active" data-en="Gallery" data-it="Galleria">Gallery</a>
+    <a href="blog.html" data-en="Blog" data-it="Blog">Blog</a>
+    <a href="about.html" data-en="About" data-it="Chi Sono">About</a>
+    <a href="demos.html" data-en="Demos" data-it="Demo">Demos</a>
+    <a href="contact.html" data-en="Contact" data-it="Contatti">Contact</a>
+    <a href="https://content-vigilante-vercel.vercel.app" target="_blank" rel="noopener" class="nav-score-btn" data-en="Content Vigilante" data-it="Content Vigilante">Content Vigilante</a>
+  </div>
+  <div class="lang-toggle" aria-label="Language"><button type="button" data-l="en" class="is-active">EN</button><span>/</span><button type="button" data-l="it">IT</button></div>
+  <div class="nav-tag">Available — EU &amp; Remote</div>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- PROJECT PANEL (reused from work.html) -->
+<div class="panel-backdrop" id="backdrop"></div>
+<aside class="project-panel" id="projectPanel" role="dialog" aria-modal="true" aria-label="Project details">
+  <div class="panel-close">
+    <button class="panel-close-btn" id="panelClose">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 1l12 12M13 1L1 13"/></svg>
+      Close
+    </button>
+    <div style="display:flex; gap:8px;">
+      <button class="btn btn-outline" id="prevProject" style="padding:8px 14px;font-size:0.6rem;">← Prev</button>
+      <button class="btn btn-outline" id="nextProject" style="padding:8px 14px;font-size:0.6rem;">Next →</button>
+    </div>
+  </div>
+  <div class="panel-content" id="panelContent"></div>
+</aside>
+
+<div class="page">
+
+  <!-- HERO -->
+  <header class="gallery-hero">
+    <div class="section-label" style="margin-bottom: 40px;">
+      <span class="num">001</span> Visual Work
+    </div>
+    <h1 class="reveal">
+      <span class="outline">GAL</span>LERY
+    </h1>
+  </header>
+
+  <!-- FILTER -->
+  <div class="gallery-filter-bar">
+    <button class="filter-pill active" data-filter="all">All</button>
+    <button class="filter-pill" data-filter="interiors">Interiors</button>
+    <button class="filter-pill" data-filter="sculpture">Sculpture</button>
+    <button class="filter-pill" data-filter="product">Product</button>
+    <button class="filter-pill" data-filter="marketing">Marketing</button>
+  </div>
+
+  <!-- GALLERY GRID -->
+  <div class="gallery-grid" id="galleryGrid">
+
+    <!-- Carlos Mota — Interiors -->
+    <div class="gallery-item tall" data-category="interiors" data-project="casamota">
+      <img src="assets/images/CASAMOTA/img_p4_1.jpeg" alt="Carlos Mota Interiors" loading="lazy" />
+      <div class="gallery-item-overlay">
+        <div class="gallery-item-title">Carlos Mota — Interiors</div>
+        <div class="gallery-item-cat">Interior Design · 2023</div>
+      </div>
+    </div>
+    <div class="gallery-item" data-category="interiors" data-project="casamota">
+      <img src="assets/images/CASAMOTA/img_p6_1.jpeg" alt="Carlos Mota Detail" loading="lazy" />
+      <div class="gallery-item-overlay">
+        <div class="gallery-item-title">Carlos Mota — Verde Collection</div>
+        <div class="gallery-item-cat">Interior Design · 2023</div>
+      </div>
+    </div>
+    <div class="gallery-item" data-category="interiors" data-project="casamota">
+      <img src="assets/images/CASAMOTA/img_p7_1.jpeg" alt="Carlos Mota Textile" loading="lazy" />
+      <div class="gallery-item-overlay">
+        <div class="gallery-item-title">Carlos Mota — Textiles</div>
+        <div class="gallery-item-cat">Interior Design · 2023</div>
+      </div>
+    </div>
+    <div class="gallery-item" data-category="interiors" data-project="casamota">
+      <img src="assets/images/CASAMOTA/img_p8_1.jpeg" alt="Carlos Mota Space" loading="lazy" />
+      <div class="gallery-item-overlay">
+        <div class="gallery-item-title">Carlos Mota — Spatial Detail</div>
+        <div class="gallery-item-cat">Interior Design · 2023</div>
+      </div>
+    </div>
+
+    <!-- Steel Flower — Sculpture -->
+    <div class="gallery-item wide" data-category="sculpture" data-project="flower">
+      <img src="assets/images/FLOWER/img_p14_1.jpeg" alt="Steel Flower Sculpture" loading="lazy" />
+      <div class="gallery-item-overlay">
+        <div class="gallery-item-title">Steel Flower — Metalwork</div>
+        <div class="gallery-item-cat">Sculpture · 2021</div>
+      </div>
+    </div>
+    <div class="gallery-item" data-category="sculpture" data-project="flower">
+      <img src="assets/images/FLOWER/img_p10_1.jpeg" alt="Steel Flower Detail" loading="lazy" />
+      <div class="gallery-item-overlay">
+        <div class="gallery-item-title">Steel Flower — Petal Detail</div>
+        <div class="gallery-item-cat">Sculpture · 2021</div>
+      </div>
+    </div>
+    <div class="gallery-item" data-category="sculpture" data-project="flower">
+      <img src="assets/images/FLOWER/img_p11_1.jpeg" alt="Steel Flower Process" loading="lazy" />
+      <div class="gallery-item-overlay">
+        <div class="gallery-item-title">Steel Flower — Fabrication</div>
+        <div class="gallery-item-cat">Sculpture · 2021</div>
+      </div>
+    </div>
+    <div class="gallery-item" data-category="sculpture" data-project="flower">
+      <img src="assets/images/FLOWER/img_p12_1.jpeg" alt="Steel Flower Install" loading="lazy" />
+      <div class="gallery-item-overlay">
+        <div class="gallery-item-title">Steel Flower — Installed</div>
+        <div class="gallery-item-cat">Sculpture · 2021</div>
+      </div>
+    </div>
+
+    <!-- Arte Povera — Installation -->
+    <div class="gallery-item tall" data-category="sculpture" data-project="povera">
+      <img src="assets/images/POVERA/img_p15_1.jpeg" alt="Arte Povera Installation" loading="lazy" />
+      <div class="gallery-item-overlay">
+        <div class="gallery-item-title">Arte Povera — Installation</div>
+        <div class="gallery-item-cat">Experimental Design · 2021</div>
+      </div>
+    </div>
+    <div class="gallery-item" data-category="sculpture" data-project="povera">
+      <img src="assets/images/POVERA/img_p22_1.jpeg" alt="Arte Povera Detail" loading="lazy" />
+      <div class="gallery-item-overlay">
+        <div class="gallery-item-title">Arte Povera — Wire Form</div>
+        <div class="gallery-item-cat">Experimental Design · 2021</div>
+      </div>
+    </div>
+    <div class="gallery-item" data-category="sculpture" data-project="povera">
+      <img src="assets/images/POVERA/img_p23_1.jpeg" alt="Arte Povera Material" loading="lazy" />
+      <div class="gallery-item-overlay">
+        <div class="gallery-item-title">Arte Povera — Material Study</div>
+        <div class="gallery-item-cat">Experimental Design · 2021</div>
+      </div>
+    </div>
+
+    <!-- T-Desk — Product -->
+    <div class="gallery-item wide" data-category="product" data-project="desk">
+      <img src="assets/images/TABLE/img_p16_1.jpeg" alt="T-Desk Workstation" loading="lazy" />
+      <div class="gallery-item-overlay">
+        <div class="gallery-item-title">T-Desk — Adaptive Workstation</div>
+        <div class="gallery-item-cat">Product Design · 2022</div>
+      </div>
+    </div>
+    <div class="gallery-item" data-category="product" data-project="desk">
+      <img src="assets/images/TABLE/img_p17_1.jpeg" alt="T-Desk Detail" loading="lazy" />
+      <div class="gallery-item-overlay">
+        <div class="gallery-item-title">T-Desk — Tilt Mechanism</div>
+        <div class="gallery-item-cat">Product Design · 2022</div>
+      </div>
+    </div>
+    <div class="gallery-item" data-category="product" data-project="desk">
+      <img src="assets/images/TABLE/img_p18_1.jpeg" alt="T-Desk Render" loading="lazy" />
+      <div class="gallery-item-overlay">
+        <div class="gallery-item-title">T-Desk — Render</div>
+        <div class="gallery-item-cat">Product Design · 2022</div>
+      </div>
+    </div>
+    <div class="gallery-item" data-category="product" data-project="desk">
+      <img src="assets/images/TABLE/img_p19_1.jpeg" alt="T-Desk Assembly" loading="lazy" />
+      <div class="gallery-item-overlay">
+        <div class="gallery-item-title">T-Desk — Flat-Pack</div>
+        <div class="gallery-item-cat">Product Design · 2022</div>
+      </div>
+    </div>
+
+    <!-- Juicy Chemistry — Marketing -->
+    <div class="gallery-item tall" data-category="marketing" data-project="juicy">
+      <img src="assets/images/VM/img_p20_1.jpeg" alt="Juicy Chemistry VM" loading="lazy" />
+      <div class="gallery-item-overlay">
+        <div class="gallery-item-title">Juicy Chemistry — Brand Activation</div>
+        <div class="gallery-item-cat">Visual Merchandising · 2023</div>
+      </div>
+    </div>
+    <div class="gallery-item" data-category="marketing" data-project="juicy">
+      <img src="assets/images/VM/img_p21_1.jpeg" alt="Juicy Chemistry Display" loading="lazy" />
+      <div class="gallery-item-overlay">
+        <div class="gallery-item-title">Juicy Chemistry — Display</div>
+        <div class="gallery-item-cat">Visual Merchandising · 2023</div>
+      </div>
+    </div>
+    <div class="gallery-item" data-category="marketing" data-project="juicy">
+      <img src="assets/images/VM/img_p104_1.jpeg" alt="Juicy Chemistry Detail" loading="lazy" />
+      <div class="gallery-item-overlay">
+        <div class="gallery-item-title">Juicy Chemistry — Product Sightline</div>
+        <div class="gallery-item-cat">Visual Merchandising · 2023</div>
+      </div>
+    </div>
+    <div class="gallery-item" data-category="marketing" data-project="juicy">
+      <img src="assets/images/VM/img_p105_1.jpeg" alt="Juicy Chemistry Pop-up" loading="lazy" />
+      <div class="gallery-item-overlay">
+        <div class="gallery-item-title">Juicy Chemistry — Pop-up</div>
+        <div class="gallery-item-cat">Visual Merchandising · 2023</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-logo">SK<span>.</span></div>
+    <p class="footer-copy">© 2026 Sai Kanagat. All rights reserved.</p>
+    <div class="footer-socials">
+      <a href="https://linkedin.com/in/sai-kanagat" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:saikanagat1117@gmail.com">Email</a>
+    </div>
+  </footer>
+
+</div><!-- /page -->
+
+<script>
+// Panel system (same as work.html)
+const projects = {
+  casamota: { id:'casamota', num:'01', title:'Carlos Mota — Luxury Interiors', category:'Interior Design / Brand Collaboration', year:'2023', client:'Studio Carlos Mota', role:'Design Collaborator', tags:['Interior Design','Luxury','Textiles'], body:`<p>A collaboration with the studio of Carlos Mota — contributing to research, material selection and spatial arrangement of a luxury residential interior. Work was featured in Architectural Digest.</p>`, highlight:'"Design is how it makes a room feel about itself."', images:['assets/images/CASAMOTA/img_p4_1.jpeg','assets/images/CASAMOTA/img_p6_1.jpeg','assets/images/CASAMOTA/img_p7_1.jpeg','assets/images/CASAMOTA/img_p8_1.jpeg'] },
+  flower: { id:'flower', num:'02', title:'Steel Flower — Sculpture', category:'Industrial Design / Sculpture', year:'2021', client:'Academic / Exhibition', role:'Designer & Fabricator', tags:['Sculpture','Metalwork','Steel'], body:`<p>Large-format sculpture exploring industrial fabrication and organic form. Hand-formed aluminium petals, copper leaves, welded steel stem. Height: 1.4m.</p>`, highlight:'Aluminium, steel, copper. Hand-fabricated. Height: 1.4m.', images:['assets/images/FLOWER/img_p14_1.jpeg','assets/images/FLOWER/img_p10_1.jpeg','assets/images/FLOWER/img_p11_1.jpeg','assets/images/FLOWER/img_p12_1.jpeg'] },
+  povera: { id:'povera', num:'03', title:'Arte Povera — Installation', category:'Experimental Design', year:'2021', client:'Design Exhibition', role:'Designer & Fabricator', tags:['Installation','Arte Povera','Experimental'], body:`<p>Experimental installation works inspired by Arte Povera — using wire, bamboo, foam and plaster to challenge the hierarchy between art and everyday life.</p>`, highlight:'Wire, bamboo, foam, plaster. Dimensions variable.', images:['assets/images/POVERA/img_p15_1.jpeg','assets/images/POVERA/img_p22_1.jpeg','assets/images/POVERA/img_p23_1.jpeg'] },
+  desk: { id:'desk', num:'04', title:'T-Desk — Adaptive Workstation', category:'Product Design / Furniture', year:'2022', client:'Concept / Graduation Project', role:'Product Designer', tags:['Product Design','Furniture','Ergonomics'], body:`<p>Height-adjustable, tilting-top workstation (0°–45°). Flat-pack steel frame reduces shipping by 60%. Designed for hybrid work professionals.</p>`, highlight:'Flat-pack reduces shipping volume 60%. Patent-pending tilt.', images:['assets/images/TABLE/img_p16_1.jpeg','assets/images/TABLE/img_p17_1.jpeg','assets/images/TABLE/img_p18_1.jpeg','assets/images/TABLE/img_p19_1.jpeg'] },
+  juicy: { id:'juicy', num:'05', title:'Juicy Chemistry — Brand Activation', category:'Visual Merchandising / Brand Design', year:'2022–2023', client:'Juicy Chemistry', role:'Visual Merchandiser', tags:['Visual Merch','Brand Activation','Pop-Up'], body:`<p>Pop-up retail activations for India's leading organic cosmetics brand. Sightline hierarchy, cross-merchandising nodes, +35% event-day conversion, +22% basket size.</p>`, highlight:'+35% conversion. +22% basket size. 6+ locations.', images:['assets/images/VM/img_p20_1.jpeg','assets/images/VM/img_p21_1.jpeg','assets/images/VM/img_p104_1.jpeg','assets/images/VM/img_p105_1.jpeg'] }
+};
+const projectOrder = ['casamota','flower','povera','desk','juicy'];
+let currentIndex = 0;
+
+function openPanel(id) {
+  const data = projects[id]; if (!data) return;
+  currentIndex = projectOrder.indexOf(id);
+  renderPanel(data);
+  document.getElementById('projectPanel').classList.add('open');
+  document.getElementById('backdrop').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closePanel() {
+  document.getElementById('projectPanel').classList.remove('open');
+  document.getElementById('backdrop').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function renderPanel(data) {
+  const g = data.images.length ? `<div class="panel-gallery">${data.images.map((s,i)=>`<img src="${s}" alt="${data.title} ${i+1}" loading="lazy"/>`).join('')}</div>` : '';
+  document.getElementById('panelContent').innerHTML = `<div class="panel-label section-label"><span class="num">${data.num}</span> ${data.category}</div><h2 class="panel-title">${data.title}</h2><div class="panel-meta"><div class="panel-meta-item"><label>Year</label><span>${data.year}</span></div><div class="panel-meta-item"><label>Client</label><span>${data.client}</span></div><div class="panel-meta-item"><label>Role</label><span>${data.role}</span></div></div>${g}<div class="panel-body">${data.body}</div><div class="panel-highlight">${data.highlight}</div><div style="margin-top:32px;"><a href="work.html#${data.id}" class="btn btn-primary" style="font-size:0.65rem;">Full Case Study</a></div>`;
+}
+
+document.querySelectorAll('.gallery-item[data-project]').forEach(el => {
+  el.addEventListener('click', () => openPanel(el.dataset.project));
+  el.style.cursor = 'pointer';
+});
+document.getElementById('backdrop').addEventListener('click', closePanel);
+document.getElementById('panelClose').addEventListener('click', closePanel);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
+document.getElementById('prevProject').addEventListener('click', () => {
+  currentIndex = (currentIndex - 1 + projectOrder.length) % projectOrder.length;
+  renderPanel(projects[projectOrder[currentIndex]]);
+  document.getElementById('projectPanel').scrollTop = 0;
+});
+document.getElementById('nextProject').addEventListener('click', () => {
+  currentIndex = (currentIndex + 1) % projectOrder.length;
+  renderPanel(projects[projectOrder[currentIndex]]);
+  document.getElementById('projectPanel').scrollTop = 0;
+});
+
+// Filter
+document.querySelectorAll('.filter-pill').forEach(pill => {
+  pill.addEventListener('click', function() {
+    document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+    this.classList.add('active');
+    const f = this.dataset.filter;
+    document.querySelectorAll('.gallery-item[data-category]').forEach(item => {
+      const show = f === 'all' || item.dataset.category === f;
+      item.setAttribute('data-hidden', show ? 'false' : 'true');
+      item.style.display = show ? '' : 'none';
+    });
+  });
+});
+</script>
+<script src="js/loader.js"></script>
+<script src="js/cursor.js"></script>
+<script src="js/transitions.js"></script>
+<script src="js/animations.js"></script>
+<script src="js/lang.js"></script>
+<script src="js/lightbox.js"></script>
+<script src="js/interactions.js"></script>
+</body>
+</html>

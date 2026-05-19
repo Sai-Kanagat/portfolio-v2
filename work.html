@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Work — Sai Kanagat</title>
+  <meta name="description" content="Selected design and marketing projects by Sai Kanagat." />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/brand-overlay.css" />
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="index.html" class="nav-logo">SK<span>.</span></a>
+  <div class="nav-links" id="navLinks">
+    <a href="work.html" class="active" data-en="Work" data-it="Lavori">Work</a>
+    <a href="process.html" data-en="Process" data-it="Processo">Process</a>
+    <a href="gallery.html" data-en="Gallery" data-it="Galleria">Gallery</a>
+    <a href="blog.html" data-en="Blog" data-it="Blog">Blog</a>
+    <a href="about.html" data-en="About" data-it="Chi Sono">About</a>
+    <a href="demos.html" data-en="Demos" data-it="Demo">Demos</a>
+    <a href="contact.html" data-en="Contact" data-it="Contatti">Contact</a>
+    <a href="https://content-vigilante-vercel.vercel.app" target="_blank" rel="noopener" class="nav-score-btn" data-en="Content Vigilante" data-it="Content Vigilante">Content Vigilante</a>
+  </div>
+  <div class="lang-toggle" aria-label="Language"><button type="button" data-l="en" class="is-active">EN</button><span>/</span><button type="button" data-l="it">IT</button></div>
+  <div class="nav-tag">Available — EU &amp; Remote</div>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- PROJECT DETAIL PANEL -->
+<div class="panel-backdrop" id="backdrop"></div>
+<aside class="project-panel" id="projectPanel" role="dialog" aria-modal="true" aria-label="Project details">
+  <div class="panel-close">
+    <button class="panel-close-btn" id="panelClose">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M1 1l12 12M13 1L1 13"/>
+      </svg>
+      Close
+    </button>
+    <div id="panelNav" style="display:flex; gap:8px;">
+      <button class="btn btn-outline" id="prevProject" style="padding: 8px 14px; font-size: 0.6rem;">← Prev</button>
+      <button class="btn btn-outline" id="nextProject" style="padding: 8px 14px; font-size: 0.6rem;">Next →</button>
+    </div>
+  </div>
+  <div class="panel-content" id="panelContent"></div>
+</aside>
+
+<div class="page">
+
+  <!-- WORK PAGE HEADER -->
+  <header class="work-page-header">
+    <h1><span class="outline">WO</span>RK</h1>
+    <div class="work-page-sub">
+      <p>Selected projects across industrial design, product development, systems design, visual merchandising and sustainability. Click any project to explore.</p>
+      <div class="filter-pills">
+        <button class="filter-pill active" data-filter="all">All</button>
+        <button class="filter-pill" data-filter="design">Design</button>
+        <button class="filter-pill" data-filter="marketing">Marketing</button>
+        <button class="filter-pill" data-filter="systems">Systems</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- WORK GRID -->
+  <div class="work-full-grid">
+    <div class="full-grid" id="workGrid">
+
+      <div class="work-card feature reveal" data-category="systems" data-project="inkwell" id="inkwell">
+        <div style="width:100%;height:100%;background:linear-gradient(135deg,#f0eee9 0%,#e8e4dc 100%); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;">
+          <div style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:160px; height:160px; background:oklch(0.16 0.012 260); border-radius:50%; opacity:0.92;"></div>
+          <div style="position:relative; z-index:2; font-family:'Newsreader', Georgia, serif; font-style:italic; font-weight:500; color:#f0eee9; font-size:clamp(36px, 5vw, 64px); letter-spacing:-0.02em; line-height:1;">inkwell<span style="color:oklch(0.42 0.21 265)">.</span></div>
+        </div>
+        <div class="work-card-overlay">
+          <div class="work-card-number">— Notion × Claude · Agent</div>
+          <div class="work-card-title">Inkwell — Notion Workspace Agent</div>
+          <div class="work-card-tags">
+            <span class="tag marketing">AI Agent</span>
+            <span class="tag design">Notion</span>
+            <span class="tag collab">Claude API</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-card feature reveal" data-category="marketing" data-project="vigilante" id="vigilante">
+        <img class="card-img" src="assets/images/VIGILANTE/01-hero.png" alt="Content Vigilante — Marketing OS" loading="lazy" />
+        <div class="work-card-overlay">
+          <div class="work-card-number">01 — Marketing OS · Live</div>
+          <div class="work-card-title">Content Vigilante — Local-First Marketing OS</div>
+          <div class="work-card-tags">
+            <span class="tag marketing">Product</span>
+            <span class="tag marketing">AI / LLM</span>
+            <span class="tag design">Open Source</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-card feature reveal" data-category="design" data-project="casamota" id="casamota">
+        <img class="card-img" src="assets/images/CASAMOTA/img_p4_1.jpeg" alt="Carlos Mota Verde Collection" loading="lazy" />
+        <div class="work-card-overlay">
+          <div class="work-card-number">01 — Design Collaboration</div>
+          <div class="work-card-title">Carlos Mota — Verde Collection</div>
+          <div class="work-card-tags">
+            <span class="tag design">Furniture</span>
+            <span class="tag collab">AD Photoshoot</span>
+            <span class="tag collab">Luxury</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-card feature reveal reveal-delay-1" data-category="marketing" data-project="juicy" id="juicy">
+        <img class="card-img" src="assets/images/VM/img_p21_1.jpeg" alt="Juicy Chemistry Visual Merchandising" loading="lazy" />
+        <div class="work-card-overlay">
+          <div class="work-card-number">02 — Visual Merchandising</div>
+          <div class="work-card-title">Juicy Chemistry — Brand Activation</div>
+          <div class="work-card-tags">
+            <span class="tag marketing">Visual Merch</span>
+            <span class="tag marketing">Brand</span>
+            <span class="tag design">Spatial Design</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-card feature reveal reveal-delay-2" data-category="design" data-project="arabella" id="arabella">
+        <img class="card-img" src="assets/images/ARABELLA/hero.jpg" alt="ARABellA Bamboo Furniture" loading="lazy" />
+        <div class="work-card-overlay">
+          <div class="work-card-number">03 — Graduation Thesis</div>
+          <div class="work-card-title">ARABellA — Bamboo Furniture Collection</div>
+          <div class="work-card-tags">
+            <span class="tag design">Product Design</span>
+            <span class="tag design">Sustainability</span>
+            <span class="tag collab">Auroville</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-card feature reveal" data-category="marketing" data-project="backpack" id="backpack">
+        <img class="card-img" src="assets/images/BACKPACK/01-hero.png" alt="Backpack & Bottle — campaign landing page" loading="lazy" />
+        <div class="work-card-overlay">
+          <div class="work-card-number">04 — Campaign · Live</div>
+          <div class="work-card-title">Backpack &amp; Bottle — Travel Campaign Site</div>
+          <div class="work-card-tags">
+            <span class="tag marketing">Campaign</span>
+            <span class="tag marketing">GTM / GA4</span>
+            <span class="tag design">Next.js</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-card feature reveal" data-category="systems" data-project="agora" id="agora">
+        <div style="width:100%;height:100%;background:radial-gradient(circle at 30% 30%, #1a1a0a 0%, #0a0a0a 70%); display:flex; align-items:center; justify-content:center; flex-direction: column; gap: 12px; position:relative; overflow:hidden;">
+          <div style="position:absolute; inset:0; background-image: radial-gradient(circle at 22% 35%, #ccff00 0%, transparent 4%), radial-gradient(circle at 65% 55%, #ff5a3c 0%, transparent 3%), radial-gradient(circle at 45% 70%, #3cb4ff 0%, transparent 3%), radial-gradient(circle at 75% 25%, #f5f0e8 0%, transparent 2.5%), radial-gradient(circle at 35% 50%, #ccff00 0%, transparent 2%), radial-gradient(circle at 80% 75%, #3cb4ff 0%, transparent 3%); opacity: 0.85;"></div>
+          <div style="font-family: var(--font-display); font-weight: 900; font-size: clamp(26px, 3.8vw, 46px); letter-spacing: -0.04em; color: var(--yellow); text-align: center; line-height: 1; padding: 24px; z-index: 2; position: relative;">AGORA<br><span style="font-size: 0.42em; letter-spacing: 0.15em; color: transparent; -webkit-text-stroke: 1px var(--white);">OPINION SANDBOX</span></div>
+        </div>
+        <div class="work-card-overlay">
+          <div class="work-card-number">04 — Creative Code · Live</div>
+          <div class="work-card-title">Agora — Multi-Agent Opinion Sandbox</div>
+          <div class="work-card-tags">
+            <span class="tag design">Live Demo</span>
+            <span class="tag design">Simulation</span>
+            <span class="tag collab">Canvas</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-card reveal reveal-delay-1" data-category="systems" data-project="handcursor" id="handcursor-card">
+        <div style="width:100%;height:100%;background:linear-gradient(135deg,#0a0a0a 0%,#0a1c1a 100%); display:flex; align-items:center; justify-content:center; flex-direction: column; gap: 12px;">
+          <div style="font-family: var(--font-display); font-weight: 900; font-size: clamp(26px, 3.8vw, 46px); letter-spacing: -0.04em; color: var(--yellow); text-align: center; line-height: 1; padding: 24px;">HAND CURSOR<br><span style="font-size: 0.42em; letter-spacing: 0.15em; color: transparent; -webkit-text-stroke: 1px var(--white);">GESTURE × CODE</span></div>
+        </div>
+        <div class="work-card-overlay">
+          <div class="work-card-number">05 — Creative Code · Live</div>
+          <div class="work-card-title">Hand-Tracked Mouse Cursor</div>
+          <div class="work-card-tags">
+            <span class="tag design">Live Demo</span>
+            <span class="tag collab">Computer Vision</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-card reveal reveal-delay-2" data-category="systems" data-project="dropballs" id="dropballs-card">
+        <div style="width:100%;height:100%;background:linear-gradient(135deg,#0a0a0a 0%,#1a1a0a 100%); display:flex; align-items:center; justify-content:center; flex-direction: column; gap: 12px;">
+          <div style="font-family: var(--font-display); font-weight: 900; font-size: clamp(26px, 3.8vw, 46px); letter-spacing: -0.04em; color: var(--yellow); text-align: center; line-height: 1; padding: 24px;">COLOUR PHYSICS<br><span style="font-size: 0.42em; letter-spacing: 0.15em; color: transparent; -webkit-text-stroke: 1px var(--white);">WEBCAM GREENSCREEN</span></div>
+        </div>
+        <div class="work-card-overlay">
+          <div class="work-card-number">06 — Creative Code · Live</div>
+          <div class="work-card-title">Colour Physics — Webcam Toy</div>
+          <div class="work-card-tags">
+            <span class="tag design">Live Demo</span>
+            <span class="tag collab">Computer Vision</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-card reveal" data-category="design" data-project="desk" id="desk">
+        <img class="card-img" src="assets/images/TABLE/img_p16_1.jpeg" alt="Adjustable Classroom Table" loading="lazy" />
+        <div class="work-card-overlay">
+          <div class="work-card-number">04 — Product Design</div>
+          <div class="work-card-title">Height-Adjustable Classroom Table</div>
+          <div class="work-card-tags">
+            <span class="tag design">Product Design</span>
+            <span class="tag design">Furniture</span>
+            <span class="tag design">Ergonomics</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-card reveal reveal-delay-1" data-category="design" data-project="cigarette" id="cigarette">
+        <div style="width:100%;height:100%;background:linear-gradient(135deg,#111 0%,#1a1a0a 100%); display:flex; align-items:center; justify-content:center; flex-direction: column; gap: 12px;">
+          <div style="font-family: var(--font-display); font-weight: 900; font-size: clamp(26px, 3.8vw, 46px); letter-spacing: -0.04em; color: var(--yellow); text-align: center; line-height: 1; padding: 24px;">BUDDY<br><span style="font-size: 0.42em; letter-spacing: 0.15em; color: transparent; -webkit-text-stroke: 1px var(--white);">SUSTAINABLE CIGARETTE</span></div>
+        </div>
+        <div class="work-card-overlay">
+          <div class="work-card-number">05 — Sustainability</div>
+          <div class="work-card-title">Buddy — Sustainable Cigarette Redesign</div>
+          <div class="work-card-tags">
+            <span class="tag design">Sustainability</span>
+            <span class="tag design">Product + System</span>
+            <span class="tag collab">ITC Pitch</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-card reveal reveal-delay-2" data-category="systems" data-project="vijay" id="vijay">
+        <div style="width:100%;height:100%;background:linear-gradient(135deg,#0d0d0d 0%,#1f1a0a 100%); display:flex; align-items:center; justify-content:center; flex-direction: column; gap: 12px;">
+          <div style="font-family: var(--font-display); font-weight: 900; font-size: clamp(26px, 3.8vw, 46px); letter-spacing: -0.04em; color: var(--yellow); text-align: center; line-height: 1; padding: 24px;">VIJAY CNG<br><span style="font-size: 0.42em; letter-spacing: 0.15em; color: transparent; -webkit-text-stroke: 1px var(--white);">SYSTEMS DESIGN</span></div>
+        </div>
+        <div class="work-card-overlay">
+          <div class="work-card-number">06 — Systems Design</div>
+          <div class="work-card-title">Vijay CNG — Operations Redesign</div>
+          <div class="work-card-tags">
+            <span class="tag design">Systems</span>
+            <span class="tag marketing">Process Design</span>
+            <span class="tag collab">Client Work</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-card reveal" data-category="design" data-project="flower" id="flower">
+        <img class="card-img" src="assets/images/FLOWER/img_p14_1.jpeg" alt="Steel Flower Sculpture" loading="lazy" />
+        <div class="work-card-overlay">
+          <div class="work-card-number">07 — Metalwork</div>
+          <div class="work-card-title">Metal Exploration — Steel Flower</div>
+          <div class="work-card-tags">
+            <span class="tag design">Sculpture</span>
+            <span class="tag design">Fabrication</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-card reveal reveal-delay-1" data-category="design" data-project="povera" id="povera">
+        <img class="card-img" src="assets/images/POVERA/img_p15_1.jpeg" alt="Arte Povera Installation" loading="lazy" />
+        <div class="work-card-overlay">
+          <div class="work-card-number">08 — Installation</div>
+          <div class="work-card-title">Arte Povera — Installation</div>
+          <div class="work-card-tags">
+            <span class="tag design">Experimental</span>
+            <span class="tag collab">Art Installation</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-card reveal reveal-delay-2" data-category="marketing" data-project="razer" id="razer">
+        <div style="width:100%;height:100%;background:linear-gradient(135deg,#0a0a0a 0%,#1c0a0a 60%,#2a0a0a 100%); display:flex; align-items:center; justify-content:center; flex-direction: column; gap: 12px;">
+          <div style="font-family: var(--font-display); font-weight: 900; font-size: clamp(26px, 3.8vw, 46px); letter-spacing: -0.04em; color: var(--yellow); text-align: center; line-height: 1; padding: 24px;">RAZER × 100T<br><span style="font-size: 0.42em; letter-spacing: 0.15em; color: transparent; -webkit-text-stroke: 1px var(--white);">PRODUCT GRAPHICS</span></div>
+        </div>
+        <div class="work-card-overlay">
+          <div class="work-card-number">09 — Product Graphics</div>
+          <div class="work-card-title">Razer × 100 Thieves — Peripherals &amp; Apparel</div>
+          <div class="work-card-tags">
+            <span class="tag marketing">Product Graphics</span>
+            <span class="tag design">Apparel</span>
+            <span class="tag collab">Brand Collab</span>
+          </div>
+        </div>
+      </div>
+
+      <a href="brand-identity.html" class="work-card reveal" data-category="design" data-project="brand" id="brand" style="text-decoration:none;color:inherit;">
+        <img class="card-img" src="assets/images/BRAND/01-cover.jpg" alt="Sai Kanagat — personal brand identity" loading="lazy" />
+        <div class="work-card-overlay">
+          <div class="work-card-number">— Brand Identity · 2026</div>
+          <div class="work-card-title">sai kanagat<span style="color:oklch(0.42 0.21 265)">.</span> — personal identity system</div>
+          <div class="work-card-tags">
+            <span class="tag design">Identity</span>
+            <span class="tag design">Design System</span>
+            <span class="tag marketing">Brand</span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-logo">SK<span>.</span></div>
+    <p class="footer-copy">© 2026 Sai Kanagat. All rights reserved.</p>
+    <div class="footer-socials">
+      <a href="https://linkedin.com/in/sai-kanagat" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:saikanagat1117@gmail.com">Email</a>
+    </div>
+  </footer>
+
+</div><!-- /page -->
+
+<script>
+const projects = {
+  inkwell: {
+    id: 'inkwell', num: '01',
+    title: 'Inkwell — Notion Workspace Agent',
+    category: 'AI Agent · Notion × Claude · Personal Project',
+    year: '2026', client: 'Personal · Built with Claude Code', role: 'Designer & Builder',
+    tags: ['AI Agent', 'Notion API', 'Claude API', 'Workflow Automation'],
+    body: `<p><strong>Inkwell</strong> is an AI agent that joins your Notion workspace as a regular member. Drop a task onto any page or database, and Inkwell picks it up automatically — researching, drafting, summarising, formatting — then publishes the completed output back into a designated section of the same page. No copy-paste, no context-switching, no separate tool. The work happens where the work already lives.</p>
+<p>The thesis is simple: most AI tools today ask you to leave your workspace. Inkwell goes the other direction. Your Notion stays the centre of gravity; the agent comes to you.</p>
+<h3 style="margin-top:24px;font-family:'Newsreader', Georgia, serif; font-weight:500; font-style:italic; font-size:1.1rem; letter-spacing:-0.01em;">How it works</h3>
+<p>Inkwell watches a workspace via the Notion API. When a task is created (a new page, a checkbox added, a tag applied) it parses the brief, routes the work through Claude with the right context and tools, then writes the result back into a clearly-marked "completed by inkwell" block on the same page. Long jobs leave a trace — what was tried, what worked, what failed — so the human stays in the loop.</p>
+<h3 style="margin-top:24px;font-family:'Newsreader', Georgia, serif; font-weight:500; font-style:italic; font-size:1.1rem; letter-spacing:-0.01em;">Why I built it</h3>
+<p>Marketing teams live in Notion. The shift from "AI tool sitting in a separate tab" to "AI teammate inside the workspace" felt like the right next step. Inkwell is the smallest version of that idea I could actually ship.</p>
+<p><em>Personal / passion project. Built with Claude Code in another session. More screenshots and live access on request.</em></p>`,
+    highlight: 'A Claude-powered agent that joins your Notion workspace as a member. Tasks get picked up automatically and finished back on the same page.',
+    images: []
+  },
+  brand: {
+    id: 'brand', num: '—',
+    title: 'sai kanagat. — personal identity system',
+    category: 'Brand Identity · Design System · Self-Initiated',
+    year: '2026', client: 'Personal', role: 'Designer & System Author',
+    tags: ['Identity', 'Design System', 'Type', 'Color', 'Voice'],
+    body: `<p>The brand system I now use for everything I ship — this portfolio, my CV, the slides I present from, the invoices I send. A complete and quiet visual language anchored by one accent (ultramarine), one disc mark, and a typographic trio that does most of the talking.</p>
+<p>The principle stack is four words: <em>quiet, confident, warm, precise.</em> Whitespace earns its keep. When something matters, the system commits — size, colour, position — without timid half-measures. Off-whites instead of paper, near-blacks instead of black, lowercase wherever it disarms.</p>
+<p>The full case study, tokens, type pairings, logo construction, and template library are linked below.</p>`,
+    highlight: 'Personal brand identity v1.0 — paper, ink, ultramarine. Bricolage Grotesque + Newsreader + IBM Plex Mono. The full system applied across this site.',
+    cta: { href: 'brand-identity.html', label: 'Open the brand identity case study →' },
+    images: ['assets/images/BRAND/01-cover.jpg','assets/images/BRAND/02-system.jpg','assets/images/BRAND/03-detail.jpg','assets/images/BRAND/04-frames.jpg','assets/images/BRAND/05-layout.jpg','assets/images/BRAND/06-cview.jpg','assets/images/BRAND/07-fitall.jpg']
+  },
+  vigilante: {
+    id: 'vigilante', num: '01',
+    title: 'Content Vigilante — Local-First Marketing OS',
+    category: 'Product · Marketing Engineering · Open Source',
+    year: '2026', client: 'Independent / Open Source', role: 'Founder · Product Lead · Marketing Engineer',
+    tags: ['Product Design', 'AI / LLM', 'Brand Voice', 'Marketing Ops', 'Open Source', 'Next.js'],
+    body: `<p><strong>Content Vigilante</strong> is a local-first, open-source marketing operating system I built and shipped to v1.2 in the open. Brand-voice auditor, multi-platform content composer, scheduling calendar, hybrid CRM and analytics — all in one workspace, with the principle that your brand data should never leave a server you don't control.</p>
+<p>The thesis: every marketing team has a brand guide nobody reads. Tone drifts across writers, agencies and freelancers. By the time the CMO notices, fifty pieces of off-brand content are already live. Most AI tools today <em>generate</em> content. None of them <em>check</em> it. None of them schedule it, publish it, and keep the brand intact across channels. Content Vigilante is the layer in between.</p>
+<h3 style="margin-top:24px;font-family:var(--font-display);font-weight:900;font-size:1.1rem;letter-spacing:-0.01em;">What's in the box</h3>
+<ul style="margin: 12px 0 18px 18px; padding: 0; line-height: 1.7;">
+  <li><strong>Brand Guardrails</strong> — three judges (tone, vocabulary, structure) running in parallel against your brand book. Drop in a PDF guide, get a structured rule set wired straight into the audit pipeline.</li>
+  <li><strong>Studio</strong> — multi-platform composer for LinkedIn, IG, X, Facebook, Newsletter. Inline brand-score updates as you type. One-click publish via real OAuth integrations.</li>
+  <li><strong>Calendar</strong> — drag-and-drop scheduling grid across all channels. The "publish-due" action runs the queue through real platform APIs.</li>
+  <li><strong>Pipeline</strong> — hybrid CRM. Content kanban next to a sales kanban, because for most marketing teams those two pipelines are the same job.</li>
+  <li><strong>Analytics</strong> — KPI cards, correlation engine, best-time heatmap. Live GA4 when configured.</li>
+</ul>
+<h3 style="margin-top:24px;font-family:var(--font-display);font-weight:900;font-size:1.1rem;letter-spacing:-0.01em;">Why local-first</h3>
+<p>BYO LLM (Anthropic, OpenAI, or local Ollama). API keys never leave your browser session. Cross-device sync via Vercel KV with an in-memory fallback for dev. The whole system is portable — clone, install, run. No subscription, no vendor lock-in, full data sovereignty by default.</p>
+<h3 style="margin-top:24px;font-family:var(--font-display);font-weight:900;font-size:1.1rem;letter-spacing:-0.01em;">Stack</h3>
+<p>Next.js 14 (App Router) · TypeScript · Bun runtime · Tailwind CSS · Biome for lint/format · Vercel KV for sync · CI on GitHub Actions. MIT-licensed. Multilingual EN + IT in v0.1, FR + DE queued.</p>
+<p><em>Open source on GitHub. Live deployment at content-vigilante-vercel.vercel.app.</em></p>`,
+    highlight: 'Local-first, open-source marketing OS. Brand-voice auditor + multi-platform composer + scheduler + CRM + analytics. v1.2 shipped. MIT licensed.',
+    cta: { href: 'https://content-vigilante-vercel.vercel.app', label: 'Open the live app →' },
+    images: ['assets/images/VIGILANTE/01-hero.png','assets/images/VIGILANTE/04-live.png','assets/images/VIGILANTE/02-github-repo.png','assets/images/VIGILANTE/03-github-readme.png']
+  },
+  backpack: {
+    id: 'backpack', num: '04',
+    title: 'Backpack & Bottle — Travel Campaign Site',
+    category: 'Digital Marketing / Campaign Build / Tracking Architecture',
+    year: '2026', client: 'Bologna Business School — Digital Platforms Laboratory', role: 'Campaign Designer & Marketing Engineer',
+    tags: ['Campaign', 'Next.js', 'GTM / GA4', 'Meta Pixel', 'GDPR Consent Mode v2', 'Lead Gen'],
+    body: `<p>A full-stack travel-coupon campaign built end-to-end as the capstone for Bologna Business School's Digital Platforms Laboratory. <strong>Backpack &amp; Bottle</strong> is an Italian-first landing page and blog offering a €50 travel-pack coupon (BB50) to backpackers heading to Rome, Barcelona, Lisbon, Prague or Amsterdam. The remit was to ship a complete real-world campaign — site, content, lead capture, tracking infrastructure, GDPR compliance, and analytics deck — in the time other teams used to write theory.</p>
+<p><strong>Stack:</strong> Next.js 14 (App Router) + TypeScript + Tailwind CSS, deployed on Vercel. Email via Brevo. Tracking through Google Tag Manager firing into GA4, Meta Pixel and Google Ads with full Consent Mode v2 logic.</p>
+<h3 style="margin-top:24px;font-family:var(--font-display);font-weight:900;font-size:1.1rem;letter-spacing:-0.01em;">What's measurable</h3>
+<p>Every interesting interaction emits a clean dataLayer event: <code>cta_click</code>, <code>destination_card_click</code>, <code>form_start</code>, <code>form_submit</code>, <code>coupon_download</code>, <code>thank_you_view</code>, <code>scroll_75</code>, <code>consent_update</code>. Each event maps to a corresponding GA4 conversion, a Meta Pixel Lead event, and a Google Ads conversion (€50 value). Consent Mode v2 is wired in from the first paint — analytics defaults to denied until the user clicks accept, then the dataLayer pushes <code>consent_update</code> and downstream tags activate.</p>
+<h3 style="margin-top:24px;font-family:var(--font-display);font-weight:900;font-size:1.1rem;letter-spacing:-0.01em;">What it taught me</h3>
+<p>This was the first project where I owned the marketing-engineering joint end-to-end. Designers ship pages. Marketers ship campaigns. Marketing engineers ship the connective tissue between the two — the dataLayer, the consent logic, the conversion mapping, the audience hooks back into ad platforms. The hardest hour wasn't the visuals or the copy, it was getting Consent Mode v2 to behave correctly across cookie-banner choices, scroll events, and tag firing order. That's the layer that turns a pretty landing page into a measurable acquisition system.</p>
+<p>The other lesson was Italian-first design. The page defaults to Italian, with an EN toggle that doesn't apologise for the choice. For a campaign aimed at Italian backpackers booking trips out of Bologna, that detail mattered more than any hero animation could.</p>
+<p><em>Site live at backpack-bottle.vercel.app · Repo, dashboards and conversion data available on request.</em></p>`,
+    highlight: 'Italian-first travel-coupon campaign · Next.js + Vercel · GTM → GA4, Meta Pixel, Google Ads with full Consent Mode v2 · 8 dataLayer events · Bologna Business School Digital Platforms Lab.',
+    cta: { href: 'https://backpack-bottle.vercel.app', label: 'Visit the live site →' },
+    images: ['assets/images/BACKPACK/01-hero.png','assets/images/BACKPACK/02-home.png','assets/images/BACKPACK/03-destinations.png','assets/images/BACKPACK/04-dest-rome.png','assets/images/BACKPACK/05-dest-barcelona.png','assets/images/BACKPACK/06-grazie.png','assets/images/BACKPACK/07-blog.png','assets/images/BACKPACK/08-measurement.png','assets/images/BACKPACK/09-gtm.png','assets/images/BACKPACK/10-ga4.png','assets/images/BACKPACK/11-dashboard.png','assets/images/BACKPACK/12-mobile.png','assets/images/BACKPACK/13-stack.png','assets/images/BACKPACK/14-privacy.png']
+  },
+  agora: {
+    id: 'agora', num: '04',
+    title: 'Agora — Multi-Agent Opinion Sandbox',
+    category: 'Creative Code / Simulation Toy',
+    year: '2026', client: 'Personal · Built with Claude Code', role: 'Designer & Builder',
+    tags: ['Creative Code', 'Simulation', 'Multi-Agent', 'Canvas', 'Live Demo'],
+    body: `<p><strong>Agora</strong> is a small browser-based sandbox for watching opinions spread through a crowd. Several hundred agents drift across the canvas, each carrying one of four "opinions". When they bump into neighbours, they sometimes adopt the local majority — sometimes resist it. Click anywhere to inject a seed of the active opinion and watch how it propagates, fights for ground, holds its territory or dies out.</p>
+<p>The point of the toy is the <em>shape</em> of how influence moves. Same starting conditions, different runs — minority opinions cluster into stubborn pockets, dominant colours sweep then collapse, a single shock event ("Shock" button) can destabilise a whole equilibrium. It's a visual argument for why mass-opinion forecasting from snapshots is so often wrong.</p>
+<p>Built as a pure-canvas piece — no frameworks, no backend. Roughly 200 lines of JavaScript: spatial-hash grid for fast neighbour lookups, simple opinion-dynamics rule (probabilistic majority adoption with memory weighting), light flocking toward same-opinion centroids for visual texture, ambient noise for "outside influence." Tunable in seconds.</p>
+<p>The aesthetic is deliberate: black background, four-colour palette, hairline links between like-minded neighbours so clusters draw themselves. It's meant to feel like watching a city think.</p>`,
+    highlight: 'Type any scenario · synthetic crowd reacts · prediction report. The browser version is the lite build — the full version uses LLM-driven agents with persistent memory and post-simulation chat.',
+    cta: { href: 'demos/agora.html', label: 'Try the lite demo →' },
+    images: []
+  },
+  casamota: {
+    id: 'casamota', num: '01',
+    title: 'Carlos Mota — Verde Collection',
+    category: 'Design Collaboration / Furniture & Set Design',
+    year: '2022', client: 'Carlos Mota (New York)', role: 'Furniture Designer & Collaborator',
+    tags: ['Furniture Design', 'Set Design', 'AD Photoshoot', 'Luxury', 'CMF'],
+    body: `<p>A commissioned collaboration with Carlos Mota — the New York-based interior designer and stylist known for his maximalist, culture-rich aesthetic — for the launch of <em>Verde</em>, his debut textile line accompanying his book <em>G: Forever Green</em>.</p>
+<p>Carlos designed the textiles. I designed and fabricated the furniture that accompanied them — paired objects that gave his botanical prints a three-dimensional home. The pieces were built to be photographed for <em>Architectural Digest</em>, shot across multiple locations in Mumbai with overlapping timelines, different spatial constraints and distinct ambient palettes at each venue.</p>
+<p>My role spanned CMF decisions (colour, material, finish), prototyping, and on-set styling adjustments. Every surface had to do two jobs simultaneously — carry Carlos's textile story, and function convincingly as a piece of furniture in the frame.</p>
+<p>It was my first exposure to working at the intersection of product, set and brand communication — and the reason I started thinking about design as a campaign language, not just an object language.</p>`,
+    highlight: 'Furniture commissioned for Carlos Mota\'s debut textile line · Shot by Architectural Digest · Launched alongside the book G: Forever Green.',
+    images: ['assets/images/CASAMOTA/img_p4_1.jpeg','assets/images/CASAMOTA/img_p5_1.jpeg','assets/images/CASAMOTA/img_p6_1.jpeg','assets/images/CASAMOTA/img_p6_2.jpeg','assets/images/CASAMOTA/img_p6_3.jpeg','assets/images/CASAMOTA/img_p6_4.jpeg','assets/images/CASAMOTA/img_p7_1.jpeg','assets/images/CASAMOTA/img_p7_2.jpeg','assets/images/CASAMOTA/img_p7_3.jpeg','assets/images/CASAMOTA/img_p7_4.jpeg','assets/images/CASAMOTA/img_p8_1.jpeg','assets/images/CASAMOTA/img_p8_2.jpeg','assets/images/CASAMOTA/img_p8_3.jpeg','assets/images/CASAMOTA/img_p8_4.jpeg','assets/images/CASAMOTA/img_p9_1.jpeg','assets/images/CASAMOTA/img_p3_1.png','assets/images/CASAMOTA/img_p3_2.png','assets/images/CASAMOTA/img_p3_3.png']
+  },
+  juicy: {
+    id: 'juicy', num: '02',
+    title: 'Juicy Chemistry — Brand Activation',
+    category: 'Visual Merchandising / Brand Design',
+    year: '2022–2023', client: 'Juicy Chemistry (Certified Organic Cosmetics)', role: 'Visual Merchandiser & Brand Designer',
+    tags: ['Visual Merchandising', 'Brand Activation', 'Pop-Up Design', 'Organic Beauty'],
+    body: `<p>Juicy Chemistry is one of India's leading certified organic cosmetics brands — a company whose products are as carefully considered as their ingredients. The brief was to translate that consideration into physical retail space: pop-up activations that communicated brand values without a single word of copy needing to do the work.</p>
+<p>The design language started with the products themselves. Kraft paper, amber glass, botanical illustrations — these were the visual vocabulary. The VM builds extended that vocabulary into three dimensions: raw wood surfaces, terracotta vessels, dried botanicals, warm Edison bulbs, hand-lettered signage.</p>
+<p>Sightline hierarchy was critical. Products were arranged at eye level for the target demographic. Cross-merchandising nodes were designed to increase Average Order Value — placing complementary products within natural reach of each anchor product.</p>
+<p>The result: a consistent brand world across multiple pop-up locations, translating the label's rustic-grounded identity into a retail experience that carried the same weight as the bottles on the shelf.</p>`,
+    highlight: 'Pop-up activations translating certified-organic brand values into physical retail. Consistent VM language across multiple locations.',
+    images: ['assets/images/VM/img_p20_1.jpeg','assets/images/VM/img_p21_1.jpeg','assets/images/VM/img_p104_1.jpeg','assets/images/VM/img_p105_1.jpeg']
+  },
+  arabella: {
+    id: 'arabella', num: '03',
+    title: 'ARABellA — Bamboo Furniture Collection',
+    category: 'Graduation Thesis / Sustainable Product Design',
+    year: '2023', client: 'DJ Academy of Design × Auroville Bamboo Centre', role: 'Designer & Fabricator',
+    tags: ['Product Design', 'Furniture', 'Sustainability', 'Bamboo', 'Graduation Thesis'],
+    body: `<p>My B.Des graduation thesis — a three-piece lounge furniture collection (chair, long sofa, coffee table) built for the Indian middle class, entirely in solid bamboo. Designed and fabricated at the Auroville Bamboo Centre, a research institute built around the use of bamboo as a replacement for timber.</p>
+<p>The brief was honest: design affordable, durable, stylish furniture that is genuinely lightweight, genuinely sustainable, and genuinely desirable — not a concession to environmental guilt. The collection had to work indoors or out, maintain easily, and price competitively against mass-produced wood and metal alternatives.</p>
+<p>The species selected was <em>Dendrocalamus stocksii</em> — a solid-culm bamboo native to the Western Ghats with a crushing strength above 300 MPa, ideal for load-bearing joinery. The research phase covered market study, user surveys across middle-class households, ergonomic evaluation against BIFMA norms, and a comparative analysis of traditional bamboo joinery techniques (mortise-and-tenon, bamboo pegs, lashing).</p>
+<p>Manufacturing was fully handcrafted: culms were harvested, seasoned, boric-acid treated, cured, then assembled using reinforced bamboo joinery — no nails, no screws where avoidable. The final collection was photographed in a studio shoot and costed against comparable market offerings.</p>
+<p>The project taught me that sustainable design only works when it competes on the same axes as the thing it replaces — beauty, price, durability, ergonomics. Guilt is not a market.</p>`,
+    highlight: 'Handcrafted in Auroville · Dendrocalamus stocksii solid bamboo · Chair, sofa &amp; coffee table priced for the Indian middle class.',
+    images: ['assets/images/ARABELLA/hero.jpg','assets/images/ARABELLA/chair.jpg','assets/images/ARABELLA/sofa.jpg','assets/images/ARABELLA/table.jpg','assets/images/ARABELLA/chair-a.jpg','assets/images/ARABELLA/chair-b.jpg','assets/images/ARABELLA/chair-c.jpg','assets/images/ARABELLA/chair-d.jpg','assets/images/ARABELLA/studio1.jpg','assets/images/ARABELLA/studio2.jpg','assets/images/ARABELLA/studio3.jpg','assets/images/ARABELLA/studio4.jpg','assets/images/ARABELLA/studio5.jpg','assets/images/ARABELLA/studio6.jpg','assets/images/ARABELLA/studio7.jpg','assets/images/ARABELLA/studio8.jpg']
+  },
+  desk: {
+    id: 'desk', num: '04',
+    title: 'Height-Adjustable Classroom Table',
+    category: 'Product Design / Furniture for Education',
+    year: '2022', client: 'Academic / Product Brief', role: 'Product Designer',
+    tags: ['Product Design', 'Furniture', 'Ergonomics', 'Pneumatic', 'Education'],
+    body: `<p>A height-adjustable classroom table designed for children aged 7–16 — a demographic whose ergonomic needs change rapidly with growth, but whose classroom furniture almost never does.</p>
+<p>The design problem was threefold: how to make height adjustment intuitive enough for a child to use without supervision; how to make it safe enough that nothing could pinch, trip or electrocute; and how to make the aesthetic feel friendly rather than industrial.</p>
+<p>The solution is a <strong>pneumatic lift system</strong> — no plugs, no exposed cables, no dependency on classroom infrastructure. The pneumatic cylinder supports the tabletop and allows for smooth height adjustment with a single simple control, intuitive as adjusting a car seat. All mechanisms are concealed within the central column.</p>
+<p>Ergonomic specifications were developed against BIFMA norms and validated through a seat-height evaluation with twenty participants: seat height 15", seat depth 22", backrest 28" for the complementary chair — sized for the target age range without excluding either end.</p>
+<p>The product prioritises round edges, resistance to dust and children's aggressions, and a 5–10 year service life with user-serviceable adjustment mechanics. Designed to be attractive, classroom-appropriate, and easy to group for collaborative work.</p>`,
+    highlight: 'Pneumatic adjustable table for ages 7–16. No cables, no plugs, BIFMA-compliant ergonomics, 5–10 year service life.',
+    images: ['assets/images/TABLE/img_p16_1.jpeg','assets/images/TABLE/img_p17_1.jpeg','assets/images/TABLE/img_p18_1.jpeg','assets/images/TABLE/img_p19_1.jpeg']
+  },
+  cigarette: {
+    id: 'cigarette', num: '05',
+    title: 'Buddy — Sustainable Cigarette Redesign',
+    category: 'Sustainable Design / Product + System',
+    year: '2022', client: 'Academic · Pitched to ITC', role: 'Designer & Strategist',
+    tags: ['Sustainability', 'Product Design', 'System Design', 'Branding', 'Behavioural Design'],
+    body: `<p>A semester-long sustainable design project tackling one of the world's most under-discussed waste streams: the cigarette butt. An estimated <strong>4.9 trillion cigarette butts</strong> are discarded each year, contributing roughly <strong>3.1 million tonnes of non-biodegradable waste</strong> — more pollution over five years than microplastics have caused in fifty.</p>
+<p>The project attacks the problem from three angles simultaneously: product redesign, packaging redesign, and behavioural system design.</p>
+<p><strong>Product:</strong> a redesigned cigarette with embedded plant seeds inside the filter. The filter becomes a growing medium when composted — cellulose acetate already retains moisture, and species like basil, spinach, amaranth, celosia and wildflowers are viable in spent filters. Tested against eight compatible plant species during ideation.</p>
+<p><strong>Packaging:</strong> fully compostable replacement for the hinge-lid pack and cellophane wrap, using recycled paper pulp and plant-based sealants. The aluminium flavour-protector foil — a hidden pollutant — is eliminated entirely.</p>
+<p><strong>System:</strong> a QR-coded reward loop — scan to recycle, scan to track your cigarettes-smoked vs. saplings-planted ratio, scan to redeem discounts on future packs. Modelled on the CODE initiative's existing recycling programme in India, with consumer-side incentives added to close the loop.</p>
+<p>The concept was pitched directly to ITC — India's cigarette market leader with a 77% share — during an industry review, alongside a basic functional prototype. Research covered market sizing, production-process mapping, case studies of ITC and the CODE initiative, user surveys with current smokers, and packaging-distribution economics down to the polyethene-wrapped warehouse pack.</p>
+<p>The brief was not to make smoking virtuous — it was to intervene in one of the most environmentally destructive mass products on earth without changing a single consumer behaviour.</p>`,
+    highlight: 'Biodegradable cigarette with seed-embedded filter + compostable pack + QR-coded reward system. Academic project, prototyped and pitched to ITC.',
+    images: ['assets/images/BUDDY/img_p173_3.jpeg','assets/images/BUDDY/img_p173_4.jpeg','assets/images/BUDDY/img_p173_5.jpeg','assets/images/BUDDY/img_p174_3.jpeg','assets/images/BUDDY/img_p176_1.jpeg','assets/images/BUDDY/img_p176_2.jpeg','assets/images/BUDDY/img_p177_1.jpeg','assets/images/BUDDY/img_p177_2.jpeg','assets/images/BUDDY/img_p177_3.jpeg','assets/images/BUDDY/img_p177_4.jpeg','assets/images/BUDDY/img_p178_4.jpeg','assets/images/BUDDY/img_p154_7.jpeg']
+  },
+  vijay: {
+    id: 'vijay', num: '06',
+    title: 'Vijay CNG — Operations Redesign',
+    category: 'Systems Design / Process Optimisation',
+    year: '2022', client: 'Vijay CNG Retrofitting (Coimbatore)', role: 'Systems Designer',
+    tags: ['Systems Design', 'Process Design', 'Operations', 'Efficiency', 'Client Work'],
+    body: `<p>A real-world client engagement with Vijay CNG Retrofitting, a Coimbatore-based firm that converts commercial diesel vehicles to CNG. The brief was operational, not aesthetic: make the conversion process faster, safer, and more self-sufficient without increasing headcount.</p>
+<p>The first step was mapping — every one of the eight sub-systems that constituted the business: client acquisition, material and kit storage, RTO coordination, conversion, kit installation, QC, branding and dispatch, and training. Each sub-system was audited against five objectives: speed, efficiency, safety, self-sustainability, and waste minimisation.</p>
+<p>The audit surfaced nine structural problems repeating across sub-systems: constant supervision dependency, material loss in storage, damage during conversion, kit mix-ups between vehicles, weak customer-relation protocols, legal/RTO coordination gaps, information loss between teams, no tracking infrastructure, and chronic manpower shortage. Each one was bleeding time and margin.</p>
+<p>The proposed system collapsed these into a unified operating model — a kit-tracking protocol tied to vehicle IDs, a revised customer-handshake checklist that closed legal loopholes, a branded dispatch flow that turned every converted vehicle into a moving advertisement, and a training module that made the workforce self-supervising.</p>
+<p>The project taught me that systems design is just design at a different resolution — the same principles of observation, constraint-mapping and friction-reduction apply, whether the object is a chair or a 40-person CNG conversion floor.</p>`,
+    highlight: 'Audited 8 sub-systems across a CNG retrofitting client. Mapped 9 structural bottlenecks into a unified self-supervising operating model.',
+    images: ['assets/images/SYSTEM/p32.jpeg','assets/images/SYSTEM/p34.jpeg','assets/images/SYSTEM/p35.jpeg','assets/images/SYSTEM/p37.jpeg']
+  },
+  flower: {
+    id: 'flower', num: '07',
+    title: 'Metal Exploration — Steel Flower',
+    category: 'Studio Exercise / Sculpture',
+    year: '2021', client: 'Academic / Workshop Output', role: 'Designer & Fabricator',
+    tags: ['Sculpture', 'Metalwork', 'Steel', 'Copper', 'Aluminium', 'Fabrication'],
+    body: `<p>A studio exercise framed as a material exploration: pick metal in its rawest forms — rods, pipes, sheets — and produce an installation that reflects the processes of the workshop itself. The brief rewarded work that made the fabrication legible in the final object.</p>
+<p>The output pushed in an organic direction: a large-scale steel flower, built from a vocabulary of five materials — stainless steel rods and pipes for structure, aluminium and copper sheets for the petals and leaves, with copper surfaces hand-patinated to introduce oxidised warmth against the cold metal.</p>
+<p>Petals were individually hand-formed and welded; wire tendrils were curled by hand, each unique; copper leaves were hammered to a soft relief and allowed to develop their own oxide colour over time. A second, larger version was installed outdoors — white painted steel that catches light differently through the day, turning an industrial material into something that casts a delicate shadow.</p>
+<p>The project is fundamentally about process: the discipline of fabrication, the pleasure of material, and the belief that industrial methods are not opposed to beauty — they are capable of producing it.</p>`,
+    highlight: 'Aluminium sheet, steel rod, copper leaf. Welded &amp; hand-finished. 1.4m tall studio version + larger outdoor installation.',
+    images: ['assets/images/FLOWER/img_p14_1.jpeg','assets/images/FLOWER/img_p10_1.jpeg','assets/images/FLOWER/img_p11_1.jpeg','assets/images/FLOWER/img_p12_1.jpeg']
+  },
+  povera: {
+    id: 'povera', num: '08',
+    title: 'Arte Povera — Installation',
+    category: 'Experimental Design / Art Installation',
+    year: '2021', client: 'Design Exhibition', role: 'Designer & Fabricator',
+    tags: ['Installation Art', 'Arte Povera', 'Experimental', 'Found Materials'],
+    body: `<p>A series of experimental installation works inspired by the Arte Povera movement of 1960s Italy — a tradition of using humble, "poor" materials (wire, bamboo, foam, paper, fabric) to create objects that challenge the hierarchy between art and everyday life.</p>
+<p>The works explore tension: between structure and collapse, between the skeletal and the fleshed-out, between an object that looks like it might be furniture and one that is clearly sculpture. Wire armatures support forms moulded from plaster and foam. Bamboo grids hold compressed volumes in suspension.</p>
+<p>Presented as part of a semester-end design exhibition, the works were designed to occupy a full room — inviting visitors to move between them rather than observe from a distance. The scale and rawness were deliberate: design should not always be precious.</p>`,
+    highlight: 'Wire, bamboo, expanding foam, plaster, acrylic paint. Dimensions variable.',
+    images: ['assets/images/POVERA/img_p15_1.jpeg','assets/images/POVERA/img_p15_2.jpeg','assets/images/POVERA/img_p22_1.jpeg','assets/images/POVERA/img_p23_1.jpeg','assets/images/POVERA/img_p23_2.jpeg','assets/images/POVERA/img_p39_1.jpeg','assets/images/POVERA/img_p40_1.jpeg','assets/images/POVERA/img_p41_1.jpeg','assets/images/POVERA/img_p42_1.jpeg']
+  },
+  razer: {
+    id: 'razer', num: '09',
+    title: 'Razer × 100 Thieves — Peripherals & Apparel Graphics',
+    category: 'Product Graphics / Brand Collaboration',
+    year: '2022', client: 'Academic Brief — Razer × 100 Thieves Crossover', role: 'Product Graphics Designer',
+    tags: ['Product Graphics', 'Apparel', 'Gaming', 'Brand Collab', 'CMF'],
+    body: `<p>A product graphics brief built around a crossover between <strong>Razer</strong> — the gaming hardware company — and <strong>100 Thieves</strong> — the LA-based esports and lifestyle brand. The course taught graphic application across product surfaces: how a brand's identity behaves when wrapped onto a mouse, a keyboard, a hoodie, a tee.</p>
+<p>The output was a co-branded capsule: gaming peripherals (mice, keyboard, mousepad) treated with shared colourways and motif systems, plus a streetwear apparel line (hoodies, tees, caps) carrying the same visual language onto soft goods.</p>
+<p>The interesting design problem wasn't the surface graphics — it was the <strong>translation</strong>. Razer's identity is sharp, neon-on-black, technical. 100 Thieves is restrained, premium, blackwork. Forcing those two into a single capsule meant finding the overlap: black as base, restrained accent palette, tactical motifs that read as both gaming and streetwear without becoming either parody.</p>
+<p>The brief drilled CMF (colour, material, finish) decisions across hard and soft goods — a chrome accent on metal reads differently than the same chrome printed on cotton. Each surface was treated as its own canvas with its own constraints.</p>`,
+    highlight: 'Razer × 100 Thieves crossover — peripherals + apparel capsule. Course in product graphics, CMF, and brand-language translation across hard & soft goods.',
+    images: ['assets/images/RAZER/img_p107_1.jpeg','assets/images/RAZER/img_p108_1.jpeg','assets/images/RAZER/img_p109_1.jpeg','assets/images/RAZER/img_p110_1.jpeg','assets/images/RAZER/img_p111_1.jpeg','assets/images/RAZER/img_p112_1.jpeg','assets/images/RAZER/img_p113_1.jpeg','assets/images/RAZER/img_p114_1.jpeg','assets/images/RAZER/img_p115_1.jpeg','assets/images/RAZER/img_p116_1.jpeg','assets/images/RAZER/img_p117_1.jpeg','assets/images/RAZER/img_p118_1.jpeg','assets/images/RAZER/img_p119_1.jpeg','assets/images/RAZER/img_p120_1.jpeg','assets/images/RAZER/img_p121_1.jpeg','assets/images/RAZER/img_p122_1.jpeg','assets/images/RAZER/img_p123_1.jpeg','assets/images/RAZER/img_p124_1.jpeg']
+  },
+  handcursor: {
+    id: 'handcursor', num: '10',
+    title: 'Hand-Tracked Mouse Cursor — Webcam Gesture Control',
+    category: 'Creative Code / Interaction Experiment',
+    year: '2026', client: 'Personal · Built with Claude Code', role: 'Designer & Vibe-Coder',
+    tags: ['Creative Code', 'Computer Vision', 'MediaPipe', 'Interaction'],
+    body: `<p>An experiment in cursor input — control your computer's mouse with your hand instead of touching anything. Built in a single sitting using Claude Code as a pair programmer, MediaPipe Hands for landmark detection, and a tiny Python loop to translate fingertip coordinates into screen coordinates.</p>
+<p>The setup: webcam feed → MediaPipe extracts 21 landmark points per hand → index-finger-tip drives the cursor → pinch gesture (thumb + index touch) registers as a click. Dwell-and-click and drag gestures followed.</p>
+<p>The interesting part wasn't the tech — MediaPipe does most of the heavy lifting — it was the <strong>tuning</strong>: smoothing jitter, dead-zoning the cursor to prevent drift, calibrating click-pinch threshold to my own hand. Every parameter has to match a body, which is why generic gesture systems fail in practice.</p>
+<p>Built in a few hours as a personal "can I?" exercise. Lives on my machine as a working prototype. The point of the project wasn't a product — it was proving that the tools have caught up to the ideas.</p>`,
+    highlight: 'Webcam → MediaPipe Hands → fingertip-controlled mouse with pinch-to-click. Built in a single session with Claude Code.',
+    cta: { href: 'demos/hands.html', label: 'Try the live demo →' },
+    images: []
+  },
+  dropballs: {
+    id: 'dropballs', num: '11',
+    title: 'Color-Tracked Physics — Webcam Greenscreen Toy',
+    category: 'Creative Code / Computer Vision Toy',
+    year: '2026', client: 'Personal · Built with Claude Code', role: 'Designer & Vibe-Coder',
+    tags: ['Creative Code', 'Canvas', 'Physics', 'Computer Vision', 'Greenscreen'],
+    body: `<p>A pure-canvas physics toy with a twist: the world responds to <strong>real objects you hold up to your webcam</strong>. Pick a colour — green, red, blue, yellow — and anything in your camera frame matching that hue becomes a physics paddle. Falling balls bounce off your phone case, your shirt, your coffee mug, in real time.</p>
+<p>The pipeline is small: webcam → downscaled to a 96×72 sample grid → each pixel converted from RGB to HSV → matched against a hue/saturation/value range for the active colour → grid stored as a binary mask. Each frame, every ball samples 8 points around its perimeter against that mask. If any sample lands on a "matched" cell, the ball reflects off the average normal of those hits.</p>
+<p>The physics itself is hand-rolled — gravity, restitution, friction, ball-ball collisions resolved with impulses. No Matter.js, no frameworks. Roughly 200 lines of JavaScript total.</p>
+<p>The interesting part wasn't the physics or the colour math — both are textbook. It was the <strong>feeling</strong>: there's a specific magic to the moment a ball clearly bounces off something <em>you're holding</em>. Toys don't have to be useful. They have to feel alive.</p>`,
+    highlight: 'Webcam → HSV colour match → physics. Hold any object of the chosen colour and balls bounce off it in real time. Pure canvas + JS, ~200 lines.',
+    cta: { href: 'demos/balls.html', label: 'Try the live demo →' },
+    images: []
+  }
+};
+
+const projectOrder = ['inkwell','vigilante','casamota','juicy','arabella','backpack','agora','handcursor','dropballs','desk','cigarette','vijay','flower','povera','razer','brand'];
+let currentIndex = 0;
+
+function openPanel(projectId) {
+  const data = projects[projectId];
+  if (!data) return;
+  currentIndex = projectOrder.indexOf(projectId);
+  renderPanel(data);
+  document.getElementById('projectPanel').classList.add('open');
+  document.getElementById('backdrop').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closePanel() {
+  document.getElementById('projectPanel').classList.remove('open');
+  document.getElementById('backdrop').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function renderPanel(data) {
+  const galleryHTML = data.images.length
+    ? `<div class="panel-gallery">${data.images.map((src,i) => `<img src="${src}" alt="${data.title} ${i+1}" loading="lazy"/>`).join('')}</div>`
+    : `<div style="padding:48px;background:var(--grey-dark);border:1px solid var(--grey-line);text-align:center;margin-bottom:40px;font-family:var(--font-mono);font-size:0.7rem;letter-spacing:0.1em;color:var(--grey-mid);">Full case study deck &amp; process imagery available on request</div>`;
+  document.getElementById('panelContent').innerHTML = `
+    <div class="panel-label section-label"><span class="num">${data.num}</span> ${data.category}</div>
+    <h2 class="panel-title">${data.title}</h2>
+    <div class="panel-meta">
+      <div class="panel-meta-item"><label>Year</label><span>${data.year}</span></div>
+      <div class="panel-meta-item"><label>Client</label><span>${data.client}</span></div>
+      <div class="panel-meta-item"><label>Role</label><span>${data.role}</span></div>
+      <div class="panel-meta-item"><label>Tags</label><span>${data.tags.slice(0,2).join(', ')}</span></div>
+    </div>
+    ${galleryHTML}
+    <div class="panel-body">${data.body}</div>
+    <div class="panel-highlight">${data.highlight}</div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:32px;">
+      ${data.cta ? `<a href="${data.cta.href}" class="btn btn-primary" style="font-size:0.65rem;background:var(--yellow);color:var(--black);">${data.cta.label}</a>` : ''}
+      <a href="contact.html" class="btn btn-outline" style="font-size:0.65rem;">Discuss This Work</a>
+    </div>`;
+}
+
+document.querySelectorAll('.work-card[data-project]').forEach(card => {
+  card.addEventListener('click', () => openPanel(card.dataset.project));
+  card.style.cursor = 'pointer';
+});
+document.getElementById('backdrop').addEventListener('click', closePanel);
+document.getElementById('panelClose').addEventListener('click', closePanel);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
+document.getElementById('prevProject').addEventListener('click', () => {
+  currentIndex = (currentIndex - 1 + projectOrder.length) % projectOrder.length;
+  renderPanel(projects[projectOrder[currentIndex]]);
+  document.getElementById('projectPanel').scrollTop = 0;
+});
+document.getElementById('nextProject').addEventListener('click', () => {
+  currentIndex = (currentIndex + 1) % projectOrder.length;
+  renderPanel(projects[projectOrder[currentIndex]]);
+  document.getElementById('projectPanel').scrollTop = 0;
+});
+
+const hash = window.location.hash.replace('#','');
+if (hash && projects[hash]) openPanel(hash);
+
+function applyFilter(filter){
+  document.querySelectorAll('.filter-pill').forEach(p => p.classList.toggle('active', p.dataset.filter === filter));
+  document.querySelectorAll('.work-card[data-category]').forEach(card => {
+    const show = filter === 'all' || card.dataset.category === filter;
+    card.setAttribute('data-hidden', show ? 'false' : 'true');
+    card.style.display = show ? '' : 'none';
+  });
+}
+document.querySelectorAll('.filter-pill').forEach(pill => {
+  pill.addEventListener('click', function() { applyFilter(this.dataset.filter); });
+});
+// Auto-apply filter from ?filter= query param (set by persona gate on homepage)
+var urlFilter = new URLSearchParams(window.location.search).get('filter');
+if (urlFilter && ['design','marketing','systems'].includes(urlFilter)) {
+  applyFilter(urlFilter);
+}
+// Expose to global so work-editorial.js can render the list view
+window.projects = projects;
+window.projectOrder = projectOrder;
+window.openPanel = openPanel;
+</script>
+<script src="js/loader.js"></script>
+<script src="js/cursor.js"></script>
+<script src="js/transitions.js"></script>
+<script src="js/animations.js"></script>
+<script src="js/lang.js"></script>
+<script src="js/lightbox.js"></script>
+<script src="js/interactions.js"></script>
+<script src="js/work-editorial.js"></script>
+</body>
+</html>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Color Physics — Sai Kanagat</title>
+<link rel="stylesheet" href="../css/styles.css">
+<style>
+  html, body { margin:0; padding:0; height:100%; background:#0a0a0a; overflow:hidden; color:#f5f0e8; font-family: var(--font-mono, monospace); }
+  #stage { position:fixed; inset:0; display:block; }
+  #cam { position:fixed; inset:0; width:100%; height:100%; object-fit:cover; transform: scaleX(-1); z-index:0; opacity:0.6; }
+  #stage { z-index:1; pointer-events:none; }
+  .demo-hud, .demo-back {
+    position:fixed; z-index:10;
+    font-size: 0.7rem; letter-spacing:0.18em; text-transform:uppercase;
+    background:rgba(10,10,10,0.6); border:1px solid rgba(245,240,232,0.15);
+    padding:10px 14px; border-radius:2px; backdrop-filter: blur(6px);
+    color:#f5f0e8;
+  }
+  .demo-hud { top:18px; left:18px; max-width: 360px; }
+  .demo-hud strong { color:#ccff00; font-weight:700; }
+  .demo-hud small { display:block; margin-top:6px; color: rgba(245,240,232,0.6); font-size:0.62rem; letter-spacing:0.1em; }
+  .demo-back { top:18px; right:18px; text-decoration:none; }
+  .demo-back:hover { background:#ccff00; color:#0a0a0a; }
+  .demo-controls {
+    position:fixed; bottom:18px; left:50%; transform:translateX(-50%); z-index:10;
+    display:flex; gap:8px; flex-wrap:wrap; justify-content:center;
+  }
+  .demo-controls button, .demo-controls .swatch {
+    background:rgba(10,10,10,0.6); border:1px solid rgba(245,240,232,0.2);
+    color:#f5f0e8; font: inherit; font-size:0.7rem; letter-spacing:0.18em;
+    text-transform:uppercase; padding:10px 14px; cursor:pointer; border-radius:2px;
+    backdrop-filter: blur(6px);
+  }
+  .demo-controls button:hover { background:#ccff00; color:#0a0a0a; border-color:#ccff00; }
+  .demo-controls .swatch { display:flex; align-items:center; gap:8px; }
+  .demo-controls .swatch.active { background:#ccff00; color:#0a0a0a; border-color:#ccff00; }
+  .swatch-dot { width:14px; height:14px; border-radius:50%; border:1px solid rgba(255,255,255,0.5); }
+  #setup {
+    position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
+    background:#0a0a0a; z-index:50; flex-direction:column; gap:24px; text-align:center; padding:32px;
+  }
+  #setup h1 { font-family: var(--font-display, 'Unbounded', sans-serif); font-weight:900; font-size: clamp(28px, 4vw, 48px); letter-spacing:-0.03em; margin:0; }
+  #setup p { color: rgba(245,240,232,0.7); max-width: 520px; line-height:1.6; font-size:0.85rem; letter-spacing:0.04em; }
+  #startBtn {
+    background:#ccff00; color:#0a0a0a; border:none; font-family: var(--font-mono, monospace);
+    font-size:0.72rem; letter-spacing:0.18em; text-transform:uppercase; font-weight:700;
+    padding:14px 28px; cursor:pointer; border-radius:2px;
+  }
+  #setup small { color: rgba(245,240,232,0.45); font-size:0.6rem; letter-spacing:0.18em; text-transform:uppercase; }
+</style>
+</head>
+<body>
+
+<div id="setup">
+  <small>Live Demo · Color-Tracked Physics</small>
+  <h1>Hold up<br>something colored.<br>Hit the balls.</h1>
+  <p>Allow camera. Pick a color below — anything you hold up matching that color (a phone case, a bottle cap, your shirt) becomes a physics paddle. Falling balls collide with it in real time. Camera stays in your browser, nothing is uploaded.</p>
+  <button id="startBtn">Start Camera</button>
+</div>
+
+<video id="cam" autoplay playsinline muted></video>
+<canvas id="stage"></canvas>
+
+<div class="demo-hud">
+  <strong id="status">Awaiting start…</strong>
+  <small>Hold a colored object up to your camera</small>
+</div>
+<a href="../index.html" class="demo-back" style="left:18px; right:auto;"><strong style="color:#ccff00">SK</strong> · Home</a>
+<a href="../work.html#dropballs" class="demo-back">← Back to Work</a>
+
+<div class="demo-controls">
+  <div class="swatch active" data-color="green"><span class="swatch-dot" style="background:#3cff5c"></span>Green</div>
+  <div class="swatch" data-color="red"><span class="swatch-dot" style="background:#ff3c3c"></span>Red</div>
+  <div class="swatch" data-color="blue"><span class="swatch-dot" style="background:#3c8cff"></span>Blue</div>
+  <div class="swatch" data-color="yellow"><span class="swatch-dot" style="background:#ffe23c"></span>Yellow</div>
+  <button id="rainBtn">Rain Balls</button>
+  <button id="clearBtn">Clear</button>
+</div>
+
+<script>
+(function(){
+  const cam = document.getElementById('cam');
+  const stage = document.getElementById('stage');
+  const ctx = stage.getContext('2d');
+  const procCanvas = document.createElement('canvas');
+  const pctx = procCanvas.getContext('2d', { willReadFrequently: true });
+
+  let W, H;
+  function resize(){ W = stage.width = innerWidth; H = stage.height = innerHeight; }
+  resize(); addEventListener('resize', resize);
+
+  // Color targets in HSV (H 0-360, S 0-1, V 0-1)
+  const COLORS = {
+    green:  { hMin: 80,  hMax: 165, sMin: 0.35, vMin: 0.25 },
+    red:    { hMin: 340, hMax: 20,  sMin: 0.4,  vMin: 0.3,  wrap: true },
+    blue:   { hMin: 190, hMax: 250, sMin: 0.35, vMin: 0.25 },
+    yellow: { hMin: 38,  hMax: 70,  sMin: 0.4,  vMin: 0.45 }
+  };
+  let activeColor = 'green';
+
+  function rgbToHsv(r,g,b){
+    r/=255; g/=255; b/=255;
+    const mx = Math.max(r,g,b), mn = Math.min(r,g,b);
+    const d = mx - mn;
+    let h = 0;
+    if (d){
+      if (mx === r) h = ((g - b)/d) % 6;
+      else if (mx === g) h = (b - r)/d + 2;
+      else h = (r - g)/d + 4;
+      h *= 60; if (h < 0) h += 360;
+    }
+    return [h, mx === 0 ? 0 : d/mx, mx];
+  }
+
+  // physics
+  const balls = [];
+  const palette = ['#ccff00','#f5f0e8','#ff5a3c','#3cb4ff','#ffaa00'];
+  const G = 0.55, REST = 0.65, FRIC = 0.992;
+  function rand(a,b){ return a + Math.random()*(b-a); }
+
+  function spawn(x, y, r){
+    r = r || rand(12, 28);
+    balls.push({ x, y, r, vx: rand(-2,2), vy: rand(-1,1), color: palette[Math.floor(Math.random()*palette.length)], m: r*r });
+    if (balls.length > 200) balls.shift();
+  }
+
+  // grid of obstacle cells from camera color match
+  const CELL = 16; // px on processed canvas
+  let gridW = 0, gridH = 0;
+  let obstacleMask = null;
+
+  function detectColor(){
+    if (!cam.videoWidth) return;
+    // downscale camera into procCanvas
+    const pw = 96, ph = 72;
+    procCanvas.width = pw; procCanvas.height = ph;
+    pctx.save();
+    pctx.translate(pw, 0); pctx.scale(-1, 1); // mirror to match displayed video
+    pctx.drawImage(cam, 0, 0, pw, ph);
+    pctx.restore();
+    const img = pctx.getImageData(0, 0, pw, ph).data;
+    const c = COLORS[activeColor];
+    if (!obstacleMask || obstacleMask.length !== pw*ph){
+      obstacleMask = new Uint8Array(pw*ph);
+      gridW = pw; gridH = ph;
+    }
+    let count = 0;
+    for (let i = 0, j = 0; i < img.length; i += 4, j++){
+      const [h,s,v] = rgbToHsv(img[i], img[i+1], img[i+2]);
+      let match;
+      if (c.wrap){ match = (h >= c.hMin || h <= c.hMax) && s >= c.sMin && v >= c.vMin; }
+      else { match = h >= c.hMin && h <= c.hMax && s >= c.sMin && v >= c.vMin; }
+      obstacleMask[j] = match ? 1 : 0;
+      if (match) count++;
+    }
+    return count;
+  }
+
+  function maskAt(x, y){
+    if (!obstacleMask) return 0;
+    const gx = Math.floor((x / W) * gridW);
+    const gy = Math.floor((y / H) * gridH);
+    if (gx < 0 || gx >= gridW || gy < 0 || gy >= gridH) return 0;
+    return obstacleMask[gy*gridW + gx];
+  }
+
+  function step(){
+    for (const b of balls){
+      b.vy += G;
+      b.vx *= FRIC; b.vy *= FRIC;
+      b.x += b.vx; b.y += b.vy;
+      // walls
+      if (b.x - b.r < 0){ b.x = b.r; b.vx = -b.vx * REST; }
+      if (b.x + b.r > W){ b.x = W - b.r; b.vx = -b.vx * REST; }
+      if (b.y + b.r > H){ b.y = H - b.r; b.vy = -b.vy * REST; b.vx *= 0.96; }
+      if (b.y - b.r < 0){ b.y = b.r; b.vy = -b.vy * REST; }
+      // collide with color obstacles — sample a small ring around the ball
+      if (obstacleMask){
+        const samples = 8;
+        let nx = 0, ny = 0, hits = 0;
+        for (let k = 0; k < samples; k++){
+          const a = (k / samples) * Math.PI * 2;
+          const sx = b.x + Math.cos(a) * b.r;
+          const sy = b.y + Math.sin(a) * b.r;
+          if (maskAt(sx, sy)){
+            nx += -Math.cos(a); ny += -Math.sin(a); hits++;
+          }
+        }
+        if (hits){
+          const len = Math.sqrt(nx*nx + ny*ny) || 1;
+          nx /= len; ny /= len;
+          // push out a bit
+          b.x += nx * 4; b.y += ny * 4;
+          // reflect velocity
+          const vn = b.vx * nx + b.vy * ny;
+          if (vn < 0){
+            b.vx -= 2 * vn * nx;
+            b.vy -= 2 * vn * ny;
+            b.vx *= REST; b.vy *= REST;
+            // small kick upward to feel responsive
+            b.vy -= 1.5;
+          }
+        }
+      }
+    }
+    // ball-ball
+    for (let i = 0; i < balls.length; i++){
+      for (let j = i+1; j < balls.length; j++){
+        const a = balls[i], b = balls[j];
+        const dx = b.x - a.x, dy = b.y - a.y;
+        const d2 = dx*dx + dy*dy;
+        const rs = a.r + b.r;
+        if (d2 < rs*rs && d2 > 0.0001){
+          const d = Math.sqrt(d2);
+          const nx = dx/d, ny = dy/d;
+          const overlap = (rs - d) * 0.5;
+          a.x -= nx * overlap; a.y -= ny * overlap;
+          b.x += nx * overlap; b.y += ny * overlap;
+          const rvx = b.vx - a.vx, rvy = b.vy - a.vy;
+          const vn = rvx*nx + rvy*ny;
+          if (vn < 0){
+            const jImp = -(1+REST) * vn / (1/a.m + 1/b.m);
+            a.vx -= jImp * nx / a.m; a.vy -= jImp * ny / a.m;
+            b.vx += jImp * nx / b.m; b.vy += jImp * ny / b.m;
+          }
+        }
+      }
+    }
+  }
+
+  function draw(matchCount){
+    ctx.clearRect(0, 0, W, H);
+    // optional: tint obstacle area
+    if (obstacleMask){
+      ctx.save();
+      ctx.fillStyle = activeColor === 'green' ? 'rgba(60,255,92,0.18)' :
+                      activeColor === 'red'   ? 'rgba(255,60,60,0.18)' :
+                      activeColor === 'blue'  ? 'rgba(60,140,255,0.18)' :
+                                                'rgba(255,226,60,0.18)';
+      const cw = W / gridW, chh = H / gridH;
+      for (let y = 0; y < gridH; y++){
+        for (let x = 0; x < gridW; x++){
+          if (obstacleMask[y*gridW + x]) ctx.fillRect(x*cw, y*chh, cw + 1, chh + 1);
+        }
+      }
+      ctx.restore();
+    }
+    for (const b of balls){
+      ctx.beginPath();
+      ctx.arc(b.x, b.y, b.r, 0, Math.PI*2);
+      ctx.fillStyle = b.color;
+      ctx.fill();
+    }
+  }
+
+  function loop(){
+    const matchCount = detectColor() || 0;
+    step();
+    draw(matchCount);
+    document.getElementById('status').textContent = `${activeColor.toUpperCase()} · ${balls.length} balls · ${matchCount} px tracked`;
+    requestAnimationFrame(loop);
+  }
+
+  document.querySelectorAll('.swatch').forEach(s => {
+    s.onclick = () => {
+      document.querySelectorAll('.swatch').forEach(x => x.classList.remove('active'));
+      s.classList.add('active');
+      activeColor = s.dataset.color;
+    };
+  });
+  document.getElementById('clearBtn').onclick = () => { balls.length = 0; };
+  document.getElementById('rainBtn').onclick = () => { for (let i = 0; i < 30; i++) spawn(rand(50, W-50), rand(-200, -10)); };
+
+  document.getElementById('startBtn').onclick = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: { width: 640, height: 480 }, audio: false });
+      cam.srcObject = stream;
+      await cam.play();
+      document.getElementById('setup').style.display = 'none';
+      // seed
+      for (let i = 0; i < 25; i++) spawn(rand(50, innerWidth-50), rand(-300, -10));
+      loop();
+    } catch (err){
+      document.querySelector('#setup p').textContent = 'Camera failed: ' + err.message;
+      document.getElementById('startBtn').textContent = 'Retry';
+    }
+  };
+})();
+</script>
+</body>
+</html>

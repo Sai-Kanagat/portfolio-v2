@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agora, and Why I Built a Sandbox for Public Opinion — Sai Kanagat</title>
+  <meta name="description" content="Marketing decisions are often made on intuition and defended with data after the fact. A multi-agent simulation flips the order — pressure-test the decision before it ships." />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/brand-overlay.css" />
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="../index.html" class="nav-logo">SK<span>.</span></a>
+  <div class="nav-links" id="navLinks">
+    <a href="../work.html">Work</a>
+    <a href="../process.html">Process</a>
+    <a href="../gallery.html">Gallery</a>
+    <a href="../blog.html" class="active">Blog</a>
+    <a href="../about.html">About</a>
+    <a href="../demos.html">Demos</a>
+    <a href="../contact.html">Contact</a>
+    <a href="https://content-vigilante-vercel.vercel.app" target="_blank" rel="noopener" class="nav-score-btn">Content Vigilante</a>
+  </div>
+  <div class="nav-tag">Available — EU &amp; Remote</div>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="page">
+  <header class="post-hero">
+    <div class="post-meta">
+      <span class="post-tag">AI × Marketing</span>
+      <span>April 2026</span>
+      <span>7 min read</span>
+    </div>
+    <h1 class="post-title reveal">
+      Agora, and Why<br>I Built a Sandbox<br>for <span style="color: var(--yellow);">Public Opinion</span>
+    </h1>
+  </header>
+
+  <article class="post-body">
+    <p>Most marketing decisions get made twice. Once, in a meeting room, on instinct. Then again, three months later, with a deck full of metrics that the team uses to <em>justify</em> what was already chosen. The data was never an input. It was post-hoc rationalisation.</p>
+
+    <p>This bothered me long before I started working in marketing. As a designer, you are taught to test. You sketch ten options, you prototype the best three, you put them in front of users, you watch what happens, you cut what doesn't survive. The discipline is built around the assumption that you don't know the answer until reality tells you. Marketing rarely works this way. Most campaigns ship as if they were already correct.</p>
+
+    <p>Agora is the small piece of software I started building to fix this for myself. The premise is simple: before you ship a decision — a price change, a brand pivot, a campaign tagline, a controversial product announcement — what if you could see how a synthetic crowd reacts to it first? Not focus-group reaction. Not survey data. <strong>Live, behavioural, agent-by-agent reaction</strong>, with the dynamics of how influence actually moves through a population.</p>
+
+    <h2>What it actually is</h2>
+    <p>Agora is a multi-agent simulation. You type in a scenario in plain English — "We're raising prices 22% to fund AI features" — and the engine generates a synthetic crowd of personas. Each persona has an occupation, a baseline stance, a vocality score, an openness score. They move around a 2D space, run into each other, post short messages above their heads, and shift opinions based on who they collide with.</p>
+
+    <p>The browser version on this site is the lite build. It uses template-driven messages and lightweight rules. The full build behind it uses real LLM-driven agents with persistent memory, GraphRAG-extracted personas pulled directly from the seed material, and a ReportAgent you can chat with after the simulation is done. But the principle is the same in both versions: <em>you don't argue about what people will think — you watch them think it.</em></p>
+
+    <h2>Why this matters for marketing</h2>
+    <p>Three reasons.</p>
+
+    <p><strong>One: it forces the question to be specific.</strong> Vague briefs collapse the moment you try to simulate them. "Will customers like our rebrand?" doesn't run. "Will customers who have been with us 5+ years and pay €99/month tolerate a logo change that abandons our heritage typeface?" runs beautifully. The act of seeding the simulation forces you to articulate what you're actually asking.</p>
+
+    <p><strong>Two: it shows you the shape of the disagreement.</strong> A pure poll tells you 60% support and 40% oppose. The simulation tells you that opposition is concentrated in long-time customers and the support comes mostly from people who don't actually pay. That's a different problem. That's the problem you needed to know.</p>
+
+    <p><strong>Three: it shows the dynamics, not the snapshot.</strong> Most consumer reaction isn't static — it propagates. A vocal minority can move the median. A single high-influence persona can shift their entire neighbourhood. The simulation surfaces these inflection points the way no survey can, because surveys ask people in isolation, and people don't form opinions in isolation.</p>
+
+    <h2>What it can't do</h2>
+    <p>Plenty. The crowd is synthetic — it's not your actual market, it's a stand-in built from demographic and psychographic templates. The opinion-dynamics rules are deliberately simple. The output is directional, not predictive. If you ship a campaign because Agora says "support 67%," you are misusing the tool. The point isn't the percentage. The point is the pattern of how the percentage is reached, and what shifts it.</p>
+
+    <p>I think of it the way a designer thinks of a foam mock-up. Nobody ships the foam. But you'd be a fool to skip it.</p>
+
+    <h2>The deeper bet</h2>
+    <p>I think most consumer-facing decisions in 2026 should pass through some kind of synthetic-crowd rehearsal before they touch a real budget. Not because the simulation is correct — it isn't — but because the act of rehearsing forces a discipline of specificity, observation and iteration that marketing teams routinely skip. The same discipline that makes good design good.</p>
+
+    <p>Agora is small. The version on this site runs in your browser in 200 lines of JavaScript. You can try it now. Type any scenario you'd put real money behind. Watch the report. Then ask yourself: would your team have caught what the simulation caught?</p>
+
+    <p style="margin-top: 32px;"><a href="../demos/agora.html" class="btn btn-primary" style="font-size: 0.7rem;">Try Agora →</a></p>
+  </article>
+
+  <footer class="footer">
+    <div class="footer-logo">SK<span>.</span></div>
+    <p class="footer-copy">© 2026 Sai Kanagat. All rights reserved.</p>
+    <div class="footer-socials">
+      <a href="https://linkedin.com/in/sai-kanagat" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:saikanagat1117@gmail.com">Email</a>
+    </div>
+  </footer>
+</div>
+<script src="../js/lightbox.js"></script>
+<script src="../js/interactions.js"></script>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>sai kanagat. — brand identity</title>
+<meta name="description" content="The personal brand identity system used across every artefact Sai ships. Paper, ink, sienna." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: oklch(0.975 0.004 260);
+    --paper-warm: #f0eee9;
+    --ink: oklch(0.16 0.012 260);
+    --accent: oklch(0.42 0.21 265);
+    --accent-ink: oklch(0.28 0.18 268);
+    --accent-soft: oklch(0.93 0.04 265);
+    --n-100: oklch(0.955 0.008 82);
+    --n-300: oklch(0.85 0.012 78);
+    --n-500: oklch(0.56 0.014 70);
+    --n-700: oklch(0.32 0.012 62);
+    --sans: 'Bricolage Grotesque', system-ui, sans-serif;
+    --serif: 'Newsreader', Georgia, serif;
+    --mono: 'IBM Plex Mono', ui-monospace, monospace;
+    --r-3: 8px; --r-4: 12px; --r-full: 999px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--paper-warm); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; height: auto; }
+
+  .nav-bar {
+    position: sticky; top: 0; z-index: 50;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 18px 32px;
+    background: rgba(240, 238, 233, 0.85); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--n-300);
+  }
+  .nav-brand { display: flex; align-items: center; gap: 10px; font-family: var(--sans); font-weight: 500; letter-spacing: -0.012em; }
+  .nav-disc { width: 16px; height: 16px; border-radius: 50%; background: var(--ink); }
+  .nav-back { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; padding: 8px 14px; border: 1px solid var(--n-300); border-radius: var(--r-full); transition: background .2s ease, color .2s ease; }
+  .nav-back:hover { background: var(--ink); color: var(--paper-warm); border-color: var(--ink); }
+
+  .hero { padding: clamp(60px, 12vh, 140px) clamp(24px, 6vw, 96px) 60px; max-width: 1180px; margin: 0 auto; }
+  .eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent-ink); margin-bottom: 18px; }
+  h1.display {
+    font-family: var(--serif); font-style: italic; font-weight: 500;
+    font-size: clamp(56px, 9vw, 128px); letter-spacing: -0.025em; line-height: 0.95;
+  }
+  h1.display .dot { color: var(--accent); }
+  .lede { max-width: 680px; margin-top: 32px; font-size: clamp(18px, 1.4vw, 22px); line-height: 1.6; color: var(--n-700); }
+  .lede em { font-family: var(--serif); font-style: italic; color: var(--ink); }
+
+  section.bay { max-width: 1180px; margin: 0 auto; padding: clamp(60px, 9vh, 96px) clamp(24px, 6vw, 96px); border-top: 1px solid var(--n-300); }
+  section.bay h2 { font-family: var(--sans); font-weight: 500; font-size: clamp(28px, 3.5vw, 48px); letter-spacing: -0.02em; margin-bottom: 18px; }
+  section.bay h2 .num { font-family: var(--mono); font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent-ink); display: block; margin-bottom: 8px; }
+  section.bay p { max-width: 680px; color: var(--n-700); }
+  section.bay p + p { margin-top: 14px; }
+
+  .principles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; margin-top: 36px; }
+  .principle { background: var(--paper); border: 1px solid var(--n-300); border-radius: var(--r-4); padding: 22px; }
+  .principle .label { font-family: var(--serif); font-style: italic; font-size: 22px; letter-spacing: -0.015em; margin-bottom: 10px; }
+  .principle .label .dot { color: var(--accent); }
+  .principle .body { color: var(--n-700); font-size: 15px; line-height: 1.55; }
+
+  .palette { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; margin-top: 36px; }
+  .swatch { border-radius: var(--r-4); overflow: hidden; border: 1px solid var(--n-300); }
+  .swatch .chip { aspect-ratio: 1.3; }
+  .swatch .meta { padding: 14px 16px; background: var(--paper); font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; color: var(--n-700); }
+  .swatch .meta strong { display: block; color: var(--ink); font-weight: 500; font-family: var(--sans); font-size: 14px; letter-spacing: 0; margin-bottom: 4px; }
+
+  .type-rows { display: grid; gap: 18px; margin-top: 36px; }
+  .type-row { display: grid; grid-template-columns: 200px 1fr; gap: 24px; align-items: baseline; padding: 18px 0; border-bottom: 1px dashed var(--n-300); }
+  .type-row .role { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--n-500); }
+  .type-row .specimen.sans { font-family: var(--sans); font-size: clamp(28px, 4vw, 56px); letter-spacing: -0.02em; }
+  .type-row .specimen.serif { font-family: var(--serif); font-style: italic; font-weight: 500; font-size: clamp(28px, 4vw, 56px); letter-spacing: -0.02em; }
+  .type-row .specimen.mono { font-family: var(--mono); font-size: clamp(13px, 1.2vw, 18px); letter-spacing: 0.12em; text-transform: uppercase; color: var(--n-700); }
+
+  .logo-set { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin-top: 36px; }
+  .logo-cell { aspect-ratio: 1.4; display: flex; align-items: center; justify-content: center; background: var(--paper); border: 1px solid var(--n-300); border-radius: var(--r-4); position: relative; }
+  .logo-cell.ink { background: var(--ink); color: var(--paper-warm); }
+  .logo-cell.accent { background: var(--accent); color: var(--paper-warm); }
+  .lock { display: flex; align-items: center; gap: 12px; }
+  .lock-disc { width: 38px; height: 38px; border-radius: 50%; background: currentColor; }
+  .lock-word { font-family: var(--sans); font-weight: 500; letter-spacing: -0.012em; font-size: 22px; }
+  .lock-word .dot { color: var(--accent); }
+  .logo-cell.ink .lock-word .dot { color: var(--accent-soft); }
+  .stacked { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .mono-mark { width: 96px; height: 96px; border-radius: 50%; background: currentColor; display: flex; align-items: center; justify-content: center; }
+  .mono-mark span { font-family: var(--serif); font-style: italic; font-weight: 500; color: var(--paper-warm); font-size: 38px; letter-spacing: -0.02em; }
+  .logo-cell.ink .mono-mark span { color: var(--ink); }
+  .expressive { font-family: var(--serif); font-style: italic; font-weight: 500; font-size: 38px; letter-spacing: -0.02em; }
+  .expressive .dot { color: var(--accent); }
+  .logo-cell .caption { position: absolute; bottom: 12px; left: 14px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--n-500); }
+  .logo-cell.ink .caption, .logo-cell.accent .caption { color: rgba(240,238,233,0.6); }
+
+  .gallery-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; margin-top: 36px; }
+  .gallery-strip img { width: 100%; border-radius: var(--r-4); border: 1px solid var(--n-300); aspect-ratio: 4/3; object-fit: cover; cursor: zoom-in; }
+
+  .voice-table { width: 100%; border-collapse: collapse; margin-top: 28px; font-size: 15px; }
+  .voice-table th { text-align: left; padding: 12px 0; font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--n-500); border-bottom: 1px solid var(--n-300); }
+  .voice-table td { padding: 16px 0; border-bottom: 1px dashed var(--n-300); vertical-align: top; }
+  .voice-table .yes { font-family: var(--serif); font-style: italic; color: var(--ink); }
+  .voice-table .no { color: var(--n-500); text-decoration: line-through; }
+
+  .closer { padding: clamp(80px, 14vh, 180px) clamp(24px, 6vw, 96px); max-width: 1180px; margin: 0 auto; text-align: center; border-top: 1px solid var(--n-300); }
+  .closer .signoff { font-family: var(--serif); font-style: italic; font-weight: 500; font-size: clamp(36px, 5vw, 64px); letter-spacing: -0.02em; }
+  .closer .signoff .dot { color: var(--accent); }
+  .closer .signature { font-family: var(--mono); font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--n-500); margin-top: 28px; }
+</style>
+</head>
+<body>
+
+<nav class="nav-bar">
+  <a href="index.html" class="nav-brand"><span class="nav-disc"></span> sai kanagat<span style="color:var(--accent);">.</span></a>
+  <a href="work.html" class="nav-back">← back to work</a>
+</nav>
+
+<header class="hero">
+  <div class="eyebrow">— Brand identity · v2.0 · May 2026</div>
+  <h1 class="display">design things,<br>that sell<span class="dot">.</span></h1>
+  <p class="lede">A complete and confident visual language for everything I make — websites, decks, writing, invoices, and the small details in between. Anchored by one accent (ultramarine), one disc mark, and a typographic trio that does most of the talking. <em>Six rules, on repeat.</em></p>
+</header>
+
+<section class="bay">
+  <h2><span class="num">— 00 · principles</span>six rules, <em>on repeat.</em></h2>
+  <div class="principles-grid">
+    <div class="principle"><div class="label">design things that sell<span class="dot">.</span></div><div class="body">Every artefact has a job — convert, convince, communicate. Beauty is a means, never the brief.</div></div>
+    <div class="principle"><div class="label">both sides of the brief<span class="dot">.</span></div><div class="body">Industrial craft + digital strategy. Lead with one, back it with the other. Never abandon either.</div></div>
+    <div class="principle"><div class="label">made to last<span class="dot">.</span></div><div class="body">Editorial structure, generous whitespace, real grids. Decisions you'd defend in five years.</div></div>
+    <div class="principle"><div class="label">built to grow<span class="dot">.</span></div><div class="body">Performance > perfection. If a tweak earns better CTR, ship it. Measure everything.</div></div>
+    <div class="principle"><div class="label">one accent, used loudly<span class="dot">.</span></div><div class="body">Ultramarine carries every signal. Used sparingly it punches; sprinkled around it whispers.</div></div>
+    <div class="principle"><div class="label">one italic per surface<span class="dot">.</span></div><div class="body">Newsreader italic is the system's smile. Always one true italic per surface — never both feet on the design floor.</div></div>
+  </div>
+</section>
+
+<section class="bay">
+  <h2><span class="num">— 01 · logo</span>a lowercase wordmark anchored by a single filled disc</h2>
+  <p>Eames-warm, Ive-restrained. The disc is the brand's heartbeat — it appears at every scale and is the one ornament the system permits.</p>
+  <div class="logo-set">
+    <div class="logo-cell"><div class="lock"><div class="lock-disc"></div><div class="lock-word">sai kanagat<span class="dot">.</span></div></div><div class="caption">primary lockup</div></div>
+    <div class="logo-cell ink"><div class="lock"><div class="lock-disc"></div><div class="lock-word">sai kanagat<span class="dot">.</span></div></div><div class="caption">primary · ink</div></div>
+    <div class="logo-cell"><div class="stacked"><div class="lock-disc" style="width:54px;height:54px;"></div><div class="lock-word" style="font-size:18px;">sai kanagat<span class="dot">.</span></div></div><div class="caption">stacked</div></div>
+    <div class="logo-cell"><div class="mono-mark"><span>sk</span></div><div class="caption">monogram</div></div>
+    <div class="logo-cell ink"><div class="expressive">sai kanagat<span class="dot">.</span></div><div class="caption">expressive · editorial</div></div>
+    <div class="logo-cell accent"><div class="lock"><div class="lock-disc" style="background:var(--paper-warm);"></div><div class="lock-word">sai kanagat</div></div><div class="caption">accent reserve</div></div>
+  </div>
+</section>
+
+<section class="bay">
+  <h2><span class="num">— 02 · color</span>three primaries and a warm neutral scale</h2>
+  <p>Anchor in ink, breathe in paper. Invert for moments, not pages. Sienna is for what matters — one accented element per visible region.</p>
+  <div class="palette">
+    <div class="swatch"><div class="chip" style="background:var(--paper-warm);"></div><div class="meta"><strong>paper</strong>oklch(0.975 0.004 260)</div></div>
+    <div class="swatch"><div class="chip" style="background:var(--ink);"></div><div class="meta"><strong>ink</strong>oklch(0.16 0.012 260)</div></div>
+    <div class="swatch"><div class="chip" style="background:var(--accent);"></div><div class="meta"><strong>ultramarine</strong>oklch(0.42 0.21 265)</div></div>
+    <div class="swatch"><div class="chip" style="background:var(--accent-ink);"></div><div class="meta"><strong>ultramarine · deep</strong>oklch(0.28 0.18 268)</div></div>
+    <div class="swatch"><div class="chip" style="background:var(--accent-soft);"></div><div class="meta"><strong>ultramarine · soft</strong>oklch(0.93 0.04 265)</div></div>
+  </div>
+</section>
+
+<section class="bay">
+  <h2><span class="num">— 03 · type</span>three families. one serif moment per page, max</h2>
+  <div class="type-rows">
+    <div class="type-row"><div class="role">sans — bricolage grotesque</div><div class="specimen sans">making things, well.</div></div>
+    <div class="type-row"><div class="role">serif — newsreader · italic</div><div class="specimen serif">making things, well.</div></div>
+    <div class="type-row"><div class="role">mono — ibm plex mono</div><div class="specimen mono">— making things, well.</div></div>
+  </div>
+  <p style="margin-top: 28px;">Tighten as you grow. Display goes to −0.015. Body sits at 0. Labels open up to +0.12 with UPPERCASE. Mono is a label, not a paragraph.</p>
+</section>
+
+<section class="bay">
+  <h2><span class="num">— 04 · voice</span>plain, considered sentences. lowercase headers when it feels right.</h2>
+  <table class="voice-table">
+    <thead><tr><th>where</th><th>say</th><th>don't say</th></tr></thead>
+    <tbody>
+      <tr><td>Web copy</td><td class="yes">"making things, well."</td><td class="no">"Unlock world-class creativity."</td></tr>
+      <tr><td>Buttons</td><td class="yes">"Start a project"</td><td class="no">"Click here!!"</td></tr>
+      <tr><td>Errors</td><td class="yes">"that email doesn't look right — mind checking?"</td><td class="no">"INVALID INPUT."</td></tr>
+      <tr><td>Empty states</td><td class="yes">"nothing here yet. that's the right kind of nothing."</td><td class="no">"No data found."</td></tr>
+      <tr><td>Email signoff</td><td class="yes">— sai &nbsp;/&nbsp; warmly, sai</td><td class="no">Best regards,</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="bay">
+  <h2><span class="num">— 05 · the system applied</span>frames, layouts, fit-checks</h2>
+  <div class="gallery-strip">
+    <img src="assets/images/BRAND/01-cover.jpg" alt="Brand cover composition">
+    <img src="assets/images/BRAND/02-system.jpg" alt="Design system overview">
+    <img src="assets/images/BRAND/04-frames.jpg" alt="Layout frames">
+    <img src="assets/images/BRAND/05-layout.jpg" alt="Page layout">
+    <img src="assets/images/BRAND/06-cview.jpg" alt="Constructive view">
+    <img src="assets/images/BRAND/07-fitall.jpg" alt="Fit-all preview">
+  </div>
+</section>
+
+<section class="closer">
+  <div class="signoff">— set in bricolage, newsreader<br>and ibm plex mono<span class="dot">.</span></div>
+  <div class="signature">— sai kanagat, 2026</div>
+</section>
+
+<script src="js/lightbox.js"></script>
+<script src="js/interactions.js"></script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hand Cursor — Sai Kanagat</title>
+<link rel="stylesheet" href="../css/styles.css">
+<style>
+  html, body { margin:0; padding:0; height:100%; background:#0a0a0a; overflow:hidden; color:#f5f0e8; font-family: var(--font-mono, monospace); }
+  #stage { position:fixed; inset:0; }
+  #cam { position:absolute; bottom:18px; right:18px; width:200px; height:150px; object-fit:cover; transform: scaleX(-1); border:1px solid rgba(245,240,232,0.2); border-radius:2px; z-index:5; }
+  #overlay { position:absolute; inset:0; pointer-events:none; }
+  .demo-hud, .demo-back {
+    position:fixed; z-index:10;
+    font-size: 0.7rem; letter-spacing:0.18em; text-transform:uppercase;
+    background:rgba(10,10,10,0.65); border:1px solid rgba(245,240,232,0.15);
+    padding:10px 14px; border-radius:2px; backdrop-filter: blur(6px);
+    color:#f5f0e8;
+  }
+  .demo-hud { top:18px; left:18px; max-width: 360px; }
+  .demo-hud strong { color:#ccff00; font-weight:700; }
+  .demo-hud small { display:block; margin-top:6px; color: rgba(245,240,232,0.65); letter-spacing:0.1em; font-size:0.62rem; }
+  .demo-back { top:18px; right:18px; text-decoration:none; }
+  .demo-back:hover { background:#ccff00; color:#0a0a0a; }
+  .targets { position:fixed; inset:0; z-index:2; pointer-events:none; }
+  .target {
+    position:absolute; width:90px; height:90px; border:2px solid #ccff00;
+    border-radius:50%; display:flex; align-items:center; justify-content:center;
+    font-size:0.62rem; letter-spacing:0.18em; color:#ccff00;
+    transform: translate(-50%,-50%); transition: background .2s ease, transform .2s ease;
+  }
+  .target.hit { background:#ccff00; color:#0a0a0a; transform: translate(-50%,-50%) scale(0.85); }
+  #cursor {
+    position:fixed; width:22px; height:22px; border-radius:50%; pointer-events:none;
+    background:#ccff00; mix-blend-mode: screen; z-index:9;
+    transform: translate(-50%,-50%); transition: width .12s ease, height .12s ease, background .12s ease;
+    box-shadow: 0 0 24px rgba(204,255,0,0.6);
+  }
+  #cursor.pinch { width: 12px; height: 12px; background:#fff; box-shadow: 0 0 28px rgba(255,255,255,0.9); }
+  #setup {
+    position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
+    background: #0a0a0a; z-index:50; flex-direction:column; gap:24px; text-align:center; padding:32px;
+  }
+  #setup h1 { font-family: var(--font-display, 'Unbounded', sans-serif); font-weight:900; font-size: clamp(28px, 4vw, 48px); letter-spacing:-0.03em; margin:0; }
+  #setup p { color: rgba(245,240,232,0.7); max-width: 460px; line-height:1.6; font-size:0.85rem; letter-spacing:0.04em; }
+  #startBtn {
+    background:#ccff00; color:#0a0a0a; border:none; font-family: var(--font-mono, monospace);
+    font-size:0.72rem; letter-spacing:0.18em; text-transform:uppercase; font-weight:700;
+    padding:14px 28px; cursor:pointer; border-radius:2px;
+  }
+  #startBtn:hover { background:#fff; }
+  #setup small { color: rgba(245,240,232,0.45); font-size:0.6rem; letter-spacing:0.18em; text-transform:uppercase; }
+</style>
+</head>
+<body>
+
+<div id="setup">
+  <small>Live Demo · Hand-Tracked Cursor</small>
+  <h1>Move your<br>cursor with<br>your hand.</h1>
+  <p>Allow camera access. Point your index finger to move the dot. Pinch your thumb and index to "click" — try popping the targets. Camera feed stays in your browser, nothing is uploaded.</p>
+  <button id="startBtn">Start Camera</button>
+</div>
+
+<div id="cursor"></div>
+<div class="targets" id="targets"></div>
+<canvas id="overlay"></canvas>
+<video id="cam" autoplay playsinline muted></video>
+
+<div class="demo-hud">
+  <strong id="status">Awaiting start…</strong>
+  <small>Pinch thumb + index to click</small>
+</div>
+<a href="../index.html" class="demo-back" style="left:18px; right:auto;"><strong style="color:#ccff00">SK</strong> · Home</a>
+<a href="../work.html#handcursor" class="demo-back">← Back to Work</a>
+
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1675469240/hands.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils@0.3.1675466862/camera_utils.js"></script>
+<script>
+(function(){
+  const cursor = document.getElementById('cursor');
+  const status = document.getElementById('status');
+  const targetsEl = document.getElementById('targets');
+  const cam = document.getElementById('cam');
+  const overlay = document.getElementById('overlay');
+  const octx = overlay.getContext('2d');
+  function resize(){ overlay.width = innerWidth; overlay.height = innerHeight; }
+  resize(); addEventListener('resize', resize);
+
+  // Targets
+  const targets = [];
+  function spawnTargets(){
+    targetsEl.innerHTML = '';
+    targets.length = 0;
+    const labels = ['01','02','03','04','05'];
+    for (let i = 0; i < 5; i++){
+      const el = document.createElement('div');
+      el.className = 'target';
+      el.textContent = labels[i];
+      const x = (0.15 + Math.random() * 0.7) * innerWidth;
+      const y = (0.2 + Math.random() * 0.6) * innerHeight;
+      el.style.left = x + 'px'; el.style.top = y + 'px';
+      targetsEl.appendChild(el);
+      targets.push({ el, x, y, hit:false });
+    }
+  }
+  spawnTargets();
+
+  // smoothing
+  let sx = innerWidth/2, sy = innerHeight/2;
+  let lastPinch = false;
+
+  function distance(a, b){
+    const dx = a.x - b.x, dy = a.y - b.y, dz = (a.z||0) - (b.z||0);
+    return Math.sqrt(dx*dx + dy*dy + dz*dz);
+  }
+
+  function onResults(results){
+    octx.clearRect(0, 0, overlay.width, overlay.height);
+    if (!results.multiHandLandmarks || !results.multiHandLandmarks.length){
+      status.textContent = 'Show your hand…';
+      return;
+    }
+    const lm = results.multiHandLandmarks[0];
+    const tip = lm[8];   // index fingertip
+    const thumb = lm[4]; // thumb tip
+    // mirror x, scale to viewport
+    const tx = (1 - tip.x) * innerWidth;
+    const ty = tip.y * innerHeight;
+    sx += (tx - sx) * 0.35;
+    sy += (ty - sy) * 0.35;
+    cursor.style.left = sx + 'px';
+    cursor.style.top = sy + 'px';
+
+    const pinchDist = distance(tip, thumb);
+    const pinching = pinchDist < 0.055;
+    cursor.classList.toggle('pinch', pinching);
+
+    if (pinching && !lastPinch){
+      // click: hit any target within 60px
+      for (const t of targets){
+        if (t.hit) continue;
+        const dx = t.x - sx, dy = t.y - sy;
+        if (dx*dx + dy*dy < 60*60){
+          t.hit = true;
+          t.el.classList.add('hit');
+        }
+      }
+      const remaining = targets.filter(t => !t.hit).length;
+      if (remaining === 0) setTimeout(spawnTargets, 700);
+    }
+    lastPinch = pinching;
+
+    status.textContent = pinching ? 'Pinch — click!' : `Tracking · ${targets.filter(t=>!t.hit).length} targets`;
+  }
+
+  document.getElementById('startBtn').onclick = async () => {
+    const setup = document.getElementById('setup');
+    setup.querySelector('#startBtn').textContent = 'Loading model…';
+    try {
+      const hands = new Hands({ locateFile: f => `https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1675469240/${f}` });
+      hands.setOptions({ maxNumHands: 1, modelComplexity: 1, minDetectionConfidence: 0.6, minTrackingConfidence: 0.6 });
+      hands.onResults(onResults);
+      const camera = new Camera(cam, {
+        onFrame: async () => { await hands.send({ image: cam }); },
+        width: 640, height: 480
+      });
+      await camera.start();
+      setup.style.display = 'none';
+      status.textContent = 'Show your hand…';
+    } catch (err){
+      setup.querySelector('p').textContent = 'Camera access failed — check browser permissions and reload. ' + err.message;
+      setup.querySelector('#startBtn').textContent = 'Retry';
+    }
+  };
+})();
+</script>
+</body>
+</html>

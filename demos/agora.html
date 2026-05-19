@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agora — Sai Kanagat</title>
+<link rel="stylesheet" href="../css/styles.css">
+<style>
+  html, body { margin:0; padding:0; min-height:100%; background:#0a0a0a; color:#f5f0e8; font-family: var(--font-mono, monospace); overflow-x:hidden; }
+  .demo-back, .demo-home {
+    position:fixed; top:18px; z-index:50;
+    font-size: 0.7rem; letter-spacing:0.18em; text-transform:uppercase;
+    background:rgba(10,10,10,0.7); border:1px solid rgba(245,240,232,0.18);
+    padding:10px 14px; border-radius:2px; backdrop-filter: blur(8px);
+    color:#f5f0e8; text-decoration:none;
+  }
+  .demo-home { left:18px; }
+  .demo-back { right:18px; }
+  .demo-back:hover, .demo-home:hover { background:#ccff00; color:#0a0a0a; border-color:#ccff00; }
+  .demo-home strong { color:#ccff00; font-weight:700; }
+  .demo-home:hover strong { color:#0a0a0a; }
+
+  .step-wrap { min-height:100vh; padding:80px 32px 60px; max-width:1280px; margin:0 auto; box-sizing:border-box; }
+  .step-eyebrow { font-size:0.62rem; letter-spacing:0.28em; text-transform:uppercase; opacity:0.55; margin-bottom:14px; }
+  .step-eyebrow strong { color:#ccff00; font-weight:700; }
+  h1.step-h { font-family: var(--font-display, 'Unbounded', sans-serif); font-weight:900; font-size: clamp(34px, 5vw, 64px); letter-spacing:-0.03em; margin:0 0 18px; line-height:0.98; }
+  .lede { color: rgba(245,240,232,0.7); max-width:640px; line-height:1.6; font-size:0.9rem; letter-spacing:0.02em; margin-bottom:32px; }
+
+  /* STEP 1 */
+  .seed-form { max-width:720px; }
+  .seed-form label { display:block; font-size:0.62rem; letter-spacing:0.22em; text-transform:uppercase; opacity:0.6; margin-bottom:8px; }
+  .seed-form textarea {
+    width:100%; min-height:140px; resize:vertical;
+    background:#111; border:1px solid rgba(245,240,232,0.18); color:#f5f0e8;
+    padding:18px; font:inherit; font-size:0.95rem; line-height:1.5; border-radius:2px;
+    box-sizing:border-box;
+  }
+  .seed-form textarea:focus { outline:none; border-color:#ccff00; }
+  .preset-row { display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
+  .preset-row button {
+    background:transparent; border:1px solid rgba(245,240,232,0.2); color:#f5f0e8;
+    font:inherit; font-size:0.62rem; letter-spacing:0.18em; text-transform:uppercase;
+    padding:8px 12px; cursor:pointer; border-radius:2px;
+  }
+  .preset-row button:hover { background:rgba(204,255,0,0.1); border-color:#ccff00; color:#ccff00; }
+  .row-controls { display:flex; gap:14px; align-items:center; margin-top:24px; flex-wrap:wrap; }
+  .row-controls label.inline { font-size:0.62rem; letter-spacing:0.22em; opacity:0.7; }
+  .row-controls input[type=number] {
+    background:#111; border:1px solid rgba(245,240,232,0.18); color:#f5f0e8;
+    padding:8px 12px; font:inherit; width:70px; border-radius:2px;
+  }
+  .btn-primary {
+    background:#ccff00; color:#0a0a0a; border:none; font-family: var(--font-mono, monospace);
+    font-size:0.72rem; letter-spacing:0.18em; text-transform:uppercase; font-weight:700;
+    padding:14px 28px; cursor:pointer; border-radius:2px;
+  }
+  .btn-primary:hover { background:#fff; }
+  .btn-ghost {
+    background:transparent; color:#f5f0e8; border:1px solid rgba(245,240,232,0.25);
+    font: inherit; font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase;
+    padding:13px 24px; cursor:pointer; border-radius:2px;
+  }
+  .btn-ghost:hover { background:#ccff00; color:#0a0a0a; border-color:#ccff00; }
+
+  /* STEP 2 — env */
+  .agent-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap:12px; margin-top:24px; max-height: 56vh; overflow-y:auto; padding-right:6px; }
+  .agent-card { background:#111; border:1px solid rgba(245,240,232,0.12); padding:14px; border-radius:2px; }
+  .agent-card .name { font-weight:700; font-size:0.78rem; letter-spacing:0.04em; }
+  .agent-card .role { font-size:0.62rem; letter-spacing:0.18em; text-transform:uppercase; opacity:0.6; margin-top:4px; }
+  .agent-card .stance { display:flex; align-items:center; gap:6px; margin-top:10px; }
+  .agent-card .stance-dot { width:10px; height:10px; border-radius:50%; }
+  .agent-card .stance span { font-size:0.62rem; letter-spacing:0.18em; text-transform:uppercase; opacity:0.8; }
+
+  /* STEP 3 — sim */
+  #simWrap { position:relative; height: 70vh; min-height:500px; background:#000; border:1px solid rgba(245,240,232,0.1); border-radius:2px; overflow:hidden; margin-top:24px; }
+  #simCanvas { position:absolute; inset:0; width:100%; height:100%; display:block; }
+  .sim-hud { position:absolute; top:14px; left:14px; right:14px; display:flex; justify-content:space-between; align-items:center; gap:12px; z-index:5; pointer-events:none; }
+  .sim-tally { display:flex; gap:10px; background:rgba(10,10,10,0.55); border:1px solid rgba(245,240,232,0.15); padding:8px 12px; border-radius:2px; backdrop-filter: blur(6px); }
+  .sim-tally .stat { display:flex; align-items:center; gap:6px; font-size:0.65rem; letter-spacing:0.12em; }
+  .sim-tally .dot { width:10px; height:10px; border-radius:50%; }
+  .sim-clock { background:rgba(10,10,10,0.55); border:1px solid rgba(245,240,232,0.15); padding:8px 14px; border-radius:2px; backdrop-filter: blur(6px); font-size:0.65rem; letter-spacing:0.18em; text-transform:uppercase; }
+  .sim-clock strong { color:#ccff00; }
+  #feedRail { position:absolute; right:14px; top:60px; bottom:14px; width:280px; max-width: 32%; overflow:hidden; pointer-events:none; z-index:4; }
+  .feed-msg { background:rgba(10,10,10,0.6); backdrop-filter: blur(6px); border:1px solid rgba(245,240,232,0.12); border-left-width:3px; padding:8px 10px; border-radius:2px; margin-bottom:6px; font-size:0.7rem; line-height:1.4; opacity:0; transform: translateY(8px); animation: feedIn 0.4s forwards, feedOut 0.5s 6s forwards; }
+  .feed-msg .who { font-weight:700; opacity:0.9; font-size:0.62rem; letter-spacing:0.06em; text-transform:uppercase; margin-bottom:2px; }
+  .feed-msg .what { opacity:0.85; font-family: var(--font-body, system-ui, sans-serif); font-size:0.78rem; letter-spacing:0; text-transform:none; }
+  @keyframes feedIn { to { opacity:1; transform: translateY(0); } }
+  @keyframes feedOut { to { opacity:0; transform: translateY(-8px); } }
+
+  /* STEP 4 — report */
+  .report-grid { display:grid; grid-template-columns: 1.4fr 1fr; gap:24px; margin-top:24px; align-items:start; }
+  @media (max-width: 880px){ .report-grid { grid-template-columns: 1fr; } }
+  .report-card { background:#111; border:1px solid rgba(245,240,232,0.12); padding:24px; border-radius:2px; }
+  .report-card h3 { font-family: var(--font-display, 'Unbounded', sans-serif); font-weight:900; font-size:1rem; letter-spacing:-0.01em; margin:0 0 14px; }
+  .bar-row { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+  .bar-row .label { font-size:0.65rem; letter-spacing:0.18em; text-transform:uppercase; width:80px; opacity:0.85; }
+  .bar { flex:1; height:14px; background:#0a0a0a; border:1px solid rgba(245,240,232,0.1); border-radius:2px; position:relative; overflow:hidden; }
+  .bar .fill { position:absolute; inset:0; transform-origin: left center; transform: scaleX(0); transition: transform 1.2s cubic-bezier(.2,.8,.2,1); }
+  .bar-row .pct { font-size:0.68rem; opacity:0.7; min-width:42px; text-align:right; }
+  .key-influencers { list-style:none; padding:0; margin:0; }
+  .key-influencers li { display:flex; gap:10px; align-items:flex-start; padding:10px 0; border-bottom:1px solid rgba(245,240,232,0.08); }
+  .key-influencers li:last-child { border-bottom:none; }
+  .key-influencers .ki-dot { width:10px; height:10px; border-radius:50%; margin-top:5px; flex-shrink:0; }
+  .key-influencers .ki-name { font-weight:700; font-size:0.78rem; }
+  .key-influencers .ki-meta { font-size:0.62rem; letter-spacing:0.16em; text-transform:uppercase; opacity:0.6; margin-top:2px; }
+  .key-influencers .ki-msg { font-family: var(--font-body, system-ui, sans-serif); font-size:0.82rem; opacity:0.85; margin-top:6px; line-height:1.4; }
+  .verdict { font-family: var(--font-display, 'Unbounded', sans-serif); font-weight:900; font-size: clamp(22px, 3vw, 38px); letter-spacing:-0.02em; line-height:1.1; }
+  .verdict span { color:#ccff00; }
+  .timeline { margin-top:18px; font-size:0.7rem; line-height:1.6; opacity:0.85; }
+  .timeline .t-item { padding:6px 0; border-bottom:1px solid rgba(245,240,232,0.06); }
+  .timeline .t-time { color:#ccff00; font-weight:700; margin-right:8px; }
+
+  .hidden { display:none; }
+</style>
+</head>
+<body>
+<a href="../index.html" class="demo-home"><strong>SK</strong> · Home</a>
+<a href="../work.html#agora" class="demo-back">← Back to Work</a>
+
+<!-- STEP 1 -->
+<section id="step1" class="step-wrap">
+  <div class="step-eyebrow"><strong>01</strong> · Seed · <span style="color:#ccff00;">Lite version</span></div>
+  <h1 class="step-h">Drop a scenario.<br>Watch a crowd think it through.</h1>
+  <p class="lede">Agora is a sandbox for rehearsing public reaction. Type in a question, statement, or scenario — a product launch, a policy proposal, a news event. The engine generates a synthetic crowd of personas, runs them through a multi-tick simulation of conversation and influence, then hands you a prediction report.</p>
+  <div style="background:rgba(204,255,0,0.08); border:1px solid rgba(204,255,0,0.3); padding:14px 18px; border-radius:2px; margin-bottom:28px; max-width:720px; font-size:0.78rem; line-height:1.55; color:rgba(245,240,232,0.85);">
+    <strong style="color:#ccff00; letter-spacing:0.18em; font-size:0.62rem; text-transform:uppercase; display:block; margin-bottom:6px;">Lite Version</strong>
+    This is a stripped-down browser demo. The <strong>full version</strong> uses real LLM-driven agents with persistent memory, GraphRAG-backed personas extracted from the input material, dual-platform parallel simulation, and a ReportAgent that lets you chat with any persona post-run. Get in touch to see it.
+  </div>
+
+  <div class="seed-form">
+    <label>Your seed</label>
+    <textarea id="seedInput" placeholder="e.g. Our company is raising prices 20% next quarter to fund R&D. How will customers react?"></textarea>
+    <div class="preset-row">
+      <button data-preset="A SaaS company is raising prices 22% to fund AI features. Long-time loyal customers are getting the same rate hike as new ones.">Pricing change</button>
+      <button data-preset="A national government proposes a four-day work week pilot for public-sector employees, framed as productivity research.">Policy proposal</button>
+      <button data-preset="A globally famous indie band drops a surprise album that abandons their signature sound for synth-pop.">Brand pivot</button>
+      <button data-preset="A new fast-food chain opens in a small Italian town, undercutting local family trattorias by 40%.">Cultural shock</button>
+    </div>
+    <div class="row-controls">
+      <label class="inline">Population</label>
+      <input id="popInput" type="number" min="20" max="120" value="60">
+      <label class="inline">Ticks</label>
+      <input id="ticksInput" type="number" min="60" max="600" value="240">
+      <button id="goBtn" class="btn-primary">Build crowd →</button>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 2 -->
+<section id="step2" class="step-wrap hidden">
+  <div class="step-eyebrow"><strong>02</strong> · Environment</div>
+  <h1 class="step-h">Your synthetic<br>crowd is ready.</h1>
+  <p class="lede" id="envLede">Generated <strong id="envCount">60</strong> personas with occupations, demographics, baseline stances and personality vectors. Skim the room, then start the simulation.</p>
+  <div class="agent-grid" id="agentGrid"></div>
+  <div class="row-controls">
+    <button id="simBtn" class="btn-primary">Run simulation →</button>
+    <button id="backTo1Btn" class="btn-ghost">← New seed</button>
+  </div>
+</section>
+
+<!-- STEP 3 -->
+<section id="step3" class="step-wrap hidden">
+  <div class="step-eyebrow"><strong>03</strong> · Simulation</div>
+  <h1 class="step-h">The crowd<br>is talking.</h1>
+  <p class="lede">Agents move, find each other, post, react and shift opinions. The right rail is a live feed of what they're saying. Watch which colour wins ground.</p>
+  <div id="simWrap">
+    <canvas id="simCanvas"></canvas>
+    <div class="sim-hud">
+      <div class="sim-tally" id="tally"></div>
+      <div class="sim-clock"><span>Tick</span> <strong id="tickNow">0</strong> / <span id="tickTotal">240</span></div>
+    </div>
+    <div id="feedRail"></div>
+  </div>
+  <div class="row-controls">
+    <button id="reportBtn" class="btn-primary" disabled>Generate report →</button>
+    <button id="skipBtn" class="btn-ghost">Skip to end</button>
+  </div>
+</section>
+
+<!-- STEP 4 -->
+<section id="step4" class="step-wrap hidden">
+  <div class="step-eyebrow"><strong>04</strong> · Report</div>
+  <h1 class="step-h" id="reportH">Prediction<br>complete.</h1>
+  <p class="lede">Synthetic crowd of <strong id="rpCount"></strong> after <strong id="rpTicks"></strong> ticks. Below: final stance distribution, key influencer agents, dominant narrative, and a timeline of inflection points.</p>
+  <div class="report-grid">
+    <div class="report-card">
+      <h3>Final Stance Distribution</h3>
+      <div id="bars"></div>
+      <div class="verdict" style="margin-top:24px;">Verdict: <span id="verdict"></span></div>
+    </div>
+    <div class="report-card">
+      <h3>Key Influencers</h3>
+      <ul class="key-influencers" id="influencers"></ul>
+    </div>
+    <div class="report-card" style="grid-column: 1 / -1;">
+      <h3>Inflection Timeline</h3>
+      <div class="timeline" id="timeline"></div>
+    </div>
+  </div>
+  <div class="row-controls" style="margin-top:24px;">
+    <button id="restartBtn" class="btn-primary">New scenario →</button>
+  </div>
+</section>
+
+<script>
+(function(){
+  // ===== persona templates =====
+  const FIRST = ['Marco','Giulia','Aarav','Noa','Tomás','Sara','Kenji','Priya','Leila','Mateo','Anya','Jian','Eva','Diego','Mei','Lukas','Fatima','Theo','Iris','Hana','Owen','Zara','Nico','Pia','Sol','Reza','Eli','Vera','Khalil','Mira','Andrei','Leo','Hugo','Aisha','Kai','Jonas','Alma','Dev','Yuna','Ines','Bram','Léa','Omar','Tara','Esme','Rafa','Nia','Sam','Adi','Cleo'];
+  const LAST = ['Rossi','Romano','Patel','Cohen','Garcia','Bauer','Tanaka','Singh','Haddad','Lopez','Volkov','Chen','Müller','Reyes','Wang','Schneider','Ali','Park','Nakamura','Costa','Khan','Ivanov','Petit','Diaz','Yamada'];
+  const ROLES = [
+    {role:'Software engineer', bias: 0.05, vocal: 0.7, openness: 0.65},
+    {role:'Stay-at-home parent', bias: -0.1, vocal: 0.55, openness: 0.5},
+    {role:'Retired teacher', bias: -0.15, vocal: 0.6, openness: 0.45},
+    {role:'Small-business owner', bias: -0.05, vocal: 0.7, openness: 0.4},
+    {role:'University student', bias: 0.2, vocal: 0.85, openness: 0.8},
+    {role:'Marketing manager', bias: 0.1, vocal: 0.75, openness: 0.6},
+    {role:'Nurse', bias: 0.0, vocal: 0.5, openness: 0.55},
+    {role:'Construction worker', bias: -0.1, vocal: 0.55, openness: 0.4},
+    {role:'Freelance designer', bias: 0.15, vocal: 0.65, openness: 0.75},
+    {role:'Civil servant', bias: -0.05, vocal: 0.4, openness: 0.5},
+    {role:'Restaurant owner', bias: -0.1, vocal: 0.7, openness: 0.45},
+    {role:'PhD researcher', bias: 0.1, vocal: 0.6, openness: 0.7},
+    {role:'Truck driver', bias: -0.05, vocal: 0.5, openness: 0.4},
+    {role:'Yoga instructor', bias: 0.05, vocal: 0.55, openness: 0.65},
+    {role:'Bank analyst', bias: -0.05, vocal: 0.55, openness: 0.5},
+    {role:'Musician', bias: 0.15, vocal: 0.7, openness: 0.75},
+    {role:'Journalist', bias: 0.0, vocal: 0.85, openness: 0.6},
+    {role:'Architect', bias: 0.05, vocal: 0.6, openness: 0.65},
+    {role:'Local politician', bias: 0.0, vocal: 0.9, openness: 0.45},
+    {role:'Pharmacist', bias: -0.05, vocal: 0.5, openness: 0.5}
+  ];
+  const STANCES = [
+    { id:0, label:'Support',   color:'#ccff00' },
+    { id:1, label:'Oppose',    color:'#ff5a3c' },
+    { id:2, label:'Cautious',  color:'#3cb4ff' },
+    { id:3, label:'Indifferent',color:'#f5f0e8' }
+  ];
+
+  // message templates per stance
+  const SAYS = {
+    0: [
+      "Honestly? This is overdue.",
+      "If they pull this off, it changes the game.",
+      "I'm in. Took them long enough.",
+      "Net positive. People are overreacting.",
+      "This is exactly what the space needed.",
+      "I'd happily pay for this. Worth it."
+    ],
+    1: [
+      "Awful decision. They've lost me as a customer.",
+      "This is going to backfire hard.",
+      "Tone-deaf. Who signed off on this?",
+      "Out of touch with what people actually want.",
+      "I'm cancelling. Anyone else?",
+      "This is a betrayal of the original idea."
+    ],
+    2: [
+      "Need to see the details before judging.",
+      "Could go either way. Watching closely.",
+      "On paper sensible, in practice... we'll see.",
+      "I have questions about the rollout.",
+      "Cautiously interested but not convinced.",
+      "Show me the numbers and I'll tell you."
+    ],
+    3: [
+      "Doesn't really affect me.",
+      "Honestly haven't been paying attention.",
+      "Why is everyone so worked up about this?",
+      "Whatever. Bigger things going on.",
+      "I'll deal with it when it happens.",
+      "Not my fight."
+    ]
+  };
+
+  // ===== state =====
+  let seed = '';
+  let agents = [];
+  let tick = 0, tickTarget = 240;
+  let popN = 60;
+  let history = []; // distribution snapshots over time
+  let logEvents = []; // {tick, msg, dominant}
+  let lastDominant = null;
+  let running = false;
+  let rafHandle = null;
+  let messageQueue = [];
+
+  // ===== step 1 =====
+  document.querySelectorAll('.preset-row button').forEach(b => {
+    b.onclick = () => { document.getElementById('seedInput').value = b.dataset.preset; };
+  });
+  document.getElementById('goBtn').onclick = () => {
+    seed = document.getElementById('seedInput').value.trim();
+    if (!seed){ document.getElementById('seedInput').focus(); return; }
+    popN = Math.max(20, Math.min(120, parseInt(document.getElementById('popInput').value) || 60));
+    tickTarget = Math.max(60, Math.min(600, parseInt(document.getElementById('ticksInput').value) || 240));
+    buildEnvironment();
+    show('step2');
+  };
+
+  // ===== step 2 =====
+  function buildEnvironment(){
+    agents = [];
+    // assign starting stances based on the wording of the seed (very loose heuristic for flavour)
+    const seedTone = analyzeSeed(seed);
+    const grid = document.getElementById('agentGrid');
+    grid.innerHTML = '';
+    for (let i = 0; i < popN; i++){
+      const role = ROLES[Math.floor(Math.random() * ROLES.length)];
+      const fn = FIRST[Math.floor(Math.random() * FIRST.length)];
+      const ln = LAST[Math.floor(Math.random() * LAST.length)];
+      // initial stance: weighted by role bias + seed tone + noise
+      let baseScore = role.bias + seedTone + (Math.random() - 0.5) * 0.6;
+      let stance;
+      if (Math.random() < 0.15) stance = 3; // some always indifferent
+      else if (baseScore > 0.15) stance = 0;
+      else if (baseScore < -0.15) stance = 1;
+      else stance = 2;
+      const a = {
+        id: i,
+        name: `${fn} ${ln}`,
+        role: role.role,
+        vocal: role.vocal + (Math.random() - 0.5) * 0.2,
+        openness: role.openness + (Math.random() - 0.5) * 0.2,
+        stance,
+        memory: 1,
+        x: Math.random(), y: Math.random(),
+        vx: (Math.random() - 0.5) * 0.001, vy: (Math.random() - 0.5) * 0.001,
+        influence: 0
+      };
+      agents.push(a);
+      // render card
+      const c = document.createElement('div');
+      c.className = 'agent-card';
+      c.innerHTML = `<div class="name">${a.name}</div><div class="role">${a.role}</div><div class="stance"><span class="stance-dot" style="background:${STANCES[a.stance].color}"></span><span>${STANCES[a.stance].label}</span></div>`;
+      grid.appendChild(c);
+    }
+    document.getElementById('envCount').textContent = popN;
+  }
+
+  function analyzeSeed(s){
+    const txt = s.toLowerCase();
+    let score = 0;
+    const positive = ['launch','new','pilot','research','growth','support','help','expand','open','invest','features','better'];
+    const negative = ['raise','cut','close','ban','lose','fire','tax','restrict','undercut','abandon','shock','crisis'];
+    for (const w of positive) if (txt.includes(w)) score += 0.06;
+    for (const w of negative) if (txt.includes(w)) score -= 0.06;
+    return Math.max(-0.4, Math.min(0.4, score));
+  }
+
+  document.getElementById('simBtn').onclick = () => {
+    show('step3');
+    startSim();
+  };
+  document.getElementById('backTo1Btn').onclick = () => show('step1');
+
+  // ===== step 3 — simulation =====
+  let canvas, ctx, simW, simH;
+  function startSim(){
+    canvas = document.getElementById('simCanvas');
+    ctx = canvas.getContext('2d');
+    function resize(){
+      const r = canvas.getBoundingClientRect();
+      canvas.width = r.width * devicePixelRatio;
+      canvas.height = r.height * devicePixelRatio;
+      simW = canvas.width; simH = canvas.height;
+    }
+    resize(); addEventListener('resize', resize);
+    tick = 0;
+    history = [];
+    logEvents = [];
+    lastDominant = null;
+    document.getElementById('tickTotal').textContent = tickTarget;
+    document.getElementById('tickNow').textContent = '0';
+    document.getElementById('reportBtn').disabled = true;
+    renderTally();
+    running = true;
+    loop();
+  }
+
+  function step(){
+    tick++;
+    // velocity / position updates
+    for (const a of agents){
+      a.vx += (Math.random() - 0.5) * 0.0008;
+      a.vy += (Math.random() - 0.5) * 0.0008;
+      const sp = Math.hypot(a.vx, a.vy);
+      const max = 0.0035;
+      if (sp > max){ a.vx = a.vx / sp * max; a.vy = a.vy / sp * max; }
+      a.x += a.vx; a.y += a.vy;
+      if (a.x < 0){ a.x = 0; a.vx = -a.vx; }
+      if (a.x > 1){ a.x = 1; a.vx = -a.vx; }
+      if (a.y < 0){ a.y = 0; a.vy = -a.vy; }
+      if (a.y > 1){ a.y = 1; a.vy = -a.vy; }
+    }
+    // interactions: each tick, sample some pairs
+    const pairs = Math.floor(agents.length * 0.6);
+    for (let k = 0; k < pairs; k++){
+      const i = Math.floor(Math.random() * agents.length);
+      const j = Math.floor(Math.random() * agents.length);
+      if (i === j) continue;
+      const a = agents[i], b = agents[j];
+      const dx = a.x - b.x, dy = a.y - b.y;
+      if (dx*dx + dy*dy < 0.012){ // close enough to influence
+        // who convinces whom: stronger vocality + lower openness wins
+        const aPow = a.vocal * (1 - b.openness * 0.6);
+        const bPow = b.vocal * (1 - a.openness * 0.6);
+        if (a.stance !== b.stance){
+          if (aPow > bPow && Math.random() < 0.06 * (b.openness)){
+            b.stance = a.stance; b.memory = 1; a.influence++;
+            maybePost(a, b);
+          } else if (bPow > aPow && Math.random() < 0.06 * (a.openness)){
+            a.stance = b.stance; a.memory = 1; b.influence++;
+            maybePost(b, a);
+          }
+        }
+      }
+    }
+    // ambient flips (events, doomscrolling, news)
+    if (Math.random() < 0.04){
+      const a = agents[Math.floor(Math.random() * agents.length)];
+      if (Math.random() < 0.4){
+        a.stance = Math.floor(Math.random() * 4); a.memory = 1;
+      }
+    }
+    // record history every 8 ticks
+    if (tick % 8 === 0){
+      const c = [0,0,0,0];
+      for (const a of agents) c[a.stance]++;
+      history.push({ tick, c });
+      const dom = c.indexOf(Math.max(...c));
+      if (lastDominant !== null && dom !== lastDominant){
+        logEvents.push({ tick, kind:'flip', from: lastDominant, to: dom });
+      }
+      lastDominant = dom;
+    }
+  }
+
+  function maybePost(speaker, target){
+    if (Math.random() > speaker.vocal * 0.35) return;
+    const said = SAYS[speaker.stance][Math.floor(Math.random() * SAYS[speaker.stance].length)];
+    pushFeed(speaker, said);
+  }
+
+  function pushFeed(a, msg){
+    const rail = document.getElementById('feedRail');
+    if (rail.children.length > 6) rail.firstChild.remove();
+    const el = document.createElement('div');
+    el.className = 'feed-msg';
+    el.style.borderLeftColor = STANCES[a.stance].color;
+    el.innerHTML = `<div class="who" style="color:${STANCES[a.stance].color}">${a.name} · ${a.role}</div><div class="what">"${msg}"</div>`;
+    rail.appendChild(el);
+    setTimeout(() => el.remove(), 7200);
+  }
+
+  function draw(){
+    ctx.fillStyle = 'rgba(0,0,0,0.22)';
+    ctx.fillRect(0, 0, simW, simH);
+    // links
+    ctx.lineWidth = 1;
+    for (let i = 0; i < agents.length; i++){
+      const a = agents[i];
+      for (let j = i+1; j < agents.length; j++){
+        const b = agents[j];
+        const dx = a.x - b.x, dy = a.y - b.y;
+        const d2 = dx*dx + dy*dy;
+        if (d2 < 0.005 && a.stance === b.stance){
+          ctx.strokeStyle = STANCES[a.stance].color + '30';
+          ctx.beginPath(); ctx.moveTo(a.x*simW, a.y*simH); ctx.lineTo(b.x*simW, b.y*simH); ctx.stroke();
+        }
+      }
+    }
+    for (const a of agents){
+      const r = (3 + a.influence * 0.15) * devicePixelRatio;
+      ctx.fillStyle = STANCES[a.stance].color;
+      ctx.beginPath(); ctx.arc(a.x*simW, a.y*simH, Math.min(r, 8 * devicePixelRatio), 0, Math.PI*2); ctx.fill();
+    }
+  }
+
+  function renderTally(){
+    const c = [0,0,0,0];
+    for (const a of agents) c[a.stance]++;
+    document.getElementById('tally').innerHTML = STANCES.map((s,i) => `<div class="stat"><span class="dot" style="background:${s.color}"></span>${s.label} ${c[i]}</div>`).join('');
+  }
+
+  function loop(){
+    if (!running) return;
+    step();
+    draw();
+    if (tick % 8 === 0){
+      document.getElementById('tickNow').textContent = tick;
+      renderTally();
+    }
+    if (tick >= tickTarget){
+      running = false;
+      document.getElementById('reportBtn').disabled = false;
+      document.getElementById('reportBtn').click();
+      return;
+    }
+    rafHandle = requestAnimationFrame(loop);
+  }
+
+  document.getElementById('skipBtn').onclick = () => {
+    while (tick < tickTarget) step();
+    running = false;
+    document.getElementById('tickNow').textContent = tick;
+    renderTally();
+    draw();
+    document.getElementById('reportBtn').disabled = false;
+    document.getElementById('reportBtn').click();
+  };
+
+  // ===== step 4 — report =====
+  document.getElementById('reportBtn').onclick = () => {
+    if (running) return;
+    show('step4');
+    renderReport();
+  };
+
+  function renderReport(){
+    const c = [0,0,0,0];
+    for (const a of agents) c[a.stance]++;
+    const total = agents.length;
+    document.getElementById('rpCount').textContent = total;
+    document.getElementById('rpTicks').textContent = tick;
+    // bars
+    const bars = document.getElementById('bars');
+    bars.innerHTML = STANCES.map((s, i) => {
+      const pct = Math.round((c[i] / total) * 100);
+      return `<div class="bar-row"><div class="label">${s.label}</div><div class="bar"><div class="fill" data-pct="${pct}" style="background:${s.color}"></div></div><div class="pct">${pct}%</div></div>`;
+    }).join('');
+    setTimeout(() => {
+      bars.querySelectorAll('.fill').forEach(el => {
+        el.style.transform = `scaleX(${parseInt(el.dataset.pct) / 100})`;
+      });
+    }, 80);
+    // verdict
+    const winner = c.indexOf(Math.max(...c));
+    const winnerPct = Math.round((c[winner] / total) * 100);
+    let verdictText;
+    if (winnerPct >= 55) verdictText = `Strong ${STANCES[winner].label.toLowerCase()} (${winnerPct}%)`;
+    else if (winnerPct >= 40) verdictText = `Lean ${STANCES[winner].label.toLowerCase()} (${winnerPct}%)`;
+    else verdictText = `Fragmented · no consensus`;
+    document.getElementById('verdict').textContent = verdictText;
+    // influencers
+    const top = [...agents].sort((a,b) => b.influence - a.influence).slice(0, 5);
+    document.getElementById('influencers').innerHTML = top.map(a => {
+      const sample = SAYS[a.stance][Math.floor(Math.random() * SAYS[a.stance].length)];
+      return `<li><div class="ki-dot" style="background:${STANCES[a.stance].color}"></div><div><div class="ki-name">${a.name}</div><div class="ki-meta">${a.role} · ${STANCES[a.stance].label} · ${a.influence} conversions</div><div class="ki-msg">"${sample}"</div></div></li>`;
+    }).join('');
+    // timeline
+    const timelineEl = document.getElementById('timeline');
+    if (logEvents.length === 0) timelineEl.innerHTML = '<div class="t-item">Stable simulation — no major sentiment flips recorded.</div>';
+    else timelineEl.innerHTML = logEvents.map(e => `<div class="t-item"><span class="t-time">T+${e.tick}</span>Dominant stance shifted from <strong style="color:${STANCES[e.from].color}">${STANCES[e.from].label}</strong> to <strong style="color:${STANCES[e.to].color}">${STANCES[e.to].label}</strong></div>`).join('');
+  }
+
+  document.getElementById('restartBtn').onclick = () => { show('step1'); };
+
+  // helpers
+  function show(id){
+    ['step1','step2','step3','step4'].forEach(s => document.getElementById(s).classList.toggle('hidden', s !== id));
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+})();
+</script>
+</body>
+</html>
