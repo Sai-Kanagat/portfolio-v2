@@ -414,10 +414,59 @@ em, .brand-italic, .serif-italic {
 .brand-disc { display: inline-block; width: 0.55em; height: 0.55em; border-radius: 50%; background: var(--ink); vertical-align: middle; margin-right: 0.4em; }
 .brand-dot { color: var(--accent); }
 
-/* Focus states — accessibility */
-a:focus-visible, button:focus-visible, .btn:focus-visible, .filter-pill:focus-visible, .nav-score-btn:focus-visible {
+/* Focus states — accessibility (WCAG 2.4.7) */
+a:focus-visible, button:focus-visible, .btn:focus-visible, .filter-pill:focus-visible, .nav-score-btn:focus-visible, .we-row:focus-visible, .blog-row:focus-visible, input:focus-visible, textarea:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
+  border-radius: var(--r-3);
+}
+
+/* Skip to content — accessibility (WCAG 2.4.1) */
+.skip-link {
+  position: absolute; left: -9999px; top: 0;
+  background: var(--ink); color: var(--paper);
+  padding: 12px 18px; border-radius: var(--r-full);
+  font-family: var(--mono); font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase;
+  z-index: 100;
+}
+.skip-link:focus, .skip-link:focus-visible {
+  left: 18px; top: 18px; outline: 2px solid var(--accent); outline-offset: 3px;
+}
+
+/* Discipline split (homepage) — bring into brand */
+.discipline-split { padding: 96px 32px; gap: 32px; }
+.discipline-col { padding: 32px; background: var(--paper-pure); border-radius: var(--r-4); border: 1px solid var(--n-300); }
+.discipline-col h2 { font-family: var(--sans); font-weight: 500; letter-spacing: -0.025em; font-size: clamp(28px, 4vw, 48px); line-height: 1; }
+.discipline-col-tag { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin: 18px 0; }
+.discipline-col-tag.design::before, .discipline-col-tag.marketing::before { background: var(--accent) !important; width: 8px !important; height: 8px !important; border-radius: 50% !important; display: inline-block !important; margin-right: 10px !important; vertical-align: middle !important; }
+.discipline-list { margin-top: 24px; padding: 0; list-style: none; }
+.discipline-list li { padding: 14px 0; border-bottom: 1px dashed var(--n-300); color: var(--n-700); font-family: var(--sans); font-size: 16px; line-height: 1.4; }
+.discipline-list li:last-child { border-bottom: none; }
+
+/* Work section header on homepage */
+.work-section { padding: 96px 32px; }
+.work-section h2 { font-family: var(--sans); font-weight: 500; letter-spacing: -0.025em; font-size: clamp(40px, 6vw, 88px); line-height: 0.98; color: var(--ink); }
+.work-grid { gap: 14px; margin-top: 48px; }
+.work-grid .work-card { aspect-ratio: 4/5; }
+
+/* Hero number / corner mark on homepage — kill if present */
+.hero-number { display: none !important; }
+
+/* Process page */
+.process-page, .process-hero { background: var(--paper); padding: 120px 32px 48px; }
+.process-hero h1 { font-family: var(--sans); font-weight: 500; letter-spacing: -0.03em; font-size: clamp(56px, 9vw, 128px); line-height: 0.95; color: var(--ink); }
+
+/* Gallery page */
+.gallery-page, .gallery-hero { background: var(--paper); padding: 120px 32px 48px; }
+.gallery-hero h1 { font-family: var(--sans); font-weight: 500; letter-spacing: -0.03em; font-size: clamp(56px, 9vw, 128px); line-height: 0.95; color: var(--ink); }
+
+/* Smooth scroll */
+html { scroll-behavior: smooth; }
+
+/* Reduced motion respect — kill all transitions/animations */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+  .we-row:hover { padding-left: 8px; }
 }
 
 /* ───────────────────────────────────────────────────────
