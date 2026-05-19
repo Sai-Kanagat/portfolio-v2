@@ -48,10 +48,10 @@
 
   // ---------- SVG scaffold ----------
   host.innerHTML = '\
-<svg viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-label="sai kanagat. hero loop">\
+<svg viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-label="Sai Kanagat hero loop">\
   <defs>\
-    <clipPath id="leftHalf"><rect x="-1000" y="-1000" width="1800" height="2400"></rect></clipPath>\
-    <clipPath id="rightHalf"><rect x="800" y="-1000" width="1800" height="2400"></rect></clipPath>\
+    <clipPath id="leftHalf"><rect x="-1200" y="-1200" width="1200" height="2400"></rect></clipPath>\
+    <clipPath id="rightHalf"><rect x="0" y="-1200" width="1200" height="2400"></rect></clipPath>\
   </defs>\
   <g id="markGroup" transform="translate(' + CX + ',' + CY + ') scale(1)">\
     <g id="inkHalf" opacity="0">\
