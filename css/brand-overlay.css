@@ -161,12 +161,16 @@ em, .brand-italic, .serif-italic {
   justify-content: center;
   align-items: center;
   padding: 96px 32px 80px;
+  gap: 40px;
   position: relative;
 }
 .hero-loop-section .hero-label {
-  position: absolute; top: 96px; left: 40px;
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
   color: var(--n-500); font-family: var(--mono);
   font-size: var(--t-xs); letter-spacing: 0.22em; text-transform: uppercase;
+  text-align: left;
 }
 .hero-loop-section .hero-label .num { color: var(--accent); margin-right: 12px; }
 .hero-loop-stage { width: 100%; max-width: 1180px; display: flex; justify-content: center; }
