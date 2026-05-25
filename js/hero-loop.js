@@ -58,8 +58,8 @@
           '<div class="hl-mark-accent" id="hlAccent"></div>' +
         '</div>' +
         '<div class="hl-beatring" id="hlBeatRing"></div>' +
-        '<div class="hl-wordmark" id="hlWordmark"><span>SAI KANAGAT</span></div>' +
       '</div>' +
+      '<div class="hl-wordmark" id="hlWordmark"><span>SAI KANAGAT</span></div>' +
     '</div>';
 
   // Inject scoped styles once
@@ -69,15 +69,17 @@
     st.textContent =
       '#heroLoop{width:100%;display:flex;justify-content:center;align-items:center;}' +
       '.hl-frame{position:relative;width:100%;max-width:1180px;aspect-ratio:16/9;background:'+PAPER+';border-radius:18px;overflow:hidden;box-shadow:0 1px 0 oklch(0.85 0.008 260),0 24px 60px oklch(0.16 0.012 260 / 0.10);}' +
-      '.hl-stage{position:absolute;inset:0;}' +
+      '.hl-stage{position:absolute;left:0;right:0;top:0;bottom:80px;}' +
       '.hl-mark{position:absolute;left:50%;top:50%;width:'+GIANT+'px;height:'+GIANT+'px;margin-left:-'+(GIANT/2)+'px;margin-top:-'+(GIANT/2)+'px;transform-origin:center;will-change:transform,opacity;}' +
       '.hl-mark-bg{position:absolute;inset:0;background:'+PAPER+';}' +
       '.hl-mark-ink{position:absolute;inset:0;background:'+INK+';clip-path:polygon(0% 0%, '+(100-SEAM)+'% 0%, 0% '+(100-SEAM)+'%);will-change:transform,opacity;opacity:0;}' +
       '.hl-mark-accent{position:absolute;inset:0;background:'+ACCENT+';clip-path:polygon(100% '+SEAM+'%, 100% 100%, '+SEAM+'% 100%);will-change:transform,opacity;opacity:0;}' +
       '.hl-beatring{position:absolute;left:50%;top:50%;width:0;height:0;border:1.5px solid '+ACCENT+';opacity:0;pointer-events:none;transform:translate(-50%,-50%);}' +
-      '.hl-wordmark{position:absolute;left:0;right:0;display:flex;justify-content:center;opacity:0;will-change:transform,opacity,clip-path;font-family:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;font-weight:700;font-size:'+WM_SIZE+'px;line-height:1;letter-spacing:-0.04em;color:'+INK+';text-transform:uppercase;white-space:nowrap;clip-path:inset(0 100% 0 0);}' +
-      '@media (max-width: 900px){.hl-frame{aspect-ratio:4/3;border-radius:14px;}.hl-wordmark{font-size:34px;}}' +
-      '@media (max-width: 560px){.hl-frame{aspect-ratio:1/1;border-radius:12px;}.hl-wordmark{font-size:26px;}}';
+      '.hl-wordmark{position:absolute;left:0;right:0;bottom:28px;padding:0 16px;display:flex;justify-content:center;opacity:0;will-change:transform,opacity,clip-path;font-family:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;font-weight:700;font-size:'+WM_SIZE+'px;line-height:1;letter-spacing:-0.04em;color:'+INK+';text-transform:uppercase;white-space:nowrap;clip-path:inset(0 100% 0 0);box-sizing:border-box;}' +
+      '@media (max-width: 900px){.hl-frame{aspect-ratio:4/3;border-radius:14px;}.hl-stage{bottom:64px;}.hl-wordmark{font-size:34px;bottom:22px;}}' +
+      '@media (max-width: 560px){.hl-frame{aspect-ratio:4/5;border-radius:12px;}.hl-stage{bottom:54px;}.hl-wordmark{font-size:22px;letter-spacing:-0.03em;bottom:18px;}}' +
+      '@media (max-width: 420px){.hl-stage{bottom:48px;}.hl-wordmark{font-size:18px;letter-spacing:-0.02em;padding:0 12px;bottom:16px;}}' +
+      '@media (max-width: 360px){.hl-wordmark{font-size:16px;}}';
     document.head.appendChild(st);
   }
 

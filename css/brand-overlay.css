@@ -589,3 +589,144 @@ input:focus-visible, textarea:focus-visible {
   outline-offset: 3px !important;
   border-radius: var(--r-3);
 }
+
+/* ───────────────────────────────────────────────────────
+   MOBILE POLISH (v2026-05-21)
+   Fixes: small viewport hero heights, work list wrap,
+   tablet two-col disciplines, tap target sizes.
+   ─────────────────────────────────────────────────────── */
+
+/* Use small-viewport units so iOS Safari URL bar doesn't add scroll */
+@supports (height: 100svh) {
+  .hero,
+  .hero-loop-section,
+  .about-hero,
+  .contact-hero,
+  .process-hero,
+  .gallery-hero {
+    min-height: calc(100svh - var(--nav-h, 64px));
+  }
+  .hero-loop-section { min-height: 100svh; }
+}
+
+/* Keep discipline split as 2 columns on tablet (was stacking at 768px). */
+@media (min-width: 640px) and (max-width: 980px) {
+  .discipline-split { grid-template-columns: 1fr 1fr !important; }
+  .discipline-col { padding: 56px 28px !important; }
+  .discipline-col:first-child {
+    border-right: 1px solid var(--n-300) !important;
+    border-bottom: none !important;
+  }
+  .discipline-col h2 { font-size: clamp(28px, 5vw, 44px); line-height: 1.05; }
+}
+
+/* WORK editorial list — restructure on small screens so titles read
+   on one line instead of wrapping one word at a time. */
+@media (max-width: 640px) {
+  .work-editorial { padding: 20px 16px 56px; }
+  .we-header { display: none; }
+  .we-row {
+    grid-template-columns: 36px 1fr auto !important;
+    grid-template-areas:
+      "num   title  cta"
+      "year  title  cta";
+    column-gap: 12px;
+    row-gap: 2px;
+    padding: 18px 4px;
+    align-items: start !important;
+  }
+  .we-row .we-num   { grid-area: num;   align-self: start; }
+  .we-row .we-year  { grid-area: year;  align-self: start; }
+  .we-row .we-title { grid-area: title; font-size: clamp(17px, 4.6vw, 22px); line-height: 1.25; min-width: 0; word-break: normal; overflow-wrap: anywhere; }
+  .we-row .we-cta   { grid-area: cta;   align-self: center; font-size: 0.55rem; }
+  .we-row .we-role  { display: none; }
+}
+
+/* Small-screen breathing room + readable text */
+@media (max-width: 480px) {
+  :root { --pad-x: 18px; }
+  .about-bio,
+  .timeline-section,
+  .work-page-header,
+  .contact-hero { padding-left: 18px; padding-right: 18px; }
+  /* About bio text — make sure body text is ≥16px */
+  .about-bio-text p { font-size: 16px; line-height: 1.65; }
+  .about-bio-intro { font-size: clamp(18px, 5vw, 22px); }
+  /* Timeline — collapse the absolute year into inline label */
+  .timeline { padding-left: 28px; }
+  .timeline::before { left: 8px; }
+  .timeline-item::before { left: -24px; top: 28px; }
+  .timeline-item { padding: 28px 0; }
+  .timeline-year {
+    position: static !important;
+    width: auto !important;
+    text-align: left !important;
+    margin-bottom: 6px;
+    font-size: 0.6rem;
+    color: var(--accent);
+  }
+  .timeline-role { font-size: 1.05rem; }
+  /* Stacks for tighter footer + nav links inside hamburger panel */
+  .nav-links.open a { font-size: 1.05rem; padding: 6px 0; }
+  /* Marquee track velocity — smaller text on mobile so it doesn't dwarf */
+  .marquee-track span { font-size: clamp(14px, 4vw, 22px); }
+  /* Filter pills should wrap cleanly */
+  .filter-pills { gap: 8px; }
+  .filter-pill { padding: 8px 14px; font-size: 0.65rem; min-height: 36px; }
+}
+
+/* Touch target minimums — 44x44 for all interactive elements on touch */
+@media (hover: none), (pointer: coarse) {
+  .nav-hamburger,
+  .lang-toggle button,
+  .filter-pill,
+  .btn,
+  .nav-links a,
+  .we-cta,
+  .blog-row-cta { min-height: 44px; }
+  .nav-hamburger { min-width: 44px; }
+  .lang-toggle button { padding: 8px 12px; }
+}
+
+/* All button text white — override variant defaults */
+.btn,
+.btn-primary,
+.btn-outline,
+.btn-outline-yellow,
+.nav-score-btn,
+.filter-pill,
+.btn *,
+.nav-score-btn *,
+.filter-pill * { color: #ffffff !important; }
+.btn svg, .nav-score-btn svg, .filter-pill svg { stroke: #ffffff !important; fill: currentColor; }
+.btn:hover, .btn-primary:hover, .btn-outline:hover, .btn-outline-yellow:hover,
+.nav-score-btn:hover, .filter-pill:hover { color: #ffffff !important; }
+/* Outline buttons need a visible background so white text reads */
+.btn-outline { background: var(--ink) !important; border-color: var(--ink) !important; }
+.btn-outline:hover { background: var(--accent-ink) !important; border-color: var(--accent-ink) !important; }
+.filter-pill { background: var(--ink) !important; border-color: var(--ink) !important; }
+.filter-pill.active { background: var(--accent) !important; border-color: var(--accent) !important; }
+
+/* Stop horizontal overflow on any rogue full-width element */
+html, body { overflow-x: hidden; max-width: 100vw; }
+img, video, iframe, canvas { max-width: 100%; height: auto; }
+
+/* Demo canvases — keep them within viewport on mobile */
+@media (max-width: 768px) {
+  .demo-card canvas,
+  #agora-canvas,
+  #hand-canvas,
+  #physics-canvas { width: 100% !important; height: auto !important; aspect-ratio: 16 / 10; }
+  .demo-card { padding: 20px !important; }
+}
+
+/* CV / brand-identity page — make wide tables scroll instead of overflow */
+@media (max-width: 768px) {
+  .swatch-row,
+  .voice-grid,
+  .platform-grid,
+  .platform-grid.two,
+  .platform-grid.three { grid-template-columns: 1fr !important; }
+  .do-dont { grid-template-columns: 1fr !important; }
+}
+
