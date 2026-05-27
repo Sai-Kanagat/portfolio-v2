@@ -1,0 +1,486 @@
+/* ==========================================================
+   APEROL — THE GOLDEN HOUR · Case study
+   Lives inside the Sai Kanagat portfolio.
+   Uses brand world (Aperol orange) for inline showcase sections,
+   editorial neutrals for case-study chrome and analysis.
+   ========================================================== */
+
+:root {
+  --ap-orange:      #E55D34;
+  --ap-orange-deep: #C84A26;
+  --ap-cream:       #F4EFE6;
+  --ap-warm-black:  #1A1410;
+  --ap-paper:       #f5f0e8;
+  --ap-ink:         #0a0a0a;
+  --ap-olive:       #6b7a2e;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap');
+
+/* ---------- PAGE BASE (uses portfolio chrome from styles.css) ---------- */
+.aperol-page {
+  background: var(--ap-paper);
+  color: var(--ap-ink);
+}
+
+/* ---------- HERO ---------- */
+.ap-hero {
+  position: relative;
+  min-height: 92vh;
+  background: var(--ap-orange);
+  color: white;
+  display: flex; align-items: center; justify-content: center;
+  padding: clamp(80px, 12vw, 160px) clamp(24px, 5vw, 80px) clamp(60px, 8vw, 100px);
+  overflow: hidden;
+}
+.ap-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: url('../assets/images/APEROL/hero.jpg') center/cover;
+  opacity: 0.32;
+  mix-blend-mode: luminosity;
+}
+.ap-hero-content { position: relative; text-align: center; max-width: 1100px; }
+.ap-eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  opacity: 0.85;
+  margin-bottom: 32px;
+  text-transform: uppercase;
+}
+.ap-hero-title {
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 800;
+  font-size: clamp(56px, 10vw, 144px);
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  margin-bottom: 32px;
+  text-transform: uppercase;
+}
+.ap-hero-title em {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 300;
+  text-transform: none;
+}
+.ap-hero-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(20px, 2.4vw, 30px);
+  font-weight: 300;
+  max-width: 720px;
+  margin: 0 auto 56px;
+  line-height: 1.45;
+  opacity: 0.95;
+}
+.ap-hero-meta {
+  display: inline-flex; flex-wrap: wrap; gap: 8px 28px;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.82;
+  justify-content: center;
+}
+.ap-hero-meta b { font-weight: 700; }
+
+/* ---------- SECTION SCAFFOLDING (editorial chrome) ---------- */
+.ap-section {
+  padding: clamp(80px, 10vw, 160px) clamp(24px, 5vw, 80px);
+  border-top: 1px solid rgba(10,10,10,0.1);
+}
+.ap-section--dark {
+  background: var(--ap-warm-black);
+  color: var(--ap-cream);
+  border-top: none;
+}
+.ap-section--orange {
+  background: var(--ap-orange);
+  color: white;
+  border-top: none;
+}
+.ap-container { max-width: 1280px; margin: 0 auto; }
+.ap-container--narrow { max-width: 900px; margin: 0 auto; }
+
+.ap-section-head {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 64px;
+  margin-bottom: 72px;
+  align-items: baseline;
+}
+.ap-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+.ap-h2 {
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 700;
+  font-size: clamp(32px, 4.5vw, 56px);
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+.ap-h2 em {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 300;
+  text-transform: none;
+  letter-spacing: -0.02em;
+}
+.ap-lede {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(18px, 1.6vw, 22px);
+  line-height: 1.55;
+  max-width: 720px;
+  margin-top: 16px;
+  opacity: 0.85;
+}
+@media (max-width: 800px) {
+  .ap-section-head { grid-template-columns: 1fr; gap: 24px; }
+}
+
+/* ---------- TL;DR PANEL ---------- */
+.ap-tldr {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 2px solid var(--ap-ink);
+  border-bottom: 2px solid var(--ap-ink);
+  margin: 0 auto;
+  max-width: 1280px;
+}
+.ap-tldr > div {
+  padding: 40px 32px;
+  border-right: 1px solid rgba(10,10,10,0.15);
+}
+.ap-tldr > div:last-child { border-right: none; }
+.ap-tldr-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  margin-bottom: 16px;
+}
+.ap-tldr-value {
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 700;
+  font-size: clamp(28px, 3vw, 44px);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.ap-tldr-note {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  line-height: 1.45;
+  opacity: 0.7;
+}
+@media (max-width: 800px) {
+  .ap-tldr { grid-template-columns: repeat(2, 1fr); }
+  .ap-tldr > div:nth-child(2) { border-right: none; }
+  .ap-tldr > div:nth-child(1), .ap-tldr > div:nth-child(2) { border-bottom: 1px solid rgba(10,10,10,0.15); }
+}
+
+/* ---------- INSIGHT BLOCK (large pull-quote treatment) ---------- */
+.ap-pullquote {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(36px, 6vw, 84px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+}
+.ap-pullquote em {
+  font-style: normal;
+  color: var(--ap-orange);
+}
+
+/* ---------- TWO-COL ---------- */
+.ap-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+.ap-two-col p { margin-bottom: 16px; line-height: 1.65; }
+@media (max-width: 800px) { .ap-two-col { grid-template-columns: 1fr; } }
+
+/* ---------- MANIFESTO ---------- */
+.ap-manifesto {
+  text-align: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(22px, 2.6vw, 34px);
+  line-height: 1.7;
+  font-weight: 300;
+}
+.ap-manifesto p { margin-bottom: 16px; }
+.ap-manifesto .brand-line {
+  font-style: normal;
+  font-weight: 400;
+  margin-top: 56px;
+  letter-spacing: 0.02em;
+}
+
+/* ---------- IMAGE GALLERY ---------- */
+.ap-gallery {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 12px;
+  margin-top: 64px;
+}
+.ap-gallery figure {
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+}
+.ap-gallery img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.ap-gallery figure:hover img { transform: scale(1.04); }
+.ap-gallery figcaption {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: 20px 24px;
+  background: linear-gradient(180deg, transparent, rgba(26,20,16,0.85));
+  color: white;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 17px;
+  line-height: 1.4;
+}
+.ap-gallery figcaption .city {
+  font-family: 'Space Mono', monospace;
+  font-style: normal;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  opacity: 0.85;
+}
+.ap-gallery .g-tall  { grid-column: span 4; aspect-ratio: 3/4; }
+.ap-gallery .g-wide  { grid-column: span 8; aspect-ratio: 16/9; }
+.ap-gallery .g-half  { grid-column: span 6; aspect-ratio: 4/3; }
+.ap-gallery .g-third { grid-column: span 4; aspect-ratio: 1/1; }
+@media (max-width: 800px) {
+  .ap-gallery { grid-template-columns: 1fr; }
+  .ap-gallery > * { grid-column: span 1 !important; aspect-ratio: 4/3 !important; }
+}
+
+/* ---------- TERRACE CARDS ---------- */
+.ap-terraces {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+.ap-terrace {
+  border: 1px solid rgba(244,239,230,0.2);
+  padding: 40px 36px;
+  background: rgba(244,239,230,0.04);
+}
+.ap-terrace-city {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin-bottom: 16px;
+}
+.ap-terrace-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 30px;
+  font-weight: 400;
+  margin-bottom: 28px;
+  color: var(--ap-orange);
+}
+.ap-terrace-meta {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px;
+  line-height: 1.85;
+  opacity: 0.85;
+}
+@media (max-width: 800px) { .ap-terraces { grid-template-columns: 1fr; } }
+
+/* ---------- METHOD TIMELINE ---------- */
+.ap-method {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 32px;
+  row-gap: 56px;
+}
+.ap-method-week {
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.15em;
+  padding-top: 4px;
+}
+.ap-method-step h4 {
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 600;
+  font-size: 22px;
+  letter-spacing: -0.01em;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+.ap-method-step p {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+  opacity: 0.75;
+}
+@media (max-width: 700px) {
+  .ap-method { grid-template-columns: 1fr; }
+}
+
+/* ---------- BUDGET TABLE ---------- */
+.ap-budget {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Space Mono', monospace;
+  font-size: 14px;
+}
+.ap-budget th, .ap-budget td {
+  text-align: left;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(10,10,10,0.1);
+}
+.ap-budget th {
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+.ap-budget td:nth-child(2), .ap-budget td:nth-child(3) { text-align: right; }
+.ap-budget tr.total td {
+  border-top: 2px solid var(--ap-ink);
+  border-bottom: 2px solid var(--ap-ink);
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 700;
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+
+/* ---------- KPI CARDS ---------- */
+.ap-kpis {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border-top: 1px solid rgba(244,239,230,0.2);
+  border-bottom: 1px solid rgba(244,239,230,0.2);
+}
+.ap-kpis > div {
+  padding: 40px 24px;
+  border-right: 1px solid rgba(244,239,230,0.2);
+}
+.ap-kpis > div:last-child { border-right: none; }
+.ap-kpi-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  margin-bottom: 16px;
+}
+.ap-kpi-value {
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 700;
+  font-size: clamp(36px, 4vw, 52px);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--ap-orange);
+  margin-bottom: 8px;
+}
+.ap-kpi-note {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  opacity: 0.7;
+  line-height: 1.5;
+}
+@media (max-width: 800px) {
+  .ap-kpis { grid-template-columns: 1fr; }
+  .ap-kpis > div { border-right: none; border-bottom: 1px solid rgba(244,239,230,0.2); }
+}
+
+/* ---------- CTA BLOCK ---------- */
+.ap-cta {
+  text-align: center;
+  padding: clamp(80px, 10vw, 140px) 24px;
+  background: var(--ap-orange);
+  color: white;
+}
+.ap-cta-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(40px, 5vw, 64px);
+  line-height: 1.1;
+  font-weight: 300;
+  margin-bottom: 40px;
+}
+.ap-cta-buttons {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+}
+.ap-btn {
+  display: inline-block;
+  padding: 18px 32px;
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  background: white;
+  color: var(--ap-orange);
+  text-decoration: none;
+  border: 1px solid white;
+  transition: background 0.2s, color 0.2s;
+}
+.ap-btn:hover { background: transparent; color: white; }
+.ap-btn.outline { background: transparent; color: white; }
+.ap-btn.outline:hover { background: white; color: var(--ap-orange); }
+
+/* ---------- DISCLAIMER ---------- */
+.ap-disclaimer {
+  background: var(--ap-warm-black);
+  color: rgba(244,239,230,0.6);
+  padding: 56px 24px;
+  text-align: center;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  line-height: 1.8;
+}
+.ap-disclaimer .em { color: var(--ap-orange); }
+
+/* ---------- LIST helpers ---------- */
+.ap-list {
+  list-style: none; padding: 0;
+}
+.ap-list li {
+  padding-left: 28px;
+  position: relative;
+  margin-bottom: 14px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
+.ap-list li::before {
+  content: '—';
+  position: absolute; left: 0; top: 0;
+  color: var(--ap-orange);
+  font-weight: 700;
+}
