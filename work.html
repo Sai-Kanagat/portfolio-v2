@@ -33,8 +33,9 @@
     "url": "https://saikanagat.pages.dev/work",
     "author": {"@type": "Person", "name": "Sai Prathyaksh Kanagat"},
     "itemListElement": [
-      {"@type": "ListItem", "position": 1, "item": {"@type": "CreativeWork", "name": "Inkwell — Notion Workspace Agent", "creator": {"@type": "Person", "name": "Sai Prathyaksh Kanagat"}}},
-      {"@type": "ListItem", "position": 2, "item": {"@type": "CreativeWork", "name": "Content Vigilante — Local-First Marketing OS", "creator": {"@type": "Person", "name": "Sai Prathyaksh Kanagat"}}},
+      {"@type": "ListItem", "position": 1, "item": {"@type": "CreativeWork", "name": "adlib — Ad Library Reconnaissance Extension", "creator": {"@type": "Person", "name": "Sai Prathyaksh Kanagat"}}},
+      {"@type": "ListItem", "position": 2, "item": {"@type": "CreativeWork", "name": "Inkwell — Notion Workspace Agent", "creator": {"@type": "Person", "name": "Sai Prathyaksh Kanagat"}}},
+      {"@type": "ListItem", "position": 3, "item": {"@type": "CreativeWork", "name": "Content Vigilante — Local-First Marketing OS", "creator": {"@type": "Person", "name": "Sai Prathyaksh Kanagat"}}},
       {"@type": "ListItem", "position": 3, "item": {"@type": "CreativeWork", "name": "Carlos Mota — Verde Collection", "creator": {"@type": "Person", "name": "Sai Prathyaksh Kanagat"}}},
       {"@type": "ListItem", "position": 4, "item": {"@type": "CreativeWork", "name": "Juicy Chemistry — Brand Activation", "creator": {"@type": "Person", "name": "Sai Prathyaksh Kanagat"}}},
       {"@type": "ListItem", "position": 5, "item": {"@type": "CreativeWork", "name": "ARABellA — Bamboo Furniture Collection", "creator": {"@type": "Person", "name": "Sai Prathyaksh Kanagat"}}},
@@ -117,6 +118,32 @@
   <!-- WORK GRID -->
   <div class="work-full-grid">
     <div class="full-grid" id="workGrid">
+
+      <div class="work-card feature reveal" data-category="marketing" data-project="adlib" id="adlib">
+        <div style="width:100%;height:100%;background:#F2EFE8;display:flex;flex-direction:column;justify-content:space-between;padding:24px 28px;position:relative;overflow:hidden;border-bottom:1px solid #0A0A0A;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;font-family:'IBM Plex Mono','Geist Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#0A0A0A;">
+            <span>ADLIB // DOC.0001 / REV.00</span>
+            <span style="color:#E63329;">● LIVE</span>
+          </div>
+          <div style="font-family:'Bricolage Grotesque','Inter Tight',sans-serif;font-weight:600;letter-spacing:-0.03em;line-height:0.9;font-size:clamp(36px,5vw,72px);color:#0A0A0A;">
+            CREATIVE<br/>RECON<span style="color:#E63329;">.</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:flex-end;font-family:'IBM Plex Mono','Geist Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#1F1F1F;">
+            <span>OPEN-SOURCE // CHROME EXTENSION</span>
+            <span>v0.1.0-BETA</span>
+          </div>
+        </div>
+        <div class="work-card-overlay">
+          <div class="work-card-number">— Marketing OS · Chrome Extension · Open Source</div>
+          <div class="work-card-title">adlib — Ad Library Reconnaissance Extension</div>
+          <div class="work-card-tags">
+            <span class="tag marketing">Product</span>
+            <span class="tag marketing">AI / LLM</span>
+            <span class="tag design">Open Source</span>
+            <span class="tag collab">Chrome MV3</span>
+          </div>
+        </div>
+      </div>
 
       <div class="work-card feature reveal" data-category="systems" data-project="inkwell" id="inkwell">
         <div style="width:100%;height:100%;background:linear-gradient(135deg,var(--paper) 0%,var(--n-200) 100%); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;">
@@ -356,6 +383,33 @@
 
 <script>
 const projects = {
+  adlib: {
+    id: 'adlib', num: '—',
+    title: 'adlib — Ad Library Reconnaissance Extension',
+    category: 'Product · Chrome Extension · Open Source',
+    year: '2026', client: 'Independent / Open Source', role: 'Founder · Designer · Builder',
+    tags: ['Chrome Extension', 'Marketing Intelligence', 'AI / LLM', 'Next.js', 'Supabase', 'Open Source'],
+    body: `<p><strong>adlib</strong> is an open-source Chrome side panel + web dashboard for indexing every ad your competitors run on Meta — with funnel-mix analysis, outlier scoring, landing-page archive, and team swipe boards. Built as a free, MIT-licensed alternative to <a href="https://spyglass.so" target="_blank" rel="noopener">Spyglass</a> ($40/mo solo, $80/mo team), with a multi-platform architecture from day one.</p>
+<p>The thesis: marketing intelligence shouldn't sit behind a paywall. Meta's Ad Library is public data under EU DSA transparency obligations. Every team running paid ads should be able to see what their competitors run, classify it by funnel stage and hook type, and build evidence collections — without a per-seat subscription.</p>
+<h3 style="margin-top:24px;font-family:'Newsreader', Georgia, serif; font-weight:500; font-style:italic; font-size:1.1rem; letter-spacing:-0.01em;">What's in the box</h3>
+<ul style="margin: 12px 0 18px 18px; padding: 0; line-height: 1.7;">
+  <li><strong>Chrome side panel (Manifest V3)</strong> — auto-detects the brand of the current tab, scans on demand, save-to-board from any page via right-click. Cmd+Shift+S to summon.</li>
+  <li><strong>Watchlist dashboard</strong> — track competitor brands, see ad counts, 7d/30d deltas, alerts in a Bloomberg-style dense table.</li>
+  <li><strong>Brand dossier</strong> — creative-mix and funnel-mix (TOFU/MOFU/BOFU) bars per brand, dense ad grid with hook classification and outlier scoring.</li>
+  <li><strong>Swipe boards</strong> — Are.na-style cross-brand evidence collections. Shared workspaces, public read-only share links, tags + annotations.</li>
+  <li><strong>Trend bulletin</strong> — weekly leaderboards of which hook patterns are gaining traction in each vertical.</li>
+  <li><strong>Alert log</strong> — format shifts, new landing pages, killed campaigns. Push to Slack.</li>
+</ul>
+<h3 style="margin-top:24px;font-family:'Newsreader', Georgia, serif; font-weight:500; font-style:italic; font-size:1.1rem; letter-spacing:-0.01em;">Design language</h3>
+<p>Industrial brutalist. Declassified-blueprint meets ops-terminal. Geist Mono + Inter Tight typographic pairing on warm off-white paper, single signal-red accent, square corners, hairline borders, no shadows, no gradients. The full spec ships as <a href="https://github.com/Sai-Kanagat/adlib/blob/main/DESIGN.md" target="_blank" rel="noopener">DESIGN.md</a> — 12 sections including the 10 anti-patterns that auto-fail in design review. The dashboard reads like a wartime intelligence dossier, not a Notion sidebar.</p>
+<h3 style="margin-top:24px;font-family:'Newsreader', Georgia, serif; font-weight:500; font-style:italic; font-size:1.1rem; letter-spacing:-0.01em;">Stack</h3>
+<p>Next.js 15 (App Router) on Vercel · React 19 · Tailwind v3 · Supabase Postgres with full row-level-security · Manifest V3 + Vite + CRX plugin for the extension · Playwright workers intercepting Facebook's internal GraphQL responses to harvest the public Ad Library · Claude Haiku 4.5 for funnel-stage and hook-type classification at roughly $0.001 per ad.</p>
+<h3 style="margin-top:24px;font-family:'Newsreader', Georgia, serif; font-weight:500; font-style:italic; font-size:1.1rem; letter-spacing:-0.01em;">Status</h3>
+<p>v0.1.0-beta is on GitHub now — full design system, six web routes running on realistic mock data, complete Supabase schema with RLS, extension shell, scraper architecture. Live data wiring, real scraping with proxy rotation, billing, and Slack alerts are next on the roadmap. Built in the open with Claude Code.</p>`,
+    highlight: 'Open-source Spyglass alternative — every Meta ad your competitors run, indexed in a brutalist Chrome side panel. MIT licensed, multi-platform-ready, shipping in the open.',
+    cta: { href: 'https://github.com/Sai-Kanagat/adlib', label: 'View on GitHub →' },
+    images: []
+  },
   inkwell: {
     id: 'inkwell', num: '01',
     title: 'Inkwell — Notion Workspace Agent',
@@ -594,7 +648,7 @@ const projects = {
   }
 };
 
-const projectOrder = ['inkwell','vigilante','casamota','juicy','arabella','backpack','agora','handcursor','dropballs','desk','cigarette','vijay','flower','povera','razer','brand'];
+const projectOrder = ['adlib','inkwell','vigilante','casamota','juicy','arabella','backpack','agora','handcursor','dropballs','desk','cigarette','vijay','flower','povera','razer','brand'];
 let currentIndex = 0;
 
 function openPanel(projectId) {
