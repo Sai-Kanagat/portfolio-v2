@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemaps
-Sitemap: https://saikanagat.pages.dev/sitemap.xml
+Sitemap: https://saikanagat.com/sitemap.xml
 
 # Crawl all major bots
 User-agent: Googlebot
