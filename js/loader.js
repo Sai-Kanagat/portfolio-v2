@@ -1,4 +1,19 @@
 /* =========================================================
+   CANONICAL REDIRECT — force saikanagat.com
+   Sends any .pages.dev / preview-deploy traffic to the
+   canonical domain so Google indexes only one URL.
+   Runs synchronously before page paint.
+   ========================================================= */
+(function(){
+  try {
+    var h = window.location.hostname;
+    if (/\.pages\.dev$/i.test(h)) {
+      window.location.replace('https://saikanagat.com' + window.location.pathname + window.location.search + window.location.hash);
+    }
+  } catch(e) {}
+})();
+
+/* =========================================================
    PAGE LOADER — SK Portfolio
    First-visit intro: count 00 → 100, logo reveal, curtain lift
    ========================================================= */

@@ -22,10 +22,10 @@
   var headerRow = document.createElement('div');
   headerRow.className = 'we-header';
   headerRow.innerHTML = '\
-    <span class="we-h-num">№</span>\
-    <span class="we-h-year">Year</span>\
-    <span class="we-h-title">Project</span>\
-    <span class="we-h-role">Role · Tags</span>\
+    <span class="we-h-num" data-en="№" data-it="№">№</span>\
+    <span class="we-h-year" data-en="Year" data-it="Anno">Year</span>\
+    <span class="we-h-title" data-en="Project" data-it="Progetto">Project</span>\
+    <span class="we-h-role" data-en="Role · Tags" data-it="Ruolo · Tag">Role · Tags</span>\
     <span class="we-h-cta"></span>';
   list.appendChild(headerRow);
 
@@ -69,8 +69,7 @@
     row.className = 'we-row';
     row.dataset.project = id;
     row.dataset.category = cat;
-    row.href = isExternalLink ? p.cta.href : ('#' + id);
-    if (isExternalLink){ row.target = '_blank'; row.rel = 'noopener'; }
+    row.href = '#' + id; // always internal — case study opens in panel; external CTA lives inside
     row.setAttribute('data-cover', cover || '');
 
     row.innerHTML = '\
@@ -78,12 +77,11 @@
       <span class="we-year">' + (year || '—') + '</span>\
       <span class="we-title">' + (p.title || id) + '</span>\
       <span class="we-role">' + (role ? role : '') + (tags ? ' · ' + tags : '') + '</span>\
-      <span class="we-cta">View →</span>';
+      <span class="we-cta" data-en="View →" data-it="Apri →">View →</span>';
 
-    // Wire same handler the grid uses — open the project panel
+    // Always open panel first — external links live inside the case study
     row.addEventListener('click', function(e){
-      if (isExternalLink) return; // let external go
-      if (e.metaKey || e.ctrlKey) return;
+      if (e.metaKey || e.ctrlKey || e.shiftKey) return;
       e.preventDefault();
       if (typeof openPanel === 'function') openPanel(id);
       else window.location.hash = id;

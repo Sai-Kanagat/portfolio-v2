@@ -14,7 +14,7 @@
   <meta property="og:title" content="Gallery — Sai Kanagat" />
   <meta property="og:description" content="Visual archive: interiors, sculpture, installations, furniture, and brand imagery." />
   <meta property="og:url" content="https://saikanagat.com/gallery" />
-  <meta property="og:image" content="https://saikanagat.com/assets/images/CASAMOTA/img_p4_1.jpeg" />
+  <meta property="og:image" content="https://saikanagat.com/og-image.jpg" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:locale:alternate" content="it_IT" />
 
@@ -22,7 +22,13 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Gallery — Sai Kanagat" />
   <meta name="twitter:description" content="Visual archive: interiors, sculpture, installations, furniture, and brand imagery." />
-  <meta name="twitter:image" content="https://saikanagat.com/assets/images/CASAMOTA/img_p4_1.jpeg" />
+  <meta name="twitter:image" content="https://saikanagat.com/og-image.jpg" />
+  <meta name="twitter:image:alt" content="Sai Kanagat — Industrial Designer × Digital Marketer · Bologna, Italy" />
+  <meta name="twitter:site" content="@saikanagat" />
+  <meta name="twitter:creator" content="@saikanagat" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Sai Kanagat — Industrial Designer × Digital Marketer · Bologna, Italy" />
 
   <!-- JSON-LD ImageGallery Schema -->
   <script type="application/ld+json">
@@ -37,8 +43,20 @@
   </script>
 
   <link rel="stylesheet" href="css/styles.css" />
-  <link rel="stylesheet" href="css/brand-overlay.css" />
+  <link rel="stylesheet" href="css/brand-overlay.css?v=1779984841" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#1F40C7" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+  <link rel="alternate" hreflang="en" href="https://saikanagat.com/gallery" />
+  <link rel="alternate" hreflang="it" href="https://saikanagat.com/gallery" />
+  <link rel="alternate" hreflang="x-default" href="https://saikanagat.com/gallery" />
 </head>
 <body>
 <a href="#main" class="skip-link">Skip to content</a>
@@ -54,7 +72,7 @@
     <a href="about.html" data-en="About" data-it="Chi Sono">About</a>
     <a href="demos.html" data-en="Demos" data-it="Demo">Demos</a>
     <a href="contact.html" data-en="Contact" data-it="Contatti">Contact</a>
-    <a href="https://content-vigilante-vercel.vercel.app" target="_blank" rel="noopener" class="nav-score-btn" data-en="Content Vigilante" data-it="Content Vigilante">Content Vigilante</a>
+    <a href="brand-identity.html" class="nav-score-btn" data-en="View Brandbook" data-it="Vedi Brandbook">View Brandbook</a>
   </div>
   <div class="lang-toggle" aria-label="Language"><button type="button" data-l="en" class="is-active">EN</button><span>/</span><button type="button" data-l="it">IT</button></div>
   <div class="nav-tag">Available — EU &amp; Remote</div>
@@ -94,8 +112,8 @@
   <!-- FILTER -->
   <div class="gallery-filter-bar">
     <button class="filter-pill active" data-filter="all">All</button>
-    <button class="filter-pill" data-filter="interiors">Interiors</button>
-    <button class="filter-pill" data-filter="sculpture">Sculpture</button>
+    <button class="filter-pill" data-filter="interiors"><span data-en="Interiors" data-it="Interni">Interiors</span></button>
+    <button class="filter-pill" data-filter="sculpture"><span data-en="Sculpture" data-it="Scultura">Sculpture</span></button>
     <button class="filter-pill" data-filter="product">Product</button>
     <button class="filter-pill" data-filter="marketing">Marketing</button>
   </div>
@@ -324,11 +342,12 @@ document.querySelectorAll('.filter-pill').forEach(pill => {
 });
 </script>
 <script src="js/loader.js"></script>
-<script src="js/cursor.js"></script>
+<script src="js/cursor.js?v=1779974002"></script>
 <script src="js/transitions.js"></script>
 <script src="js/animations.js"></script>
 <script src="js/lang.js"></script>
 <script src="js/lightbox.js"></script>
+<script src="js/hover-preview.js"></script>
 <script src="js/interactions.js"></script>
 </body>
 </html>

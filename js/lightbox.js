@@ -84,6 +84,10 @@
   function close(){
     state.overlay.classList.remove('is-on');
     document.body.style.overflow = '';
+    // Restore scroll position of the host the user came from (project panel, etc.)
+    if (state.returnScroll && state.returnScroll.host){
+      try { state.returnScroll.host.scrollTop = state.returnScroll.top; } catch(_){}
+    }
   }
   function nav(dir){
     var n = state.images.length;
@@ -120,12 +124,28 @@
       if (!shouldBind(img)) return;
       img.dataset.lbBound = 'true';
       img.style.cursor = 'zoom-in';
+      // Also bind on the wrapping lb-allow link so the click reliably hits even if browser focuses the anchor
+      var wrapper = img.closest('a.lb-allow');
+      var clickTarget = wrapper || img;
+      if (wrapper && !wrapper.dataset.lbBound){
+        wrapper.dataset.lbBound = 'true';
+        wrapper.addEventListener('click', function(e){
+          e.preventDefault();
+          e.stopPropagation();
+          // remember the scroll position of the nearest scrollable ancestor (.project-panel etc.)
+          var scrollHost = wrapper.closest('.project-panel') || document.scrollingElement;
+          state.returnScroll = { host: scrollHost, top: scrollHost.scrollTop };
+          openFromCluster(img);
+        });
+        return;
+      }
       img.addEventListener('click', function(e){
-        // don't hijack if image is inside a link
         var parentLink = img.closest('a[href]');
         if (parentLink && !parentLink.classList.contains('lb-allow')) return;
         e.preventDefault();
         e.stopPropagation();
+        var scrollHost = img.closest('.project-panel') || document.scrollingElement;
+        state.returnScroll = { host: scrollHost, top: scrollHost.scrollTop };
         openFromCluster(img);
       });
     });
