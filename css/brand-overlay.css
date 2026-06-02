@@ -702,9 +702,18 @@ input:focus-visible, textarea:focus-visible {
   box-shadow: -32px 0 80px -16px oklch(0.16 0.012 260 / 0.18),
               -2px 0 0 oklch(0.16 0.012 260 / 0.06) !important;
   transform: translateX(100%);
-  transition: transform 720ms cubic-bezier(0.32, 0.72, 0, 1) !important;
+  transition: transform 720ms cubic-bezier(0.32, 0.72, 0, 1),
+              visibility 0s linear 720ms !important;
+  /* Hard-hide when closed so no white sliver/patch can leak regardless of
+     overflow quirks on mobile browsers. */
+  visibility: hidden !important;
 }
-.project-panel.open { transform: translateX(0); }
+.project-panel.open {
+  transform: translateX(0);
+  visibility: visible !important;
+  transition: transform 720ms cubic-bezier(0.32, 0.72, 0, 1),
+              visibility 0s linear 0s !important;
+}
 
 /* Subtle film-grain overlay — fixed, pointer-events:none, no scroll repaints */
 .project-panel::before {
@@ -1173,8 +1182,10 @@ input:focus-visible, textarea:focus-visible {
 .filter-pill { background: var(--ink) !important; border-color: var(--ink) !important; }
 .filter-pill.active { background: var(--accent) !important; border-color: var(--accent) !important; }
 
-/* Stop horizontal overflow on any rogue full-width element */
-html, body { overflow-x: hidden; max-width: 100vw; }
+/* Stop horizontal overflow without breaking position:sticky.
+   overflow-x: hidden on ancestors disables sticky — use overflow-x: clip instead. */
+html { max-width: 100vw; }
+body { overflow-x: clip; max-width: 100vw; }
 img, video, iframe, canvas { max-width: 100%; height: auto; }
 
 /* Demo canvases — keep them within viewport on mobile */
@@ -2340,11 +2351,380 @@ html, body { background: var(--paper); }
 /* Page sections get slightly translucent paper so icons peek through subtly */
 .hero, .hero-loop-section, .work-section, .discipline-split,
 .about-teaser, .stats-strip, .marquee-wrap, .skills-bounce,
-main > section { background-color: oklch(0.975 0.003 260 / 0.82) !important; }
+main > section:not(.hero-stage-1):not(.shutter-transition):not(.hero-stage-3) {
+  background-color: oklch(0.975 0.003 260 / 0.82) !important;
+}
+/* Stage 1 stays clean paper (no translucent dilution), Stage 3 stays solid ink, shutter stays paper */
+.hero-stage-1 { background-color: var(--paper) !important; }
+.hero-stage-3 { background-color: var(--ink) !important; }
+.shutter-transition { background-color: var(--paper) !important; }
 /* Nav, footer, panels stay solid */
 .nav { background: oklch(0.975 0.003 260 / 0.85) !important; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
 .footer { background: var(--ink) !important; }
-.nav, main, footer, .project-panel, .panel-backdrop { position: relative; }
-main { z-index: 1; }
-.nav { z-index: 1000; }
-.project-panel, .panel-backdrop { z-index: 2000; }
+/* Z-index stacking only — DON'T override position on nav/panel/backdrop.
+   nav is position:fixed in styles.css, panel/backdrop are position:fixed too.
+   Overriding these to relative breaks layout (causes double top space) and panel visibility. */
+main, footer { position: relative; z-index: 1; }
+.nav { z-index: 1000; }   /* keep z-index high, but DON'T change position */
+.project-panel { z-index: 2001; }
+.panel-backdrop { z-index: 2000; }
+
+/* ═══════════════════════════════════════════════════════════
+   HERO EXPERIENCE v2 — Nav fixed, experience pinned in viewport
+   Single sticky pin holds three stacked layers below the nav.
+   Scroll progress 0..1 through the section drives the louvre flip
+   and the cross-fade. After progress=1, page continues normally.
+   ═══════════════════════════════════════════════════════════ */
+
+/* Nav fixed at top so it stays through the choreography */
+:root { --nav-height: 72px; }
+.nav {
+  position: fixed !important;
+  top: 0; left: 0; right: 0;
+  z-index: 1500;
+  height: var(--nav-height);
+  background: oklch(0.975 0.003 260 / 0.88) !important;
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+}
+/* Push the page content down by nav height (so first section isn't hidden behind nav) */
+main { padding-top: var(--nav-height); }
+
+/* Skip-link should land below nav too */
+#main { scroll-margin-top: var(--nav-height); }
+
+/* Hero experience — scroll spacer container */
+.hero-experience {
+  position: relative;
+  height: 165vh;        /* scroll real estate */
+  background: transparent;
+  margin-top: calc(-1 * var(--nav-height));  /* pull up so the pin starts behind the nav */
+  padding-top: var(--nav-height);
+}
+/* The pin sticks below the nav for the full scroll-spacer duration */
+.hero-experience-sticky {
+  position: sticky;
+  top: var(--nav-height);
+  height: calc(100vh - var(--nav-height));
+  height: calc(100svh - var(--nav-height));
+  width: 100%;
+  overflow: hidden;
+  perspective: 1400px;
+  /* Grid stack — all layers occupy the same cell, perfectly aligned */
+  display: grid !important;
+  grid-template-areas: "stack";
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr;
+}
+.hero-layer {
+  grid-area: stack;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  will-change: opacity, transform;
+}
+
+/* LAYER 1 — Hero loop */
+.hero-layer-1 {
+  background: var(--paper);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 24px 40px;
+}
+.hero-layer-1 .hero-stage-eyebrow {
+  position: absolute;
+  top: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+}
+.hero-layer-1 #heroLoop {
+  width: 100%;
+  max-width: 1180px;
+  display: flex;
+  justify-content: center;
+}
+.hero-layer-1 .hl-frame {
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  aspect-ratio: auto !important;
+  width: 100%;
+  height: min(56vh, 460px);
+}
+.hero-layer-1 .hl-frame .hl-stage { border-radius: 0 !important; }
+.hero-layer-1 .hl-wordmark { bottom: -8px !important; color: var(--ink) !important; }
+
+/* Scroll cue — bottom of layer 1 */
+.scroll-cue {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  z-index: 4;
+  pointer-events: none;
+}
+.scroll-cue-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--n-600);
+}
+.scroll-cue-line {
+  width: 1px; height: 48px;
+  background: linear-gradient(180deg, var(--ink) 0%, var(--ink) 50%, transparent 100%);
+  position: relative;
+  overflow: hidden;
+}
+.scroll-cue-line::after {
+  content: '';
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 30%;
+  background: var(--accent);
+  animation: scroll-cue-drop 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+@keyframes scroll-cue-drop {
+  0%   { transform: translateY(-100%); opacity: 0; }
+  20%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { transform: translateY(360%); opacity: 0; }
+}
+
+/* LAYER 2 — Shutter slats */
+.hero-layer-shutter {
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  perspective: 1400px;
+  pointer-events: none;
+}
+.louver {
+  flex: 1;
+  width: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.louver .side { position: absolute; inset: 0; backface-visibility: hidden; }
+.louver .side-front {
+  background: transparent;
+  /* faint hairline hints at the shutter divisions at rest */
+  border-bottom: 1px solid oklch(0.16 0.012 260 / 0.04);
+}
+.louver:last-child .side-front { border-bottom: none; }
+.louver .side-back {
+  background: var(--ink);
+  transform: rotateX(180deg);
+  border-top: 2px solid var(--accent);
+}
+
+/* LAYER 3 — Tagline reveal */
+.hero-layer-3 {
+  background: var(--ink);
+  color: var(--paper);
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 32px;
+  opacity: 0;
+  pointer-events: none;
+}
+.hero-stage-3-inner {
+  max-width: 720px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+.hero-stage-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 14px 6px 10px;
+  border-radius: 999px;
+  background: oklch(0.16 0.012 260 / 0.05);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.hero-stage-eyebrow .num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 22px; height: 22px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 9px;
+  letter-spacing: 0;
+}
+.hero-stage-eyebrow-dark {
+  background: oklch(1 0 0 / 0.06) !important;
+  color: oklch(1 0 0 / 0.6) !important;
+}
+.hero-layer-3 .hero-tagline {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(32px, 5vw, 56px);
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  color: var(--paper);
+  margin: 0;
+}
+.hero-layer-3 .hero-tagline strong {
+  font-family: var(--sans);
+  font-style: normal;
+  font-weight: 500;
+}
+.hero-layer-3 .hero-cta {
+  display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+}
+.hero-layer-3 .btn-primary {
+  background: var(--paper);
+  color: var(--ink) !important;
+  box-shadow: inset 0 1px 0 oklch(1 0 0 / 0.7), 0 8px 24px -8px oklch(0 0 0 / 0.4);
+}
+.hero-layer-3 .btn-primary:hover {
+  background: var(--accent);
+  color: var(--paper) !important;
+  transform: translateY(-2px);
+}
+.hero-layer-3 .btn-outline {
+  background: transparent !important;
+  border: 1px solid oklch(1 0 0 / 0.25) !important;
+  color: var(--paper) !important;
+}
+.hero-layer-3 .btn-outline:hover {
+  background: oklch(1 0 0 / 0.08) !important;
+  border-color: var(--paper) !important;
+}
+
+/* Critical: the marquee and everything below must scroll OVER the pinned hero */
+.marquee-wrap, .work-section, .discipline-split, .stats-strip,
+.about-teaser, main > section { position: relative; z-index: 5; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-experience { height: auto; margin-top: 0; }
+  .hero-experience-sticky { position: relative; height: auto; }
+  .hero-layer { position: relative; height: 100svh; }
+  .hero-layer-shutter { display: none; }
+  .hero-layer-3 { opacity: 1; pointer-events: all; }
+  .scroll-cue-line::after { animation: none; }
+}
+
+@media (max-width: 768px) {
+  :root { --nav-height: 60px; }
+  .hero-experience { height: 165vh; }
+  .hero-layer-1 .hero-stage-eyebrow { top: 16px; font-size: 9px; padding: 5px 10px; }
+  .hero-layer-1 .hl-frame { height: min(46vh, 340px); }
+  /* Tagline + CTAs scale down + stack on mobile */
+  .hero-layer-3 { padding: 60px 24px; }
+  .hero-layer-3 .hero-tagline { font-size: clamp(26px, 7vw, 38px); line-height: 1.15; }
+  .hero-layer-3 .hero-stage-3-inner { gap: 28px; }
+  .hero-layer-3 .hero-cta { flex-direction: column; width: 100%; max-width: 280px; gap: 10px; }
+  .hero-layer-3 .hero-cta .btn { width: 100%; justify-content: center; }
+  .hero-stage-eyebrow-dark { top: 14px; }
+  /* Scroll cue tighter to bottom on short mobile viewports */
+  .hero-layer-1 .scroll-cue { bottom: 18px; }
+  .hero-layer-1 .scroll-cue-line { height: 36px; }
+}
+
+@media (max-width: 480px) {
+  .hero-experience { height: 158vh; }
+  .hero-layer-1 .hl-frame { height: min(42vh, 300px); }
+  .hero-layer-3 .hero-tagline { font-size: clamp(24px, 7.5vw, 32px); }
+  /* Eyebrow chip can wrap on very small screens — keep it on one line, smaller */
+  .hero-stage-eyebrow span:last-child { letter-spacing: 0.14em; }
+}
+
+/* ───────────────────────────────────────────────────────
+   INNER PAGE HEROES — tighten excess top whitespace
+   gallery / about / contact / process / blog / demos all had
+   ~500px of empty space above their H1 because of two stacked
+   spacing systems (page padding + section padding). Tighten.
+   ─────────────────────────────────────────────────────── */
+.contact-hero,
+.gallery-hero,
+.about-hero,
+.process-hero,
+.blog-hero,
+.demos-hero,
+.work-page-header {
+  padding-top: clamp(64px, 9vw, 120px) !important;
+  padding-bottom: clamp(48px, 7vw, 96px) !important;
+  min-height: auto !important;
+  position: relative;
+}
+/* demos page uses .demos-page (nested main) — kill its big top padding */
+.demos-page {
+  padding-top: clamp(48px, 7vw, 88px) !important;
+}
+@media (max-width: 768px) {
+  .demos-page { padding-top: 32px !important; }
+}
+
+/* Page-level scroll cue (NOT the hero-experience one) */
+.scroll-cue-page {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  z-index: 5;
+  opacity: 0.6;
+  animation: scrollCueFade 2.4s ease-in-out infinite;
+}
+.scroll-cue-page .scroll-cue-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.scroll-cue-page .scroll-cue-line {
+  width: 1px;
+  height: 44px;
+  background: var(--ink);
+  position: relative;
+  overflow: hidden;
+}
+.scroll-cue-page .scroll-cue-line::after {
+  content: '';
+  position: absolute;
+  top: -44px;
+  left: 0;
+  width: 1px;
+  height: 100%;
+  background: var(--accent);
+  animation: scrollCueDrop 2s ease-in-out infinite;
+}
+@keyframes scrollCueDrop {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(44px); }
+  100% { transform: translateY(88px); }
+}
+@keyframes scrollCueFade {
+  0%, 100% { opacity: 0.45; }
+  50%      { opacity: 0.85; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-cue-page { animation: none; }
+  .scroll-cue-page .scroll-cue-line::after { animation: none; }
+}

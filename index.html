@@ -105,7 +105,7 @@
   </script>
 
   <link rel="stylesheet" href="css/styles.css" />
-  <link rel="stylesheet" href="css/brand-overlay.css?v=1779984841" />
+  <link rel="stylesheet" href="css/brand-overlay.css?v=1780228233" />
   <link rel="icon" href="/favicon.ico" sizes="any" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
@@ -153,22 +153,40 @@
 <div class="scroll-progress" id="scrollProgress"></div>
 <main id="main" class="page" role="main">
 
-  <!-- HERO — Direction B loop -->
-  <section class="hero hero-loop-section">
-    <div class="hero-label">
-      <span class="num">001</span>
-      <span data-en="Industrial Designer × Digital Marketer" data-it="Designer Industriale × Digital Marketer">Industrial Designer × Digital Marketer</span>
-    </div>
-    <div id="heroLoop" class="hero-loop-stage" aria-hidden="true"></div>
-    <div class="hero-bottom hero-bottom-centered">
-      <p class="hero-tagline reveal reveal-delay-1">
-        <span data-en="<strong>Design Things That Sell.</strong><br> Industrial Craft × Digital Growth." data-it="<strong>Progettare Cose Che Vendono.</strong><br> Artigianato Industriale × Crescita Digitale."><strong>Design Things That Sell.</strong><br> Industrial Craft × Digital Growth.</span>
-      </p>
-      <div class="hero-cta reveal reveal-delay-2">
-        <a href="work.html" class="btn btn-primary" data-en="View Work" data-it="Lavori">
-          View Work
-          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-        </a><a href="contact.html" class="btn btn-outline" data-en="Get in Touch" data-it="Contattami">Get in Touch</a>
+  <!-- HERO EXPERIENCE — three stages layered in same viewport, scroll drives transition -->
+  <section class="hero-experience" id="heroExperience">
+    <div class="hero-experience-sticky">
+      <!-- LAYER 1: Hero loop + scroll cue -->
+      <div class="hero-layer hero-layer-1" id="heroLayer1">
+        <div class="hero-label hero-stage-eyebrow">
+          <span class="num">001</span>
+          <span data-en="Industrial Designer × Digital Marketer" data-it="Designer Industriale × Digital Marketer">Industrial Designer × Digital Marketer</span>
+        </div>
+        <div id="heroLoop" class="hero-loop-stage" aria-hidden="true"></div>
+        <div class="scroll-cue" aria-hidden="true">
+          <span class="scroll-cue-label" data-en="Scroll" data-it="Scorri">Scroll</span>
+          <span class="scroll-cue-line"></span>
+        </div>
+      </div>
+      <!-- LAYER 2: Louvre shutter (6 slats, scroll-driven flip) -->
+      <div class="hero-layer hero-layer-shutter" id="shutterField" aria-hidden="true"></div>
+      <!-- LAYER 3: Tagline reveal (on the ink side of the shutter) -->
+      <div class="hero-layer hero-layer-3" id="heroLayer3">
+        <div class="hero-stage-3-inner">
+          <div class="hero-label hero-stage-eyebrow hero-stage-eyebrow-dark">
+            <span class="num">002</span>
+            <span data-en="Practice" data-it="Approccio">Practice</span>
+          </div>
+          <p class="hero-tagline">
+            <span data-en="<strong>Design Things That Sell.</strong><br> Industrial Craft × Digital Growth." data-it="<strong>Progettare Cose Che Vendono.</strong><br> Artigianato Industriale × Crescita Digitale."><strong>Design Things That Sell.</strong><br> Industrial Craft × Digital Growth.</span>
+          </p>
+          <div class="hero-cta">
+            <a href="work.html" class="btn btn-primary" data-en="View Work" data-it="Lavori">
+              View Work
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </a><a href="contact.html" class="btn btn-outline" data-en="Get in Touch" data-it="Contattami">Get in Touch</a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -362,6 +380,7 @@
 <script src="js/cursor.js?v=1779974002"></script>
 <script src="js/transitions.js"></script>
 <script src="js/animations.js"></script>
+<script src="js/louvre-shutter.js?v=1780228233"></script>
 <script src="js/skills-bounce.js?v=1779985484"></script>
 <script src="js/lang.js"></script>
 <script src="js/hero-loop.js"></script>
