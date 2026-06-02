@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sai Kanagat — Industrial Designer × Digital Marketer | Portfolio</title>
+  <meta name="description" content="Sai Kanagat — Industrial Designer × Digital Marketer in Bologna. Portfolio spanning brand campaigns (Aperol, Carlos Mota, Juicy Chemistry), AI architecture (Cyrano, Inkwell, Content Vigilante), research (Monocular Biomechanics), and a five-year industrial design practice." />
+  <meta name="author" content="Sai Prathyaksh Kanagat" />
+  <meta name="keywords" content="Sai Kanagat, Sai Prathyaksh Kanagat, industrial designer, digital marketer, Bologna Business School, Nishta, Cyrano, Aperol Golden Hour, Monocular Biomechanics, Carlos Mota, Verde Collection, Juicy Chemistry, ARABellA, Content Vigilante, Inkwell, Agora, brand strategy, visual merchandising, Italy designer, Coimbatore designer" />
+  <meta name="google-site-verification" content="DWBk1y--AEBtdWr66PtOS4njN3MSOvLq8XXb6-yu5lw" />
+  <link rel="canonical" href="https://saikanagat.com/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Sai Kanagat" />
+  <meta property="og:title" content="Sai Kanagat — Industrial Designer × Digital Marketer" />
+  <meta property="og:description" content="Industrial Designer turned Digital Marketer. Based in Bologna, Italy. Founder of Nishta." />
+  <meta property="og:url" content="https://saikanagat.com/" />
+  <meta property="og:image" content="https://saikanagat.com/og-image.jpg" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="it_IT" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Sai Kanagat — Industrial Designer × Digital Marketer" />
+  <meta name="twitter:description" content="Industrial Designer turned Digital Marketer. Based in Bologna, Italy." />
+  <meta name="twitter:image" content="https://saikanagat.com/og-image.jpg" />
+  <meta name="twitter:image:alt" content="Sai Kanagat — Industrial Designer × Digital Marketer · Bologna, Italy" />
+  <meta name="twitter:site" content="@saikanagat" />
+  <meta name="twitter:creator" content="@saikanagat" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Sai Kanagat — Industrial Designer × Digital Marketer · Bologna, Italy" />
+
+  <!-- JSON-LD Person Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Sai Prathyaksh Kanagat",
+    "alternateName": ["Sai Kanagat", "Sai P. Kanagat"],
+    "url": "https://saikanagat.com/",
+    "image": "https://saikanagat.com/og-image.jpg",
+    "jobTitle": "Industrial Designer & Digital Marketer",
+    "description": "Industrial Designer turned Digital Marketer. Founder of Nishta. MSc candidate in Digital Marketing & Communication at Bologna Business School.",
+    "email": "mailto:saikanagat1117@gmail.com",
+    "nationality": "Indian",
+    "birthPlace": {"@type": "Place", "name": "Coimbatore, India"},
+    "homeLocation": {
+      "@type": "Place",
+      "address": {"@type": "PostalAddress", "addressLocality": "Bologna", "addressCountry": "Italy"}
+    },
+    "alumniOf": [{
+      "@type": "EducationalOrganization",
+      "name": "Bologna Business School",
+      "url": "https://www.bbs.unibo.it/"
+    }],
+    "knowsAbout": [
+      "Industrial Design", "Digital Marketing", "Brand Strategy",
+      "Visual Merchandising", "Paid Media", "Meta Ads", "Google Ads",
+      "SEO", "Product Design", "Adobe Creative Suite", "Figma",
+      "Creative Direction", "AI Architecture", "Retrieval-Augmented Generation",
+      "Brand Identity Systems", "Campaign Strategy", "Set Design",
+      "Furniture Design", "Sustainable Design", "Content Strategy",
+      "GA4", "Meta Pixel", "GTM", "GDPR Consent Mode v2", "Next.js"
+    ],
+    "knowsLanguage": ["English", "Italian", "Tamil", "Hindi"],
+    "sameAs": [
+      "https://linkedin.com/in/sai-kanagat",
+      "https://github.com/Sai-Kanagat",
+      "https://saikanagat.com/"
+    ]
+  }
+  </script>
+
+  <!-- JSON-LD WebSite Schema with SearchAction -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Sai Kanagat — Portfolio",
+    "alternateName": "Sai Prathyaksh Kanagat",
+    "url": "https://saikanagat.com/",
+    "author": {"@type": "Person", "name": "Sai Prathyaksh Kanagat"},
+    "inLanguage": ["en", "it"],
+    "publisher": {"@type": "Person", "name": "Sai Prathyaksh Kanagat"}
+  }
+  </script>
+
+  <!-- JSON-LD ProfilePage Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "mainEntity": {
+      "@type": "Person",
+      "name": "Sai Prathyaksh Kanagat",
+      "alternateName": "Sai Kanagat",
+      "url": "https://saikanagat.com/",
+      "jobTitle": "Industrial Designer & Digital Marketer",
+      "worksFor": {"@type": "Organization", "name": "Nishta", "url": "https://saikanagat.com/"},
+      "address": {"@type": "PostalAddress", "addressLocality": "Bologna", "addressCountry": "IT"}
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/brand-overlay.css?v=1780012796" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#1F40C7" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+  <link rel="alternate" hreflang="en" href="https://saikanagat.com/" />
+  <link rel="alternate" hreflang="it" href="https://saikanagat.com/" />
+  <link rel="alternate" hreflang="x-default" href="https://saikanagat.com/" />
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<!-- AMBIENT FLOATING ICONS — gentle background drift -->
+<canvas id="ambientFloat" aria-hidden="true"></canvas>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="index.html" class="nav-logo">SK<span>.</span></a>
+  <div class="nav-links" id="navLinks">
+    <a href="work.html" data-en="Work" data-it="Lavori">Work</a>
+    <a href="process.html" data-en="Process" data-it="Processo">Process</a>
+    <a href="gallery.html" data-en="Gallery" data-it="Galleria">Gallery</a>
+    <a href="blog.html" data-en="Blog" data-it="Blog">Blog</a>
+    <a href="about.html" data-en="About" data-it="Chi Sono">About</a>
+    <a href="demos.html" data-en="Demos" data-it="Demo">Demos</a>
+    <a href="contact.html" data-en="Contact" data-it="Contatti">Contact</a>
+    <a href="brand-identity.html" class="nav-score-btn" data-en="View Brandbook" data-it="Vedi Brandbook">View Brandbook</a>
+  </div>
+  <div class="lang-toggle" aria-label="Language">
+    <button type="button" data-l="en" class="is-active">EN</button>
+    <span>/</span>
+    <button type="button" data-l="it">IT</button>
+  </div>
+  <div class="nav-tag" data-en="Available — EU &amp; Remote" data-it="Disponibile — Italia e Remoto">Available — EU &amp; Remote</div>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+<main id="main" class="page" role="main">
+
+  <!-- HERO EXPERIENCE — three stages layered in same viewport, scroll drives transition -->
+  <section class="hero-experience" id="heroExperience">
+    <div class="hero-experience-sticky">
+      <!-- LAYER 1: Hero loop + scroll cue -->
+      <div class="hero-layer hero-layer-1" id="heroLayer1">
+        <div class="hero-label hero-stage-eyebrow">
+          <span class="num">001</span>
+          <span data-en="Industrial Designer × Digital Marketer" data-it="Designer Industriale × Digital Marketer">Industrial Designer × Digital Marketer</span>
+        </div>
+        <div id="heroLoop" class="hero-loop-stage" aria-hidden="true"></div>
+        <div class="scroll-cue" aria-hidden="true">
+          <span class="scroll-cue-label" data-en="Scroll" data-it="Scorri">Scroll</span>
+          <span class="scroll-cue-line"></span>
+        </div>
+      </div>
+      <!-- LAYER 2: Louvre shutter (6 slats, scroll-driven flip) -->
+      <div class="hero-layer hero-layer-shutter" id="shutterField" aria-hidden="true"></div>
+      <!-- LAYER 3: Tagline reveal (on the ink side of the shutter) -->
+      <div class="hero-layer hero-layer-3" id="heroLayer3">
+        <div class="hero-stage-3-inner">
+          <div class="hero-label hero-stage-eyebrow hero-stage-eyebrow-dark">
+            <span class="num">002</span>
+            <span data-en="Practice" data-it="Approccio">Practice</span>
+          </div>
+          <p class="hero-tagline">
+            <span data-en="<strong>Design Things That Sell.</strong><br> Industrial Craft × Digital Growth." data-it="<strong>Progettare Cose Che Vendono.</strong><br> Artigianato Industriale × Crescita Digitale."><strong>Design Things That Sell.</strong><br> Industrial Craft × Digital Growth.</span>
+          </p>
+          <div class="hero-cta">
+            <a href="work.html" class="btn btn-primary" data-en="View Work" data-it="Lavori">
+              View Work
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </a><a href="contact.html" class="btn btn-outline" data-en="Get in Touch" data-it="Contattami">Get in Touch</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span>Design ×</span><span>Marketing ×</span><span>Brand Strategy ×</span>
+      <span>Visual Merchandising ×</span><span>Product Design ×</span>
+      <span>Content ×</span><span>Conversion ×</span><span>Italy ×</span>
+      <span>Design ×</span><span>Marketing ×</span><span>Brand Strategy ×</span>
+      <span>Visual Merchandising ×</span><span>Product Design ×</span>
+      <span>Content ×</span><span>Conversion ×</span><span>Italy ×</span>
+    </div>
+  </div>
+
+  <!-- FEATURED WORK (promoted above skills) -->
+  <section class="work-section">
+    <div class="work-header reveal">
+      <h2 data-en="Selected<br>Work" data-it="Lavori<br>Selezionati">Selected<br>Work</h2>
+      <a href="work.html" class="btn btn-outline-yellow">
+        <span data-en="All Projects" data-it="Tutti i Progetti">All Projects</span>
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+    </div>
+    <div class="work-grid" data-stagger>
+      <a href="aperol-golden-hour.html" class="work-card reveal reveal-delay-1" style="position:relative; overflow:hidden;">
+        <div style="position:absolute; inset:0; background:linear-gradient(180deg, #E55D34 0%, #C84A26 100%);"></div>
+        <div style="position:absolute; inset:0; background:url('assets/images/APEROL/hero.jpg') center/cover; opacity:0.32; mix-blend-mode:luminosity;"></div>
+        <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center; padding:24px;">
+          <div>
+            <div style="font-family:'Space Mono','IBM Plex Mono', monospace; font-size:10px; letter-spacing:0.3em; color:rgba(255,255,255,0.85); margin-bottom:14px; text-transform:uppercase;">— New · May 2026</div>
+            <div style="font-family:'Unbounded', sans-serif; font-weight:800; color:#fff; font-size:clamp(30px, 4.5vw, 56px); letter-spacing:-0.03em; line-height:0.95; text-transform:uppercase;">APEROL.</div>
+            <div style="font-family:'Cormorant Garamond', Garamond, serif; font-style:italic; font-weight:300; color:#fff; font-size:clamp(20px, 2.6vw, 32px); letter-spacing:-0.01em; margin-top:4px;">The Golden Hour.</div>
+          </div>
+        </div>
+        <div class="work-card-overlay">
+          <div class="work-card-number">NEW / 2026</div>
+          <div class="work-card-title">Aperol — The Golden Hour · India Launch</div>
+          <div class="work-card-tags">
+            <span class="tag marketing">Brand Strategy</span>
+            <span class="tag marketing">Campaign</span>
+            <span class="tag design">AI-Native</span>
+          </div>
+        </div>
+      </a>
+      <a href="work.html#casamota" class="work-card reveal reveal-delay-2">
+        <img class="card-img" src="assets/images/CASAMOTA/img_p4_1.jpeg" alt="Carlos Mota Verde Collection" loading="lazy" />
+        <div class="work-card-overlay">
+          <div class="work-card-number">01 / 2022</div>
+          <div class="work-card-title">Carlos Mota — Verde Collection</div>
+          <div class="work-card-tags">
+            <span class="tag design">Furniture</span>
+            <span class="tag collab">AD Photoshoot</span>
+          </div>
+        </div>
+      </a>
+      <a href="work.html#juicy" class="work-card reveal reveal-delay-2">
+        <img class="card-img" src="assets/images/VM/img_p20_1.jpeg" alt="Juicy Chemistry Visual Merchandising" loading="lazy" />
+        <div class="work-card-overlay">
+          <div class="work-card-number">02 / 2022–23</div>
+          <div class="work-card-title">Juicy Chemistry — Brand Activation</div>
+          <div class="work-card-tags">
+            <span class="tag marketing">Visual Merch</span>
+            <span class="tag design">Spatial</span>
+          </div>
+        </div>
+      </a>
+      <a href="work.html#arabella" class="work-card reveal reveal-delay-3">
+        <img class="card-img" src="assets/images/ARABELLA/hero.jpg" alt="ARABellA Bamboo Furniture Collection" loading="lazy" />
+        <div class="work-card-overlay">
+          <div class="work-card-number">03 / 2023</div>
+          <div class="work-card-title">ARABellA — Bamboo Furniture</div>
+          <div class="work-card-tags">
+            <span class="tag design">Graduation Thesis</span>
+            <span class="tag design">Sustainability</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+
+  <!-- DISCIPLINE SPLIT -->
+  <section class="discipline-split">
+    <div class="discipline-col">
+      <div class="section-label" style="color:rgba(10,10,10,0.5);">
+        <span class="num" style="color:var(--ink);">003</span> Discipline
+      </div>
+      <div class="discipline-col-tag design" data-en="Design" data-it="Design">Design</div>
+      <h2 data-en="Made<br>to Last" data-it="Fatto<br>per Durare">Made<br>to Last</h2>
+      <ul class="discipline-list" data-stagger>
+        <li><span data-en="Industrial &amp; Product Design" data-it="Design Industriale e di Prodotto">Industrial &amp; Product Design</span></li>
+        <li><span data-en="Visual Merchandising" data-it="Visual Merchandising">Visual Merchandising</span></li>
+        <li><span data-en="Spatial Brand Experience" data-it="Esperienza di Brand Spaziale">Spatial Brand Experience</span></li>
+        <li><span data-en="CMF &amp; Materials Research" data-it="Ricerca CMF e Materiali">CMF &amp; Materials Research</span></li>
+        <li><span data-en="Prototyping &amp; Fabrication" data-it="Prototipazione e Fabbricazione">Prototyping &amp; Fabrication</span></li>
+        <li><span data-en="3D Rendering &amp; Visualisation" data-it="Rendering 3D e Visualizzazione">3D Rendering &amp; Visualisation</span></li>
+      </ul>
+    </div>
+    <div class="discipline-col">
+      <div class="section-label" style="visibility:hidden; color:rgba(10,10,10,0.5);">x</div>
+      <div class="discipline-col-tag marketing" data-en="Marketing" data-it="Marketing">Marketing</div>
+      <h2 data-en="Built<br>to Grow" data-it="Costruito<br>per Crescere">Built<br>to Grow</h2>
+      <ul class="discipline-list" data-stagger>
+        <li><span data-en="Digital Brand Strategy" data-it="Strategia di Brand Digitale">Digital Brand Strategy</span></li>
+        <li><span data-en="Social Media &amp; Content Creation" data-it="Social Media e Creazione di Contenuti">Social Media &amp; Content Creation</span></li>
+        <li><span data-en="Paid Media (Meta, Google Ads)" data-it="Paid Media (Meta, Google Ads)">Paid Media (Meta, Google Ads)</span></li>
+        <li><span data-en="SEO &amp; Organic Growth" data-it="SEO e Crescita Organica">SEO &amp; Organic Growth</span></li>
+        <li><span data-en="Email Marketing &amp; CRM" data-it="Email Marketing e CRM">Email Marketing &amp; CRM</span></li>
+        <li><span data-en="Campaign Analytics &amp; Reporting" data-it="Analytics di Campagna e Reporting">Campaign Analytics &amp; Reporting</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- STATS STRIP -->
+  <div class="stats-strip reveal">
+    <div class="stat-item">
+      <div class="stat-num" data-target="3.2" data-suffix="×" data-decimals="1">3.2×</div>
+      <div class="stat-label"><span data-en="Average ROAS on Paid Campaigns" data-it="ROAS Medio su Campagne Pagate">Average ROAS on Paid Campaigns</span></div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" data-target="12" data-suffix="+">12+</div>
+      <div class="stat-label"><span data-en="Design Projects Completed" data-it="Progetti di Design Completati">Design Projects Completed</span></div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" data-target="40" data-suffix="%">40%</div>
+      <div class="stat-label"><span data-en="Organic Traffic Growth Achieved" data-it="Crescita di Traffico Organico">Organic Traffic Growth Achieved</span></div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" data-target="5">5</div>
+      <div class="stat-label"><span data-en="Brand Identities &amp; Campaigns" data-it="Brand Identity e Campagne">Brand Identities &amp; Campaigns</span></div>
+    </div>
+  </div>
+
+  <!-- ABOUT TEASER -->
+  <section class="about-teaser">
+    <div class="about-teaser-left">
+      <div class="section-label" style="color:rgba(10,10,10,0.4);">
+        <span class="num" style="color:var(--ink);">004</span> About
+      </div>
+      <h2 data-en="Both<br>Sides<br>of the<br>Brief" data-it="Due<br>Lati<br>dello<br>Stesso<br>Brief">Both<br>Sides<br>of the<br>Brief</h2>
+      <a href="about.html" class="btn btn-primary" style="margin-top: 32px;">
+        <span data-en="Read More" data-it="Leggi di più">Read More</span>
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+    </div>
+    <div class="about-teaser-right">
+      <p>
+        <span data-en="I began my career at the drawing board — studying industrial design, building things by hand, learning that <strong>every object tells a story before anyone reads a label.</strong> That instinct never left me." data-it="Ho cominciato dal tavolo da disegno — studiando design industriale, costruendo cose a mano, imparando che <strong>ogni oggetto racconta una storia prima ancora che si legga l'etichetta.</strong> Quell'istinto non mi ha mai lasciato.">I began my career at the drawing board — studying industrial design, building things by hand, learning that <strong>every object tells a story before anyone reads a label.</strong> That instinct never left me.</span>
+      </p>
+      <p>
+        <span data-en="What changed was the canvas. After years of designing physical products and spaces, I moved into digital marketing — and discovered that the same principles apply: <strong>understand the user, control the narrative, make every touchpoint count.</strong>" data-it="A cambiare è stata la tela. Dopo anni a progettare prodotti e spazi fisici sono passato al digital marketing — e ho scoperto che valgono gli stessi principi: <strong>capire l'utente, controllare la narrazione, far contare ogni touchpoint.</strong>">What changed was the canvas. After years of designing physical products and spaces, I moved into digital marketing — and discovered that the same principles apply: <strong>understand the user, control the narrative, make every touchpoint count.</strong></span>
+      </p>
+      <p>
+        <span data-en="Today I work at the intersection of both disciplines. I help brands build products worth talking about — and then build the campaigns that make people talk. <em>Currently seeking brand &amp; marketing roles in Italy</em>, where design and culture are inseparable." data-it="Oggi lavoro all'incrocio tra le due discipline. Aiuto i brand a costruire prodotti di cui valga la pena parlare — e poi a costruire le campagne che fanno sì che la gente ne parli. <em>Attualmente in cerca di ruoli di brand e marketing in Italia</em>, dove design e cultura sono inseparabili.">Today I work at the intersection of both disciplines. I help brands build products worth talking about — and then build the campaigns that make people talk. <em>Currently seeking brand &amp; marketing roles in Italy</em>, where design and culture are inseparable.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- CONTACT CTA -->
+  <section style="padding: var(--pad-section) var(--pad-x); border-top: 1px solid var(--grey-line);">
+    <div class="section-label">
+      <span class="num">005</span> <span data-en="Contact" data-it="Contatti">Contact</span>
+    </div>
+    <h2 style="font-family: var(--font-display); font-weight: 900; font-size: clamp(40px, 7vw, 100px); letter-spacing: -0.05em; text-transform: uppercase; line-height: 0.9; margin-bottom: 48px;" class="reveal">
+      <span data-en="Let&apos;s Build" data-it="Costruiamo">Let's Build</span><br>
+      <span style="-webkit-text-stroke: 2px var(--ink); color: transparent;"><span data-en="Something" data-it="Qualcosa">Something</span><br>
+      <span data-en="Together." data-it="Insieme.">Together.</span>
+    </h2>
+    <div style="display:flex; gap: 16px; flex-wrap: wrap;" class="reveal reveal-delay-1">
+      <a href="contact.html" class="btn btn-primary" data-en="Start a Conversation" data-it="Parliamone">Start a Conversation</a>
+      <a href="mailto:saikanagat1117@gmail.com" class="btn btn-outline">saikanagat1117@gmail.com</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-logo">SK<span>.</span></div>
+    <p class="footer-copy">© 2026 Sai Kanagat. All rights reserved.</p>
+    <div class="footer-socials">
+      <a href="https://linkedin.com/in/sai-kanagat" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/Sai-Kanagat" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:saikanagat1117@gmail.com">Email</a>
+    </div>
+  </footer>
+
+</main>
+
+<script src="js/loader.js"></script>
+<script src="js/cursor.js?v=1779974002"></script>
+<script src="js/transitions.js"></script>
+<script src="js/animations.js"></script>
+<script src="js/louvre-shutter.js?v=1779998543"></script>
+<script src="js/skills-bounce.js?v=1779985484"></script>
+<script src="js/lang.js"></script>
+<script src="js/hero-loop.js"></script>
+<script src="js/lightbox.js"></script>
+<script src="js/hover-preview.js"></script>
+<script src="js/interactions.js"></script>
+</body>
+</html>

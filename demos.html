@@ -1,20 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Consent Mode v2 default — denied inside EEA/UK/Switzerland (GDPR), granted elsewhere -->
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+// Default: granted everywhere (for non-EEA traffic — recruiters in US/India/etc)
+gtag('consent','default',{'ad_storage':'granted','ad_user_data':'granted','ad_personalization':'granted','analytics_storage':'granted','functionality_storage':'granted','security_storage':'granted','wait_for_update':500});
+// Override: denied for EEA, UK, Switzerland (legally required until user accepts)
+gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied','region':['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH'],'wait_for_update':500});
+try{var c=localStorage.getItem('sk_consent');if(c==='granted'){gtag('consent','update',{'ad_storage':'granted','ad_user_data':'granted','ad_personalization':'granted','analytics_storage':'granted'});}else if(c==='denied'){gtag('consent','update',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied'});}}catch(e){}</script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MRGXD7ZC');</script>
+<!-- End Google Tag Manager -->
+<script>(function(){try{if(/\.pages\.dev$/i.test(location.hostname)){location.replace("https://saikanagat.com"+location.pathname+location.search+location.hash);}}catch(e){}})();</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Demos — Sai Kanagat | Interactive Creative-Code Experiments</title>
   <meta name="description" content="Live, interactive browser demos by Sai Kanagat — Agora multi-agent opinion sandbox, hand-tracked gesture cursor, and webcam-driven colour physics." />
   <meta name="author" content="Sai Prathyaksh Kanagat" />
-  <link rel="canonical" href="https://saikanagat.pages.dev/demos" />
+  <link rel="canonical" href="https://saikanagat.com/demos" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Sai Kanagat" />
   <meta property="og:title" content="Demos — Sai Kanagat" />
   <meta property="og:description" content="Live, interactive browser demos: Agora, Hand Cursor, Colour Physics." />
-  <meta property="og:url" content="https://saikanagat.pages.dev/demos" />
-  <meta property="og:image" content="https://saikanagat.pages.dev/assets/images/CASAMOTA/img_p4_1.jpeg" />
+  <meta property="og:url" content="https://saikanagat.com/demos" />
+  <meta property="og:image" content="https://saikanagat.com/og-image.jpg" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:locale:alternate" content="it_IT" />
 
@@ -22,7 +33,13 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Demos — Sai Kanagat" />
   <meta name="twitter:description" content="Live, interactive browser demos: Agora, Hand Cursor, Colour Physics." />
-  <meta name="twitter:image" content="https://saikanagat.pages.dev/assets/images/CASAMOTA/img_p4_1.jpeg" />
+  <meta name="twitter:image" content="https://saikanagat.com/og-image.jpg" />
+  <meta name="twitter:image:alt" content="Sai Kanagat — Industrial Designer × Digital Marketer · Bologna, Italy" />
+  <meta name="twitter:site" content="@saikanagat" />
+  <meta name="twitter:creator" content="@saikanagat" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Sai Kanagat — Industrial Designer × Digital Marketer · Bologna, Italy" />
 
   <!-- JSON-LD CollectionPage / ItemList -->
   <script type="application/ld+json">
@@ -30,7 +47,7 @@
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     "name": "Demos — Sai Kanagat",
-    "url": "https://saikanagat.pages.dev/demos",
+    "url": "https://saikanagat.com/demos",
     "author": {"@type": "Person", "name": "Sai Prathyaksh Kanagat"},
     "mainEntity": {
       "@type": "ItemList",
@@ -44,7 +61,7 @@
   </script>
 
   <link rel="stylesheet" href="css/styles.css" />
-  <link rel="stylesheet" href="css/brand-overlay.css" />
+  <link rel="stylesheet" href="css/brand-overlay.css?v=1780012796" />
   <style>
     .demos-page { padding: 120px 32px 80px; max-width: 1280px; margin: 0 auto; box-sizing: border-box; }
     .demos-page h1 { font-family: var(--font-display, 'Unbounded', sans-serif); font-weight: 900; font-size: clamp(44px, 7vw, 96px); letter-spacing: -0.04em; line-height: 0.95; margin: 0 0 24px; }
@@ -83,9 +100,24 @@
     .bg-balls { background: linear-gradient(135deg, #0a0a0a 0%, #1a1a0a 100%); }
     .bg-balls::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle at 25% 30%, #ccff00 0%, transparent 6%), radial-gradient(circle at 70% 40%, #ff5a3c 0%, transparent 5%), radial-gradient(circle at 50% 75%, #3cb4ff 0%, transparent 5%), radial-gradient(circle at 80% 70%, #ffaa00 0%, transparent 5%); opacity: 0.9; }
   </style>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#1F40C7" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+  <link rel="alternate" hreflang="en" href="https://saikanagat.com/demos" />
+  <link rel="alternate" hreflang="it" href="https://saikanagat.com/demos" />
+  <link rel="alternate" hreflang="x-default" href="https://saikanagat.com/demos" />
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MRGXD7ZC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 <a href="#main" class="skip-link">Skip to content</a>
 
 <!-- NAV -->
@@ -99,7 +131,7 @@
     <a href="about.html" data-en="About" data-it="Chi Sono">About</a>
     <a href="demos.html" data-en="Demos" data-it="Demo">Demos</a>
     <a href="contact.html" data-en="Contact" data-it="Contatti">Contact</a>
-    <a href="https://content-vigilante-vercel.vercel.app" target="_blank" rel="noopener" class="nav-score-btn" data-en="Content Vigilante" data-it="Content Vigilante">Content Vigilante</a>
+    <a href="brand-identity.html" class="nav-score-btn" data-en="View Brandbook" data-it="Vedi Brandbook">View Brandbook</a>
   </div>
   <div class="lang-toggle" aria-label="Language"><button type="button" data-l="en" class="is-active">EN</button><span>/</span><button type="button" data-l="it">IT</button></div>
   <div class="nav-tag">Available — EU &amp; Remote</div>
@@ -189,11 +221,14 @@
 </div>
 
 <script src="js/lang.js"></script>
-<script src="js/cursor.js"></script>
+<script src="js/cursor.js?v=1779974002"></script>
 <script src="js/lightbox.js"></script>
+<script src="js/hover-preview.js"></script>
 <script src="js/interactions.js"></script>
 <script>
 document.getElementById('hamburger')?.addEventListener('click', () => document.getElementById('navLinks').classList.toggle('open'));
 </script>
+<script src="js/consent.js" defer></script>
+<script src="js/analytics.js" defer></script>
 </body>
 </html>

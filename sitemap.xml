@@ -1,121 +1,133 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://saikanagat.pages.dev/</loc>
+    <loc>https://saikanagat.com/</loc>
     <lastmod>2026-05-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://saikanagat.pages.dev/about</loc>
+    <loc>https://saikanagat.com/about</loc>
     <lastmod>2026-05-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://saikanagat.pages.dev/work</loc>
+    <loc>https://saikanagat.com/work</loc>
     <lastmod>2026-05-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://saikanagat.pages.dev/process</loc>
+    <loc>https://saikanagat.com/process</loc>
     <lastmod>2026-05-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://saikanagat.pages.dev/gallery</loc>
+    <loc>https://saikanagat.com/gallery</loc>
     <lastmod>2026-05-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://saikanagat.pages.dev/demos</loc>
+    <loc>https://saikanagat.com/demos</loc>
     <lastmod>2026-05-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://saikanagat.pages.dev/contact</loc>
+    <loc>https://saikanagat.com/contact</loc>
     <lastmod>2026-05-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://saikanagat.pages.dev/brand-identity</loc>
+    <loc>https://saikanagat.com/brand-identity</loc>
     <lastmod>2026-05-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://saikanagat.pages.dev/aperol-golden-hour</loc>
+    <loc>https://saikanagat.com/aperol-golden-hour</loc>
     <lastmod>2026-05-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
-    <loc>https://saikanagat.pages.dev/aperol-microsite/</loc>
+    <loc>https://saikanagat.com/aperol-microsite/</loc>
     <lastmod>2026-05-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://saikanagat.pages.dev/blog</loc>
+    <loc>https://saikanagat.com/blog</loc>
     <lastmod>2026-05-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://saikanagat.pages.dev/blog/why-industrial-designers-make-better-marketers</loc>
+    <loc>https://saikanagat.com/assets/papers/Monocular_Biomechanics_Sai_Kanagat.pdf</loc>
+    <lastmod>2026-05-27</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://github.com/Sai-Kanagat/cyrano</loc>
+    <lastmod>2026-05-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://saikanagat.com/blog/why-industrial-designers-make-better-marketers</loc>
     <lastmod>2026-04-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://saikanagat.pages.dev/blog/what-15k-meta-ads-taught-me</loc>
+    <loc>https://saikanagat.com/blog/what-15k-meta-ads-taught-me</loc>
     <lastmod>2026-03-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://saikanagat.pages.dev/blog/the-brief-as-a-design-object</loc>
+    <loc>https://saikanagat.com/blog/the-brief-as-a-design-object</loc>
     <lastmod>2026-02-20</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://saikanagat.pages.dev/blog/agora-and-the-rehearsal-of-public-opinion</loc>
+    <loc>https://saikanagat.com/blog/agora-and-the-rehearsal-of-public-opinion</loc>
     <lastmod>2026-04-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://saikanagat.pages.dev/blog/why-italy-and-why-now</loc>
+    <loc>https://saikanagat.com/blog/why-italy-and-why-now</loc>
     <lastmod>2026-03-01</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://saikanagat.pages.dev/blog/portfolios-are-products</loc>
+    <loc>https://saikanagat.com/blog/portfolios-are-products</loc>
     <lastmod>2026-02-12</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://saikanagat.pages.dev/blog/building-nishta</loc>
+    <loc>https://saikanagat.com/blog/building-nishta</loc>
     <lastmod>2026-05-24</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://saikanagat.pages.dev/blog/bologna-business-school-marketing-reality</loc>
+    <loc>https://saikanagat.com/blog/bologna-business-school-marketing-reality</loc>
     <lastmod>2026-05-24</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://saikanagat.pages.dev/blog/carlos-mota-studio-lesson</loc>
+    <loc>https://saikanagat.com/blog/carlos-mota-studio-lesson</loc>
     <lastmod>2026-05-24</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.8</priority>

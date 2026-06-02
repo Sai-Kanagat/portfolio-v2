@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Consent Mode v2 default — denied inside EEA/UK/Switzerland (GDPR), granted elsewhere -->
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+// Default: granted everywhere (for non-EEA traffic — recruiters in US/India/etc)
+gtag('consent','default',{'ad_storage':'granted','ad_user_data':'granted','ad_personalization':'granted','analytics_storage':'granted','functionality_storage':'granted','security_storage':'granted','wait_for_update':500});
+// Override: denied for EEA, UK, Switzerland (legally required until user accepts)
+gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied','region':['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH'],'wait_for_update':500});
+try{var c=localStorage.getItem('sk_consent');if(c==='granted'){gtag('consent','update',{'ad_storage':'granted','ad_user_data':'granted','ad_personalization':'granted','analytics_storage':'granted'});}else if(c==='denied'){gtag('consent','update',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied'});}}catch(e){}</script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MRGXD7ZC');</script>
+<!-- End Google Tag Manager -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Monocular Musculoskeletal Biomechanics — Sai Prathyaksh Kanagat</title>
+  <meta name="description" content="A unified end-to-end visual-to-neural-control pipeline for real-time clinical biomechanics from a single smartphone camera. Research paper by Sai Prathyaksh Kanagat." />
+  <meta name="author" content="Sai Prathyaksh Kanagat" />
+  <meta name="keywords" content="Sai Kanagat, Sai Prathyaksh Kanagat, biomechanics, monocular vision, musculoskeletal simulation, knee contact force, PromptHMR, GaitDynamics, MuJoCo Warp, ACL rehabilitation, gait analysis, computer vision, research paper" />
+  <link rel="canonical" href="https://saikanagat.com/papers/monocular-biomechanics" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Sai Kanagat" />
+  <meta property="og:title" content="Monocular Musculoskeletal Biomechanics: A Unified End-to-End Visual-to-Neural-Control Pipeline" />
+  <meta property="og:description" content="Research paper on real-time clinical biomechanics from a single smartphone camera — by Sai Prathyaksh Kanagat." />
+  <meta property="og:url" content="https://saikanagat.com/papers/monocular-biomechanics" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Monocular Musculoskeletal Biomechanics — Sai Kanagat" />
+  <meta name="twitter:description" content="A unified end-to-end visual-to-neural-control pipeline for real-time clinical biomechanics from a single smartphone camera." />
+
+  <!-- Scholarly Article Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "Monocular Musculoskeletal Biomechanics: A Unified End-to-End Visual-to-Neural-Control Pipeline for Real-Time Clinical Dynamics",
+    "name": "Monocular Musculoskeletal Biomechanics: A Unified End-to-End Visual-to-Neural-Control Pipeline for Real-Time Clinical Dynamics",
+    "abstract": "Traditional biomechanical assessment is gated by costly optoelectronic motion-capture hardware, while accessible markerless alternatives recover joint keypoints but not the internal muscle forces and contact mechanics that drive joint degradation. This paper details a unified end-to-end monocular pipeline that maps raw single-camera smartphone video directly into real-time internal forces, joint moments, and muscle activations at near-laboratory fidelity, integrating PromptHMR, GaitDynamics, MuscleMimic / MuJoCo Warp, muscle synergy priors, SVK hyperelastic soft-tissue models, and a CNN-BiGRU-Attention Knee Contact Force estimator.",
+    "datePublished": "2026-05-27",
+    "dateModified": "2026-05-27",
+    "inLanguage": "en",
+    "author": {"@type": "Person", "name": "Sai Prathyaksh Kanagat", "url": "https://saikanagat.com/", "affiliation": {"@type": "Organization", "name": "Bologna Business School, Università di Bologna"}},
+    "publisher": {"@type": "Person", "name": "Sai Prathyaksh Kanagat"},
+    "url": "https://saikanagat.com/papers/monocular-biomechanics",
+    "mainEntityOfPage": "https://saikanagat.com/papers/monocular-biomechanics",
+    "sameAs": ["https://zenodo.org/records/20415895", "https://doi.org/10.5281/zenodo.20415895"],
+    "identifier": {"@type": "PropertyValue", "propertyID": "DOI", "value": "10.5281/zenodo.20415895"},
+    "encoding": {"@type": "MediaObject", "contentUrl": "https://saikanagat.com/papers/monocular-biomechanics.pdf", "encodingFormat": "application/pdf"},
+    "keywords": "biomechanics, monocular vision, musculoskeletal simulation, knee contact force, PromptHMR, GaitDynamics, MuJoCo Warp, gait analysis, ACL rehabilitation, computer vision, deep learning"
+  }
+  </script>
+
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/brand-overlay.css" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <style>
+    .pdf-embed { width: 100%; height: 90vh; border: 1px solid var(--line, #ddd); border-radius: 4px; margin: 24px 0; }
+    .paper-meta-grid { display: grid; grid-template-columns: max-content 1fr; gap: 6px 18px; margin: 24px 0; font-size: 0.95rem; }
+    .paper-meta-grid dt { font-weight: 600; color: var(--muted, #666); }
+    .paper-actions { display: flex; gap: 12px; flex-wrap: wrap; margin: 24px 0; }
+    .paper-actions a { display: inline-block; padding: 10px 18px; border: 1px solid currentColor; border-radius: 999px; text-decoration: none; font-weight: 500; }
+  </style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MRGXD7ZC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<a href="#main" class="skip-link">Skip to content</a>
+<nav class="nav">
+  <a href="../index.html" class="nav-logo">SK<span>.</span></a>
+  <div class="nav-links" id="navLinks">
+    <a href="../work.html">Work</a><a href="../process.html">Process</a><a href="../gallery.html">Gallery</a>
+    <a href="../blog.html" class="active">Blog</a><a href="../about.html">About</a><a href="../demos.html">Demos</a>
+    <a href="../contact.html">Contact</a>
+  </div>
+  <div class="nav-tag">Available — EU &amp; Remote</div>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<main id="main" class="page" role="main">
+  <header class="post-hero">
+    <div class="post-meta">
+      <span class="post-tag">Research</span><span>May 2026</span><span>21 pages</span>
+    </div>
+    <h1 class="post-title reveal">Monocular<br><span style="color: var(--accent);">Biomechanics</span></h1>
+    <p class="post-subtitle">A Unified End-to-End Visual-to-Neural-Control Pipeline for Real-Time Clinical Dynamics</p>
+  </header>
+
+  <article class="post-body">
+    <dl class="paper-meta-grid">
+      <dt>Author</dt><dd>Sai Prathyaksh Kanagat</dd>
+      <dt>Affiliation</dt><dd>Bologna Business School, Università di Bologna</dd>
+      <dt>Published</dt><dd>27 May 2026</dd>
+      <dt>Length</dt><dd>21 pages, 33 references</dd>
+      <dt>License</dt><dd>CC-BY 4.0</dd>
+      <dt>DOI</dt><dd><a href="https://doi.org/10.5281/zenodo.20415895" target="_blank" rel="noopener">10.5281/zenodo.20415895</a></dd>
+      <dt>Zenodo Record</dt><dd><a href="https://zenodo.org/records/20415895" target="_blank" rel="noopener">zenodo.org/records/20415895</a></dd>
+    </dl>
+
+    <div class="paper-actions">
+      <a href="monocular-biomechanics.pdf" download>Download PDF</a>
+      <a href="monocular-biomechanics.pdf" target="_blank" rel="noopener">Open in new tab</a>
+    </div>
+
+    <h2>Abstract</h2>
+    <p>Human movement science has long been split between costly, lab-bound optoelectronic capture rigs and broadly accessible but biomechanically shallow computer vision tools. Marker-based systems require specialist operators and substantial capital investment, blocking meaningful deployment at clinical, athletic, or consumer scale. Markerless alternatives like MediaPipe and OpenPose recover 2D and 3D joint keypoints from ordinary camera footage but cannot recover the muscle forces and internal contact mechanics that drive joint wear and soft-tissue injury.</p>
+
+    <p>This paper presents a unified, end-to-end monocular visual-to-neural-control pipeline that maps raw single-camera smartphone footage directly into real-time internal forces, joint moments, and muscle activations at near-laboratory fidelity. The architecture integrates <strong>PromptHMR</strong> for spatial-semantic mesh reconstruction, <strong>GaitDynamics</strong> for diffusion-based generative kinetic synthesis, <strong>MuscleMimic</strong> and <strong>MuJoCo Warp</strong> for GPU-parallelized musculoskeletal simulation, low-dimensional <strong>muscle synergy priors</strong> for neurophysiological action-space constraints, <strong>SVK hyperelastic</strong> models for soft-tissue compliance at wearable interfaces, and a <strong>CNN-BiGRU-Attention</strong> predictor for real-time Knee Contact Force estimation.</p>
+
+    <p>The document also includes a complete Product Requirements Document (PRD) and 12-month engineering roadmap for the <strong>BioMotion-AI Enterprise SDK</strong>, targeting sub-16.6 ms latency on consumer mobile devices, with applications spanning longitudinal ACL rehabilitation tracking, early osteoarthritis screening, and assistive wearable robotics integration.</p>
+
+    <h2>Read the paper</h2>
+    <embed class="pdf-embed" src="monocular-biomechanics.pdf" type="application/pdf" />
+
+    <h2>Cite</h2>
+    <pre style="background:#f4f4f4;padding:16px;border-radius:4px;font-size:0.9rem;overflow-x:auto;">Kanagat, S. P. (2026). Monocular Musculoskeletal Biomechanics:
+A Unified End-to-End Visual-to-Neural-Control Pipeline for
+Real-Time Clinical Dynamics. Zenodo.
+https://doi.org/10.5281/zenodo.20415895</pre>
+  </article>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div>© 2026 Sai Prathyaksh Kanagat</div>
+    <div><a href="../contact.html">Contact</a></div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+<script src="js/consent.js" defer></script>
+<script src="js/analytics.js" defer></script>
+</body>
+</html>
