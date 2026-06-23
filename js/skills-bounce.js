@@ -9,7 +9,7 @@
   if (!canvas) return;
 
   var ctx = canvas.getContext('2d');
-  var DPR = Math.min(window.devicePixelRatio || 1, 2);
+  var DPR = Math.min(window.devicePixelRatio || 1, 1.5);
 
   // Curated subset of tools — fewer icons for calmer composition
   var SKILLS = [
@@ -194,8 +194,11 @@
       ctx.restore();
     }
 
-    requestAnimationFrame(step);
+    if (!document.hidden) { rafId = requestAnimationFrame(step); } else { running = false; }
   }
+
+  var rafId = null, running = false;
+  function start(){ if (!running) { running = true; rafId = requestAnimationFrame(step); } }
 
   function init() {
     resize();
@@ -206,7 +209,9 @@
       canvas.style.display = 'none';
       return;
     }
-    requestAnimationFrame(step);
+    // Pause the loop when the tab is hidden — invisible to the user, saves CPU
+    document.addEventListener('visibilitychange', function(){ if (!document.hidden) start(); });
+    start();
   }
 
   if (document.readyState === 'loading') {

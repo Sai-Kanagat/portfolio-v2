@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MRGXD7ZC');</script>
+<!-- End Google Tag Manager -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Audio Visualizer — Sai Kanagat</title>
+<meta name="description" content="A microphone-reactive generative visualizer — radial frequency bloom that dances to live sound. Pure Web Audio, runs entirely in-browser." />
+<link rel="stylesheet" href="../css/styles.css">
+<style>
+  :root{--bg:#06070d;--paper:#f5f0e8;--line:rgba(245,240,232,0.14);}
+  *{box-sizing:border-box;}
+  html,body{margin:0;background:var(--bg);color:var(--paper);font-family:var(--font-mono,monospace);height:100%;overflow:hidden;}
+  a{color:inherit;}
+  #viz{position:fixed;inset:0;display:block;}
+  .demo-back{position:fixed;top:18px;left:18px;z-index:20;font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;background:rgba(6,7,13,0.6);border:1px solid var(--line);padding:10px 14px;border-radius:2px;text-decoration:none;backdrop-filter:blur(6px);}
+  .demo-back:hover{border-color:var(--paper);}
+  .hud{position:fixed;top:18px;right:18px;z-index:20;font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(245,240,232,0.6);text-align:right;}
+  .gate{position:fixed;inset:0;z-index:30;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:radial-gradient(circle at 50% 40%,#0d1020 0%,#06070d 70%);padding:24px;}
+  .gate .eyebrow{font-size:0.62rem;letter-spacing:0.28em;text-transform:uppercase;color:#3FE07A;}
+  .gate h1{font-family:var(--font-display,'Unbounded',sans-serif);font-weight:900;letter-spacing:-0.03em;font-size:clamp(34px,7vw,72px);margin:12px 0;}
+  .gate p{color:rgba(245,240,232,0.6);font-size:0.82rem;line-height:1.6;max-width:440px;margin:0 0 28px;}
+  .gate button{font-family:var(--font-mono,monospace);font-size:0.74rem;letter-spacing:0.14em;text-transform:uppercase;padding:15px 28px;border-radius:999px;border:1px solid #3FE07A;background:#3FE07A;color:#06070d;cursor:pointer;margin:6px;}
+  .gate button.ghost{background:transparent;color:var(--paper);border-color:var(--line);}
+  .gate button:hover{transform:translateY(-1px);}
+  .hint{margin-top:18px;font-size:0.62rem;color:rgba(245,240,232,0.4);letter-spacing:0.1em;}
+</style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MRGXD7ZC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<a href="../demos.html" class="demo-back">← Demos</a>
+<div class="hud" id="hud"></div>
+<canvas id="viz"></canvas>
+
+<div class="gate" id="gate">
+  <div class="eyebrow">Interactive · Web Audio</div>
+  <h1>Audio Visualizer</h1>
+  <p>A radial frequency bloom that reacts to live sound — clap, talk, or play music near your mic and watch it breathe. Everything runs in your browser; no audio is recorded or sent anywhere.</p>
+  <div>
+    <button id="useMic">🎤 Use Microphone</button>
+    <button class="ghost" id="useDemo">▶ Demo Tone</button>
+  </div>
+  <div class="hint">Mic permission is asked once and stays on your device.</div>
+</div>
+
+<script>
+(function(){
+  var cv=document.getElementById('viz'),cx=cv.getContext('2d');
+  var W,H,DPR=Math.min(window.devicePixelRatio||1,1.5);
+  function resize(){W=window.innerWidth;H=window.innerHeight;cv.width=W*DPR;cv.height=H*DPR;cv.style.width=W+'px';cv.style.height=H+'px';cx.setTransform(DPR,0,0,DPR,0,0);}
+  resize();window.addEventListener('resize',resize);
+
+  var actx,analyser,freq,running=false,mode='',osc;
+  function setupAnalyser(){analyser=actx.createAnalyser();analyser.fftSize=512;analyser.smoothingTimeConstant=0.82;freq=new Uint8Array(analyser.frequencyBinCount);}
+
+  function startMic(){
+    actx=new (window.AudioContext||window.webkitAudioContext)();
+    setupAnalyser();
+    navigator.mediaDevices.getUserMedia({audio:true}).then(function(stream){
+      actx.createMediaStreamSource(stream).connect(analyser);
+      go('MIC LIVE');
+    }).catch(function(){document.getElementById('hud').textContent='mic blocked — try demo tone';});
+  }
+  function startDemo(){
+    actx=new (window.AudioContext||window.webkitAudioContext)();
+    setupAnalyser();
+    osc=actx.createOscillator();var g=actx.createGain();g.gain.value=0.0001;
+    osc.connect(analyser);analyser.connect(g);g.connect(actx.destination);
+    osc.type='sine';osc.start();
+    // sweep a little melody so there's motion
+    var notes=[220,277,330,440,330,277],i=0;
+    setInterval(function(){osc.frequency.setValueAtTime(notes[i%notes.length]*(1+Math.random()*0.4),actx.currentTime);i++;},380);
+    go('DEMO TONE');
+  }
+  function go(label){
+    document.getElementById('gate').style.display='none';
+    document.getElementById('hud').textContent=label;
+    running=true;loop();
+  }
+
+  var rot=0;
+  function loop(){
+    if(!running)return;
+    analyser.getByteFrequencyData(freq);
+    // average energy for global pulse
+    var sum=0;for(var k=0;k<freq.length;k++)sum+=freq[k];var avg=sum/freq.length/255;
+    // fade trails
+    cx.fillStyle='rgba(6,7,13,0.16)';cx.fillRect(0,0,W,H);
+    var cxm=W/2,cym=H/2;
+    var bins=96,baseR=Math.min(W,H)*0.16;
+    rot+=0.0016+avg*0.01;
+    for(var i=0;i<bins;i++){
+      var fi=Math.floor(i/bins*freq.length*0.7);
+      var v=freq[fi]/255;
+      var ang=(i/bins)*Math.PI*2+rot;
+      var len=baseR+v*Math.min(W,H)*0.30;
+      var x1=cxm+Math.cos(ang)*baseR, y1=cym+Math.sin(ang)*baseR;
+      var x2=cxm+Math.cos(ang)*len, y2=cym+Math.sin(ang)*len;
+      var hue=180+i/bins*120+avg*60;
+      cx.strokeStyle='hsla('+hue+','+(70+v*30)+'%,'+(45+v*25)+'%,'+(0.5+v*0.5)+')';
+      cx.lineWidth=2+v*4;cx.lineCap='round';
+      cx.beginPath();cx.moveTo(x1,y1);cx.lineTo(x2,y2);cx.stroke();
+      // mirror inward for bloom
+      var xi=cxm+Math.cos(ang)*(baseR-v*baseR*0.6), yi=cym+Math.sin(ang)*(baseR-v*baseR*0.6);
+      cx.globalAlpha=0.35;cx.beginPath();cx.moveTo(x1,y1);cx.lineTo(xi,yi);cx.stroke();cx.globalAlpha=1;
+    }
+    // core
+    var cr=baseR*(0.5+avg*0.5);
+    var grd=cx.createRadialGradient(cxm,cym,0,cxm,cym,cr);
+    grd.addColorStop(0,'rgba(63,224,122,'+(0.25+avg*0.5)+')');grd.addColorStop(1,'rgba(63,224,122,0)');
+    cx.fillStyle=grd;cx.beginPath();cx.arc(cxm,cym,cr,0,7);cx.fill();
+    requestAnimationFrame(loop);
+  }
+  document.addEventListener('visibilitychange',function(){if(!document.hidden&&running)loop();});
+  document.getElementById('useMic').onclick=startMic;
+  document.getElementById('useDemo').onclick=startDemo;
+})();
+</script>
+</body>
+</html>

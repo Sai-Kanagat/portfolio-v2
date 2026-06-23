@@ -93,12 +93,20 @@ try{var c=localStorage.getItem('sk_consent');if(c==='granted'){gtag('consent','u
     .demo-tile-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
     .demo-tile-tag { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase; padding: 4px 8px; border: 1px solid rgba(245,240,232,0.3); border-radius: 2px; color: rgba(245,240,232,0.85); }
     /* tile backgrounds */
-    .bg-agora { background: radial-gradient(circle at 30% 30%, #1a1a0a 0%, #0a0a0a 70%); }
-    .bg-agora::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle at 22% 35%, #ccff00 0%, transparent 4%), radial-gradient(circle at 65% 55%, #ff5a3c 0%, transparent 3%), radial-gradient(circle at 45% 70%, #3cb4ff 0%, transparent 3%), radial-gradient(circle at 75% 25%, #f5f0e8 0%, transparent 2.5%), radial-gradient(circle at 35% 50%, #ccff00 0%, transparent 2%), radial-gradient(circle at 80% 75%, #3cb4ff 0%, transparent 3%); opacity: 0.85; }
-    .bg-hands { background: linear-gradient(135deg, #0a0a0a 0%, #0a1c1a 100%); }
-    .bg-hands::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle at 50% 50%, rgba(204,255,0,0.18) 0%, transparent 40%), repeating-linear-gradient(45deg, transparent 0 20px, rgba(245,240,232,0.04) 20px 21px); }
-    .bg-balls { background: linear-gradient(135deg, #0a0a0a 0%, #1a1a0a 100%); }
-    .bg-balls::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle at 25% 30%, #ccff00 0%, transparent 6%), radial-gradient(circle at 70% 40%, #ff5a3c 0%, transparent 5%), radial-gradient(circle at 50% 75%, #3cb4ff 0%, transparent 5%), radial-gradient(circle at 80% 70%, #ffaa00 0%, transparent 5%); opacity: 0.9; }
+    /* demo thumbnails — real preview image + dark scrim so the tile text stays readable */
+    .demo-tile-bg.bg-agora, .demo-tile-bg.bg-hands, .demo-tile-bg.bg-balls,
+    .demo-tile-bg.bg-roas, .demo-tile-bg.bg-poster, .demo-tile-bg.bg-audio {
+      position: absolute !important; inset: 0 !important; height: auto !important;
+      background-size: cover !important; background-position: center top !important; background-repeat: no-repeat !important;
+    }
+    .demo-tile-bg.bg-agora  { background-image: url('assets/images/demos/agora.jpg') !important; }
+    .demo-tile-bg.bg-hands  { background-image: url('assets/images/demos/hands.jpg') !important; }
+    .demo-tile-bg.bg-balls  { background-image: url('assets/images/demos/balls.jpg') !important; }
+    .demo-tile-bg.bg-roas   { background-image: url('assets/images/demos/roas.jpg') !important; }
+    .demo-tile-bg.bg-poster { background-image: url('assets/images/demos/poster.jpg') !important; }
+    .demo-tile-bg.bg-audio  { background-image: url('assets/images/demos/audio.jpg') !important; }
+    .demo-tile-bg::after { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(to top, rgba(8,8,10,0.94) 0%, rgba(8,8,10,0.74) 36%, rgba(8,8,10,0.28) 70%, rgba(8,8,10,0.40) 100%); }
+    .demo-tile-content { position: relative; z-index: 2; }
   </style>
   <link rel="icon" href="/favicon.ico" sizes="any" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
@@ -144,7 +152,7 @@ try{var c=localStorage.getItem('sk_consent');if(c==='granted'){gtag('consent','u
   <main class="demos-page">
     <div class="section-label" style="margin-bottom: 28px;"><span class="num">000</span> <span data-en="Live Demos" data-it="Demo Live">Live Demos</span></div>
     <h1><span class="outline">DE</span>MOS</h1>
-    <p class="demos-lede" data-en="Three interactive browser experiments. Each one runs entirely in your browser — no downloads, no installs. Allow camera where prompted; nothing is uploaded." data-it="Tre esperimenti interattivi. Tutto gira nel tuo browser — niente download, niente installazioni. Concedi l'accesso alla webcam quando richiesto; nulla viene caricato online.">Three interactive browser experiments. Each one runs entirely in your browser — no downloads, no installs. Allow camera where prompted; nothing is uploaded.</p>
+    <p class="demos-lede" data-en="Six interactive browser experiments. Each one runs entirely in your browser — no downloads, no installs. Some use your camera or microphone where prompted; nothing is ever uploaded." data-it="Sei esperimenti interattivi. Tutto gira nel tuo browser — niente download, niente installazioni. Alcuni usano webcam o microfono quando richiesto; nulla viene mai caricato online.">Six interactive browser experiments. Each one runs entirely in your browser — no downloads, no installs. Some use your camera or microphone where prompted; nothing is ever uploaded.</p>
 
     <div class="demos-grid">
 
@@ -201,6 +209,63 @@ try{var c=localStorage.getItem('sk_consent');if(c==='granted'){gtag('consent','u
               <span class="demo-tile-tag">Canvas</span>
             </div>
             <div class="demo-tile-cta">Launch Colour Physics →</div>
+          </div>
+        </div>
+      </a>
+
+      <a href="demos/roas.html" class="demo-tile">
+        <div class="demo-tile-bg bg-roas"></div>
+        <div class="demo-tile-content">
+          <div>
+            <div class="demo-tile-num">04 · Marketing Tool</div>
+            <h2 class="demo-tile-title" style="margin: 14px 0 0;">ROAS<br><span style="color: rgba(245,240,232,0.6); font-size: 0.42em; letter-spacing: 0.18em;">PLAYGROUND</span></h2>
+          </div>
+          <div class="demo-tile-meta">
+            <p class="demo-tile-desc">Tune a paid-media plan — spend, CPC, conversion rate, AOV, margin — and watch ROAS, profit, CAC and break-even recalculate live, with a profit curve as spend scales. The marketing brain, made interactive.</p>
+            <div class="demo-tile-tags">
+              <span class="demo-tile-tag">Paid Media</span>
+              <span class="demo-tile-tag">Unit Economics</span>
+              <span class="demo-tile-tag">Live Calc</span>
+            </div>
+            <div class="demo-tile-cta">Launch ROAS Playground →</div>
+          </div>
+        </div>
+      </a>
+
+      <a href="demos/poster.html" class="demo-tile">
+        <div class="demo-tile-bg bg-poster"></div>
+        <div class="demo-tile-content">
+          <div>
+            <div class="demo-tile-num">05 · Generative Design</div>
+            <h2 class="demo-tile-title" style="margin: 14px 0 0;">Swiss Poster<br><span style="color: rgba(245,240,232,0.6); font-size: 0.42em; letter-spacing: 0.18em;">GENERATOR</span></h2>
+          </div>
+          <div class="demo-tile-meta">
+            <p class="demo-tile-desc">Parametric International-style poster design — grid, scale contrast and a single accent, recomposed from a seed. Type your own headline, pick a palette, regenerate until it sings, export print-ready PNG.</p>
+            <div class="demo-tile-tags">
+              <span class="demo-tile-tag">Generative</span>
+              <span class="demo-tile-tag">Typography</span>
+              <span class="demo-tile-tag">Canvas</span>
+            </div>
+            <div class="demo-tile-cta">Launch Poster Generator →</div>
+          </div>
+        </div>
+      </a>
+
+      <a href="demos/audio.html" class="demo-tile">
+        <div class="demo-tile-bg bg-audio"></div>
+        <div class="demo-tile-content">
+          <div>
+            <div class="demo-tile-num">06 · Microphone</div>
+            <h2 class="demo-tile-title" style="margin: 14px 0 0;">Audio<br><span style="color: rgba(245,240,232,0.6); font-size: 0.42em; letter-spacing: 0.18em;">VISUALIZER</span></h2>
+          </div>
+          <div class="demo-tile-meta">
+            <p class="demo-tile-desc">A radial frequency bloom that reacts to live sound — clap, talk or play music and watch it breathe. Pure Web Audio, runs entirely in-browser. No mic? A built-in demo tone drives it instead.</p>
+            <div class="demo-tile-tags">
+              <span class="demo-tile-tag">Web Audio</span>
+              <span class="demo-tile-tag">Reactive</span>
+              <span class="demo-tile-tag">Canvas</span>
+            </div>
+            <div class="demo-tile-cta">Launch Audio Visualizer →</div>
           </div>
         </div>
       </a>
