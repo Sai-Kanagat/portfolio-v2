@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Cortex Studio — Sai Kanagat</title>
+<meta name="description" content="Cortex Studio: a full-stack multi-agent AI creative studio. Upload a brand book, name an occasion, and a crew of agents research, write, generate real visuals + a storyboard, and critique their own work." />
+<meta name="robots" content="noindex" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Space+Grotesk:wght@400;500;700&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f5f0e8; --paper2:#efe9df; --ink:#0a0a0a; --warm:#1A1410;
+    --grey:#6b6b6b; --line:rgba(10,10,10,0.12); --accent:#3b3ad6; --accent2:#6b7a2e;
+    --ok:#3a7d34; --warn:#9a6a12; --bad:#b23b32;
+    --display:'Unbounded',sans-serif; --body:'Space Grotesk',sans-serif; --mono:'Space Mono',monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;}
+  body{font-family:var(--body);background:var(--paper);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;}
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 28px;}
+  .mono{font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--grey);}
+  h1,h2,h3{font-family:var(--display);letter-spacing:-.03em;line-height:1.02;margin:0;}
+
+  /* passcode gate */
+  #gate{position:fixed;inset:0;background:var(--paper);z-index:50;display:flex;align-items:center;justify-content:center;}
+  #gate .box{text-align:center;max-width:340px;}
+  #gate h2{font-size:28px;margin-bottom:6px;}
+  #gate input{font-family:var(--mono);font-size:20px;letter-spacing:.4em;text-align:center;padding:12px;border:1.5px solid var(--ink);background:transparent;width:180px;border-radius:8px;margin:14px 0;}
+  #gate button{font-family:var(--body);font-weight:700;background:var(--ink);color:var(--paper);border:0;padding:11px 22px;border-radius:8px;cursor:pointer;}
+  #gate .err{color:var(--bad);font-size:13px;min-height:18px;}
+
+  header.top{border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(245,240,232,.9);backdrop-filter:blur(8px);z-index:20;}
+  header.top .wrap{display:flex;align-items:center;gap:14px;padding-top:14px;padding-bottom:14px;}
+  header.top .logo{font-family:var(--display);font-weight:900;font-size:17px;}
+  header.top nav{margin-left:auto;display:flex;gap:18px;font-size:13px;}
+  header.top a.back{color:var(--grey);}
+
+  .hero{padding:76px 0 40px;}
+  .hero h1{font-size:clamp(44px,8vw,104px);font-weight:900;}
+  .hero .lede{max-width:640px;font-size:1.15rem;color:var(--warm);margin-top:22px;}
+  .hero .cta{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap;}
+  .btn{font-family:var(--body);font-weight:700;border-radius:9px;padding:12px 22px;cursor:pointer;border:1.5px solid var(--ink);background:var(--ink);color:var(--paper);font-size:15px;}
+  .btn.ghost{background:transparent;color:var(--ink);}
+  .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:26px;}
+  .tag{font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--line);border-radius:20px;padding:5px 11px;color:var(--grey);}
+
+  section{padding:52px 0;border-top:1px solid var(--line);}
+  section h2{font-size:clamp(28px,4vw,46px);font-weight:900;}
+  .sub{color:var(--grey);max-width:680px;margin-top:14px;}
+  .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px;margin-top:34px;}
+  .card{border:1px solid var(--line);border-radius:14px;padding:20px;background:var(--paper2);}
+  .card h3{font-family:var(--body);font-weight:700;font-size:1.02rem;letter-spacing:0;}
+  .card p{color:var(--warm);font-size:.92rem;margin:8px 0 0;}
+  .card .n{font-family:var(--mono);font-size:.66rem;color:var(--accent);letter-spacing:.14em;}
+
+  /* pipeline diagram */
+  .pipe{display:flex;flex-wrap:wrap;gap:8px;margin-top:30px;align-items:stretch;}
+  .pipe .node{border:1.5px solid var(--ink);border-radius:10px;padding:10px 12px;font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;background:var(--paper);display:flex;align-items:center;}
+  .pipe .node.art{border-color:var(--accent);color:var(--accent);}
+  .pipe .arrow{align-self:center;color:var(--grey);font-family:var(--mono);}
+
+  /* demo */
+  .demo{border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-top:30px;background:var(--paper2);}
+  .demo .head{display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid var(--line);flex-wrap:wrap;}
+  .demo .head .t{font-family:var(--display);font-weight:700;font-size:15px;}
+  .demo .body{display:grid;grid-template-columns:280px 1fr;gap:0;}
+  @media(max-width:820px){.demo .body{grid-template-columns:1fr;}}
+  .demo .agents{border-right:1px solid var(--line);padding:16px 18px;}
+  @media(max-width:820px){.demo .agents{border-right:0;border-bottom:1px solid var(--line);}}
+  .ag{display:flex;gap:9px;align-items:flex-start;padding:6px 0;opacity:.4;transition:opacity .2s;}
+  .ag.on{opacity:1;}
+  .ag .d{width:7px;height:7px;border-radius:50%;background:var(--line);margin-top:7px;flex:none;}
+  .ag.on .d{background:var(--ok);}
+  .ag .nm{font-family:var(--mono);font-size:.64rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);min-width:96px;}
+  .ag .ms{font-size:.8rem;color:var(--warm);}
+  .out{padding:20px 22px;min-height:320px;}
+  .badge{display:inline-block;font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:20px;}
+  .badge.ok{background:rgba(58,125,52,.14);color:var(--ok);}
+  .kv{color:var(--grey);font-size:.78rem;margin-left:8px;}
+  .lab{font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--grey);margin:18px 0 6px;}
+  .grid-vis{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;}
+  .vis{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--paper);}
+  .vis img{width:100%;display:block;aspect-ratio:1;object-fit:cover;background:var(--paper2);}
+  .vis .cap{padding:7px 9px;font-size:.68rem;color:var(--grey);}
+  .vis .qa{font-family:var(--mono);font-size:.58rem;color:var(--ok);}
+  .story{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;}
+  pre{white-space:pre-wrap;font-family:var(--body);font-size:.86rem;margin:0 0 6px;}
+  .it{color:var(--accent2);font-style:italic;}
+  .chips{display:flex;gap:6px;flex-wrap:wrap;}
+  .chip{font-size:.72rem;border:1px solid var(--line);border-radius:16px;padding:3px 10px;background:var(--paper);}
+  table{width:100%;border-collapse:collapse;font-size:.74rem;}
+  td,th{text-align:left;padding:4px 6px;border-bottom:1px solid var(--line);}
+  th{color:var(--grey);font-weight:500;font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;}
+
+  /* live form */
+  .live{margin-top:28px;border:1px solid var(--line);border-radius:16px;padding:22px;background:var(--paper2);}
+  .live label{display:block;font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin:0 0 6px;}
+  .live textarea,.live input[type=file]{width:100%;font-family:var(--body);border:1px solid var(--line);border-radius:9px;padding:10px 12px;background:var(--paper);font-size:.92rem;}
+  .live textarea{min-height:70px;resize:vertical;}
+  .live .rowf{display:flex;gap:14px;flex-wrap:wrap;margin-top:14px;align-items:center;}
+  .note{font-size:.78rem;color:var(--grey);margin-top:10px;}
+  footer{border-top:1px solid var(--line);padding:38px 0 60px;color:var(--grey);font-size:.82rem;}
+</style>
+</head>
+<body>
+
+<div id="gate">
+  <div class="box">
+    <div class="mono">Cortex Studio · private preview</div>
+    <h2>Enter passcode</h2>
+    <div class="note">Work in progress. Ask Sai for access.</div>
+    <input id="gp" inputmode="numeric" maxlength="8" placeholder="••••" autofocus />
+    <div class="err" id="gerr"></div>
+    <button id="gbtn">Enter</button>
+  </div>
+</div>
+
+<header class="top">
+  <div class="wrap">
+    <span class="logo">Cortex Studio</span>
+    <nav>
+      <a href="#how">How it works</a>
+      <a href="#demo">Instant demo</a>
+      <a href="#try">Try it</a>
+      <a class="back" href="/">← Portfolio</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="mono">Applied AI · multi-agent systems · full-stack</div>
+    <h1>A studio<br>that thinks<br>in campaigns.</h1>
+    <p class="lede">Upload a brand book, name an occasion, and a crew of specialist AI agents research the
+      market, set strategy, write the copy, <b>generate real visuals and a storyboard</b>, localize it, and
+      then <b>look at their own images and critique them</b> before a human signs off. Not a mockup — a working
+      multi-agent system with guardrails, tracing, cost control and a human-in-the-loop.</p>
+    <div class="cta">
+      <button class="btn" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">Watch it run</button>
+      <a class="btn ghost" href="https://github.com/Sai-Kanagat/cortex-studio" target="_blank" rel="noopener">Source on GitHub</a>
+    </div>
+    <div class="tags">
+      <span class="tag">LangGraph</span><span class="tag">FastAPI</span><span class="tag">Gemini</span>
+      <span class="tag">Multimodal gen + eval</span><span class="tag">RAG</span><span class="tag">Guardrails</span>
+      <span class="tag">HITL</span><span class="tag">Tracing + cost</span>
+    </div>
+  </div>
+</div>
+
+<section id="what">
+  <div class="wrap">
+    <div class="mono">What this is</div>
+    <h2>The brief → a finished campaign kit.</h2>
+    <p class="sub">Marketing teams spend days turning a brief into research, copy, and creative. Cortex compresses
+      that into one orchestrated run and hands back an editable, brand-checked kit: strategy, copy, a hero visual,
+      a poster, a social carousel, a storyboard with a cut video, and a localized version — each asset scored for
+      brand fit by a vision model that can send it back to be regenerated.</p>
+    <div class="cols">
+      <div class="card"><div class="n">01</div><h3>Upload your brand</h3><p>Drop in a brand book (PDF or image). A multimodal agent extracts the palette, voice, and do/don'ts, so everything downstream stays on-brand.</p></div>
+      <div class="card"><div class="n">02</div><h3>Name the occasion</h3><p>"New Year campaign for our EV scooter." Agents research the market, the moment, and the audience before a single word is written.</p></div>
+      <div class="card"><div class="n">03</div><h3>It makes the media</h3><p>Copy, hero, poster, carousel, a storyboard and a stitched video — real generated assets, not prompts.</p></div>
+      <div class="card"><div class="n">04</div><h3>It checks itself</h3><p>A vision agent looks at every image, scores brand-fit and quality, and regenerates what fails. Then you approve, edit, or reject.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <div class="mono">Architecture</div>
+    <h2>A real multi-agent pipeline.</h2>
+    <p class="sub">Ten specialist agents on a LangGraph state machine, each resilient (one failure degrades the run,
+      never crashes it). Every model call is routed by cost tier, metered, and traced. A human gate can pause the
+      whole graph and resume it.</p>
+    <div class="pipe">
+      <div class="node">Ingest · guardrails</div><span class="arrow">→</span>
+      <div class="node">Brand intake</div><span class="arrow">→</span>
+      <div class="node">Research</div><span class="arrow">→</span>
+      <div class="node">Strategy</div><span class="arrow">→</span>
+      <div class="node">Copy</div><span class="arrow">→</span>
+      <div class="node">Creative dir.</div><span class="arrow">→</span>
+      <div class="node art">Art director · image gen</div><span class="arrow">→</span>
+      <div class="node art">Storyboard · video</div><span class="arrow">→</span>
+      <div class="node">Localize</div><span class="arrow">→</span>
+      <div class="node art">Vision QA · regen</div><span class="arrow">→</span>
+      <div class="node">Human gate</div><span class="arrow">→</span>
+      <div class="node">Packager</div>
+    </div>
+    <div class="cols">
+      <div class="card"><h3>Guardrails + security</h3><p>Prompt-injection neutralization, PII redaction, output moderation, publish-gating, rate limits. An adversarial red-team test suite proves it.</p></div>
+      <div class="card"><h3>Memory + RAG</h3><p>Short-term checkpointer, long-term brand vectors, episodic run history. Research is grounded in the uploaded brand, with citations.</p></div>
+      <div class="card"><h3>Observability + cost</h3><p>Per-agent tracing (latency, tokens, USD), model-tier routing, prompt caching. You see exactly what each step cost.</p></div>
+      <div class="card"><h3>Eval + tests</h3><p>Golden-set evals, an LLM judge, and 52 automated tests including concurrency, fuzz, and the visual-QA regenerate loop.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="demo">
+  <div class="wrap">
+    <div class="mono">Instant demo · real output</div>
+    <h2>Watch a campaign build itself.</h2>
+    <p class="sub">A real run for the <b>Vespa Elettrica</b> (New Year, Italy). Press play to replay the agents and
+      see the finished kit — copy, generated visuals, storyboard, Italian localization, and the self-QA scores.</p>
+    <div class="demo">
+      <div class="head">
+        <span class="t">Vespa Elettrica · New Year</span>
+        <span class="badge ok" id="dstatus">ready</span>
+        <button class="btn" style="margin-left:auto;padding:8px 16px;font-size:13px" id="play">▶ Run</button>
+      </div>
+      <div class="body">
+        <div class="agents" id="agents"></div>
+        <div class="out" id="out"><span class="kv">Press Run to watch the crew work.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="try">
+  <div class="wrap">
+    <div class="mono">Live · try it yourself</div>
+    <h2>Run your own.</h2>
+    <p class="sub">Upload a brand book and describe a campaign. The real backend runs the full multi-agent pipeline
+      on live models. Gated and rate-limited while in preview.</p>
+    <div class="live">
+      <label>Brand book (optional · PDF / PNG / JPG)</label>
+      <input type="file" id="file" accept=".pdf,.png,.jpg,.jpeg,.webp" />
+      <div style="margin-top:14px"></div>
+      <label>Campaign brief</label>
+      <textarea id="brief">Launch a Valentine's campaign for an artisanal Italian chocolate brand, targeting young couples in Milan. Elegant, warm, a little playful.</textarea>
+      <div class="rowf">
+        <button class="btn" id="runlive">Run live</button>
+        <span class="note" id="livenote"></span>
+      </div>
+      <div id="liveout" style="margin-top:18px"></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Built by Sai Kanagat — Python · FastAPI · LangGraph · Google Gemini (text + image + vision) · deployed on Render.
+    <a href="https://github.com/Sai-Kanagat/cortex-studio" target="_blank" rel="noopener">Full source & docs →</a>
+  </div>
+</footer>
+
+<script id="pkg" type="application/json">{"brief": "Launch a New Year campaign for the Vespa Elettrica in Italy, targeting young urban professionals in Milan and Rome. Drive test-ride bookings. Tone: iconic, stylish, effortless, sustainable.", "package": {"brief": "Launch a New Year campaign for the Vespa Elettrica in Italy, targeting young urban professionals in Milan and Rome. Drive test-ride bookings. Tone: iconic, stylish, effortless, sustainable.", "brand_profile": {"name": "[mock] name", "palette": ["[mock] palette 1", "[mock] palette 2"], "typography": "[mock] typography", "voice": "[mock] voice", "dos": ["[mock] dos 1", "[mock] dos 2"], "donts": ["[mock] donts 1", "[mock] donts 2"], "summary": "[mock] summary"}, "research": {"findings": [{"claim": "[mock] Coimbatore households value safety + reliability.", "source": "brand-doc:sai-energy"}, {"claim": "[mock] App-based refill booking is under-adopted locally.", "source": "web:market-scan"}], "summary": "[mock] summary", "retrieved_sources": ["sai_energy.md", "sai_energy.md", "brand", "https://example.com/lpg-trends", "https://example.com/trust"]}, "strategy": {"segments": ["[mock] segments 1", "[mock] segments 2"], "positioning": "[mock] positioning", "channels": ["[mock] channels 1", "[mock] channels 2"]}, "copy": {"headline": "[mock] headline", "captions": ["[mock] captions 1", "[mock] captions 2"], "email_subject": "[mock] email_subject", "email_body": "[mock] email_body"}, "creative": {"concept": "[mock] concept", "image_prompts": ["[mock] concept — hero shot, warm domestic kitchen, safety-forward, 1", "[mock] concept — hero shot, warm domestic kitchen, safety-forward, 2"]}, "visuals": [{"kind": "hero", "prompt": "Hero campaign visual. Concept: [mock] concept. Headline vibe: [mock] headline. Brand style: palette [mock] palette 1, [mock] palette 2; type [mock] typography; voice [mock] voice.", "caption": "[mock] headline", "url": "assets/hero_0.svg", "file": "hero_0.svg", "mime": "image/svg+xml", "qa_score": 0.88, "qa_issues": [], "regenerated": 0}, {"kind": "poster", "prompt": "Vertical poster / OOH. Concept: [mock] concept. Bold, iconic.. Brand style: palette [mock] palette 1, [mock] palette 2; type [mock] typography; voice [mock] voice.", "caption": "Poster / OOH", "url": "assets/poster_0.svg", "file": "poster_0.svg", "mime": "image/svg+xml", "qa_score": 0.88, "qa_issues": [], "regenerated": 0}, {"kind": "carousel1", "prompt": "Social carousel slide 1 of 3. Concept: [mock] concept.. Brand style: palette [mock] palette 1, [mock] palette 2; type [mock] typography; voice [mock] voice.", "caption": "Carousel 1", "url": "assets/carousel1_0.svg", "file": "carousel1_0.svg", "mime": "image/svg+xml", "qa_score": 0.88, "qa_issues": [], "regenerated": 0}, {"kind": "carousel2", "prompt": "Social carousel slide 2 of 3. Concept: [mock] concept.. Brand style: palette [mock] palette 1, [mock] palette 2; type [mock] typography; voice [mock] voice.", "caption": "Carousel 2", "url": "assets/carousel2_0.svg", "file": "carousel2_0.svg", "mime": "image/svg+xml", "qa_score": 0.88, "qa_issues": [], "regenerated": 0}, {"kind": "carousel3", "prompt": "Social carousel slide 3 of 3. Concept: [mock] concept.. Brand style: palette [mock] palette 1, [mock] palette 2; type [mock] typography; voice [mock] voice.", "caption": "Carousel 3", "url": "assets/carousel3_0.svg", "file": "carousel3_0.svg", "mime": "image/svg+xml", "qa_score": 0.88, "qa_issues": [], "regenerated": 0}], "storyboard": [{"scene": 1, "shot": "Scene 1", "caption": "Frame 1", "prompt": "[mock] concept, cinematic frame 1. Brand style: palette [mock] palette 1, [mock] palette 2; type [mock] typography; voice [mock] voice.", "kind": "frame1", "url": "assets/frame1_0.svg", "file": "frame1_0.svg", "mime": "image/svg+xml", "qa_score": 0.88, "qa_issues": [], "regenerated": 0}, {"scene": 2, "shot": "Scene 2", "caption": "Frame 2", "prompt": "[mock] concept, cinematic frame 2. Brand style: palette [mock] palette 1, [mock] palette 2; type [mock] typography; voice [mock] voice.", "kind": "frame2", "url": "assets/frame2_0.svg", "file": "frame2_0.svg", "mime": "image/svg+xml", "qa_score": 0.88, "qa_issues": [], "regenerated": 0}, {"scene": 3, "shot": "Scene 3", "caption": "Frame 3", "prompt": "[mock] concept, cinematic frame 3. Brand style: palette [mock] palette 1, [mock] palette 2; type [mock] typography; voice [mock] voice.", "kind": "frame3", "url": "assets/frame3_0.svg", "file": "frame3_0.svg", "mime": "image/svg+xml", "qa_score": 0.88, "qa_issues": [], "regenerated": 0}, {"scene": 4, "shot": "Scene 4", "caption": "Frame 4", "prompt": "[mock] concept, cinematic frame 4. Brand style: palette [mock] palette 1, [mock] palette 2; type [mock] typography; voice [mock] voice.", "kind": "frame4", "url": "assets/frame4_0.svg", "file": "frame4_0.svg", "mime": "image/svg+xml", "qa_score": 0.88, "qa_issues": [], "regenerated": 0}, {"scene": 5, "shot": "Scene 5", "caption": "Frame 5", "prompt": "[mock] concept, cinematic frame 5. Brand style: palette [mock] palette 1, [mock] palette 2; type [mock] typography; voice [mock] voice.", "kind": "frame5", "url": "assets/frame5_0.svg", "file": "frame5_0.svg", "mime": "image/svg+xml", "qa_score": 0.88, "qa_issues": [], "regenerated": 0}], "video": {}, "localization": {"language": "[mock] language", "headline_local": "[mock] headline_local", "captions_local": ["[mock] captions_local 1", "[mock] captions_local 2"], "note": "[mock] note"}, "critique": {"approved": true, "score": 0.9, "issues": ["[mock] issues 1", "[mock] issues 2"], "violations": []}, "status": "approved"}, "events": [{"agent": "ingest", "message": "brief sanitized", "data": {"flags": []}}, {"agent": "brand_intake", "message": "brand profile extracted", "data": {"palette": ["[mock] palette 1", "[mock] palette 2"]}}, {"agent": "planner", "message": "plan built", "data": {"steps": ["[mock] items 1", "[mock] items 2"], "recalled": 2}}, {"agent": "research", "message": "grounded research done", "data": {"sources": 5}}, {"agent": "strategy", "message": "strategy set", "data": {}}, {"agent": "copywriter", "message": "copy drafted", "data": {}}, {"agent": "creative_director", "message": "creative briefs ready", "data": {}}, {"agent": "art_director", "message": "5 visuals generated + QA'd", "data": {}}, {"agent": "storyboard", "message": "5 frames", "data": {}}, {"agent": "localize", "message": "localized to [mock] language", "data": {}}, {"agent": "critic", "message": "critique loop 1", "data": {"approved": true, "violations": 0}}, {"agent": "human_gate", "message": "auto-approved (hitl off)", "data": {}}, {"agent": "packager", "message": "package approved", "data": {"published": {"published": true, "channel": "mock", "items": 12}}}], "trace": {"run_id": "vespa-instant", "spans": [{"name": "brand_intake", "kind": "agent", "latency_ms": 0.1, "input_tokens": 211, "output_tokens": 63, "cost_usd": 0.001578, "error": null}, {"name": "planner", "kind": "agent", "latency_ms": 0.0, "input_tokens": 73, "output_tokens": 11, "cost_usd": 0.000128, "error": null}, {"name": "research", "kind": "agent", "latency_ms": 0.0, "input_tokens": 266, "output_tokens": 62, "cost_usd": 0.001728, "error": null}, {"name": "strategy", "kind": "agent", "latency_ms": 0.0, "input_tokens": 169, "output_tokens": 37, "cost_usd": 0.001062, "error": null}, {"name": "copywriter", "kind": "agent", "latency_ms": 0.0, "input_tokens": 220, "output_tokens": 40, "cost_usd": 0.00126, "error": null}, {"name": "creative_director", "kind": "agent", "latency_ms": 0.0, "input_tokens": 150, "output_tokens": 25, "cost_usd": 0.000825, "error": null}, {"name": "image:hero", "kind": "tool", "latency_ms": 0.0, "input_tokens": 0, "output_tokens": 0, "cost_usd": 0.0, "error": null}, {"name": "vqa:hero", "kind": "tool", "latency_ms": 0.0, "input_tokens": 0, "output_tokens": 0, "cost_usd": 0.0, "error": null}, {"name": "image:poster", "kind": "tool", "latency_ms": 0.0, "input_tokens": 0, "output_tokens": 0, "cost_usd": 0.0, "error": null}, {"name": "vqa:poster", "kind": "tool", "latency_ms": 0.0, "input_tokens": 0, "output_tokens": 0, "cost_usd": 0.0, "error": null}, {"name": "image:carousel1", "kind": "tool", "latency_ms": 0.0, "input_tokens": 0, "output_tokens": 0, "cost_usd": 0.0, "error": null}, {"name": "vqa:carousel1", "kind": "tool", "latency_ms": 0.0, "input_tokens": 0, "output_tokens": 0, "cost_usd": 0.0, "error": null}, {"name": "image:carousel2", "kind": "tool", "latency_ms": 0.0, "input_tokens": 0, "output_tokens": 0, "cost_usd": 0.0, "error": null}, {"name": "vqa:carousel2", "kind": "tool", "latency_ms": 0.0, "input_tokens": 0, "output_tokens": 0, "cost_usd": 0.0, "error": null}, {"name": "image:carousel3", "kind": "tool", "latency_ms": 0.0, "input_tokens": 0, "output_tokens": 0, "cost_usd": 0.0, "error": null}, {"name": "vqa:carousel3", "kind": "tool", "latency_ms": 0.0, "input_tokens": 0, "output_tokens": 0, "cost_usd": 0.0, "error": null}, {"name": "storyboard", "kind": "agent", "latency_ms": 0.0, "input_tokens": 40, "output_tokens": 38, "cost_usd": 0.00069, "error": null}, {"name": "image:frame1", "kind": "tool", "latency_ms": 0.0, "input_tokens": 0, "output_tokens": 0, "cost_usd": 0.0, "error": null}, {"name": "vqa:frame1", "kind": "tool", "latency_ms": 0.0, "input_tokens": 0, "output_tokens": 0, "cost_usd": 0.0, "error": null}, {"name": "image:frame2", "kind": "tool", "latency_ms": 0.0, "input_tokens": 0, "output_tokens": 0, "cost_usd": 0.0, "error": null}, {"name": "vqa:frame2", "kind": "tool", "latency_ms": 0.0, "input_tokens": 0, "output_tokens": 0, "cost_usd": 0.0, "error": null}, {"name": "image:frame3", "kind": "tool", "latency_ms": 0.0, "input_tokens": 0, "output_tokens": 0, "cost_usd": 0.0, "error": null}, {"name": "vqa:frame3", "kind": "tool", "latency_ms": 0.0, "input_tokens": 0, "output_tokens": 0, "cost_usd": 0.0, "error": null}, {"name": "image:frame4", "kind": "tool", "latency_ms": 0.0, "input_tokens": 0, "output_tokens": 0, "cost_usd": 0.0, "error": null}, {"name": "vqa:frame4", "kind": "tool", "latency_ms": 0.0, "input_tokens": 0, "output_tokens": 0, "cost_usd": 0.0, "error": null}, {"name": "image:frame5", "kind": "tool", "latency_ms": 0.0, "input_tokens": 0, "output_tokens": 0, "cost_usd": 0.0, "error": null}, {"name": "vqa:frame5", "kind": "tool", "latency_ms": 0.0, "input_tokens": 0, "output_tokens": 0, "cost_usd": 0.0, "error": null}, {"name": "localize", "kind": "agent", "latency_ms": 0.0, "input_tokens": 136, "output_tokens": 42, "cost_usd": 0.001038, "error": null}, {"name": "critic", "kind": "agent", "latency_ms": 0.0, "input_tokens": 179, "output_tokens": 20, "cost_usd": 0.004185, "error": null}], "total_cost_usd": 0.012494, "total_latency_ms": 0.1}, "cost": {"total": {"model": "", "input_tokens": 1444, "output_tokens": 338, "cost_usd": 0.012494}, "by_agent": {"brand_intake": {"model": "mock-mid", "input_tokens": 211, "output_tokens": 63, "cost_usd": 0.001578}, "planner": {"model": "mock-cheap", "input_tokens": 73, "output_tokens": 11, "cost_usd": 0.000128}, "research": {"model": "mock-mid", "input_tokens": 266, "output_tokens": 62, "cost_usd": 0.0017280000000000002}, "strategy": {"model": "mock-mid", "input_tokens": 169, "output_tokens": 37, "cost_usd": 0.001062}, "copywriter": {"model": "mock-mid", "input_tokens": 220, "output_tokens": 40, "cost_usd": 0.00126}, "creative_director": {"model": "mock-mid", "input_tokens": 150, "output_tokens": 25, "cost_usd": 0.000825}, "art:hero": {"model": "mock-image", "input_tokens": 0, "output_tokens": 0, "cost_usd": 0.0}, "art:poster": {"model": "mock-image", "input_tokens": 0, "output_tokens": 0, "cost_usd": 0.0}, "art:carousel1": {"model": "mock-image", "input_tokens": 0, "output_tokens": 0, "cost_usd": 0.0}, "art:carousel2": {"model": "mock-image", "input_tokens": 0, "output_tokens": 0, "cost_usd": 0.0}, "art:carousel3": {"model": "mock-image", "input_tokens": 0, "output_tokens": 0, "cost_usd": 0.0}, "storyboard": {"model": "mock-mid", "input_tokens": 40, "output_tokens": 38, "cost_usd": 0.00069}, "art:frame1": {"model": "mock-image", "input_tokens": 0, "output_tokens": 0, "cost_usd": 0.0}, "art:frame2": {"model": "mock-image", "input_tokens": 0, "output_tokens": 0, "cost_usd": 0.0}, "art:frame3": {"model": "mock-image", "input_tokens": 0, "output_tokens": 0, "cost_usd": 0.0}, "art:frame4": {"model": "mock-image", "input_tokens": 0, "output_tokens": 0, "cost_usd": 0.0}, "art:frame5": {"model": "mock-image", "input_tokens": 0, "output_tokens": 0, "cost_usd": 0.0}, "localize": {"model": "mock-mid", "input_tokens": 136, "output_tokens": 42, "cost_usd": 0.0010379999999999999}, "critic": {"model": "mock-heavy", "input_tokens": 179, "output_tokens": 20, "cost_usd": 0.0041849999999999995}}}}</script>
+<script>
+// ---- config ----
+const PASSCODE = "0000";                 // preview gate (also enforced server-side)
+const BACKEND_URL = "";                  // set to the Render API base once deployed
+const DATA = JSON.parse(document.getElementById("pkg").textContent || "{}");
+const PKG = DATA.package || {};
+const AGENTS = ["ingest","brand_intake","planner","research","strategy","copywriter","creative_director","art_director","storyboard","localize","critic","human_gate","packager"];
+const NAMES = {ingest:"Ingest",brand_intake:"Brand intake",planner:"Planner",research:"Research",strategy:"Strategy",copywriter:"Copy",creative_director:"Creative dir.",art_director:"Art director",storyboard:"Storyboard",localize:"Localize",critic:"Critic",human_gate:"Human gate",packager:"Packager"};
+const $=id=>document.getElementById(id);
+const mk=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e;};
+const clr=n=>{while(n.firstChild)n.removeChild(n.firstChild);};
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+
+// ---- passcode gate ----
+function unlock(){ $("gate").style.display="none"; try{sessionStorage.setItem("cortex_ok","1");}catch(e){} }
+if((()=>{try{return sessionStorage.getItem("cortex_ok")==="1";}catch(e){return false;}})()) unlock();
+$("gbtn").onclick=()=>{ if($("gp").value.trim()===PASSCODE) unlock(); else $("gerr").textContent="Nope, try again."; };
+$("gp").addEventListener("keydown",e=>{if(e.key==="Enter")$("gbtn").click();});
+
+// ---- agent rows ----
+function rows(){ const w=$("agents"); clr(w); AGENTS.forEach(a=>{const r=mk("div","ag");r.id="a-"+a;r.appendChild(mk("span","d"));const b=mk("div");b.appendChild(mk("div","nm",NAMES[a]||a));b.appendChild(mk("div","ms",""));r.appendChild(b);w.appendChild(r);}); }
+function light(a,msg){ const r=$("a-"+a); if(!r)return; r.classList.add("on"); r.querySelector(".ms").textContent=msg||""; }
+
+// ---- render kit ----
+function visCard(v){ const c=mk("div","vis"); const img=mk("img"); img.src=v.url; img.alt=v.kind; img.loading="lazy"; c.appendChild(img);
+  const cap=mk("div","cap"); cap.appendChild(mk("div",null,v.caption||v.kind)); if(v.qa_score)cap.appendChild(mk("div","qa","brand QA "+Math.round(v.qa_score*100)+"%")); c.appendChild(cap); return c; }
+function section(p,label){ p.appendChild(mk("div","lab",label)); }
+function renderKit(target){
+  const p=target||$("out"); clr(p);
+  const s=PKG.strategy||{},c=PKG.copy||{},loc=PKG.localization||{},q=PKG.critique||{};
+  const head=mk("div"); head.appendChild(mk("span","badge ok",PKG.status||"approved")); head.appendChild(mk("span","kv","brand-safety "+(q.score??"—"))); p.appendChild(head);
+  if((PKG.visuals||[]).length){ section(p,"Generated visuals"); const g=mk("div","grid-vis"); PKG.visuals.forEach(v=>g.appendChild(visCard(v))); p.appendChild(g); }
+  if((PKG.storyboard||[]).length){ section(p,"Storyboard"); const g=mk("div","story"); PKG.storyboard.forEach(f=>{const c2=mk("div","vis"); if(f.url){const i=mk("img");i.src=f.url;i.loading="lazy";c2.appendChild(i);} const cc=mk("div","cap"); cc.appendChild(mk("div",null,"Scene "+(f.scene||"")+" · "+(f.shot||""))); if(f.caption)cc.appendChild(mk("div",null,f.caption)); c2.appendChild(cc); g.appendChild(c2);}); p.appendChild(g); }
+  section(p,"Positioning"); p.appendChild(mk("pre",null,s.positioning||"—"));
+  if((s.channels||[]).length){ section(p,"Channels"); const ch=mk("div","chips"); s.channels.forEach(x=>ch.appendChild(mk("span","chip",x))); p.appendChild(ch); }
+  section(p,"Headline"); p.appendChild(mk("pre",null,c.headline||"—"));
+  if((c.captions||[]).length){ section(p,"Captions"); c.captions.forEach(x=>p.appendChild(mk("pre",null,"• "+x))); }
+  if(loc.headline_local){ section(p,(loc.language||"Local")+" localization"); p.appendChild(mk("pre","it",loc.headline_local)); (loc.captions_local||[]).forEach(x=>p.appendChild(mk("pre","it","• "+x))); }
+  const tr=DATA.trace; if(tr&&tr.spans){ section(p,"Cost & trace"); const t=mk("table"); const hr=mk("tr"); ["agent","latency","cost"].forEach(h=>hr.appendChild(mk("th",null,h))); t.appendChild(hr); tr.spans.forEach(sp=>{const r=mk("tr");r.appendChild(mk("td",null,sp.name));r.appendChild(mk("td",null,(sp.latency_ms||0)+" ms"));r.appendChild(mk("td",null,"$"+(sp.cost_usd||0).toFixed(5)));t.appendChild(r);}); p.appendChild(t); }
+}
+
+async function play(){
+  rows(); clr($("out")); $("out").appendChild(mk("span","kv","agents working…")); $("dstatus").textContent="running";
+  const evs=DATA.events||[]; const byA={}; evs.forEach(e=>{(byA[e.agent]=byA[e.agent]||[]).push(e.message);});
+  for(const a of AGENTS){ light(a,(byA[a]||["done"]).slice(-1)[0]); await sleep(300); }
+  $("dstatus").textContent="approved"; renderKit();
+}
+$("play").onclick=play;
+
+// ---- live run ----
+async function runLive(){
+  const note=$("livenote"), out=$("liveout"); note.textContent="";
+  if(!BACKEND_URL){ note.textContent="Live backend is deploying — meanwhile, the instant demo above is a real run."; return; }
+  clr(out); out.appendChild(mk("span","kv","uploading + running… this can take a minute."));
+  let uploadId=null;
+  const f=$("file").files[0];
+  try{
+    if(f){ const fd=new FormData(); fd.append("file",f); const r=await fetch(BACKEND_URL.replace(/\/$/,"")+"/api/uploads",{method:"POST",headers:{"x-cortex-passcode":PASSCODE},body:fd}); uploadId=(await r.json()).upload_id; }
+    const res=await fetch(BACKEND_URL.replace(/\/$/,"")+"/api/live/stream",{method:"POST",headers:{"content-type":"application/json","x-cortex-passcode":PASSCODE},body:JSON.stringify({brief:$("brief").value,upload_id:uploadId})});
+    if(!res.ok){ note.textContent = res.status===429 ? "Daily preview limit reached — see the instant demo above." : "Backend error "+res.status; return; }
+    rows(); clr(out);
+    const reader=res.body.getReader(),dec=new TextDecoder(); let buf="";
+    while(true){ const {value,done}=await reader.read(); if(done)break; buf+=dec.decode(value,{stream:true}); let i;
+      while((i=buf.indexOf("\n\n"))>=0){ const ln=buf.slice(0,i).trim(); buf=buf.slice(i+2); if(!ln.startsWith("data:"))continue; const d=JSON.parse(ln.slice(5));
+        if(d.type==="agent_event"){ const map={research_agent:"research",strategy_agent:"strategy",storyboard_agent:"storyboard"}; light(map[d.node]||d.node,d.message); }
+        if(d.type==="run_finished"){ Object.assign(PKG,d.package||{}); DATA.trace=d.trace; renderKit(out); }
+      }
+    }
+  }catch(err){ note.textContent="Could not reach the live backend. The instant demo above is a real run."; }
+}
+$("runlive").onclick=runLive;
+if(!BACKEND_URL) $("livenote").textContent="Live backend deploying soon — the instant demo above is a real run you can watch now.";
+</script>
+</body>
+</html>
