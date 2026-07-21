@@ -105,7 +105,7 @@ try{var c=localStorage.getItem('sk_consent');if(c==='granted'){gtag('consent','u
     .demo-tile-bg.bg-roas   { background-image: url('assets/images/DEMOS/roas.jpg') !important; }
     .demo-tile-bg.bg-poster { background-image: url('assets/images/DEMOS/poster.jpg') !important; }
     .demo-tile-bg.bg-audio  { background-image: url('assets/images/DEMOS/audio.jpg') !important; }
-    .demo-tile-bg.bg-cortex { background-image: linear-gradient(135deg, #1a2540 0%, #2a1c4a 55%, #0c0e14 100%) !important; }
+    .demo-tile-bg.bg-cortex { background-image: url('assets/images/DEMOS/cortex.jpg') !important; background-size: cover !important; background-position: center !important; }
     .demo-tile-bg::after { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(to top, rgba(8,8,10,0.94) 0%, rgba(8,8,10,0.74) 36%, rgba(8,8,10,0.28) 70%, rgba(8,8,10,0.40) 100%); }
     .demo-tile-content { position: relative; z-index: 2; }
   </style>
@@ -161,11 +161,11 @@ try{var c=localStorage.getItem('sk_consent');if(c==='granted'){gtag('consent','u
         <div class="demo-tile-bg bg-cortex"></div>
         <div class="demo-tile-content">
           <div>
-            <div class="demo-tile-num">00 · Live</div>
+            <div class="demo-tile-num">00 · Lite demo</div>
             <h2 class="demo-tile-title" style="margin: 14px 0 0;">Cortex Studio<br><span style="color: rgba(245,240,232,0.6); font-size: 0.42em; letter-spacing: 0.18em;">MULTI-AGENT MARKETING</span></h2>
           </div>
           <div class="demo-tile-meta">
-            <p class="demo-tile-desc">A production-grade crew of AI agents that research the market, set strategy, write copy and creative, localize to Tamil, self-check against brand-safety guardrails, and pause for human approval — with live per-agent cost and tracing. Watch a real campaign build itself.</p>
+            <p class="demo-tile-desc">A crew of AI agents that research, write copy, and generate real visuals + a storyboard for a campaign, then critique their own images before a human signs off. Full-stack, multimodal, deployed.</p>
             <div class="demo-tile-tags">
               <span class="demo-tile-tag">Multi-agent</span>
               <span class="demo-tile-tag">LangGraph</span>
