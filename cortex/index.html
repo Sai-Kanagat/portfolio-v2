@@ -250,7 +250,7 @@
 <script>
 // ---- config ----
 const PASSCODE = "0000";                 // preview gate (also enforced server-side)
-const BACKEND_URL = "";                  // set to the Render API base once deployed
+const BACKEND_URL = "https://cortex-api-10qi.onrender.com";  // Render backend
 const DATA = JSON.parse(document.getElementById("pkg").textContent || "{}");
 const PKG = DATA.package || {};
 const AGENTS = ["ingest","brand_intake","planner","research","strategy","copywriter","creative_director","art_director","storyboard","localize","critic","human_gate","packager"];
