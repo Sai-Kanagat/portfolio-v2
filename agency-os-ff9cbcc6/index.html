@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Agency OS build log | Sai Kanagat</title>
+<meta name="description" content="A running build log of Agency OS, the system behind a one-person automation agency." />
+<meta name="robots" content="noindex, nofollow" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Space+Grotesk:wght@400;500;700&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f5f0e8; --paper2:#efe9df; --ink:#0a0a0a; --grey:#6b6b6b;
+    --line:rgba(10,10,10,0.12); --accent:#3b3ad6; --ok:#3a7d34;
+    --display:'Unbounded',sans-serif; --body:'Space Grotesk',sans-serif; --mono:'Space Mono',monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;}
+  body{font-family:var(--body);background:var(--paper);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;}
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  .wrap{max-width:860px;margin:0 auto;padding:0 28px;}
+  .mono{font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--grey);}
+  h1,h2{font-family:var(--display);letter-spacing:-.03em;line-height:1.05;margin:0;}
+  h1{font-size:clamp(2.2rem,7vw,4rem);font-weight:900;margin:14px 0 22px;}
+  h2{font-size:clamp(1.25rem,3.5vw,1.7rem);font-weight:700;margin:10px 0 18px;}
+  header{padding:26px 0;border-bottom:1px solid var(--line);}
+  header .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;}
+  .logo{font-family:var(--display);font-weight:900;color:var(--ink);}
+  .hero{padding:72px 0 56px;}
+  .lede{font-size:1.2rem;max-width:40em;margin:0;}
+  section{padding:48px 0;border-top:1px solid var(--line);}
+  p{max-width:42em;}
+  ol.checks{list-style:none;counter-reset:c;margin:24px 0 0;padding:0;}
+  ol.checks li{counter-increment:c;display:grid;grid-template-columns:44px 1fr;padding:14px 0;border-top:1px solid var(--line);}
+  ol.checks li::before{content:counter(c);font-family:var(--display);font-weight:700;color:var(--accent);}
+  ol.checks b{display:block;}
+  .phase{display:grid;grid-template-columns:88px 1fr;gap:12px;padding:14px 0;border-top:1px solid var(--line);}
+  .phase .mono{padding-top:4px;}
+  .phase.done .mono{color:var(--ok);}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px;}
+  .stats div{background:var(--paper2);padding:18px;}
+  .stats b{display:block;font-family:var(--display);font-size:1.6rem;}
+  footer{padding:32px 0 48px;border-top:1px solid var(--line);}
+  @media (max-width:560px){
+    .wrap{padding:0 16px;}
+    .hero{padding:48px 0 36px;}
+    .stats{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+<header><div class="wrap"><a class="logo" href="/">Sai Kanagat</a><span class="mono">Build log</span></div></header>
+<main>
+  <div class="hero"><div class="wrap">
+    <span class="mono">Updated 4 November 2026</span>
+    <h1>Agency OS</h1>
+    <p class="lede">I'm building the whole machine behind a one-person automation agency, from first lead to invoice to referral. Automation does the admin. A human owns every decision that matters.</p>
+  </div></div>
+
+  <section><div class="wrap">
+    <span class="mono">The core idea</span>
+    <h2>Workflows can't send anything</h2>
+    <p>Most automation fails the same way: one workflow edit and it emails the wrong person. So the workflows here hold no send credentials. Every outbound action has to pass one tested service, which checks six things in a fixed order.</p>
+    <ol class="checks">
+      <li><span><b>Launch mode</b>A single flag. A mistyped value counts as the safe setting.</span></li>
+      <li><span><b>Allowlist</b>Before launch, only addresses I control can receive anything.</span></li>
+      <li><span><b>Opt-outs</b>One click, honoured at once, for every kind of message.</span></li>
+      <li><span><b>Country rules</b>Business addresses only, in markets switched on deliberately.</span></li>
+      <li><span><b>Daily cap</b>20 cold emails a day, at most.</span></li>
+      <li><span><b>Human approval</b>Nothing goes out without a click, apart from updates to existing clients.</span></li>
+    </ol>
+  </div></section>
+
+  <section><div class="wrap">
+    <span class="mono">What went wrong</span>
+    <h2>Passing tests only prove what you thought to test</h2>
+    <p>The first version passed every test and still had five problems, which I found by reading it as an attacker. The worst one let a cold email pose as a client update and skip approval. It's now fixed and has its own test.</p>
+    <div class="stats">
+      <div><b>39</b>automated tests passing</div>
+      <div><b>5</b>problems found in self-review</div>
+      <div><b>0</b>clients so far</div>
+    </div>
+  </div></section>
+
+  <section><div class="wrap">
+    <span class="mono">Progress</span>
+    <h2>Where it stands</h2>
+    <div class="phase done"><span class="mono">Done</span><span><b>Foundation.</b> Gate service, data ledger, secrets protection.</span></div>
+    <div class="phase"><span class="mono">Next</span><span><b>Inbound.</b> Form to CRM to booking link to a call brief.</span></div>
+    <div class="phase"><span class="mono">Later</span><span><b>Sell.</b> Proposals, contracts and onboarding, each behind approval.</span></div>
+    <div class="phase"><span class="mono">Later</span><span><b>Deliver.</b> Project boards, Friday updates, handoff and feedback.</span></div>
+    <div class="phase"><span class="mono">Later</span><span><b>Outreach.</b> Sequences, opt-outs and a KPI dashboard.</span></div>
+  </div></section>
+</main>
+<footer><div class="wrap"><span class="mono">Unlisted page. <a href="/">saikanagat.com</a></span></div></footer>
+</body>
+</html>
