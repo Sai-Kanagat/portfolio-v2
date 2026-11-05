@@ -30,7 +30,7 @@
   box.innerHTML =
     '<div class="sk-news-in">' +
     '<p class="sk-news-k" data-en="Newsletter" data-it="Newsletter">Newsletter</p>' +
-    '<h2 id="sk-news-t" data-en="New essays, straight to your inbox." data-it="Nuovi saggi, direttamente nella tua casella.">New essays, straight to your inbox.</h2>' +
+    '<h2 id="sk-news-t" data-en="New posts, straight to your inbox." data-it="Nuovi articoli, direttamente nella tua casella.">New posts, straight to your inbox.</h2>' +
     '<p class="sk-news-d" data-en="Notes on design, marketing and AI, and what I am building. Only when there is something worth reading." data-it="Note su design, marketing e AI, e su ciò che sto costruendo. Solo quando c\'è qualcosa che vale la pena leggere.">Notes on design, marketing and AI, and what I am building. Only when there is something worth reading.</p>' +
     '<form novalidate>' +
     '<input type="email" name="EMAIL" required autocomplete="email" aria-label="Email" placeholder="you@email.com">' +
