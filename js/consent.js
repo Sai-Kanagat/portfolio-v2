@@ -15,6 +15,7 @@
     });
     gtag('event','consent_update',{ 'consent_state': granted ? 'granted' : 'denied' });
   }
+  try { if (localStorage.getItem('sk_consent') === 'denied' && !localStorage.getItem(KEY)) localStorage.setItem(KEY, 'denied'); localStorage.removeItem('sk_consent'); } catch(e){}
   var existing = null;
   try { existing = localStorage.getItem(KEY); } catch(e){}
   if (existing === 'granted' || existing === 'denied') return; // already chose
