@@ -9,15 +9,15 @@
 
   var css = document.createElement('style');
   css.textContent =
-    'section.sk-news{background:#14161c!important;color:#f4f3ef!important;padding:clamp(48px,7vw,88px) clamp(24px,6vw,80px);position:relative;z-index:1}' +
+    '#sk-news{background:#14161c!important;color:#f4f3ef!important;padding:clamp(48px,7vw,88px) clamp(24px,6vw,80px);position:relative;z-index:1}' +
     '.sk-news-in{max-width:760px;margin:0 auto}' +
     '.sk-news-k{font-family:var(--mono,monospace);font-size:11px;letter-spacing:.22em;text-transform:uppercase;opacity:.6;margin:0 0 14px}' +
-    'section.sk-news h2{font-family:var(--sans,sans-serif)!important;font-weight:500!important;font-size:clamp(28px,4vw,44px)!important;letter-spacing:-.02em!important;line-height:1.1!important;margin:0 0 12px!important;color:#f4f3ef!important;text-transform:none!important}' +
-    'section.sk-news p{color:#f4f3ef!important}.sk-news-d{font-size:16px;line-height:1.55;opacity:.75;margin:0 0 28px;max-width:560px}' +
+    '#sk-news h2{font-family:var(--sans,sans-serif)!important;font-weight:500!important;font-size:clamp(28px,4vw,44px)!important;letter-spacing:-.02em!important;line-height:1.1!important;margin:0 0 12px!important;color:#f4f3ef!important;text-transform:none!important}' +
+    '#sk-news p{color:#f4f3ef!important}.sk-news-d{font-size:16px;line-height:1.55;opacity:.75;margin:0 0 28px;max-width:560px}' +
     '.sk-news form{display:flex;gap:10px;flex-wrap:wrap}' +
-    '.sk-news input[type=email]{flex:1 1 260px;min-width:0;font:inherit;font-size:16px;color:#f4f3ef;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:14px 20px}' +
+    '#sk-news input[type=email]{flex:1 1 260px;min-width:0;font:inherit;font-size:16px;color:#f4f3ef;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:14px 20px}' +
     '.sk-news input[type=email]::placeholder{color:rgba(255,255,255,.5)}' +
-    '.sk-news button{font-family:var(--mono,monospace);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#14161c!important;background:#f4f3ef!important;border:0;border-radius:999px;padding:14px 26px;cursor:pointer}' +
+    '#sk-news button{font-family:var(--mono,monospace);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#14161c!important;background:#f4f3ef!important;border:0;border-radius:999px;padding:14px 26px;cursor:pointer}' +
     '.sk-news button[disabled]{opacity:.5;cursor:default}' +
     '.sk-news-hp{position:absolute;left:-9999px}' +
     '.sk-news-s{font-size:14px;min-height:20px;margin:14px 0 0}' +
@@ -25,7 +25,7 @@
   document.head.appendChild(css);
 
   var box = document.createElement('section');
-  box.className = 'sk-news';
+  box.className = 'sk-news'; box.id = 'sk-news';
   box.setAttribute('aria-labelledby', 'sk-news-t');
   box.innerHTML =
     '<div class="sk-news-in">' +
