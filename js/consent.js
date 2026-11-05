@@ -4,7 +4,7 @@
    Updates Google Consent Mode on accept/decline.
    ========================================================= */
 (function () {
-  var KEY = 'sk_consent';
+  var KEY = 'sk_consent_v2';
   function gtag(){ window.dataLayer = window.dataLayer || []; window.dataLayer.push(arguments); }
   function setConsent(granted){
     try { localStorage.setItem(KEY, granted ? 'granted' : 'denied'); } catch(e){}
@@ -19,18 +19,14 @@
   try { existing = localStorage.getItem(KEY); } catch(e){}
   if (existing === 'granted' || existing === 'denied') return; // already chose
 
-  // EEA/UK/CH only — non-EEA traffic gets granted by default (handled by gtag region config in <head>).
-  // Detect locale as a soft proxy; the gtag region defaults are the legal source of truth.
+  // Banner decision uses timezone first: browser language says nothing about location.
+  // Err towards showing it. Consent is only ever stored after a real click.
   var EEA = ['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH'];
-  var lang = (navigator.language || 'en').toUpperCase();
-  var region = lang.split('-')[1] || '';
-  var likelyEEA = EEA.indexOf(region) !== -1 ||
-                  ['IT','EN-GB','EN-IE','FR','DE','ES','NL','PL','SV','FI','DA','NO','CS','HU','EL','PT','RO','SK','SL','LT','LV','ET'].some(function(p){ return lang.indexOf(p) === 0; });
-  if (!likelyEEA) {
-    // Outside EEA: silently grant + skip banner
-    try { localStorage.setItem(KEY, 'granted'); } catch(e){}
-    return;
-  }
+  var tz = '';
+  try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch(e){}
+  var region = (navigator.language || '').toUpperCase().split('-')[1] || '';
+  var likelyEEA = !tz || /^Europe\//.test(tz) || /^Atlantic\/(Canary|Azores|Madeira|Reykjavik|Faroe)$/.test(tz) || EEA.indexOf(region) !== -1;
+  if (!likelyEEA) return;
 
   var bar = document.createElement('div');
   bar.id = 'sk-consent';
