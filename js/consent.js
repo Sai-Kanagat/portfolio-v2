@@ -35,7 +35,7 @@
   bar.setAttribute('aria-label','Cookies & analytics');
   bar.style.cssText = 'position:fixed;left:16px;right:16px;bottom:16px;max-width:520px;margin-left:auto;background:#0E1116;color:#f4f3ef;border-radius:14px;padding:18px 20px;box-shadow:0 16px 48px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.08);font-family:"Bricolage Grotesque","Inter Tight",system-ui,sans-serif;font-size:13px;line-height:1.5;z-index:99999;opacity:0;transform:translateY(8px);transition:opacity 400ms ease,transform 400ms ease;';
   bar.innerHTML = '<div style="font-family:\'Newsreader\',serif;font-style:italic;font-size:15px;margin-bottom:6px;">A short note on privacy.</div>'+
-    '<div style="color:rgba(244,243,239,0.75);margin-bottom:14px;">This site uses Google Analytics to understand what people read. No ads, no tracking pixels, no selling. Accept to help me see what works, or decline and nothing is recorded.</div>'+
+    '<div style="color:rgba(244,243,239,0.75);margin-bottom:14px;">This site uses Google Analytics to understand what people read. No ads, no tracking pixels, no selling. Accept to help me see what works. If you decline, no analytics cookies are set and Google receives only anonymous, cookieless signals.</div>'+
     '<div style="display:flex;gap:8px;flex-wrap:wrap;">'+
       '<button id="sk-consent-yes" style="background:#1F40C7;color:#fff;border:none;border-radius:999px;padding:8px 18px;font-family:inherit;font-size:12px;letter-spacing:0.04em;cursor:pointer;">Accept analytics</button>'+
       '<button id="sk-consent-no" style="background:transparent;color:rgba(244,243,239,0.7);border:1px solid rgba(244,243,239,0.18);border-radius:999px;padding:8px 18px;font-family:inherit;font-size:12px;letter-spacing:0.04em;cursor:pointer;">Decline</button>'+

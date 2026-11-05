@@ -1,0 +1,20 @@
+# Sai Kanagat
+
+> Sai Prathyaksh Kanagat is an industrial designer and digital marketer based in Bologna, Italy. His work spans brand strategy, paid media, marketing technology, product design and applied AI.
+
+## Key pages
+- [About](https://saikanagat.com/about): background, education and experience
+- [Work](https://saikanagat.com/work): selected design, marketing and AI projects
+- [Blog](https://saikanagat.com/blog): writing on design, marketing and building
+- [Demos](https://saikanagat.com/demos): interactive browser experiments
+- [Contact](https://saikanagat.com/contact): how to get in touch
+
+## Selected projects
+- [Cortex Studio](https://saikanagat.com/cortex): multi-agent AI creative studio
+- [Aperol, The Golden Hour](https://saikanagat.com/aperol-golden-hour): speculative India launch campaign
+- [Content Vigilante](https://saikanagat.com/work#vigilante): local-first, open-source marketing OS
+- [Monocular Biomechanics](https://saikanagat.com/papers/monocular-biomechanics): research paper
+
+## Profiles
+- [LinkedIn](https://linkedin.com/in/sai-kanagat)
+- [GitHub](https://github.com/Sai-Kanagat)

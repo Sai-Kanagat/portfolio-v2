@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://saikanagat.com/</loc>
-    <lastmod>2026-05-24</lastmod>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -32,7 +32,7 @@
   </url>
   <url>
     <loc>https://saikanagat.com/demos</loc>
-    <lastmod>2026-05-24</lastmod>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -62,7 +62,7 @@
   </url>
   <url>
     <loc>https://saikanagat.com/blog</loc>
-    <lastmod>2026-05-24</lastmod>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -125,5 +125,45 @@
     <lastmod>2026-05-24</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://saikanagat.com/cortex</loc>
+    <lastmod>2026-11-05</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://saikanagat.com/demos/agora</loc>
+    <lastmod>2026-11-05</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://saikanagat.com/demos/hands</loc>
+    <lastmod>2026-11-05</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://saikanagat.com/demos/balls</loc>
+    <lastmod>2026-11-05</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://saikanagat.com/demos/roas</loc>
+    <lastmod>2026-11-05</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://saikanagat.com/demos/poster</loc>
+    <lastmod>2026-11-05</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://saikanagat.com/demos/audio</loc>
+    <lastmod>2026-11-05</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://saikanagat.com/papers/monocular-biomechanics</loc>
+    <lastmod>2026-11-05</lastmod>
+    <priority>0.7</priority>
   </url>
 </urlset>
