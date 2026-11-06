@@ -194,10 +194,20 @@
   var hamburger = document.getElementById('hamburger');
   var navLinks  = document.getElementById('navLinks');
   if (!hamburger || !navLinks) return;
-  hamburger.addEventListener('click', function() { navLinks.classList.toggle('open'); });
+  hamburger.setAttribute('aria-controls', 'navLinks');
+  hamburger.setAttribute('aria-expanded', 'false');
+  function setOpen(open) {
+    navLinks.classList.toggle('open', open);
+    hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  hamburger.addEventListener('click', function() { setOpen(!navLinks.classList.contains('open')); });
   // Close on link click
   navLinks.querySelectorAll('a').forEach(function(a) {
-    a.addEventListener('click', function() { navLinks.classList.remove('open'); });
+    a.addEventListener('click', function() { setOpen(false); });
+  });
+  // Close on Escape and hand focus back to the button
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && navLinks.classList.contains('open')) { setOpen(false); hamburger.focus(); }
   });
 })();
 
