@@ -30,7 +30,7 @@
   --n-200: oklch(0.915 0.006 260);
   --n-300: oklch(0.86  0.008 260);
   --n-400: oklch(0.72  0.010 260);
-  --n-500: oklch(0.56  0.012 260);
+  --n-500: oklch(0.52  0.012 260);
   --n-600: oklch(0.44  0.012 260);
   --n-700: oklch(0.32  0.012 260);
   --n-800: oklch(0.235 0.012 260);
@@ -2652,3 +2652,8 @@ main { padding-top: var(--nav-height); }
   .about-cta { grid-template-columns: 1fr !important; gap: 40px !important; }
   .about-cta-quote { border-left: 0 !important; padding-left: 0 !important; border-top: 1px solid var(--grey-line); padding-top: 32px; }
 }
+
+/* Certificates: the in-progress cards kept cream text from the old dark theme and were invisible on the light cards */
+.cert-card.pending .cert-name { color: var(--ink) !important; }
+.cert-card.pending .cert-issuer { color: var(--accent-ink) !important; opacity: 1 !important; }
+.cert-card .cert-icon { color: var(--n-600) !important; }
