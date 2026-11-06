@@ -36,14 +36,18 @@
   if (nameFirst) splitChars(nameFirst, 0.05);
   if (nameLast)  splitChars(nameLast,  0.12);
 
-  // Trigger on next paint
-  requestAnimationFrame(function() {
-    requestAnimationFrame(function() {
-      document.querySelectorAll('.hero-name .char').forEach(function(c) {
-        c.classList.add('in');
-      });
+  // Trigger on next paint. A timer backs up requestAnimationFrame so the
+  // name can never stay hidden if frames are throttled.
+  var revealed = false;
+  function revealChars() {
+    if (revealed) return;
+    revealed = true;
+    document.querySelectorAll('.hero-name .char').forEach(function(c) {
+      c.classList.add('in');
     });
-  });
+  }
+  requestAnimationFrame(function() { requestAnimationFrame(revealChars); });
+  setTimeout(revealChars, 120);
 })();
 
 // ─── Hero 3D tilt ────────────────────────────────────────────

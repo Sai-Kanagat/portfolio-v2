@@ -2274,8 +2274,12 @@ a:focus, button:focus, input:focus, textarea:focus, select:focus { outline: none
 /* =========================================================
    SITE LOADER
    ========================================================= */
-html.loading, html.loading body { overflow: hidden; }
+html.loading, html.loading body { overflow: hidden; animation: sk-unlock 0.01s 3.6s forwards; }
+@keyframes sk-unlock { to { overflow: visible; } }
+@keyframes sk-loader-failsafe { to { opacity: 0; visibility: hidden; pointer-events: none; } }
 .site-loader {
+  /* Failsafe: if the script never finishes, the overlay still disappears. */
+  animation: sk-loader-failsafe 0.01s 3.6s forwards;
   position: fixed;
   inset: 0;
   z-index: 9999;
@@ -2359,6 +2363,13 @@ html.loading, html.loading body { overflow: hidden; }
 .site-loader-quick .site-loader-curtain { background: var(--black); transform: translateY(0); }
 .site-loader-quick.done .site-loader-curtain { transform: translateY(-100%); }
 .site-loader-quick.done { transform: none; }
+.site-loader-quick { animation-delay: 1.3s; }
+.site-loader-quick .site-loader-curtain { transition-duration: 0.4s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .site-loader { display: none !important; }
+  html.loading, html.loading body { overflow: visible; }
+}
 
 /* =========================================================
    SKILLS BOUNCE SECTION
