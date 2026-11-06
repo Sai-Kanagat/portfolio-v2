@@ -1,7 +1,7 @@
 /* =========================================================
    WORK · EDITORIAL LIST VIEW
    Inspiration: marinkurir.com
-   Replaces the work grid with a long-form numbered list.
+   Replaces the work grid with a long-form list.
    Reads from the existing `projects` + `projectOrder` data.
    Hover any row → image preview floats with the cursor.
    ========================================================= */
@@ -22,7 +22,6 @@
   var headerRow = document.createElement('div');
   headerRow.className = 'we-header';
   headerRow.innerHTML = '\
-    <span class="we-h-num" data-en="№" data-it="№">№</span>\
     <span class="we-h-year" data-en="Year" data-it="Anno">Year</span>\
     <span class="we-h-title" data-en="Project" data-it="Progetto">Project</span>\
     <span class="we-h-role" data-en="Role · Tags" data-it="Ruolo · Tag">Role · Tags</span>\
@@ -57,7 +56,6 @@
   projectOrder.forEach(function(id, idx){
     var p = projects[id];
     if (!p) return;
-    var num = String(idx + 1).padStart(2, '0');
     var year = (p.year || '').split(' - ')[0].trim() || (p.year || '');
     var role = (p.role || '').split('·')[0].split('/')[0].trim();
     var tags = (p.tags || []).slice(0, 2).join(' · ');
@@ -84,7 +82,6 @@
     row.setAttribute('data-cover', cover || '');
 
     row.innerHTML = '\
-      <span class="we-num">' + num + '</span>\
       <span class="we-year">' + (year || '-') + '</span>\
       <span class="we-title">' + titleHTML + '</span>\
       <span class="we-role">' + (role ? role : '') + (tags ? ' · ' + tags : '') + '</span>\
