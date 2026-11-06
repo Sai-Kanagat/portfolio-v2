@@ -65,6 +65,17 @@
     var cat = categories[id] || 'design';
     var isExternalLink = p.cta && p.cta.href && /^https?:/.test(p.cta.href);
 
+    // Title: name on the first line, descriptor on the second (the colon is dropped visually, kept for screen readers)
+    var titleText = p.title || id;
+    var titleHTML = titleText;
+    var ti = titleText.indexOf(': ');
+    if (ti > 0) {
+      var tName = titleText.slice(0, ti);
+      var tSub = titleText.slice(ti + 2);
+      if (/^Sai Kanagat$/.test(tName)) tName = 'Sai Kanagat<span class="we-dot">.</span>';
+      titleHTML = '<span class="we-name">' + tName + '</span><span class="we-vh">: </span><span class="we-sub">' + tSub + '</span>';
+    }
+
     var row = document.createElement('a');
     row.className = 'we-row';
     row.dataset.project = id;
@@ -75,7 +86,7 @@
     row.innerHTML = '\
       <span class="we-num">' + num + '</span>\
       <span class="we-year">' + (year || '-') + '</span>\
-      <span class="we-title">' + (p.title || id) + '</span>\
+      <span class="we-title">' + titleHTML + '</span>\
       <span class="we-role">' + (role ? role : '') + (tags ? ' · ' + tags : '') + '</span>\
       <span class="we-cta" data-en="View →" data-it="Apri →">View →</span>';
 

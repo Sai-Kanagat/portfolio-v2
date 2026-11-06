@@ -91,7 +91,8 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
       color: var(--yellow); font-weight: 700;
     }
     .demo-tile-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
-    .demo-tile-tag { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase; padding: 4px 8px; border: 1px solid rgba(245,240,232,0.3); border-radius: 2px; color: rgba(245,240,232,0.85); }
+    .demo-tile-tag { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase; padding: 0; border: 0; color: rgba(245,240,232,0.85); }
+    .demo-tile-tag + .demo-tile-tag::before { content: '\00b7'; margin-right: 6px; }
     /* tile backgrounds */
     /* demo thumbnails: real preview image + dark scrim so the tile text stays readable */
     .demo-tile-bg.bg-agora, .demo-tile-bg.bg-hands, .demo-tile-bg.bg-balls,
@@ -151,7 +152,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 
 <main id="main" class="page" role="main">
   <main class="demos-page">
-    <div class="section-label" style="margin-bottom: 28px;"><span class="num">000</span> <span data-en="Live Demos" data-it="Demo Live">Live Demos</span></div>
+    <div class="section-label" style="margin-bottom: 28px;"><span data-en="Live Demos" data-it="Demo Live">Live Demos</span></div>
     <h1><span class="outline">DE</span>MOS</h1>
     <p class="demos-lede" data-en="Seven interactive browser experiments. No downloads, no installs. Camera and microphone data never leave your device. Cortex Studio is the exception to in-browser processing: what you submit there goes to its backend and AI model providers." data-it="Sette esperimenti interattivi. Niente download, niente installazioni. I dati di webcam e microfono non lasciano mai il tuo dispositivo. Cortex Studio è l'eccezione: ciò che invii viene elaborato dal suo backend e da fornitori di modelli AI.">Seven interactive browser experiments. No downloads, no installs. Camera and microphone data never leave your device. Cortex Studio is the exception to in-browser processing: what you submit there goes to its backend and AI model providers.</p>
 

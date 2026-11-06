@@ -844,6 +844,10 @@ function renderPanel(data) {
     const [lead, ...rest] = data.title.split(/:\s/);
     titleHTML = `${lead}<br/><em>${rest.join(': ')}</em>`;
   }
+  // Brand mark: the full stop after "Sai Kanagat" is always the accent colour
+  if (/^Sai Kanagat\b/.test(data.title)) {
+    titleHTML = titleHTML.replace(/^Sai Kanagat/, 'Sai Kanagat<span class="v3-dot">.</span>');
+  }
 
   // Gallery: split into LEAD (one hero image up top) and REST (remaining grid below the body).
   // This puts the text earlier in the scroll flow instead of forcing the user past 20+ images first.
@@ -872,52 +876,20 @@ function renderPanel(data) {
     restGalleryHTML = `<div class="v3-gallery"><div class="v3-gallery-empty v3-reveal" data-delay="4">Full case study deck &amp; process imagery available on request</div></div>`;
   }
 
-  // Eyebrow number: use the project's num if it is set
-  const eyebrowNum = data.num ? data.num : '01';
-
   // CTA icon (button-in-button)
   const ctaIcon = `<span class="v3-btn-icon"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 10L10 2M10 2H4M10 2V8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>`;
 
-  // Tags as pills
-  const tagsHTML = (data.tags && data.tags.length)
-    ? `<div class="v3-tags v3-reveal" data-delay="2">${data.tags.map(t => `<span class="v3-tag">${t}</span>`).join('')}</div>`
-    : '';
+  // Credit line: year, client, role and discipline as one quiet line of text
+  const creditParts = [data.year, data.client, data.role, (data.tags && data.tags.length) ? data.tags.join(', ') : '']
+    .filter(Boolean).map(t => `<span>${t}</span>`).join('');
+  const creditHTML = creditParts ? `<p class="v3-credit v3-reveal" data-delay="3">${creditParts}</p>` : '';
 
   document.getElementById('panelContent').innerHTML = `
-    <div class="v3-eyebrow v3-reveal" data-delay="1">
-      <span class="v3-eyebrow-num">${eyebrowNum}</span>
-      <span>${data.category}</span>
-    </div>
+    <p class="v3-eyebrow v3-reveal" data-delay="1">${data.category}</p>
     <h2 class="v3-title v3-reveal" data-delay="1">${titleHTML}</h2>
-    ${tagsHTML}
     <p class="v3-subhead v3-reveal" data-delay="2">${data.highlight}</p>
 
-    <div class="v3-meta v3-reveal" data-delay="3">
-      <div class="v3-meta-card">
-        <div class="v3-meta-card-inner">
-          <div class="v3-meta-card-label" data-en="Year" data-it="Anno">Year</div>
-          <div class="v3-meta-card-val">${data.year}</div>
-        </div>
-      </div>
-      <div class="v3-meta-card">
-        <div class="v3-meta-card-inner">
-          <div class="v3-meta-card-label" data-en="Client" data-it="Cliente">Client</div>
-          <div class="v3-meta-card-val">${data.client}</div>
-        </div>
-      </div>
-      <div class="v3-meta-card">
-        <div class="v3-meta-card-inner">
-          <div class="v3-meta-card-label" data-en="Role" data-it="Ruolo">Role</div>
-          <div class="v3-meta-card-val">${data.role}</div>
-        </div>
-      </div>
-      <div class="v3-meta-card accent">
-        <div class="v3-meta-card-inner">
-          <div class="v3-meta-card-label" data-en="Discipline" data-it="Disciplina">Discipline</div>
-          <div class="v3-meta-card-val">${(data.tags && data.tags[0]) || 'Project'}</div>
-        </div>
-      </div>
-    </div>
+    ${creditHTML}
 
     ${leadHTML}
 

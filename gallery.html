@@ -115,7 +115,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   <!-- HERO -->
   <header class="gallery-hero">
     <div class="section-label" style="margin-bottom: 40px;">
-      <span class="num">001</span> Visual Work
+      Visual Work
     </div>
     <h1 class="reveal">
       <span class="outline">GAL</span>LERY
@@ -319,7 +319,7 @@ function closePanel() {
 }
 function renderPanel(data) {
   const g = data.images.length ? `<div class="panel-gallery">${data.images.map((s,i)=>`<img src="${s}" alt="${data.title} ${i+1}" loading="lazy"/>`).join('')}</div>` : '';
-  document.getElementById('panelContent').innerHTML = `<div class="panel-label section-label"><span class="num">${data.num}</span> ${data.category}</div><h2 class="panel-title">${data.title}</h2><div class="panel-meta"><div class="panel-meta-item"><label>Year</label><span>${data.year}</span></div><div class="panel-meta-item"><label>Client</label><span>${data.client}</span></div><div class="panel-meta-item"><label>Role</label><span>${data.role}</span></div></div>${g}<div class="panel-body">${data.body}</div><div class="panel-highlight">${data.highlight}</div><div style="margin-top:32px;"><a href="work.html#${data.id}" class="btn btn-primary" style="font-size:0.65rem;">Full Case Study</a></div>`;
+  document.getElementById('panelContent').innerHTML = `<p class="panel-label section-label">${data.category}</p><h2 class="panel-title">${data.title}</h2><p class="panel-credit">${[data.year, data.client, data.role, data.tags.join(', ')].filter(Boolean).map(t => `<span>${t}</span>`).join('')}</p>${g}<div class="panel-body">${data.body}</div><div class="panel-highlight">${data.highlight}</div><div style="margin-top:32px;"><a href="work.html#${data.id}" class="btn btn-primary" style="font-size:0.65rem;">Full Case Study</a></div>`;
 }
 
 document.querySelectorAll('.gallery-item[data-project]').forEach(el => {
