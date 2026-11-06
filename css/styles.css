@@ -1,5 +1,5 @@
 /* =========================================================
-   SAI KANAGAT — PORTFOLIO
+   SAI KANAGAT - PORTFOLIO
    Editorial / Brutalist Design System
    ========================================================= */
 
@@ -187,7 +187,7 @@ a:focus, button:focus, input:focus, textarea:focus, select:focus { outline: none
 .page { padding-top: var(--nav-h); }
 
 /* =========================================================
-   HERO — HOME
+   HERO - HOME
    ========================================================= */
 .hero {
   min-height: calc(100vh - var(--nav-h));
@@ -463,7 +463,7 @@ a:focus, button:focus, input:focus, textarea:focus, select:focus { outline: none
   gap: 12px;
 }
 .discipline-list li::before {
-  content: '—';
+  content: '-';
   color: var(--grey-mid);
   flex-shrink: 0;
 }
@@ -1040,7 +1040,7 @@ a:focus, button:focus, input:focus, textarea:focus, select:focus { outline: none
 }
 
 /* =========================================================
-   ACHIEVEMENTS — ABOUT PAGE
+   ACHIEVEMENTS - ABOUT PAGE
    ========================================================= */
 .achievements {
   padding: var(--pad-section) var(--pad-x);
@@ -1342,7 +1342,7 @@ a:focus, button:focus, input:focus, textarea:focus, select:focus { outline: none
 .footer-socials a:hover { color: var(--yellow); }
 
 /* =========================================================
-   WORK CARD — hide when filtered
+   WORK CARD - hide when filtered
    ========================================================= */
 .work-card[data-hidden="true"] {
   display: none;
@@ -1525,7 +1525,7 @@ a:focus, button:focus, input:focus, textarea:focus, select:focus { outline: none
 }
 
 /* =========================================================
-   NAV — Score My Brand CTA + active underline
+   NAV - Score My Brand CTA + active underline
    ========================================================= */
 .nav-score-btn {
   font-family: var(--font-mono);
@@ -1544,7 +1544,7 @@ a:focus, button:focus, input:focus, textarea:focus, select:focus { outline: none
 }
 
 /* =========================================================
-   CERTIFICATIONS — About page
+   CERTIFICATIONS - About page
    ========================================================= */
 .certs-section {
   padding: var(--pad-section) var(--pad-x);
@@ -1953,7 +1953,7 @@ a:focus, button:focus, input:focus, textarea:focus, select:focus { outline: none
 }
 
 /* =========================================================
-   SCORE MY BRAND — Interactive Quiz
+   SCORE MY BRAND - Interactive Quiz
    ========================================================= */
 .score-hero {
   padding: 80px var(--pad-x) 60px;
@@ -2244,7 +2244,7 @@ a:focus, button:focus, input:focus, textarea:focus, select:focus { outline: none
 .score-restart button:hover { color: var(--black); border-color: var(--black); }
 
 /* =========================================================
-   RESPONSIVE — New pages
+   RESPONSIVE - New pages
    ========================================================= */
 @media (max-width: 1024px) {
   .certs-grid { grid-template-columns: repeat(2, 1fr); }
@@ -2559,7 +2559,7 @@ html.loading, html.loading body { overflow: hidden; }
   position: relative;
 }
 .cv-entry-bullets li::before {
-  content: '—';
+  content: '-';
   position: absolute;
   left: 0;
   color: var(--yellow);

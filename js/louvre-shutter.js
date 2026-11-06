@@ -1,5 +1,5 @@
 /* =========================================================
-   HERO EXPERIENCE — scroll-driven 3-layer choreography.
+   HERO EXPERIENCE - scroll-driven 3-layer choreography.
    One sticky viewport, three layered stages.
    Scroll progress through .hero-experience (0..1):
      0.00 – 0.18 : Layer 1 fully visible, shutter at 0°
@@ -42,7 +42,7 @@
     var scrolled = -rect.top;
     var progress = clamp(scrolled / travel, 0, 1);
 
-    // Layer 1 stays fully opaque — the shutter's ink back side covers it as the blinds flip.
+    // Layer 1 stays fully opaque - the shutter's ink back side covers it as the blinds flip.
     // (Previously faded 0.18→0.45 which started before the blinds visibly closed, causing a
     //  ghosty pre-fade on the logo. Removed.)
     layer1.style.opacity = '1';

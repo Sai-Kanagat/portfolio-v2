@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Consent Mode v2 default — denied inside EEA/UK/Switzerland (GDPR), granted elsewhere -->
+<!-- Consent Mode v2 default: denied inside EEA/UK/Switzerland (GDPR), granted elsewhere -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
-// Default: granted everywhere (for non-EEA traffic — recruiters in US/India/etc)
+// Default: granted everywhere (for non-EEA traffic, such as recruiters in US/India/etc)
 gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'granted','functionality_storage':'granted','security_storage':'granted','wait_for_update':500});
 // Override: denied for EEA, UK, Switzerland (legally required until user accepts)
 gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied','region':['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH'],'wait_for_update':500});
@@ -13,8 +13,8 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 <!-- End Google Tag Manager -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Audio Visualizer — Sai Kanagat</title>
-<meta name="description" content="A microphone-reactive generative visualizer — radial frequency bloom that dances to live sound. Pure Web Audio, runs entirely in-browser." />
+<title>Audio Visualizer | Sai Kanagat</title>
+<meta name="description" content="A microphone-reactive generative visualizer: radial frequency bloom that dances to live sound. Pure Web Audio, runs entirely in-browser." />
 <link rel="stylesheet" href="../css/styles.css">
 <style>
   :root{--bg:#06070d;--paper:#f5f0e8;--line:rgba(245,240,232,0.14);}
@@ -37,7 +37,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 <link rel="canonical" href="https://saikanagat.com/demos/audio" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Audio Visualizer | Sai Kanagat" />
-<meta property="og:description" content="A microphone-reactive generative visualizer — radial frequency bloom that dances to live sound. Pure Web Audio, runs entirely in-browser." />
+<meta property="og:description" content="A microphone-reactive generative visualizer: radial frequency bloom that dances to live sound. Pure Web Audio, runs entirely in-browser." />
 <meta property="og:image" content="https://saikanagat.com/og-image.jpg" />
 <meta name="twitter:card" content="summary_large_image" />
 </head>
@@ -51,7 +51,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 <div class="gate" id="gate">
   <div class="eyebrow">Interactive · Web Audio</div>
   <h1>Audio Visualizer</h1>
-  <p>A radial frequency bloom that reacts to live sound — clap, talk, or play music near your mic and watch it breathe. Everything runs in your browser; no audio is recorded or sent anywhere.</p>
+  <p>A radial frequency bloom that reacts to live sound: clap, talk, or play music near your mic and watch it breathe. Everything runs in your browser, and no audio is recorded or sent anywhere.</p>
   <div>
     <button id="useMic">🎤 Use Microphone</button>
     <button class="ghost" id="useDemo">▶ Demo Tone</button>
@@ -75,7 +75,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     navigator.mediaDevices.getUserMedia({audio:true}).then(function(stream){
       actx.createMediaStreamSource(stream).connect(analyser);
       go('MIC LIVE');
-    }).catch(function(){document.getElementById('hud').textContent='mic blocked — try demo tone';});
+    }).catch(function(){document.getElementById('hud').textContent='mic blocked, try demo tone';});
   }
   function startDemo(){
     actx=new (window.AudioContext||window.webkitAudioContext)();

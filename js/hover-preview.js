@@ -1,5 +1,5 @@
 /* =========================================================
-   HOVER PREVIEW — show the full uncropped image when hovering
+   HOVER PREVIEW - show the full uncropped image when hovering
    any cropped thumbnail in the project panel, work grid, or
    gallery. Magnetic positioning (follows cursor, clamped to
    viewport). Disabled on touch.
@@ -84,7 +84,7 @@
     preview.classList.remove('is-on');
   }
 
-  // Event delegation — works for dynamically added gallery frames
+  // Event delegation - works for dynamically added gallery frames
   document.addEventListener('mouseover', function (e) {
     var t = e.target;
     if (!t || !t.matches) return;

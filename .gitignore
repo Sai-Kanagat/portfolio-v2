@@ -5,6 +5,6 @@ node_modules/
 *.log
 .gstack/
 
-# Private — local-only, never deploy or push
+# Private - local-only, never deploy or push
 syndication/
 social-kit/

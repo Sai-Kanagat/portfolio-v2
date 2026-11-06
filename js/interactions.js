@@ -1,5 +1,5 @@
 /* =========================================================
-   INTERACTIONS — magnetic buttons + 3D card tilt
+   INTERACTIONS - magnetic buttons + 3D card tilt
    Inspiration: valentingassend.com/lab
    Pure JS, no deps. Respects prefers-reduced-motion.
    ========================================================= */

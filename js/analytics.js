@@ -1,5 +1,5 @@
 /* =========================================================
-   SK PORTFOLIO — ANALYTICS LAYER
+   SK PORTFOLIO - ANALYTICS LAYER
    Comprehensive dataLayer event tracking for GTM → GA4.
    Consent Mode v2 default is set inline in <head> (see snippet).
    This file pushes semantic events GTM forwards to GA4.

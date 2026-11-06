@@ -1,5 +1,5 @@
 /* ==========================================================
-   SAI KANAGAT — design system v2.0
+   SAI KANAGAT - design system v2.0
    Ultramarine accent · Bodoni Moda + Hanken Grotesk + JetBrains Mono
    ========================================================== */
 
@@ -8,7 +8,7 @@
   --ink:        oklch(0.16 0.012 260);
   --paper:      oklch(0.975 0.004 260);
 
-  /* accent — deep electric ultramarine */
+  /* accent - deep electric ultramarine */
   --accent:     oklch(0.42 0.21 265);
   --accent-ink: oklch(0.28 0.18 268);
   --accent-up:  oklch(0.55 0.22 262);     /* brighter */
@@ -55,7 +55,7 @@
   --t-5xl:  88px;
   --t-6xl: 128px;
 
-  /* spacing — 4px base */
+  /* spacing - 4px base */
   --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px;
   --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px;
   --s-9: 96px; --s-10: 128px;
@@ -64,7 +64,7 @@
   --r-0: 0; --r-1: 2px; --r-2: 4px; --r-3: 8px;
   --r-4: 12px; --r-5: 20px; --r-full: 999px;
 
-  /* elevation — cool cast */
+  /* elevation - cool cast */
   --shadow-1: 0 1px 0 rgba(8,12,28,0.04), 0 1px 2px rgba(8,12,28,0.06);
   --shadow-2: 0 1px 1px rgba(8,12,28,0.04), 0 4px 12px rgba(8,12,28,0.07);
   --shadow-3: 0 2px 4px rgba(8,12,28,0.06), 0 12px 32px rgba(8,12,28,0.09);
@@ -140,7 +140,7 @@ small, .meta { font-family:var(--mono); font-size:var(--t-xs); color:var(--muted
 
 /* ----------------------- THE MARK -----------------------
    A square split diagonally: top-left half ink, bottom-right half accent.
-   Reads as "both sides of the brief" — industrial × digital,
+   Reads as "both sides of the brief" - industrial × digital,
    craft × growth. The brand's whole signature, in one gesture.
    ------------------------------------------------------- */
 .mark{
@@ -174,7 +174,7 @@ small, .meta { font-family:var(--mono); font-size:var(--t-xs); color:var(--muted
   font-family:var(--sans); font-weight:700; letter-spacing:-0.005em;
   text-transform:uppercase;
 }
-.wm .sk{ /* compatibility class — renders as the small mark */
+.wm .sk{ /* compatibility class - renders as the small mark */
   display:inline-block; width:0.88em; height:0.88em;
   background: linear-gradient(to bottom right, var(--ink) 0%, var(--ink) 49.6%, var(--paper) 49.6%, var(--paper) 50.4%, var(--accent) 50.4%);
   vertical-align: -0.08em; line-height:1; flex-shrink:0;

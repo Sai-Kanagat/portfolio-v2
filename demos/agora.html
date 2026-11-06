@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Consent Mode v2 default — denied inside EEA/UK/Switzerland (GDPR), granted elsewhere -->
+  <!-- Consent Mode v2 default: denied inside EEA/UK/Switzerland (GDPR), granted elsewhere -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
-// Default: granted everywhere (for non-EEA traffic — recruiters in US/India/etc)
+// Default: granted everywhere (for non-EEA traffic, such as recruiters in US/India/etc)
 gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'granted','functionality_storage':'granted','security_storage':'granted','wait_for_update':500});
 // Override: denied for EEA, UK, Switzerland (legally required until user accepts)
 gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied','region':['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH'],'wait_for_update':500});
@@ -13,7 +13,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 <!-- End Google Tag Manager -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Agora — Sai Kanagat</title>
+<title>Agora | Sai Kanagat</title>
 <link rel="stylesheet" href="../css/styles.css">
 <style>
   html, body { margin:0; padding:0; min-height:100%; background:#0a0a0a; color:#f5f0e8; font-family: var(--font-mono, monospace); overflow-x:hidden; }
@@ -72,7 +72,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   }
   .btn-ghost:hover { background:#ccff00; color:#0a0a0a; border-color:#ccff00; }
 
-  /* STEP 2 — env */
+  /* STEP 2: env */
   .agent-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap:12px; margin-top:24px; max-height: 56vh; overflow-y:auto; padding-right:6px; }
   .agent-card { background:#111; border:1px solid rgba(245,240,232,0.12); padding:14px; border-radius:2px; }
   .agent-card .name { font-weight:700; font-size:0.78rem; letter-spacing:0.04em; }
@@ -81,7 +81,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   .agent-card .stance-dot { width:10px; height:10px; border-radius:50%; }
   .agent-card .stance span { font-size:0.62rem; letter-spacing:0.18em; text-transform:uppercase; opacity:0.8; }
 
-  /* STEP 3 — sim */
+  /* STEP 3: sim */
   #simWrap { position:relative; height: 70vh; min-height:500px; background:#000; border:1px solid rgba(245,240,232,0.1); border-radius:2px; overflow:hidden; margin-top:24px; }
   #simCanvas { position:absolute; inset:0; width:100%; height:100%; display:block; }
   .sim-hud { position:absolute; top:14px; left:14px; right:14px; display:flex; justify-content:space-between; align-items:center; gap:12px; z-index:5; pointer-events:none; }
@@ -97,7 +97,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   @keyframes feedIn { to { opacity:1; transform: translateY(0); } }
   @keyframes feedOut { to { opacity:0; transform: translateY(-8px); } }
 
-  /* STEP 4 — report */
+  /* STEP 4: report */
   .report-grid { display:grid; grid-template-columns: 1.4fr 1fr; gap:24px; margin-top:24px; align-items:start; }
   @media (max-width: 880px){ .report-grid { grid-template-columns: 1fr; } }
   .report-card { background:#111; border:1px solid rgba(245,240,232,0.12); padding:24px; border-radius:2px; }
@@ -141,7 +141,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 <section id="step1" class="step-wrap">
   <div class="step-eyebrow"><strong>01</strong> · Seed · <span style="color:var(--accent);">Lite version</span></div>
   <h1 class="step-h">Drop a scenario.<br>Watch a crowd think it through.</h1>
-  <p class="lede">Agora is a sandbox for rehearsing public reaction. Type in a question, statement, or scenario — a product launch, a policy proposal, a news event. The engine generates a synthetic crowd of personas, runs them through a multi-tick simulation of conversation and influence, then hands you a prediction report.</p>
+  <p class="lede">Agora is a sandbox for rehearsing public reaction. Type in a question, statement, or scenario (a product launch, a policy proposal, a news event). The engine generates a synthetic crowd of personas, runs them through a multi-tick simulation of conversation and influence, then hands you a prediction report.</p>
   <div style="background:rgba(204,255,0,0.08); border:1px solid rgba(204,255,0,0.3); padding:14px 18px; border-radius:2px; margin-bottom:28px; max-width:720px; font-size:0.78rem; line-height:1.55; color:rgba(245,240,232,0.85);">
     <strong style="color:var(--accent); letter-spacing:0.18em; font-size:0.62rem; text-transform:uppercase; display:block; margin-bottom:6px;">Lite Version</strong>
     This is a stripped-down browser demo. The <strong>full version</strong> uses real LLM-driven agents with persistent memory, GraphRAG-backed personas extracted from the input material, dual-platform parallel simulation, and a ReportAgent that lets you chat with any persona post-run. Get in touch to see it.
@@ -373,7 +373,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   };
   document.getElementById('backTo1Btn').onclick = () => show('step1');
 
-  // ===== step 3 — simulation =====
+  // ===== step 3: simulation =====
   let canvas, ctx, simW, simH;
   function startSim(){
     canvas = document.getElementById('simCanvas');
@@ -529,7 +529,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     document.getElementById('reportBtn').click();
   };
 
-  // ===== step 4 — report =====
+  // ===== step 4: report =====
   document.getElementById('reportBtn').onclick = () => {
     if (running) return;
     show('step4');
@@ -569,7 +569,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     }).join('');
     // timeline
     const timelineEl = document.getElementById('timeline');
-    if (logEvents.length === 0) timelineEl.innerHTML = '<div class="t-item">Stable simulation — no major sentiment flips recorded.</div>';
+    if (logEvents.length === 0) timelineEl.innerHTML = '<div class="t-item">Stable simulation: no major sentiment flips recorded.</div>';
     else timelineEl.innerHTML = logEvents.map(e => `<div class="t-item"><span class="t-time">T+${e.tick}</span>Dominant stance shifted from <strong style="color:${STANCES[e.from].color}">${STANCES[e.from].label}</strong> to <strong style="color:${STANCES[e.to].color}">${STANCES[e.to].label}</strong></div>`).join('');
   }
 

@@ -1,5 +1,5 @@
 /* =========================================================
-   PAGE TRANSITIONS — SK Portfolio
+   PAGE TRANSITIONS - SK Portfolio
    Fade overlay on nav link clicks
    ========================================================= */
 

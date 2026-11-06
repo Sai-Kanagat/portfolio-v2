@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Consent Mode v2 default — denied inside EEA/UK/Switzerland (GDPR), granted elsewhere -->
+  <!-- Consent Mode v2 default: denied inside EEA/UK/Switzerland (GDPR), granted elsewhere -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
-// Default: granted everywhere (for non-EEA traffic — recruiters in US/India/etc)
+// Default: granted everywhere (for non-EEA traffic, such as recruiters in US/India/etc)
 gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'granted','functionality_storage':'granted','security_storage':'granted','wait_for_update':500});
 // Override: denied for EEA, UK, Switzerland (legally required until user accepts)
 gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied','region':['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH'],'wait_for_update':500});
@@ -13,7 +13,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 <!-- End Google Tag Manager -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hand Cursor — Sai Kanagat</title>
+<title>Hand Cursor | Sai Kanagat</title>
 <link rel="stylesheet" href="../css/styles.css">
 <style>
   html, body { margin:0; padding:0; height:100%; background:#0a0a0a; overflow:hidden; color:#f5f0e8; font-family: var(--font-mono, monospace); }
@@ -77,7 +77,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 <div id="setup">
   <small>Live Demo · Hand-Tracked Cursor</small>
   <h1>Move your<br>cursor with<br>your hand.</h1>
-  <p>Allow camera access. Point your index finger to move the dot. Pinch your thumb and index to "click" — try popping the targets. Camera feed stays in your browser, nothing is uploaded.</p>
+  <p>Allow camera access. Point your index finger to move the dot. Pinch your thumb and index to "click." Try popping the targets. Camera feed stays in your browser, nothing is uploaded.</p>
   <button id="startBtn">Start Camera</button>
 </div>
 
@@ -170,7 +170,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     }
     lastPinch = pinching;
 
-    status.textContent = pinching ? 'Pinch — click!' : `Tracking · ${targets.filter(t=>!t.hit).length} targets`;
+    status.textContent = pinching ? 'Pinch: click!' : `Tracking · ${targets.filter(t=>!t.hit).length} targets`;
   }
 
   document.getElementById('startBtn').onclick = async () => {
@@ -188,7 +188,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
       setup.style.display = 'none';
       status.textContent = 'Show your hand…';
     } catch (err){
-      setup.querySelector('p').textContent = 'Camera access failed — check browser permissions and reload. ' + err.message;
+      setup.querySelector('p').textContent = 'Camera access failed. Check browser permissions and reload. ' + err.message;
       setup.querySelector('#startBtn').textContent = 'Retry';
     }
   };

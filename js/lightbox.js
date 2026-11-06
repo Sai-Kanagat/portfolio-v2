@@ -1,5 +1,5 @@
 /* =========================================================
-   LIGHTBOX — click any image to open fullscreen
+   LIGHTBOX - click any image to open fullscreen
    Intercepts clicks on .panel-gallery img, .about-portrait img,
    .work-card .card-img, gallery imgs. Esc closes. Arrow keys
    navigate within the same gallery cluster.

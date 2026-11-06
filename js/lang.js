@@ -27,7 +27,7 @@
       b.addEventListener('click', function () { setLang(b.getAttribute('data-l')); });
     });
     applyLang(getLang());
-    // Re-apply on dynamic DOM injections — observe additions, debounce, re-translate
+    // Re-apply on dynamic DOM injections - observe additions, debounce, re-translate
     var pending = null;
     var observer = new MutationObserver(function(mutations){
       var hasAdds = mutations.some(function(m){ return m.addedNodes && m.addedNodes.length; });

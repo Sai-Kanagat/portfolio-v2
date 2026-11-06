@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Consent Mode v2 default — denied inside EEA/UK/Switzerland (GDPR), granted elsewhere -->
+<!-- Consent Mode v2 default: denied inside EEA/UK/Switzerland (GDPR), granted elsewhere -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
-// Default: granted everywhere (for non-EEA traffic — recruiters in US/India/etc)
+// Default: granted everywhere (for non-EEA traffic, such as recruiters in US/India/etc)
 gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'granted','functionality_storage':'granted','security_storage':'granted','wait_for_update':500});
 // Override: denied for EEA, UK, Switzerland (legally required until user accepts)
 gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied','region':['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH'],'wait_for_update':500});
@@ -13,8 +13,8 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 <!-- End Google Tag Manager -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Swiss Poster Generator — Sai Kanagat</title>
-<meta name="description" content="A parametric generative poster machine — Swiss/International-style editorial layouts, reseeded on demand, exportable as PNG." />
+<title>Swiss Poster Generator | Sai Kanagat</title>
+<meta name="description" content="A parametric generative poster machine: Swiss/International-style editorial layouts, reseeded on demand, exportable as PNG." />
 <link rel="stylesheet" href="../css/styles.css">
 <style>
   :root{--bg:#0a0a0a;--paper:#f5f0e8;--line:rgba(245,240,232,0.14);}
@@ -46,7 +46,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 <link rel="canonical" href="https://saikanagat.com/demos/poster" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Swiss Poster Generator | Sai Kanagat" />
-<meta property="og:description" content="A parametric generative poster machine — Swiss/International-style editorial layouts, reseeded on demand, exportable as PNG." />
+<meta property="og:description" content="A parametric generative poster machine: Swiss/International-style editorial layouts, reseeded on demand, exportable as PNG." />
 <meta property="og:image" content="https://saikanagat.com/og-image.jpg" />
 <meta name="twitter:card" content="summary_large_image" />
 </head>
@@ -58,7 +58,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 <div class="wrap">
   <div class="eyebrow">Design · Generative</div>
   <h1>Swiss Poster Generator</h1>
-  <p class="lede">A parametric take on International-style poster design — grid, scale contrast, and a single accent, recomposed from a seed. Type your own headline, pick a palette, regenerate until one sings, then export a print-ready PNG.</p>
+  <p class="lede">A parametric take on International-style poster design: grid, scale contrast, and a single accent, recomposed from a seed. Type your own headline, pick a palette, regenerate until one sings, then export a print-ready PNG.</p>
 
   <div class="stage">
     <div class="frame"><canvas id="poster" width="760" height="1074"></canvas></div>
@@ -70,7 +70,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
         <button id="regen">↻ Regenerate</button>
         <button class="ghost" id="download">↓ PNG</button>
       </div>
-      <div class="seedline" id="seedline">seed —</div>
+      <div class="seedline" id="seedline">seed</div>
     </div>
   </div>
 </div>
@@ -104,13 +104,13 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     cx.font='500 26px "JetBrains Mono",monospace';cx.fillStyle=pal.ink;
     cx.fillText(kicker+(Math.floor(r()*90)+10),M,M+44);
     cx.textAlign='right';cx.fillText('SK · 2026',W-M,M+44);cx.textAlign='left';
-    // big accent geometry — circle or bars, seeded
+    // big accent geometry: circle or bars, seeded
     var mode=Math.floor(r()*3);
     cx.fillStyle=pal.ac;
     if(mode===0){var cr=120+r()*180;cx.beginPath();cx.arc(M+gw*(0.3+r()*0.4),H*0.42,cr,0,7);cx.fill();}
     else if(mode===1){var n=3+Math.floor(r()*4);for(var b=0;b<n;b++){var bh=60+r()*260;cx.fillRect(M+(gw/n)*b+6,H*0.55-bh,(gw/n)-12,bh);}}
     else{cx.save();cx.translate(M+gw*(0.4+r()*0.3),H*0.4);cx.rotate(r()*Math.PI);cx.fillRect(-30,-260,60,520);cx.restore();}
-    // headline — big, broken across lines on spaces, scaled to fit width
+    // headline: big, broken across lines on spaces, scaled to fit width
     var words=head.split(' ');
     cx.fillStyle=pal.ink;
     var size=130;

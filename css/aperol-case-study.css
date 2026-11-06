@@ -1,5 +1,5 @@
 /* ==========================================================
-   APEROL — THE GOLDEN HOUR · Case study
+   APEROL - THE GOLDEN HOUR · Case study
    Lives inside the Sai Kanagat portfolio.
    Uses brand world (Aperol orange) for inline showcase sections,
    editorial neutrals for case-study chrome and analysis.
@@ -479,7 +479,7 @@
   line-height: 1.6;
 }
 .ap-list li::before {
-  content: '—';
+  content: '-';
   position: absolute; left: 0; top: 0;
   color: var(--ap-orange);
   font-weight: 700;

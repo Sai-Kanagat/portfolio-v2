@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Consent Mode v2 default — denied inside EEA/UK/Switzerland (GDPR), granted elsewhere -->
+<!-- Consent Mode v2 default: denied inside EEA/UK/Switzerland (GDPR), granted elsewhere -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
-// Default: granted everywhere (for non-EEA traffic — recruiters in US/India/etc)
+// Default: granted everywhere (for non-EEA traffic, such as recruiters in US/India/etc)
 gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'granted','functionality_storage':'granted','security_storage':'granted','wait_for_update':500});
 // Override: denied for EEA, UK, Switzerland (legally required until user accepts)
 gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied','region':['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH'],'wait_for_update':500});
@@ -13,8 +13,8 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 <!-- End Google Tag Manager -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ROAS Playground — Sai Kanagat</title>
-<meta name="description" content="Interactive paid-media calculator — tune spend, CPC, conversion rate, AOV and margin to see ROAS, profit and break-even in real time." />
+<title>ROAS Playground | Sai Kanagat</title>
+<meta name="description" content="Interactive paid-media calculator: tune spend, CPC, conversion rate, AOV and margin to see ROAS, profit and break-even in real time." />
 <link rel="stylesheet" href="../css/styles.css">
 <style>
   :root { --bg:#0a0a0a; --paper:#f5f0e8; --line:rgba(245,240,232,0.14); --green:#3FE07A; --red:#E5483B; --amber:#F4A93D; --accent:#1F40C7; }
@@ -51,7 +51,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 <link rel="canonical" href="https://saikanagat.com/demos/roas" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="ROAS Playground | Sai Kanagat" />
-<meta property="og:description" content="Interactive paid-media calculator — tune spend, CPC, conversion rate, AOV and margin to see ROAS, profit and break-even in real time." />
+<meta property="og:description" content="Interactive paid-media calculator: tune spend, CPC, conversion rate, AOV and margin to see ROAS, profit and break-even in real time." />
 <meta property="og:image" content="https://saikanagat.com/og-image.jpg" />
 <meta name="twitter:card" content="summary_large_image" />
 </head>
@@ -63,7 +63,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 <div class="wrap">
   <div class="eyebrow">Marketing · Live Calculator</div>
   <h1>ROAS Playground</h1>
-  <p class="lede">Tune a paid-media plan and watch the unit economics move in real time. Every output recalculates on the slider — ROAS, profit, break-even, and the profit curve as spend scales.</p>
+  <p class="lede">Tune a paid-media plan and watch the unit economics move in real time. Every output recalculates on the slider: ROAS, profit, break-even, and the profit curve as spend scales.</p>
 
   <div class="grid">
     <div class="panel" id="controls">
@@ -76,16 +76,16 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 
     <div class="panel">
       <div class="out-hero">
-        <div class="big" id="o-roas">—</div>
+        <div class="big" id="o-roas">-</div>
         <div class="sub">Return on Ad Spend</div>
       </div>
       <div class="stats">
-        <div class="stat"><div class="k">Clicks / mo</div><div class="v" id="o-clicks">—</div></div>
-        <div class="stat"><div class="k">Conversions</div><div class="v" id="o-conv">—</div></div>
-        <div class="stat"><div class="k">Revenue</div><div class="v" id="o-rev">—</div></div>
-        <div class="stat"><div class="k">CAC</div><div class="v" id="o-cac">—</div></div>
-        <div class="stat"><div class="k">Gross Profit</div><div class="v" id="o-profit">—</div></div>
-        <div class="stat"><div class="k">Break-even ROAS</div><div class="v" id="o-be">—</div></div>
+        <div class="stat"><div class="k">Clicks / mo</div><div class="v" id="o-clicks">-</div></div>
+        <div class="stat"><div class="k">Conversions</div><div class="v" id="o-conv">-</div></div>
+        <div class="stat"><div class="k">Revenue</div><div class="v" id="o-rev">-</div></div>
+        <div class="stat"><div class="k">CAC</div><div class="v" id="o-cac">-</div></div>
+        <div class="stat"><div class="k">Gross Profit</div><div class="v" id="o-profit">-</div></div>
+        <div class="stat"><div class="k">Break-even ROAS</div><div class="v" id="o-be">-</div></div>
       </div>
       <div class="verdict" id="verdict"></div>
     </div>
@@ -149,7 +149,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     var pe=document.getElementById('o-profit');pe.textContent=fmt(r.profit);pe.className='v '+(r.profit>=0?'pos':'neg');
     document.getElementById('o-be').textContent=r.beRoas.toFixed(2)+'×';
     var v=document.getElementById('verdict');
-    if(r.profit>=0){v.style.background='rgba(63,224,122,0.12)';v.style.color='#3FE07A';v.textContent='Profitable. Each €1 of spend returns €'+r.roas.toFixed(2)+' in revenue — above your '+r.beRoas.toFixed(2)+'× break-even. Scale it.';}
+    if(r.profit>=0){v.style.background='rgba(63,224,122,0.12)';v.style.color='#3FE07A';v.textContent='Profitable. Each €1 of spend returns €'+r.roas.toFixed(2)+' in revenue, above your '+r.beRoas.toFixed(2)+'× break-even. Scale it.';}
     else{v.style.background='rgba(229,72,59,0.12)';v.style.color='#E5483B';v.textContent='Losing money. ROAS of '+r.roas.toFixed(2)+'× is below the '+r.beRoas.toFixed(2)+'× you need to break even at '+margin+'% margin. Fix CVR, AOV or CPC first.';}
     drawChart(spend,cpc,cvr,aov,margin);
   }

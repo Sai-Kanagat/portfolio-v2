@@ -1,5 +1,5 @@
 /* =========================================================
-   CANONICAL REDIRECT — force saikanagat.com
+   CANONICAL REDIRECT - force saikanagat.com
    Sends any .pages.dev / preview-deploy traffic to the
    canonical domain so Google indexes only one URL.
    Runs synchronously before page paint.
@@ -14,7 +14,7 @@
 })();
 
 /* =========================================================
-   PAGE LOADER — SK Portfolio
+   PAGE LOADER - SK Portfolio
    First-visit intro: count 00 → 100, logo reveal, curtain lift
    ========================================================= */
 

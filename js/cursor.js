@@ -1,5 +1,5 @@
 /* =========================================================
-   CUSTOM CURSOR — Magnetic Friction (SK Portfolio)
+   CUSTOM CURSOR - Magnetic Friction (SK Portfolio)
    Two shapes with target-LERP physics, branded colours.
    Shape A (lead): ink circle, faster friction (0.18)
    Shape B (trail): ultramarine square 45° rotated, slower (0.08)
@@ -47,10 +47,10 @@
   }, { passive: true });
 
   function engine() {
-    // Lead: faster TLERP — feels attached, responsive
+    // Lead: faster TLERP - feels attached, responsive
     lx += (mx - lx) * 0.22;
     ly += (my - ly) * 0.22;
-    // Trail: slower TLERP — creates elasticity / separation
+    // Trail: slower TLERP - creates elasticity / separation
     tx += (mx - tx) * 0.10;
     ty += (my - ty) * 0.10;
     // Trail rotation drifts slowly with movement direction for organic motion
@@ -64,7 +64,7 @@
   }
   engine();
 
-  // Hover targets — grow + change colour to ultramarine
+  // Hover targets - grow + change colour to ultramarine
   var growSel = 'a, button, .btn, [role=button], .work-card, .filter-pill, .cert-card, .gallery-item, .blog-row, .we-row, .v3-btn, .v3-gallery-frame, .sw-card, .panel-close-btn, input, textarea, select';
   var imgSel = '.v3-gallery-frame img, .panel-gallery img, .gallery-item img, .work-card img, .card-img';
 

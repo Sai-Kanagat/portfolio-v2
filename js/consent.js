@@ -1,5 +1,5 @@
 /* =========================================================
-   CONSENT MODE v2 — minimal GDPR cookie banner
+   CONSENT MODE v2 - minimal GDPR cookie banner
    Shows once. Stores choice in localStorage.
    Updates Google Consent Mode on accept/decline.
    ========================================================= */

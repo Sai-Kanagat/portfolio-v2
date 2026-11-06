@@ -1,5 +1,5 @@
 /* =========================================================
-   HERO LOOP — Direction B · WIPE (faithful port)
+   HERO LOOP - Direction B · WIPE (faithful port)
    Source: /Users/saikanagat/Downloads/sai-kanagat/project/scenes/direction-b.jsx
            + scenes/shared.jsx (Mark = square with triangle clip-paths)
    Plays once · settles · holds (no time loop).
@@ -110,11 +110,11 @@
 
   // ---------- Direction B animation timeline ----------
   // 0.40–1.40 ink half sweeps in (upper-left diagonal)
-  // 1.70–2.35 accent half sweeps in (lower-right diagonal) — BEAT at 2.25
+  // 1.70–2.35 accent half sweeps in (lower-right diagonal) - BEAT at 2.25
   // 2.80–3.85 mark CONTRACTS to lockup
   // 3.85–4.55 wordmark wipes in from left
   // 4.55–7.00 hold + subtle accent pulse beat at 6.95
-  // After 7.5  fully settled — animation ends, holds forever
+  // After 7.5  fully settled - animation ends, holds forever
   var TOTAL = 7.6;
 
   function frame(t){
@@ -143,7 +143,7 @@
     // Apply mark contraction
     mark.style.transform = 'translate(0,0) scale(' + scale + ')';
 
-    // Beat ring (around the contracted mark — sized in canvas px relative to FINAL)
+    // Beat ring (around the contracted mark - sized in canvas px relative to FINAL)
     if (beatPulse > 0.02){
       // Convert FINAL world size to frame % so it sits around the contracted mark
       var ringSize = FINAL + 20;
@@ -167,7 +167,7 @@
     var t = (now - start) / 1000;
     if (t >= TOTAL){
       paintFinal();
-      return; // Animation ends — holds the final composition forever
+      return; // Animation ends - holds the final composition forever
     }
     frame(t);
     requestAnimationFrame(tick);

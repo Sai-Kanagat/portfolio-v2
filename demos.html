@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Consent Mode v2 default — denied inside EEA/UK/Switzerland (GDPR), granted elsewhere -->
+  <!-- Consent Mode v2 default: denied inside EEA/UK/Switzerland (GDPR), granted elsewhere -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
-// Default: granted everywhere (for non-EEA traffic — recruiters in US/India/etc)
+// Default: granted everywhere (for non-EEA traffic, such as recruiters in US/India/etc)
 gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'granted','functionality_storage':'granted','security_storage':'granted','wait_for_update':500});
 // Override: denied for EEA, UK, Switzerland (legally required until user accepts)
 gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied','region':['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH'],'wait_for_update':500});
@@ -14,7 +14,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 <script>(function(){try{if(/\.pages\.dev$/i.test(location.hostname)){location.replace("https://saikanagat.com"+location.pathname+location.search+location.hash);}}catch(e){}})();</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Demos — Sai Kanagat | Interactive Creative-Code Experiments</title>
+  <title>Demos | Sai Kanagat | Interactive Creative-Code Experiments</title>
   <meta name="description" content="Live, interactive browser demos by Sai Kanagat: Cortex Studio, Agora, a hand-tracked cursor, colour physics, a ROAS calculator, a poster generator and an audio visualizer." />
   <meta name="author" content="Sai Prathyaksh Kanagat" />
   <link rel="canonical" href="https://saikanagat.com/demos" />
@@ -22,7 +22,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Sai Kanagat" />
-  <meta property="og:title" content="Demos — Sai Kanagat" />
+  <meta property="og:title" content="Demos | Sai Kanagat" />
   <meta property="og:description" content="Live, interactive browser demos: Cortex Studio, Agora, Hand Cursor, Colour Physics, ROAS Playground, Swiss Poster Generator and Audio Visualizer." />
   <meta property="og:url" content="https://saikanagat.com/demos" />
   <meta property="og:image" content="https://saikanagat.com/og-image.jpg" />
@@ -31,30 +31,30 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Demos — Sai Kanagat" />
+  <meta name="twitter:title" content="Demos | Sai Kanagat" />
   <meta name="twitter:description" content="Live, interactive browser demos: Cortex Studio, Agora, Hand Cursor, Colour Physics, ROAS Playground, Swiss Poster Generator and Audio Visualizer." />
   <meta name="twitter:image" content="https://saikanagat.com/og-image.jpg" />
-  <meta name="twitter:image:alt" content="Sai Kanagat — Industrial Designer × Digital Marketer · Bologna, Italy" />
+  <meta name="twitter:image:alt" content="Sai Kanagat, Industrial Designer × Digital Marketer · Bologna, Italy" />
   <meta name="twitter:site" content="@saikanagat" />
   <meta name="twitter:creator" content="@saikanagat" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Sai Kanagat — Industrial Designer × Digital Marketer · Bologna, Italy" />
+  <meta property="og:image:alt" content="Sai Kanagat, Industrial Designer × Digital Marketer · Bologna, Italy" />
 
   <!-- JSON-LD CollectionPage / ItemList -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    "name": "Demos — Sai Kanagat",
+    "name": "Demos | Sai Kanagat",
     "url": "https://saikanagat.com/demos",
     "author": {"@type": "Person", "name": "Sai Prathyaksh Kanagat"},
     "mainEntity": {
       "@type": "ItemList",
       "itemListElement": [
-        {"@type": "ListItem", "position": 1, "item": {"@type": "SoftwareApplication", "name": "Agora — Opinion Sandbox", "applicationCategory": "WebApplication"}},
-        {"@type": "ListItem", "position": 2, "item": {"@type": "SoftwareApplication", "name": "Hand Cursor — Gesture Control", "applicationCategory": "WebApplication"}},
-        {"@type": "ListItem", "position": 3, "item": {"@type": "SoftwareApplication", "name": "Colour Physics — Webcam Greenscreen", "applicationCategory": "WebApplication"}}
+        {"@type": "ListItem", "position": 1, "item": {"@type": "SoftwareApplication", "name": "Agora: Opinion Sandbox", "applicationCategory": "WebApplication"}},
+        {"@type": "ListItem", "position": 2, "item": {"@type": "SoftwareApplication", "name": "Hand Cursor: Gesture Control", "applicationCategory": "WebApplication"}},
+        {"@type": "ListItem", "position": 3, "item": {"@type": "SoftwareApplication", "name": "Colour Physics: Webcam Greenscreen", "applicationCategory": "WebApplication"}}
       ]
     }
   }
@@ -93,7 +93,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     .demo-tile-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
     .demo-tile-tag { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase; padding: 4px 8px; border: 1px solid rgba(245,240,232,0.3); border-radius: 2px; color: rgba(245,240,232,0.85); }
     /* tile backgrounds */
-    /* demo thumbnails — real preview image + dark scrim so the tile text stays readable */
+    /* demo thumbnails: real preview image + dark scrim so the tile text stays readable */
     .demo-tile-bg.bg-agora, .demo-tile-bg.bg-hands, .demo-tile-bg.bg-balls,
     .demo-tile-bg.bg-roas, .demo-tile-bg.bg-poster, .demo-tile-bg.bg-audio, .demo-tile-bg.bg-cortex {
       position: absolute !important; inset: 0 !important; height: auto !important;
@@ -143,7 +143,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     <a href="brand-identity.html" class="nav-score-btn" data-en="View Brandbook" data-it="Vedi Brandbook">View Brandbook</a>
   </div>
   <div class="lang-toggle" aria-label="Language"><button type="button" data-l="en" class="is-active">EN</button><span>/</span><button type="button" data-l="it">IT</button></div>
-  <div class="nav-tag">Available — EU &amp; Remote</div>
+  <div class="nav-tag">Available: EU &amp; Remote</div>
   <button class="nav-hamburger" id="hamburger" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
@@ -184,7 +184,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
             <h2 class="demo-tile-title" style="margin: 14px 0 0;">Agora<br><span style="color: rgba(245,240,232,0.6); font-size: 0.42em; letter-spacing: 0.18em;">OPINION SANDBOX</span></h2>
           </div>
           <div class="demo-tile-meta">
-            <p class="demo-tile-desc">Type any scenario — pricing change, policy proposal, brand pivot — and a synthetic crowd of personas reacts in real time. Get a full prediction report at the end with stance distribution, key influencers and an inflection timeline.</p>
+            <p class="demo-tile-desc">Type any scenario (pricing change, policy proposal, brand pivot) and a synthetic crowd of personas reacts in real time. Get a full prediction report at the end with stance distribution, key influencers and an inflection timeline.</p>
             <div class="demo-tile-tags">
               <span class="demo-tile-tag">Multi-agent</span>
               <span class="demo-tile-tag">Prediction</span>
@@ -203,7 +203,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
             <h2 class="demo-tile-title" style="margin: 14px 0 0;">Hand Cursor<br><span style="color: rgba(245,240,232,0.6); font-size: 0.42em; letter-spacing: 0.18em;">GESTURE CONTROL</span></h2>
           </div>
           <div class="demo-tile-meta">
-            <p class="demo-tile-desc">Move your computer's cursor with your hand. Point to move, pinch thumb &amp; index to click. Pop the targets. Built on MediaPipe Hands — runs entirely in-browser, camera feed never leaves your machine.</p>
+            <p class="demo-tile-desc">Move your computer's cursor with your hand. Point to move, pinch thumb &amp; index to click. Pop the targets. Built on MediaPipe Hands, it runs entirely in-browser and the camera feed never leaves your machine.</p>
             <div class="demo-tile-tags">
               <span class="demo-tile-tag">Computer Vision</span>
               <span class="demo-tile-tag">MediaPipe</span>
@@ -222,7 +222,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
             <h2 class="demo-tile-title" style="margin: 14px 0 0;">Colour Physics<br><span style="color: rgba(245,240,232,0.6); font-size: 0.42em; letter-spacing: 0.18em;">WEBCAM GREENSCREEN</span></h2>
           </div>
           <div class="demo-tile-meta">
-            <p class="demo-tile-desc">Pick a colour. Hold up any object matching that colour to your webcam — phone case, bottle cap, your shirt — and it becomes a physics paddle. Falling balls bounce off it in real time.</p>
+            <p class="demo-tile-desc">Pick a colour. Hold up any object matching that colour to your webcam (phone case, bottle cap, your shirt) and it becomes a physics paddle. Falling balls bounce off it in real time.</p>
             <div class="demo-tile-tags">
               <span class="demo-tile-tag">HSV Tracking</span>
               <span class="demo-tile-tag">Physics</span>
@@ -241,7 +241,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
             <h2 class="demo-tile-title" style="margin: 14px 0 0;">ROAS<br><span style="color: rgba(245,240,232,0.6); font-size: 0.42em; letter-spacing: 0.18em;">PLAYGROUND</span></h2>
           </div>
           <div class="demo-tile-meta">
-            <p class="demo-tile-desc">Tune a paid-media plan — spend, CPC, conversion rate, AOV, margin — and watch ROAS, profit, CAC and break-even recalculate live, with a profit curve as spend scales. The marketing brain, made interactive.</p>
+            <p class="demo-tile-desc">Tune a paid-media plan (spend, CPC, conversion rate, AOV, margin) and watch ROAS, profit, CAC and break-even recalculate live, with a profit curve as spend scales. The marketing brain, made interactive.</p>
             <div class="demo-tile-tags">
               <span class="demo-tile-tag">Paid Media</span>
               <span class="demo-tile-tag">Unit Economics</span>
@@ -260,7 +260,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
             <h2 class="demo-tile-title" style="margin: 14px 0 0;">Swiss Poster<br><span style="color: rgba(245,240,232,0.6); font-size: 0.42em; letter-spacing: 0.18em;">GENERATOR</span></h2>
           </div>
           <div class="demo-tile-meta">
-            <p class="demo-tile-desc">Parametric International-style poster design — grid, scale contrast and a single accent, recomposed from a seed. Type your own headline, pick a palette, regenerate until it sings, export print-ready PNG.</p>
+            <p class="demo-tile-desc">Parametric International-style poster design: grid, scale contrast and a single accent, recomposed from a seed. Type your own headline, pick a palette, regenerate until it sings, export print-ready PNG.</p>
             <div class="demo-tile-tags">
               <span class="demo-tile-tag">Generative</span>
               <span class="demo-tile-tag">Typography</span>
@@ -279,7 +279,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
             <h2 class="demo-tile-title" style="margin: 14px 0 0;">Audio<br><span style="color: rgba(245,240,232,0.6); font-size: 0.42em; letter-spacing: 0.18em;">VISUALIZER</span></h2>
           </div>
           <div class="demo-tile-meta">
-            <p class="demo-tile-desc">A radial frequency bloom that reacts to live sound — clap, talk or play music and watch it breathe. Pure Web Audio, runs entirely in-browser. No mic? A built-in demo tone drives it instead.</p>
+            <p class="demo-tile-desc">A radial frequency bloom that reacts to live sound: clap, talk or play music and watch it breathe. Pure Web Audio, runs entirely in-browser. No mic? A built-in demo tone drives it instead.</p>
             <div class="demo-tile-tags">
               <span class="demo-tile-tag">Web Audio</span>
               <span class="demo-tile-tag">Reactive</span>

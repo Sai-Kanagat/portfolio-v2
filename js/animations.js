@@ -1,5 +1,5 @@
 /* =========================================================
-   ANIMATIONS — SK Portfolio
+   ANIMATIONS - SK Portfolio
    - Hero character split reveal
    - Staggered section reveals
    - Scroll reveal (IntersectionObserver)

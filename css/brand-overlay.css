@@ -1,12 +1,12 @@
 /* =========================================================
-   BRAND OVERLAY v3 — sai kanagat personal identity system
+   BRAND OVERLAY v3 - sai kanagat personal identity system
    Comprehensive override layer. Loaded LAST.
    Design principles applied:
-     · Clarity (Apple HIG)        — every text legible, contrast > AA
-     · Deference                  — chrome recedes, content is hero
-     · Depth                      — subtle elevation, true layering
-     · Restraint (Rams · Ive)     — one accent, used surgically
-     · Quality                    — tokens consistent, no orphans
+     · Clarity (Apple HIG)        - every text legible, contrast > AA
+     · Deference                  - chrome recedes, content is hero
+     · Depth                      - subtle elevation, true layering
+     · Restraint (Rams · Ive)     - one accent, used surgically
+     · Quality                    - tokens consistent, no orphans
    ========================================================= */
 @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 
@@ -24,7 +24,7 @@
   --accent-up: oklch(0.55 0.22 262);
   --accent-soft: oklch(0.93 0.04 265);
 
-  /* neutrals — cool warm-grey scale */
+  /* neutrals - cool warm-grey scale */
   --n-50:  oklch(0.985 0.003 260);
   --n-100: oklch(0.955 0.004 260);
   --n-200: oklch(0.915 0.006 260);
@@ -56,7 +56,7 @@
   --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
 
-  /* transform / interaction tokens — read by js/interactions.js */
+  /* transform / interaction tokens - read by js/interactions.js */
   --tilt-max: 4;            /* card 3D tilt max in degrees (Marin-restraint) */
   --tilt-perspective: 1000; /* px */
   --magnetic-radius: 110;   /* button attract radius in px */
@@ -151,7 +151,7 @@ em, .brand-italic, .serif-italic {
 .btn-outline-yellow:hover { background: var(--accent-up); color: var(--paper); }
 
 /* ───────────────────────────────────────────────────────
-   HERO LOOP SECTION (homepage) — paper bg, ink mark, ultramarine accent
+   HERO LOOP SECTION (homepage) - paper bg, ink mark, ultramarine accent
    ─────────────────────────────────────────────────────── */
 .hero-loop-section {
   background: var(--paper);
@@ -209,7 +209,7 @@ em, .brand-italic, .serif-italic {
 .post-title span[style*="color: var(--yellow)"] { color: var(--accent) !important; }
 
 /* ───────────────────────────────────────────────────────
-   FILTER PILLS — quiet text-link tabs (Marin Kurir-flavoured)
+   FILTER PILLS - quiet text-link tabs (Marin Kurir-flavoured)
    ─────────────────────────────────────────────────────── */
 .filter-pills { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 28px; }
 .filter-pill {
@@ -243,7 +243,7 @@ em, .brand-italic, .serif-italic {
 .tag.design, .tag.marketing, .tag.collab, .tag.systems { color: var(--accent-soft) !important; border-color: rgba(244,243,239,0.22) !important; }
 
 /* ───────────────────────────────────────────────────────
-   PROJECT DETAIL PANEL — paper surface, ink text
+   PROJECT DETAIL PANEL - paper surface, ink text
    ─────────────────────────────────────────────────────── */
 .project-panel { background: var(--paper) !important; color: var(--ink); }
 .panel-backdrop { background: rgba(16,18,28,0.5) !important; backdrop-filter: blur(6px); }
@@ -283,7 +283,7 @@ em, .brand-italic, .serif-italic {
 .marquee-track span { color: inherit; }
 
 /* ───────────────────────────────────────────────────────
-   HOMEPAGE — selected work + discipline split
+   HOMEPAGE - selected work + discipline split
    ─────────────────────────────────────────────────────── */
 .work-section { background: var(--paper); }
 .work-section h2 { color: var(--ink); }
@@ -379,7 +379,7 @@ em, .brand-italic, .serif-italic {
 .contact-form label { color: var(--n-500); font-family: var(--mono); font-size: var(--t-xs); letter-spacing: 0.18em; text-transform: uppercase; }
 
 /* ───────────────────────────────────────────────────────
-   FOOTER — ink surface
+   FOOTER - ink surface
    ─────────────────────────────────────────────────────── */
 .footer { background: var(--ink) !important; color: var(--paper) !important; border-top: none !important; padding: 64px 32px; }
 .footer-logo, .footer-logo span { color: var(--paper) !important; }
@@ -412,7 +412,7 @@ em, .brand-italic, .serif-italic {
 .lang-toggle span { color: var(--n-300); }
 
 /* ───────────────────────────────────────────────────────
-   LIGHTBOX — refine to brand
+   LIGHTBOX - refine to brand
    ─────────────────────────────────────────────────────── */
 .lb-overlay { background: rgba(16,18,28,0.94); }
 .lb-close, .lb-prev, .lb-next { background: rgba(244,243,239,0.08); border: 1px solid rgba(244,243,239,0.2); color: var(--paper); border-radius: var(--r-full); font-family: var(--mono); }
@@ -420,7 +420,7 @@ em, .brand-italic, .serif-italic {
 .lb-caption { color: rgba(244,243,239,0.7); font-family: var(--mono); }
 
 /* ───────────────────────────────────────────────────────
-   SKILLS BOUNCE — keep visible on paper
+   SKILLS BOUNCE - keep visible on paper
    ─────────────────────────────────────────────────────── */
 .skills-bounce { background: var(--paper); border-top: 1px solid var(--n-300); border-bottom: 1px solid var(--n-300); }
 .skills-bounce-header h2 { color: var(--ink); }
@@ -434,14 +434,14 @@ em, .brand-italic, .serif-italic {
 .brand-disc { display: inline-block; width: 0.55em; height: 0.55em; border-radius: 50%; background: var(--ink); vertical-align: middle; margin-right: 0.4em; }
 .brand-dot { color: var(--accent); }
 
-/* Focus states — accessibility (WCAG 2.4.7) */
+/* Focus states - accessibility (WCAG 2.4.7) */
 a:focus-visible, button:focus-visible, .btn:focus-visible, .filter-pill:focus-visible, .nav-score-btn:focus-visible, .we-row:focus-visible, .blog-row:focus-visible, input:focus-visible, textarea:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: var(--r-3);
 }
 
-/* Skip to content — accessibility (WCAG 2.4.1) */
+/* Skip to content - accessibility (WCAG 2.4.1) */
 .skip-link {
   position: absolute; left: -9999px; top: 0;
   background: var(--ink); color: var(--paper);
@@ -453,7 +453,7 @@ a:focus-visible, button:focus-visible, .btn:focus-visible, .filter-pill:focus-vi
   left: 18px; top: 18px; outline: 2px solid var(--accent); outline-offset: 3px;
 }
 
-/* Discipline split (homepage) — bring into brand */
+/* Discipline split (homepage) - bring into brand */
 .discipline-split { padding: 96px 32px; gap: 32px; }
 .discipline-col { padding: 32px; background: var(--paper-pure); border-radius: var(--r-4); border: 1px solid var(--n-300); }
 .discipline-col h2 { font-family: var(--sans); font-weight: 500; letter-spacing: -0.025em; font-size: clamp(28px, 4vw, 48px); line-height: 1; }
@@ -469,7 +469,7 @@ a:focus-visible, button:focus-visible, .btn:focus-visible, .filter-pill:focus-vi
 .work-grid { gap: 14px; margin-top: 48px; }
 .work-grid .work-card { aspect-ratio: 4/5; }
 
-/* Hero number / corner mark on homepage — kill if present */
+/* Hero number / corner mark on homepage - kill if present */
 .hero-number { display: none !important; }
 
 /* Process page */
@@ -483,7 +483,7 @@ a:focus-visible, button:focus-visible, .btn:focus-visible, .filter-pill:focus-vi
 /* Smooth scroll */
 html { scroll-behavior: smooth; }
 
-/* Reduced motion respect — kill all transitions/animations */
+/* Reduced motion respect - kill all transitions/animations */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
   .we-row:hover { padding-left: 8px; }
@@ -529,7 +529,7 @@ html { scroll-behavior: smooth; }
   .we-preview { display: none; }
 }
 
-/* Custom cursor — restored, ultramarine palette */
+/* Custom cursor - restored, ultramarine palette */
 .cursor-dot, .cursor-ring { display: block !important; pointer-events: none; }
 .cursor-dot {
   position: fixed; top: 0; left: 0; z-index: 9999;
@@ -561,7 +561,7 @@ body.is-hover .cursor-dot { background: var(--accent); }
 .loader-screen * { color: var(--paper) !important; }
 
 /* ───────────────────────────────────────────────────────
-   TAG VARIANTS — visually differentiated (was: identical)
+   TAG VARIANTS - visually differentiated (was: identical)
    ─────────────────────────────────────────────────────── */
 .tag { background: rgba(244,243,239,0.10) !important; color: rgba(244,243,239,0.85) !important; border: 1px solid rgba(244,243,239,0.18) !important; }
 .tag.design   { color: var(--accent-soft) !important; border-color: rgba(140, 120, 255, 0.35) !important; }
@@ -570,7 +570,7 @@ body.is-hover .cursor-dot { background: var(--accent); }
 .tag.collab   { color: var(--paper) !important; border-color: rgba(244,243,239,0.40) !important; background: rgba(244,243,239,0.18) !important; }
 
 /* ───────────────────────────────────────────────────────
-   FOCUS — universal keyboard-only visible state
+   FOCUS - universal keyboard-only visible state
    Action 7 · supersedes the earlier narrower rule
    ─────────────────────────────────────────────────────── */
 .work-card:focus-visible,
@@ -620,7 +620,7 @@ input:focus-visible, textarea:focus-visible {
   .discipline-col h2 { font-size: clamp(28px, 5vw, 44px); line-height: 1.05; }
 }
 
-/* WORK editorial list — restructure on small screens so titles read
+/* WORK editorial list - restructure on small screens so titles read
    on one line instead of wrapping one word at a time. */
 @media (max-width: 640px) {
   .work-editorial { padding: 20px 16px 56px; }
@@ -649,10 +649,10 @@ input:focus-visible, textarea:focus-visible {
   .timeline-section,
   .work-page-header,
   .contact-hero { padding-left: 18px; padding-right: 18px; }
-  /* About bio text — make sure body text is ≥16px */
+  /* About bio text - make sure body text is ≥16px */
   .about-bio-text p { font-size: 16px; line-height: 1.65; }
   .about-bio-intro { font-size: clamp(18px, 5vw, 22px); }
-  /* Timeline — collapse the absolute year into inline label */
+  /* Timeline - collapse the absolute year into inline label */
   .timeline { padding-left: 28px; }
   .timeline::before { left: 8px; }
   .timeline-item::before { left: -24px; top: 28px; }
@@ -668,14 +668,14 @@ input:focus-visible, textarea:focus-visible {
   .timeline-role { font-size: 1.05rem; }
   /* Stacks for tighter footer + nav links inside hamburger panel */
   .nav-links.open a { font-size: 1.05rem; padding: 6px 0; }
-  /* Marquee track velocity — smaller text on mobile so it doesn't dwarf */
+  /* Marquee track velocity - smaller text on mobile so it doesn't dwarf */
   .marquee-track span { font-size: clamp(14px, 4vw, 22px); }
   /* Filter pills should wrap cleanly */
   .filter-pills { gap: 8px; }
   .filter-pill { padding: 8px 14px; font-size: 0.65rem; min-height: 36px; }
 }
 
-/* Touch target minimums — 44x44 for all interactive elements on touch */
+/* Touch target minimums - 44x44 for all interactive elements on touch */
 @media (hover: none), (pointer: coarse) {
   .nav-hamburger,
   .lang-toggle button,
@@ -689,7 +689,7 @@ input:focus-visible, textarea:focus-visible {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   PROJECT DETAIL PANEL — REDESIGN v3 (Vanguard / Editorial Luxury)
+   PROJECT DETAIL PANEL - REDESIGN v3 (Vanguard / Editorial Luxury)
    Doppelrand nested architecture · Editorial split layout
    Staggered scroll reveals · Magnetic CTA physics
    ═══════════════════════════════════════════════════════════ */
@@ -706,7 +706,7 @@ input:focus-visible, textarea:focus-visible {
 }
 .project-panel.open { transform: translateX(0); }
 
-/* Subtle film-grain overlay — fixed, pointer-events:none, no scroll repaints */
+/* Subtle film-grain overlay - fixed, pointer-events:none, no scroll repaints */
 .project-panel::before {
   content: '';
   position: absolute; inset: 0;
@@ -717,7 +717,7 @@ input:focus-visible, textarea:focus-visible {
   mix-blend-mode: multiply;
 }
 
-/* Sticky top bar — fluid glass island, not a default border-bottom rectangle */
+/* Sticky top bar - fluid glass island, not a default border-bottom rectangle */
 .project-panel .panel-close {
   position: sticky;
   top: 20px;
@@ -778,7 +778,7 @@ input:focus-visible, textarea:focus-visible {
   color: var(--paper) !important;
 }
 
-/* Content shell — relax padding, give massive whitespace */
+/* Content shell - relax padding, give massive whitespace */
 .project-panel .panel-content {
   padding: 64px 56px 120px !important;
   color: var(--ink) !important;
@@ -841,7 +841,7 @@ input:focus-visible, textarea:focus-visible {
   margin: 0 0 56px;
 }
 
-/* Asymmetrical Bento meta — Doppelrand cards */
+/* Asymmetrical Bento meta - Doppelrand cards */
 .v3-meta {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -887,7 +887,7 @@ input:focus-visible, textarea:focus-visible {
 .v3-meta-card.accent .v3-meta-card-label { color: oklch(1 0 0 / 0.7); }
 .v3-meta-card.accent .v3-meta-card-val { color: var(--paper); }
 
-/* Gallery — bento, Z-axis cascade hover, double-bezel frames */
+/* Gallery - bento, Z-axis cascade hover, double-bezel frames */
 .v3-gallery {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
@@ -938,7 +938,7 @@ input:focus-visible, textarea:focus-visible {
   color: var(--n-500);
 }
 
-/* Body prose — generous measure */
+/* Body prose - generous measure */
 .v3-body {
   font-family: var(--serif);
   font-weight: 400;
@@ -970,7 +970,7 @@ input:focus-visible, textarea:focus-visible {
 }
 .v3-body li { margin-bottom: 8px; line-height: 1.65; }
 
-/* Highlight — NOT a colored-left-border. A physical card. */
+/* Highlight - NOT a colored-left-border. A physical card. */
 .v3-highlight {
   position: relative;
   padding: 6px;
@@ -1016,7 +1016,7 @@ input:focus-visible, textarea:focus-visible {
   position: relative;
 }
 
-/* CTA row — magnetic island buttons */
+/* CTA row - magnetic island buttons */
 .v3-ctas {
   display: flex;
   flex-wrap: wrap;
@@ -1090,7 +1090,7 @@ input:focus-visible, textarea:focus-visible {
 }
 .v3-btn-icon svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 1.5; }
 
-/* Tags row — minimal pills */
+/* Tags row - minimal pills */
 .v3-tags {
   display: flex; flex-wrap: wrap; gap: 6px;
   margin: 0 0 16px;
@@ -1107,7 +1107,7 @@ input:focus-visible, textarea:focus-visible {
   box-shadow: inset 0 0 0 1px oklch(0.16 0.012 260 / 0.05);
 }
 
-/* Staggered entry animations — fire when .open is added */
+/* Staggered entry animations - fire when .open is added */
 .v3-reveal {
   opacity: 0;
   transform: translateY(28px);
@@ -1136,7 +1136,7 @@ input:focus-visible, textarea:focus-visible {
   .v3-gallery-frame, .v3-gallery-frame img, .v3-btn, .v3-btn-icon { transition: none !important; }
 }
 
-/* Mobile collapse — single column, tighten paddings */
+/* Mobile collapse - single column, tighten paddings */
 @media (max-width: 768px) {
   .project-panel .panel-content { padding: 40px 22px 96px !important; }
   .project-panel .panel-close { margin: 14px 14px 0; padding: 10px 12px !important; }
@@ -1154,7 +1154,7 @@ input:focus-visible, textarea:focus-visible {
   .v3-btn { justify-content: space-between; }
 }
 
-/* All button text white — override variant defaults */
+/* All button text white - override variant defaults */
 .btn,
 .btn-primary,
 .btn-outline,
@@ -1174,12 +1174,12 @@ input:focus-visible, textarea:focus-visible {
 .filter-pill.active { background: var(--accent) !important; border-color: var(--accent) !important; }
 
 /* Stop horizontal overflow without breaking position:sticky.
-   overflow-x: hidden on ancestors disables sticky — use overflow-x: clip instead. */
+   overflow-x: hidden on ancestors disables sticky - use overflow-x: clip instead. */
 html { max-width: 100vw; }
 body { overflow-x: clip; max-width: 100vw; }
 img, video, iframe, canvas { max-width: 100%; height: auto; }
 
-/* Demo canvases — keep them within viewport on mobile */
+/* Demo canvases - keep them within viewport on mobile */
 @media (max-width: 768px) {
   .demo-card canvas,
   #agora-canvas,
@@ -1188,7 +1188,7 @@ img, video, iframe, canvas { max-width: 100%; height: auto; }
   .demo-card { padding: 20px !important; }
 }
 
-/* CV / brand-identity page — make wide tables scroll instead of overflow */
+/* CV / brand-identity page - make wide tables scroll instead of overflow */
 @media (max-width: 768px) {
   .swatch-row,
   .voice-grid,
@@ -1205,7 +1205,7 @@ img, video, iframe, canvas { max-width: 100%; height: auto; }
    Magnetic CTAs · Refined footer
    ═══════════════════════════════════════════════════════════ */
 
-/* — Marquee: less corporate strip, more editorial ribbon — */
+/* - Marquee: less corporate strip, more editorial ribbon - */
 .marquee-wrap {
   background: var(--paper) !important;
   border-top: 1px solid oklch(0.16 0.012 260 / 0.08) !important;
@@ -1240,7 +1240,7 @@ img, video, iframe, canvas { max-width: 100%; height: auto; }
 }
 .marquee-track span:hover { color: var(--accent); }
 
-/* — Work cards: Doppelrand framing + lift on hover — */
+/* - Work cards: Doppelrand framing + lift on hover - */
 .work-grid .work-card {
   border-radius: 22px !important;
   overflow: hidden !important;
@@ -1270,7 +1270,7 @@ img, video, iframe, canvas { max-width: 100%; height: auto; }
   transform: scale(1.03) !important;
 }
 
-/* — Work-section header: tighter editorial pairing — */
+/* - Work-section header: tighter editorial pairing - */
 .work-section { padding: clamp(72px, 10vw, 140px) var(--pad-x) !important; }
 .work-section .work-header h2 {
   font-family: var(--sans) !important;
@@ -1282,7 +1282,7 @@ img, video, iframe, canvas { max-width: 100%; height: auto; }
   color: var(--ink);
 }
 
-/* — Section labels: refined chip style — */
+/* - Section labels: refined chip style - */
 .section-label {
   display: inline-flex !important;
   align-items: center;
@@ -1303,7 +1303,7 @@ img, video, iframe, canvas { max-width: 100%; height: auto; }
   letter-spacing: 0 !important;
 }
 
-/* — Discipline split refresh — */
+/* - Discipline split refresh - */
 .discipline-split {
   background: var(--paper) !important;
   color: var(--ink) !important;
@@ -1345,7 +1345,7 @@ img, video, iframe, canvas { max-width: 100%; height: auto; }
 }
 .discipline-list li:last-child { border-bottom: none !important; }
 
-/* — Stats strip: glass island with concentric structure — */
+/* - Stats strip: glass island with concentric structure - */
 .stats-strip {
   background: var(--paper) !important;
   margin: clamp(72px, 10vw, 120px) clamp(20px, 4vw, 56px) !important;
@@ -1392,7 +1392,7 @@ img, video, iframe, canvas { max-width: 100%; height: auto; }
   line-height: 1.5;
 }
 
-/* — About teaser: Z-axis cascade (two slightly offset blocks) — */
+/* - About teaser: Z-axis cascade (two slightly offset blocks) - */
 .about-teaser {
   background: var(--paper) !important;
   padding: clamp(96px, 14vw, 160px) clamp(24px, 5vw, 96px) !important;
@@ -1446,7 +1446,7 @@ img, video, iframe, canvas { max-width: 100%; height: auto; }
   .about-teaser-right::before { display: none; }
 }
 
-/* — Contact CTA section: massive outlined headline framed by a soft box — */
+/* - Contact CTA section: massive outlined headline framed by a soft box - */
 main > section:last-of-type {
   background: var(--paper) !important;
 }
@@ -1460,7 +1460,7 @@ main > section:last-of-type h2 {
   color: var(--ink) !important;
 }
 
-/* — Footer polish: minimal, refined, breathing — */
+/* - Footer polish: minimal, refined, breathing - */
 .footer {
   background: var(--ink) !important;
   color: oklch(1 0 0 / 0.7) !important;
@@ -1511,7 +1511,7 @@ main > section:last-of-type h2 {
   .footer-socials { justify-content: center; }
 }
 
-/* — Hero CTA buttons: magnetic micro-physics — */
+/* - Hero CTA buttons: magnetic micro-physics - */
 .hero-bottom-centered .btn,
 .hero-cta .btn {
   transition: transform 400ms cubic-bezier(0.32, 0.72, 0, 1), background 400ms cubic-bezier(0.32, 0.72, 0, 1), box-shadow 400ms cubic-bezier(0.32, 0.72, 0, 1) !important;
@@ -1521,7 +1521,7 @@ main > section:last-of-type h2 {
 .hero-bottom-centered .btn:active,
 .hero-cta .btn:active { transform: scale(0.98); }
 
-/* — Reveal enhancement: blur-fade on intersection — */
+/* - Reveal enhancement: blur-fade on intersection - */
 .reveal {
   filter: blur(4px);
   transform: translateY(40px);
@@ -1552,7 +1552,7 @@ main > section:last-of-type h2 {
    Brand-Identity: Editorial Luxury (already on cream)
    ═══════════════════════════════════════════════════════════ */
 
-/* — Aperol page Ethereal Glass treatment — */
+/* - Aperol page Ethereal Glass treatment - */
 body.ap-page,
 body:has(.ap-hero) {
   background: #050505 !important;
@@ -1601,7 +1601,7 @@ body:has(.ap-hero) .nav-score-btn { background: linear-gradient(135deg, #E55D34 
 .ap-section p, .ap-hero p { color: oklch(0.78 0.008 260); }
 .ap-section a:not(.btn), .ap-hero a:not(.btn) { color: oklch(0.7 0.18 28) !important; }
 
-/* — Brand-identity Editorial Luxury polish — */
+/* - Brand-identity Editorial Luxury polish - */
 body:has(.bi-cover),
 .bi-page {
   background: var(--paper) !important;
@@ -1624,7 +1624,7 @@ body:has(.bi-cover),
    Gallery: True masonry · Z-axis hover · lazy
    ═══════════════════════════════════════════════════════════ */
 
-/* — Demo tiles → Doppelrand framing — */
+/* - Demo tiles → Doppelrand framing - */
 .demo-tile {
   position: relative;
   padding: 8px !important;
@@ -1728,7 +1728,7 @@ body:has(.bi-cover),
   border: none !important;
 }
 
-/* — Gallery: masonry-style with hover lift — */
+/* - Gallery: masonry-style with hover lift - */
 .gallery-grid {
   column-count: 3 !important;
   column-gap: 12px !important;
@@ -1804,7 +1804,7 @@ body:has(.bi-cover),
    Contact: Doppelrand form inputs, magnetic submit
    ═══════════════════════════════════════════════════════════ */
 
-/* — About hero refresh — */
+/* - About hero refresh - */
 .about-hero {
   padding: clamp(96px, 14vw, 180px) clamp(24px, 5vw, 80px) clamp(64px, 9vw, 120px) !important;
 }
@@ -1845,7 +1845,7 @@ body:has(.bi-cover),
 .about-bio-text p strong { color: var(--ink); font-weight: 500; }
 .about-bio-text p em { font-style: italic; color: var(--accent-ink); }
 
-/* — Achievements grid: glass islands — */
+/* - Achievements grid: glass islands - */
 .achievements,
 .achievements-grid {
   padding: clamp(64px, 9vw, 120px) clamp(24px, 5vw, 80px) !important;
@@ -1876,7 +1876,7 @@ body:has(.bi-cover),
 .achievement-title { color: var(--ink) !important; }
 .achievement-desc { color: var(--n-700); }
 
-/* — Timeline rebuild: vertical line with year markers — */
+/* - Timeline rebuild: vertical line with year markers - */
 .timeline-section { padding: clamp(80px, 11vw, 140px) clamp(24px, 5vw, 80px) !important; }
 .timeline-section h2 {
   font-family: var(--sans) !important;
@@ -1938,7 +1938,7 @@ body:has(.bi-cover),
   max-width: 60ch;
 }
 
-/* — Certifications: nested cards — */
+/* - Certifications: nested cards - */
 .certs-section { padding: clamp(64px, 9vw, 120px) clamp(24px, 5vw, 80px) !important; }
 .cert-card {
   padding: 6px !important;
@@ -1956,7 +1956,7 @@ body:has(.bi-cover),
 .cert-issuer { color: var(--n-600); font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; }
 .cert-year { color: var(--accent); font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; }
 
-/* — Contact page polish — */
+/* - Contact page polish - */
 .contact-hero {
   padding: clamp(96px, 14vw, 180px) clamp(24px, 5vw, 80px) clamp(64px, 9vw, 100px) !important;
 }
@@ -2068,7 +2068,7 @@ body:has(.bi-cover),
    Editorial index list · hover preview · Newsreader prose
    ═══════════════════════════════════════════════════════════ */
 
-/* — Blog hero — */
+/* - Blog hero - */
 .blog-hero {
   padding: clamp(96px, 14vw, 180px) clamp(24px, 5vw, 80px) clamp(48px, 7vw, 80px) !important;
 }
@@ -2082,7 +2082,7 @@ body:has(.bi-cover),
   color: var(--ink) !important;
 }
 
-/* — Blog index rows: refined editorial list — */
+/* - Blog index rows: refined editorial list - */
 .blog-list {
   padding: 0 clamp(24px, 5vw, 80px) clamp(96px, 12vw, 144px) !important;
 }
@@ -2146,7 +2146,7 @@ body:has(.bi-cover),
   .blog-row-cta { display: none; }
 }
 
-/* — Blog post reading template — */
+/* - Blog post reading template - */
 .post-hero {
   padding: clamp(96px, 14vw, 180px) clamp(24px, 5vw, 80px) clamp(48px, 7vw, 72px) !important;
   max-width: 880px;
@@ -2290,7 +2290,7 @@ body:has(.bi-cover),
 
 
 
-/* Marquee — pull back to readable scale + lock animation smoothness */
+/* Marquee - pull back to readable scale + lock animation smoothness */
 .marquee-track {
   will-change: transform;
   animation: marquee 36s linear infinite !important;
@@ -2309,7 +2309,7 @@ body:has(.bi-cover),
   color: var(--accent) !important;
 }
 
-/* KILL legacy cursor system — replaced by .mag-cursor in cursor.js */
+/* KILL legacy cursor system - replaced by .mag-cursor in cursor.js */
 .cursor-dot, .cursor-ring { display: none !important; }
 
 /* "More from this project" gallery label */
@@ -2329,7 +2329,7 @@ body:has(.bi-cover),
   margin-bottom: 48px;
 }
 
-/* Ambient floating icons — drift in the TRUE background, peek through translucent sections */
+/* Ambient floating icons - drift in the TRUE background, peek through translucent sections */
 #ambientFloat {
   position: fixed;
   inset: 0;
@@ -2352,7 +2352,7 @@ main > section:not(.hero-stage-1):not(.shutter-transition):not(.hero-stage-3) {
 /* Nav, footer, panels stay solid */
 .nav { background: oklch(0.975 0.003 260 / 0.85) !important; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
 .footer { background: var(--ink) !important; }
-/* Z-index stacking only — DON'T override position on nav/panel/backdrop.
+/* Z-index stacking only - DON'T override position on nav/panel/backdrop.
    nav is position:fixed in styles.css, panel/backdrop are position:fixed too.
    Overriding these to relative breaks layout (causes double top space) and panel visibility. */
 main, footer { position: relative; z-index: 1; }
@@ -2361,7 +2361,7 @@ main, footer { position: relative; z-index: 1; }
 .panel-backdrop { z-index: 2000; }
 
 /* ═══════════════════════════════════════════════════════════
-   HERO EXPERIENCE v2 — Nav fixed, experience pinned in viewport
+   HERO EXPERIENCE v2 - Nav fixed, experience pinned in viewport
    Single sticky pin holds three stacked layers below the nav.
    Scroll progress 0..1 through the section drives the louvre flip
    and the cross-fade. After progress=1, page continues normally.
@@ -2384,7 +2384,7 @@ main { padding-top: var(--nav-height); }
 /* Skip-link should land below nav too */
 #main { scroll-margin-top: var(--nav-height); }
 
-/* Hero experience — scroll spacer container */
+/* Hero experience - scroll spacer container */
 .hero-experience {
   position: relative;
   height: 200vh;        /* scroll real estate */
@@ -2401,7 +2401,7 @@ main { padding-top: var(--nav-height); }
   width: 100%;
   overflow: hidden;
   perspective: 1400px;
-  /* Grid stack — all layers occupy the same cell, perfectly aligned */
+  /* Grid stack - all layers occupy the same cell, perfectly aligned */
   display: grid !important;
   grid-template-areas: "stack";
   grid-template-rows: 1fr;
@@ -2418,7 +2418,7 @@ main { padding-top: var(--nav-height); }
   will-change: opacity, transform;
 }
 
-/* LAYER 1 — Hero loop */
+/* LAYER 1 - Hero loop */
 .hero-layer-1 {
   background: var(--paper);
   z-index: 2;
@@ -2452,7 +2452,7 @@ main { padding-top: var(--nav-height); }
 .hero-layer-1 .hl-frame .hl-stage { border-radius: 0 !important; }
 .hero-layer-1 .hl-wordmark { bottom: -8px !important; color: var(--ink) !important; }
 
-/* Scroll cue — bottom of layer 1 */
+/* Scroll cue - bottom of layer 1 */
 .scroll-cue {
   position: absolute;
   bottom: 24px;
@@ -2492,7 +2492,7 @@ main { padding-top: var(--nav-height); }
   100% { transform: translateY(360%); opacity: 0; }
 }
 
-/* LAYER 2 — Shutter slats */
+/* LAYER 2 - Shutter slats */
 .hero-layer-shutter {
   z-index: 3;
   display: flex;
@@ -2520,7 +2520,7 @@ main { padding-top: var(--nav-height); }
   border-top: 2px solid var(--accent);
 }
 
-/* LAYER 3 — Tagline reveal */
+/* LAYER 3 - Tagline reveal */
 .hero-layer-3 {
   background: var(--ink);
   color: var(--paper);
@@ -2625,7 +2625,7 @@ main { padding-top: var(--nav-height); }
 }
 
 /* ───────────────────────────────────────────────────────
-   INNER PAGE HEROES — tighten excess top whitespace
+   INNER PAGE HEROES - tighten excess top whitespace
    gallery / about / contact / process / blog / demos all had
    ~500px of empty space above their H1 because of two stacked
    spacing systems (page padding + section padding). Tighten.

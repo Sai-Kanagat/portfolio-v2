@@ -35,7 +35,7 @@
     categories[card.dataset.project] = card.dataset.category || 'design';
   });
 
-  // Cover-image lookup — grab the first image from each project's images array
+  // Cover-image lookup - grab the first image from each project's images array
   function coverFor(id){
     var p = projects[id];
     if (!p) return null;
@@ -58,7 +58,7 @@
     var p = projects[id];
     if (!p) return;
     var num = String(idx + 1).padStart(2, '0');
-    var year = (p.year || '').split('—')[0].trim() || (p.year || '');
+    var year = (p.year || '').split(' - ')[0].trim() || (p.year || '');
     var role = (p.role || '').split('·')[0].split('/')[0].trim();
     var tags = (p.tags || []).slice(0, 2).join(' · ');
     var cover = coverFor(id);
@@ -69,17 +69,17 @@
     row.className = 'we-row';
     row.dataset.project = id;
     row.dataset.category = cat;
-    row.href = '#' + id; // always internal — case study opens in panel; external CTA lives inside
+    row.href = '#' + id; // always internal - case study opens in panel; external CTA lives inside
     row.setAttribute('data-cover', cover || '');
 
     row.innerHTML = '\
       <span class="we-num">' + num + '</span>\
-      <span class="we-year">' + (year || '—') + '</span>\
+      <span class="we-year">' + (year || '-') + '</span>\
       <span class="we-title">' + (p.title || id) + '</span>\
       <span class="we-role">' + (role ? role : '') + (tags ? ' · ' + tags : '') + '</span>\
       <span class="we-cta" data-en="View →" data-it="Apri →">View →</span>';
 
-    // Always open panel first — external links live inside the case study
+    // Always open panel first - external links live inside the case study
     row.addEventListener('click', function(e){
       if (e.metaKey || e.ctrlKey || e.shiftKey) return;
       e.preventDefault();

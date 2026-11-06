@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Consent Mode v2 default — denied inside EEA/UK/Switzerland (GDPR), granted elsewhere -->
+  <!-- Consent Mode v2 default: denied inside EEA/UK/Switzerland (GDPR), granted elsewhere -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
-// Default: granted everywhere (for non-EEA traffic — recruiters in US/India/etc)
+// Default: granted everywhere (for non-EEA traffic, such as recruiters in US/India/etc)
 gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'granted','functionality_storage':'granted','security_storage':'granted','wait_for_update':500});
 // Override: denied for EEA, UK, Switzerland (legally required until user accepts)
 gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied','region':['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH'],'wait_for_update':500});
@@ -13,13 +13,13 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 <!-- End Google Tag Manager -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Agora, and Why I Built a Sandbox for Public Opinion — Sai Kanagat</title>
-  <meta name="description" content="Marketing decisions are often made on intuition and defended with data after the fact. A multi-agent simulation flips the order — pressure-test the decision before it ships." />
+  <title>Agora, and Why I Built a Sandbox for Public Opinion | Sai Kanagat</title>
+  <meta name="description" content="Marketing decisions are often made on intuition and defended with data after the fact. A multi-agent simulation flips the order: pressure-test the decision before it ships." />
   <meta name="author" content="Sai Prathyaksh Kanagat" />
   <link rel="canonical" href="https://saikanagat.com/blog/agora-and-the-rehearsal-of-public-opinion" />
   <meta property="og:type" content="article" />
   <meta property="og:title" content="Agora, and Why I Built a Sandbox for Public Opinion" />
-  <meta property="og:description" content="Marketing decisions made on intuition, defended with data after — a multi-agent simulation flips that order." />
+  <meta property="og:description" content="Marketing decisions made on intuition, defended with data after. A multi-agent simulation flips that order." />
   <meta property="og:url" content="https://saikanagat.com/blog/agora-and-the-rehearsal-of-public-opinion" />
   <meta property="og:image" content="https://saikanagat.com/og-image.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -61,7 +61,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     <a href="../contact.html">Contact</a>
     <a href="https://content-vigilante-vercel.vercel.app" target="_blank" rel="noopener" class="nav-score-btn">Content Vigilante</a>
   </div>
-  <div class="nav-tag">Available — EU &amp; Remote</div>
+  <div class="nav-tag">Available: EU &amp; Remote</div>
   <button class="nav-hamburger" id="hamburger" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
@@ -84,12 +84,12 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 
     <p>This bothered me long before I started working in marketing. As a designer, you are taught to test. You sketch ten options, you prototype the best three, you put them in front of users, you watch what happens, you cut what doesn't survive. The discipline is built around the assumption that you don't know the answer until reality tells you. Marketing rarely works this way. Most campaigns ship as if they were already correct.</p>
 
-    <p>Agora is the small piece of software I started building to fix this for myself. The premise is simple: before you ship a decision — a price change, a brand pivot, a campaign tagline, a controversial product announcement — what if you could see how a synthetic crowd reacts to it first? Not focus-group reaction. Not survey data. <strong>Live, behavioural, agent-by-agent reaction</strong>, with the dynamics of how influence actually moves through a population.</p>
+    <p>Agora is the small piece of software I started building to fix this for myself. The premise is simple: before you ship a decision (a price change, a brand pivot, a campaign tagline, a controversial product announcement), what if you could see how a synthetic crowd reacts to it first? Not focus-group reaction. Not survey data. <strong>Live, behavioural, agent-by-agent reaction</strong>, with the dynamics of how influence actually moves through a population.</p>
 
     <h2>What it actually is</h2>
-    <p>Agora is a multi-agent simulation. You type in a scenario in plain English — "We're raising prices 22% to fund AI features" — and the engine generates a synthetic crowd of personas. Each persona has an occupation, a baseline stance, a vocality score, an openness score. They move around a 2D space, run into each other, post short messages above their heads, and shift opinions based on who they collide with.</p>
+    <p>Agora is a multi-agent simulation. You type in a scenario in plain English ("We're raising prices 22% to fund AI features") and the engine generates a synthetic crowd of personas. Each persona has an occupation, a baseline stance, a vocality score, an openness score. They move around a 2D space, run into each other, post short messages above their heads, and shift opinions based on who they collide with.</p>
 
-    <p>The browser version on this site is the lite build. It uses template-driven messages and lightweight rules. The full build behind it uses real LLM-driven agents with persistent memory, GraphRAG-extracted personas pulled directly from the seed material, and a ReportAgent you can chat with after the simulation is done. But the principle is the same in both versions: <em>you don't argue about what people will think — you watch them think it.</em></p>
+    <p>The browser version on this site is the lite build. It uses template-driven messages and lightweight rules. The full build behind it uses real LLM-driven agents with persistent memory, GraphRAG-extracted personas pulled directly from the seed material, and a ReportAgent you can chat with after the simulation is done. But the principle is the same in both versions: <em>you don't argue about what people will think. You watch them think it.</em></p>
 
     <h2>Why this matters for marketing</h2>
     <p>Three reasons.</p>
@@ -98,15 +98,15 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 
     <p><strong>Two: it shows you the shape of the disagreement.</strong> A pure poll tells you 60% support and 40% oppose. The simulation tells you that opposition is concentrated in long-time customers and the support comes mostly from people who don't actually pay. That's a different problem. That's the problem you needed to know.</p>
 
-    <p><strong>Three: it shows the dynamics, not the snapshot.</strong> Most consumer reaction isn't static — it propagates. A vocal minority can move the median. A single high-influence persona can shift their entire neighbourhood. The simulation surfaces these inflection points the way no survey can, because surveys ask people in isolation, and people don't form opinions in isolation.</p>
+    <p><strong>Three: it shows the dynamics, not the snapshot.</strong> Most consumer reaction isn't static: it propagates. A vocal minority can move the median. A single high-influence persona can shift their entire neighbourhood. The simulation surfaces these inflection points the way no survey can, because surveys ask people in isolation, and people don't form opinions in isolation.</p>
 
     <h2>What it can't do</h2>
-    <p>Plenty. The crowd is synthetic — it's not your actual market, it's a stand-in built from demographic and psychographic templates. The opinion-dynamics rules are deliberately simple. The output is directional, not predictive. If you ship a campaign because Agora says "support 67%," you are misusing the tool. The point isn't the percentage. The point is the pattern of how the percentage is reached, and what shifts it.</p>
+    <p>Plenty. The crowd is synthetic. It's not your actual market, it's a stand-in built from demographic and psychographic templates. The opinion-dynamics rules are deliberately simple. The output is directional, not predictive. If you ship a campaign because Agora says "support 67%," you are misusing the tool. The point isn't the percentage. The point is the pattern of how the percentage is reached, and what shifts it.</p>
 
     <p>I think of it the way a designer thinks of a foam mock-up. Nobody ships the foam. But you'd be a fool to skip it.</p>
 
     <h2>The deeper bet</h2>
-    <p>I think most consumer-facing decisions in 2026 should pass through some kind of synthetic-crowd rehearsal before they touch a real budget. Not because the simulation is correct — it isn't — but because the act of rehearsing forces a discipline of specificity, observation and iteration that marketing teams routinely skip. The same discipline that makes good design good.</p>
+    <p>I think most consumer-facing decisions in 2026 should pass through some kind of synthetic-crowd rehearsal before they touch a real budget. Not because the simulation is correct (it isn't) but because the act of rehearsing forces a discipline of specificity, observation and iteration that marketing teams routinely skip. The same discipline that makes good design good.</p>
 
     <p>Agora is small. The version on this site runs in your browser in 200 lines of JavaScript. You can try it now. Type any scenario you'd put real money behind. Watch the report. Then ask yourself: would your team have caught what the simulation caught?</p>
 

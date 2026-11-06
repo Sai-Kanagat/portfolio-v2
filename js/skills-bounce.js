@@ -1,5 +1,5 @@
 /* =========================================================
-   AMBIENT FLOATING ICONS — global background drift
+   AMBIENT FLOATING ICONS - global background drift
    Subtle, calm motion behind page content.
    Replaces the legacy bouncing skills canvas.
    ========================================================= */
@@ -11,7 +11,7 @@
   var ctx = canvas.getContext('2d');
   var DPR = Math.min(window.devicePixelRatio || 1, 1.5);
 
-  // Curated subset of tools — fewer icons for calmer composition
+  // Curated subset of tools - fewer icons for calmer composition
   var SKILLS = [
     { label: 'Figma',       color: '#F24E1E', logo: 'figma.svg' },
     { label: 'Photoshop',   color: '#31A8FF', logo: 'photoshop.svg' },
@@ -87,7 +87,7 @@
         rot: Math.random() * Math.PI * 2,
         vrot: (Math.random() - 0.5) * 0.0015,
         phase: Math.random() * Math.PI * 2,
-        // Slow-changing heading angle — gives icons natural curved paths instead of jitter
+        // Slow-changing heading angle - gives icons natural curved paths instead of jitter
         heading: Math.random() * Math.PI * 2,
         headingDrift: (Math.random() - 0.5) * 0.015,
         // Noise phases for organic Perlin-like flow
@@ -101,7 +101,7 @@
   var t = 0;
   function step() {
     t += 0.008;
-    // Scroll parallax — measure delta and use it to gently push icons
+    // Scroll parallax - measure delta and use it to gently push icons
     scrollDelta = (scrollY - lastScrollY) * 0.04;
     lastScrollY = scrollY;
     ctx.clearRect(0, 0, W, H);
@@ -109,7 +109,7 @@
     for (var i = 0; i < icons.length; i++) {
       var b = icons[i];
 
-      // Cursor reactivity — bigger push, wider radius
+      // Cursor reactivity - bigger push, wider radius
       if (mouse.active) {
         var dx = b.x - mouse.x;
         var dy = b.y - mouse.y;
@@ -117,7 +117,7 @@
         var range = 200;
         if (d2 < range * range && d2 > 0.001) {
           var d = Math.sqrt(d2);
-          // Quadratic falloff — strongest at center, fades out gently
+          // Quadratic falloff - strongest at center, fades out gently
           var falloff = 1 - d / range;
           var force = falloff * falloff * 2.6;
           b.vx += (dx / d) * force;
@@ -125,12 +125,12 @@
         }
       }
 
-      // Scroll parallax — different icons get different parallax weights for depth
+      // Scroll parallax - different icons get different parallax weights for depth
       b.vy -= scrollDelta * b.parallax * 1.5;
 
-      // Natural drift — wandering heading angle gives smooth curved paths (not jittery)
+      // Natural drift - wandering heading angle gives smooth curved paths (not jittery)
       b.heading += b.headingDrift;
-      // Slow drift of the drift-rate itself — heading occasionally changes direction
+      // Slow drift of the drift-rate itself - heading occasionally changes direction
       b.headingDrift += (Math.random() - 0.5) * 0.0008;
       // Clamp the drift rate
       if (b.headingDrift > 0.025) b.headingDrift = 0.025;
@@ -209,7 +209,7 @@
       canvas.style.display = 'none';
       return;
     }
-    // Pause the loop when the tab is hidden — invisible to the user, saves CPU
+    // Pause the loop when the tab is hidden - invisible to the user, saves CPU
     document.addEventListener('visibilitychange', function(){ if (!document.hidden) start(); });
     start();
   }
