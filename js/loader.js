@@ -30,7 +30,7 @@
 
 (function() {
   var doc = document.documentElement;
-  var INTRO_CAP = 3500;   // ms, hard limit for the first-visit intro
+  var INTRO_CAP = 2000;   // ms, hard limit for the first-visit intro
   var QUICK_CAP = 1200;   // ms, hard limit for the quick wipe
 
   var reduced = false;
@@ -124,7 +124,7 @@
     var bar = document.getElementById('loaderBar');
     var phase = document.getElementById('loaderPhase');
     var phases = [[0, 'Initialising'], [25, 'Loading type'], [55, 'Preparing work'], [80, 'Calibrating grid'], [100, 'Ready']];
-    var duration = 1400;
+    var duration = 420;
     var start = Date.now();
 
     function step() {
@@ -141,7 +141,7 @@
         later(function() { nextTick(step); }, 16);
       } else {
         try { sessionStorage.setItem('sk_loader_shown', '1'); } catch (e) {}
-        later(function() { exit(950); }, 200);
+        later(function() { exit(600); }, 80);
       }
     }
     step();

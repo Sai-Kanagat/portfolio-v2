@@ -2274,12 +2274,12 @@ a:focus, button:focus, input:focus, textarea:focus, select:focus { outline: none
 /* =========================================================
    SITE LOADER
    ========================================================= */
-html.loading, html.loading body { overflow: hidden; animation: sk-unlock 0.01s 3.6s forwards; }
+html.loading, html.loading body { overflow: hidden; animation: sk-unlock 0.01s 2.1s forwards; }
 @keyframes sk-unlock { to { overflow: visible; } }
 @keyframes sk-loader-failsafe { to { opacity: 0; visibility: hidden; pointer-events: none; } }
 .site-loader {
   /* Failsafe: if the script never finishes, the overlay still disappears. */
-  animation: sk-loader-failsafe 0.01s 3.6s forwards;
+  animation: sk-loader-failsafe 0.01s 2.1s forwards;
   position: fixed;
   inset: 0;
   z-index: 9999;
@@ -2288,14 +2288,14 @@ html.loading, html.loading body { overflow: hidden; animation: sk-unlock 0.01s 3
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.85s cubic-bezier(0.76, 0, 0.24, 1),
+  transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1),
               opacity 0.35s ease;
 }
 .site-loader-inner {
   position: relative;
   width: min(560px, 88vw);
   padding: 0 var(--pad-x);
-  transition: opacity 0.4s ease, transform 0.6s cubic-bezier(0.16,1,0.3,1);
+  transition: opacity 0.25s ease, transform 0.4s cubic-bezier(0.16,1,0.3,1);
 }
 .site-loader-logo {
   font-family: var(--font-display);
@@ -2349,13 +2349,13 @@ html.loading, html.loading body { overflow: hidden; animation: sk-unlock 0.01s 3
   inset: 0;
   background: var(--white);
   transform: translateY(100%);
-  transition: transform 0.85s cubic-bezier(0.76, 0, 0.24, 1);
+  transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
   z-index: -1;
 }
 .site-loader.done .site-loader-inner { opacity: 0; transform: translateY(-24px); }
 .site-loader.done { background: transparent; }
 .site-loader.done .site-loader-curtain { transform: translateY(0); }
-.site-loader.done { transform: translateY(-100%); transition-delay: 0.45s; }
+.site-loader.done { transform: translateY(-100%); transition-delay: 0.08s; }
 
 /* Quick variant for non-home pages */
 .site-loader-quick { background: var(--white); }
