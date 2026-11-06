@@ -101,6 +101,8 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
       background-size: cover !important; background-position: center top !important; background-repeat: no-repeat !important;
     }
     .demo-tile-bg.bg-agora  { background-image: url('assets/images/DEMOS/agora.jpg') !important; }
+    /* Agora, ROAS, Poster and Cortex thumbnails are screenshots with their own text baked in: soften it so it reads as texture and never collides with the tile title. */
+    .demo-tile-bg.bg-agora, .demo-tile-bg.bg-roas, .demo-tile-bg.bg-poster, .demo-tile-bg.bg-cortex { filter: blur(6px); transform: scale(1.1); }
     .demo-tile-bg.bg-hands  { background-image: url('assets/images/DEMOS/hands.jpg') !important; }
     .demo-tile-bg.bg-balls  { background-image: url('assets/images/DEMOS/balls.jpg') !important; }
     .demo-tile-bg.bg-roas   { background-image: url('assets/images/DEMOS/roas.jpg') !important; }
