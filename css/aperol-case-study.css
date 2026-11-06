@@ -484,3 +484,16 @@
   color: var(--ap-orange);
   font-weight: 700;
 }
+
+/* ---------- CONTRAST FIXES (readable text on every button and nav link) ---------- */
+.nav-links a { color: #4a4a4a; }
+.nav-links a:hover, .nav-links a.active { color: var(--ap-ink); }
+.nav-tag { color: #4d5720; border-color: #4d5720; }
+.nav-score-btn { color: var(--ap-ink); border-color: var(--ap-ink); }
+.nav-links a.nav-score-btn { color: var(--ap-ink); }
+.nav-links a.nav-score-btn:hover { background: var(--ap-olive); border-color: var(--ap-olive); color: #ffffff; }
+.lang-toggle button.is-active { color: var(--ap-cream); }
+.ap-btn { color: var(--ap-warm-black); }
+.ap-btn:hover { background: transparent; color: var(--ap-warm-black); border-color: var(--ap-warm-black); }
+.ap-btn.outline { background: transparent; color: var(--ap-warm-black); border-color: var(--ap-warm-black); }
+.ap-btn.outline:hover { background: var(--ap-warm-black); color: #ffffff; border-color: var(--ap-warm-black); }
