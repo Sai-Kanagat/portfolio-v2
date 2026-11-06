@@ -1070,6 +1070,8 @@ input:focus-visible, textarea:focus-visible {
 /* Respect motion preferences */
 @media (prefers-reduced-motion: reduce) {
   .v3-reveal, .project-panel { transition: opacity 200ms ease !important; transform: none !important; filter: none !important; }
+  /* The closed panel must stay off screen and inert: without this it sat on top of the page and blocked clicks. */
+  .project-panel:not(.open) { transform: translateX(100%) !important; visibility: hidden; pointer-events: none; transition: none !important; }
   .v3-gallery-frame, .v3-gallery-frame img, .v3-btn, .v3-btn-icon { transition: none !important; }
 }
 
@@ -2613,4 +2615,26 @@ main { padding-top: var(--nav-height); }
 @media (prefers-reduced-motion: reduce) {
   .scroll-cue-page { animation: none; }
   .scroll-cue-page .scroll-cue-line::after { animation: none; }
+}
+
+/* Nav fit between the hamburger breakpoint and wide desktop: the Available tag
+   never wraps or clips, links tighten, and the tag steps aside when there is no room. */
+.nav { gap: 16px; }
+.nav-tag { white-space: nowrap; flex: none; }
+.nav-logo, .lang-toggle { flex: none; }
+.nav-links { gap: clamp(14px, 1.9vw, 40px); }
+@media (min-width: 769px) and (max-width: 1279px) {
+  .nav-tag { display: none; }
+}
+@media (min-width: 769px) and (max-width: 940px) {
+  .nav-links { gap: 12px; }
+  .nav-links a { letter-spacing: 0.06em; }
+  .nav-score-btn { padding-left: 12px !important; padding-right: 12px !important; }
+}
+@media (min-width: 769px) and (max-width: 840px) {
+  .nav { gap: 10px; }
+  .nav-links { gap: 8px; }
+  .nav-links a { font-size: 0.64rem; letter-spacing: 0.04em; }
+  .nav-links .nav-score-btn { padding-left: 10px !important; padding-right: 10px !important; }
+  .lang-toggle button { padding-left: 8px; padding-right: 8px; }
 }

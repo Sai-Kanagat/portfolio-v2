@@ -5,7 +5,7 @@
    after injection (e.g. project panel, editorial list rows). */
 (function () {
   var KEY = 'sk_lang';
-  function getLang() { return localStorage.getItem(KEY) || 'en'; }
+  function getLang() { try { return localStorage.getItem(KEY) || 'en'; } catch (e) { return 'en'; } }
   function applyLang(l, scope) {
     if (!l) l = getLang();
     document.documentElement.setAttribute('lang', l);
@@ -21,21 +21,41 @@
     });
     document.dispatchEvent(new CustomEvent('sk:lang-change', { detail: { lang: l }}));
   }
-  function setLang(l) { localStorage.setItem(KEY, l); applyLang(l); }
+  function setLang(l) { try { localStorage.setItem(KEY, l); } catch (e) {} applyLang(l); }
   function init() {
     document.querySelectorAll('.lang-toggle [data-l]').forEach(function (b) {
       b.addEventListener('click', function () { setLang(b.getAttribute('data-l')); });
     });
     applyLang(getLang());
-    // Re-apply on dynamic DOM injections - observe additions, debounce, re-translate
+    // Re-translate content injected later (project panel, list rows, newsletter).
+    // Only the added nodes are touched, English needs nothing (it is the markup),
+    // and the observer's own writes are discarded so it cannot re-trigger itself.
     var pending = null;
-    var observer = new MutationObserver(function(mutations){
-      var hasAdds = mutations.some(function(m){ return m.addedNodes && m.addedNodes.length; });
-      if (!hasAdds) return;
-      if (pending) cancelAnimationFrame(pending);
-      pending = requestAnimationFrame(function(){
-        applyLang(getLang());
+    var queue = [];
+    function translateAdded() {
+      pending = null;
+      var l = getLang();
+      var nodes = queue; queue = [];
+      if (l === 'en') return;
+      nodes.forEach(function (root) {
+        if (!root.isConnected) return;
+        if (root.matches && root.matches('[data-en][data-it]')) {
+          var t0 = root.getAttribute('data-' + l);
+          if (t0 != null) root.innerHTML = t0;
+        }
+        root.querySelectorAll('[data-en][data-it]').forEach(function (n) {
+          var t = n.getAttribute('data-' + l);
+          if (t != null) n.innerHTML = t;
+        });
       });
+      observer.takeRecords();
+    }
+    var observer = new MutationObserver(function (mutations) {
+      mutations.forEach(function (m) {
+        m.addedNodes.forEach(function (n) { if (n.nodeType === 1) queue.push(n); });
+      });
+      if (!queue.length || pending) return;
+      pending = setTimeout(translateAdded, 30);
     });
     observer.observe(document.body, { childList: true, subtree: true });
   }
