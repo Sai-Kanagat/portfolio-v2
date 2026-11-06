@@ -774,3 +774,12 @@ small, .meta { font-family:var(--mono); font-size:var(--t-xs); color:var(--muted
   .shadow-row{ grid-template-columns: repeat(2,1fr);}
   .carousel{ grid-template-columns: repeat(3, 1fr);}
 }
+
+/* Grid children may shrink below their content width, otherwise one wide demo
+   (ad units, tables, code) widens the whole page and forces sideways scrolling. */
+.body > *, .section-head > * { min-width: 0; }
+.page { overflow-x: clip; }
+.cover > * { min-width: 0; }
+.cover h1 { overflow-wrap: anywhere; }
+@media (max-width: 640px) { .cover { padding: var(--s-5) var(--s-3); } }
+@media (max-width: 640px) { .cover-bot { grid-template-columns: 1fr 1fr; gap: var(--s-4); } }

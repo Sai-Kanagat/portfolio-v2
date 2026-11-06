@@ -2646,3 +2646,9 @@ main { padding-top: var(--nav-height); }
 .lf-title { font-family: var(--sans); font-weight: 500; font-size: clamp(18px, 1.8vw, 22px); letter-spacing: -0.015em; line-height: 1.35; text-transform: none; margin: 0 0 14px; color: var(--ink); }
 .lf-text { font-size: 15px; line-height: 1.6; color: var(--n-600); max-width: 40ch; margin: 0; }
 @media (max-width: 760px) { .lf-grid { grid-template-columns: 1fr; gap: 32px; } }
+
+/* About: closing call to action stacks on narrow screens (the quote column forced a 495px wide page at 375px) */
+@media (max-width: 900px) {
+  .about-cta { grid-template-columns: 1fr !important; gap: 40px !important; }
+  .about-cta-quote { border-left: 0 !important; padding-left: 0 !important; border-top: 1px solid var(--grey-line); padding-top: 32px; }
+}

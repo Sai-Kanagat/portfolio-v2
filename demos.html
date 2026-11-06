@@ -67,7 +67,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     .demos-page h1 { font-family: var(--font-display, 'Unbounded', sans-serif); font-weight: 900; font-size: clamp(44px, 7vw, 96px); letter-spacing: -0.04em; line-height: 0.95; margin: 0 0 24px; }
     .demos-page h1 .outline { color: transparent; -webkit-text-stroke: 1.5px var(--black); }
     .demos-lede { max-width: 720px; font-size: 1rem; line-height: 1.65; color: var(--grey-mid); margin-bottom: 60px; }
-    .demos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 28px; }
+    .demos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr)); gap: 28px; }
     .demo-tile {
       position: relative; display: block; text-decoration: none; color: var(--white);
       border: 1px solid var(--grey-line); border-radius: 2px; overflow: hidden;
