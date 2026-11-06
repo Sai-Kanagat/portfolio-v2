@@ -83,12 +83,29 @@
     }
     form.locale.value = it() ? 'it' : 'en';
     btn.disabled = true;
-    fetch(ACTION, { method: 'POST', mode: 'no-cors', body: new FormData(form) }).then(function () {
-      say('Almost there. Check your inbox to confirm.', 'Ci siamo quasi. Controlla la posta per confermare.');
-      form.reset();
-      if (window.skTrack) window.skTrack('newsletter_signup', { page_path: location.pathname });
-    }).catch(function () {
-      say('Something went wrong. Please try again.', 'Qualcosa è andato storto. Riprova.');
-    }).finally(function () { btn.disabled = false; });
+    say('Subscribing...', 'Iscrizione in corso...');
+    var ctl = null, timer = null;
+    try { ctl = new AbortController(); timer = setTimeout(function () { ctl.abort(); }, 12000); } catch (err) {}
+    // Real CORS request: the response is read, so success is only reported
+    // when Brevo itself answers with success: true.
+    fetch(ACTION, { method: 'POST', body: new FormData(form), signal: ctl ? ctl.signal : undefined })
+      .then(function (res) {
+        return res.json().catch(function () { return null; }).then(function (data) { return { ok: res.ok, data: data }; });
+      })
+      .then(function (r) {
+        if (r.ok && r.data && r.data.success === true) {
+          say('Almost there. Check your inbox to confirm.', 'Ci siamo quasi. Controlla la posta per confermare.');
+          form.reset();
+          if (window.skTrack) window.skTrack('newsletter_signup', { page_path: location.pathname });
+        } else if (r.data && r.data.errors && r.data.errors.EMAIL) {
+          say('That email address was not accepted. Please check it and try again.', 'Questo indirizzo email non è stato accettato. Controllalo e riprova.');
+        } else {
+          say('Sorry, that did not go through. Please try again, or email saikanagat1117@gmail.com.', 'Spiacente, l\'iscrizione non è andata a buon fine. Riprova, oppure scrivi a saikanagat1117@gmail.com.');
+        }
+      })
+      .catch(function () {
+        say('Sorry, that did not go through. Please try again, or email saikanagat1117@gmail.com.', 'Spiacente, l\'iscrizione non è andata a buon fine. Riprova, oppure scrivi a saikanagat1117@gmail.com.');
+      })
+      .then(function () { if (timer) clearTimeout(timer); btn.disabled = false; });
   });
 })();
