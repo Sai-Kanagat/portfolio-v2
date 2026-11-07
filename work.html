@@ -188,7 +188,7 @@ const projects = {
   <li><strong>Alert log</strong>: format shifts, new landing pages, killed campaigns. Push to Slack.</li>
 </ul>
 <h3 style="margin-top:24px;font-family:'Newsreader', Georgia, serif; font-weight:500; font-style:italic; font-size:1.1rem; letter-spacing:-0.01em;">Design language</h3>
-<p>Industrial brutalist. Declassified-blueprint meets ops-terminal. Geist Mono + Inter Tight typographic pairing on warm off-white paper, single signal-red accent, square corners, hairline borders, no shadows, no gradients. The full spec ships as <a href="https://github.com/Sai-Kanagat/adlib/blob/main/DESIGN.md" target="_blank" rel="noopener">DESIGN.md</a>, 12 sections including the 10 anti-patterns that auto-fail in design review. The dashboard reads like a wartime intelligence dossier, not a Notion sidebar.</p>
+<p>Industrial brutalist. Declassified-blueprint meets ops-terminal. Geist Mono + Inter Tight typographic pairing on warm off-white paper, single signal-red accent, square corners, hairline borders, no shadows, no gradients. The full spec ships as <a href="https://github.com/Sai-Kanagat/adlib/blob/main/DESIGN.md" target="_blank" rel="noopener">DESIGN.md</a>, 12 sections including the 10 anti-patterns that auto-fail in design review. The dashboard follows that spec.</p>
 <h3 style="margin-top:24px;font-family:'Newsreader', Georgia, serif; font-weight:500; font-style:italic; font-size:1.1rem; letter-spacing:-0.01em;">Stack</h3>
 <p>Next.js 15 (App Router) on Vercel · React 19 · Tailwind v3 · Supabase Postgres with full row-level-security · Manifest V3 + Vite + CRX plugin for the extension · Playwright workers intercepting Facebook's internal GraphQL responses to harvest the public Ad Library · Claude Haiku 4.5 for funnel-stage and hook-type classification at roughly $0.001 per ad.</p>
 <h3 style="margin-top:24px;font-family:'Newsreader', Georgia, serif; font-weight:500; font-style:italic; font-size:1.1rem; letter-spacing:-0.01em;">Status</h3>
@@ -204,12 +204,12 @@ const projects = {
     year: '2026', client: 'Personal · Built with Claude Code', role: 'Designer & Builder',
     tags: ['AI Agent', 'Notion API', 'Claude API', 'Workflow Automation'],
     body: `<p><strong>Inkwell</strong> is an AI agent that joins your Notion workspace as a regular member. Drop a task onto any page or database, and Inkwell picks it up automatically (researching, drafting, summarising, formatting) then publishes the completed output back into a designated section of the same page. No copy-paste, no context-switching, no separate tool. The work happens where the work already lives.</p>
-<p>The thesis is simple: most AI tools today ask you to leave your workspace. Inkwell goes the other direction. Your Notion stays the centre of gravity. The agent comes to you.</p>
+<p>The thesis is simple: most AI tools today ask you to leave your workspace. Inkwell goes the other direction: the agent works inside your Notion.</p>
 <h3 style="margin-top:24px;font-family:'Newsreader', Georgia, serif; font-weight:500; font-style:italic; font-size:1.1rem; letter-spacing:-0.01em;">How it works</h3>
 <p>Inkwell watches a workspace via the Notion API. When a task is created (a new page, a checkbox added, a tag applied) it parses the brief, routes the work through Claude with the right context and tools, then writes the result back into a clearly-marked "completed by inkwell" block on the same page. Long jobs leave a trace of what was tried, what worked and what failed, so the human stays in the loop.</p>
 <h3 style="margin-top:24px;font-family:'Newsreader', Georgia, serif; font-weight:500; font-style:italic; font-size:1.1rem; letter-spacing:-0.01em;">Why I built it</h3>
 <p>Marketing teams live in Notion. The shift from "AI tool sitting in a separate tab" to "AI teammate inside the workspace" felt like the right next step. Inkwell is the smallest version of that idea I could actually ship.</p>
-<p><em>Personal / passion project. Built with Claude Code in another session. More screenshots and live access on request.</em></p>`,
+<p><em>Personal project. More screenshots and live access on request.</em></p>`,
     highlight: 'A Claude-powered agent that joins your Notion workspace as a member. Tasks get picked up automatically and finished back on the same page.',
     images: ['assets/images/INKWELL/placeholder.jpg']
   },
@@ -233,7 +233,7 @@ const projects = {
     year: '2026', client: 'Independent / Open Source', role: 'Founder · Product Lead · Marketing Engineer',
     tags: ['Product Design', 'AI / LLM', 'Brand Voice', 'Marketing Ops', 'Open Source', 'Next.js'],
     body: `<p><strong>Content Vigilante</strong> is a local-first, open-source marketing operating system I built and shipped to v1.2 in the open. Brand-voice auditor, multi-platform content composer, scheduling calendar, hybrid CRM and analytics, all in one workspace, with the principle that your brand data should never leave a server you don't control.</p>
-<p>The thesis: every marketing team has a brand guide nobody reads. Tone drifts across writers, agencies and freelancers. By the time the CMO notices, fifty pieces of off-brand content are already live. Most AI tools today <em>generate</em> content. None of them <em>check</em> it. None of them schedule it, publish it, and keep the brand intact across channels. Content Vigilante is the layer in between.</p>
+<p>The thesis: every marketing team has a brand guide nobody reads. Tone drifts across writers, agencies and freelancers. By the time the CMO notices, fifty pieces of off-brand content are already live. Most content generators do not <em>check</em> their own output or keep the brand intact across channels. Content Vigilante is the layer that does, and it also schedules and publishes.</p>
 <h3 style="margin-top:24px;font-family:var(--font-display);font-weight:900;font-size:1.1rem;letter-spacing:-0.01em;">What's in the box</h3>
 <ul style="margin: 12px 0 18px 18px; padding: 0; line-height: 1.7;">
   <li><strong>Brand Guardrails</strong>: three judges (tone, vocabulary, structure) running in parallel against your brand book. Drop in a PDF guide, get a structured rule set wired straight into the audit pipeline.</li>
@@ -349,7 +349,7 @@ const projects = {
 <p><strong>Packaging:</strong> fully compostable replacement for the hinge-lid pack and cellophane wrap, using recycled paper pulp and plant-based sealants. The aluminium flavour-protector foil (a hidden pollutant) is eliminated entirely.</p>
 <p><strong>System:</strong> a QR-coded reward loop: scan to recycle, scan to track your cigarettes-smoked vs. saplings-planted ratio, scan to redeem discounts on future packs. Modelled on the CODE initiative's existing recycling programme in India, with consumer-side incentives added to close the loop.</p>
 <p>The concept was pitched directly to ITC (India's cigarette market leader with a 77% share) during an industry review, alongside a basic functional prototype. Research covered market sizing, production-process mapping, case studies of ITC and the CODE initiative, user surveys with current smokers, and packaging-distribution economics down to the polyethene-wrapped warehouse pack.</p>
-<p>The brief was not to make smoking virtuous. It was to intervene in one of the most environmentally destructive mass products on earth without changing a single consumer behaviour.</p>`,
+<p>The brief was to reduce the environmental damage of one of the most destructive mass products on earth without changing a single consumer behaviour.</p>`,
     highlight: 'Biodegradable cigarette with seed-embedded filter + compostable pack + QR-coded reward system. Academic project, prototyped and pitched to ITC.',
     images: ['assets/images/BUDDY/img_p173_3.jpeg','assets/images/BUDDY/img_p173_4.jpeg','assets/images/BUDDY/img_p173_5.jpeg','assets/images/BUDDY/img_p174_3.jpeg','assets/images/BUDDY/img_p176_1.jpeg','assets/images/BUDDY/img_p176_2.jpeg','assets/images/BUDDY/img_p177_1.jpeg','assets/images/BUDDY/img_p177_2.jpeg','assets/images/BUDDY/img_p177_3.jpeg','assets/images/BUDDY/img_p177_4.jpeg','assets/images/BUDDY/img_p178_4.jpeg','assets/images/BUDDY/img_p154_7.jpeg']
   },
@@ -363,7 +363,7 @@ const projects = {
 <p>The first step was mapping every one of the eight sub-systems that constituted the business: client acquisition, material and kit storage, RTO coordination, conversion, kit installation, QC, branding and dispatch, and training. Each sub-system was audited against five objectives: speed, efficiency, safety, self-sustainability, and waste minimisation.</p>
 <p>The audit surfaced nine structural problems repeating across sub-systems: constant supervision dependency, material loss in storage, damage during conversion, kit mix-ups between vehicles, weak customer-relation protocols, legal/RTO coordination gaps, information loss between teams, no tracking infrastructure, and chronic manpower shortage. Each one was bleeding time and margin.</p>
 <p>The proposed system collapsed these into a unified operating model: a kit-tracking protocol tied to vehicle IDs, a revised customer-handshake checklist that closed legal loopholes, a branded dispatch flow that turned every converted vehicle into a moving advertisement, and a training module that made the workforce self-supervising.</p>
-<p>The project taught me that systems design is just design at a different resolution: the same principles of observation, constraint-mapping and friction-reduction apply, whether the object is a chair or a 40-person CNG conversion floor.</p>`,
+<p>The same principles of observation, constraint-mapping and friction-reduction apply, whether the object is a chair or a 40-person CNG conversion floor.</p>`,
     highlight: 'Audited 8 sub-systems across a CNG retrofitting client. Mapped 9 structural bottlenecks into a unified self-supervising operating model.',
     images: ['assets/images/SYSTEM/p32.jpeg','assets/images/SYSTEM/p34.jpeg','assets/images/SYSTEM/p35.jpeg','assets/images/SYSTEM/p37.jpeg']
   },
@@ -409,12 +409,12 @@ const projects = {
     id: 'handcursor', num: '10',
     title: 'Hand-Tracked Mouse Cursor: Webcam Gesture Control',
     category: 'Creative Code / Interaction Experiment',
-    year: '2026', client: 'Personal · Built with Claude Code', role: 'Designer & Vibe-Coder',
+    year: '2026', client: 'Personal · Built with Claude Code', role: 'Designer & Builder',
     tags: ['Creative Code', 'Computer Vision', 'MediaPipe', 'Interaction'],
     body: `<p>An experiment in cursor input: control your computer's mouse with your hand instead of touching anything. Built in a single sitting using Claude Code as a pair programmer, MediaPipe Hands for landmark detection, and a tiny Python loop to translate fingertip coordinates into screen coordinates.</p>
 <p>The setup: webcam feed → MediaPipe extracts 21 landmark points per hand → index-finger-tip drives the cursor → pinch gesture (thumb + index touch) registers as a click. Dwell-and-click and drag gestures followed.</p>
 <p>The interesting part wasn't the tech (MediaPipe does most of the heavy lifting). It was the <strong>tuning</strong>: smoothing jitter, dead-zoning the cursor to prevent drift, calibrating click-pinch threshold to my own hand. Every parameter has to match a body, which is why generic gesture systems fail in practice.</p>
-<p>Built in a few hours as a personal "can I?" exercise. Lives on my machine as a working prototype. The point of the project wasn't a product. It was proving that the tools have caught up to the ideas.</p>`,
+<p>Built in a few hours as a personal "can I?" exercise. Lives on my machine as a working prototype. The question was whether I could.</p>`,
     highlight: 'Webcam → MediaPipe Hands → fingertip-controlled mouse with pinch-to-click. Built in a single session with Claude Code.',
     cta: { href: 'demos/hands.html', label: 'Try the live demo →' },
     images: ['assets/images/DEMOS/hand.png']
@@ -423,12 +423,12 @@ const projects = {
     id: 'dropballs', num: '11',
     title: 'Color-Tracked Physics: Webcam Greenscreen Toy',
     category: 'Creative Code / Computer Vision Toy',
-    year: '2026', client: 'Personal · Built with Claude Code', role: 'Designer & Vibe-Coder',
+    year: '2026', client: 'Personal · Built with Claude Code', role: 'Designer & Builder',
     tags: ['Creative Code', 'Canvas', 'Physics', 'Computer Vision', 'Greenscreen'],
     body: `<p>A pure-canvas physics toy with a twist: the world responds to <strong>real objects you hold up to your webcam</strong>. Pick a colour (green, red, blue, yellow) and anything in your camera frame matching that hue becomes a physics paddle. Falling balls bounce off your phone case, your shirt, your coffee mug, in real time.</p>
 <p>The pipeline is small: webcam → downscaled to a 96×72 sample grid → each pixel converted from RGB to HSV → matched against a hue/saturation/value range for the active colour → grid stored as a binary mask. Each frame, every ball samples 8 points around its perimeter against that mask. If any sample lands on a "matched" cell, the ball reflects off the average normal of those hits.</p>
 <p>The physics itself is hand-rolled: gravity, restitution, friction, ball-ball collisions resolved with impulses. No Matter.js, no frameworks. Roughly 200 lines of JavaScript total.</p>
-<p>The interesting part wasn't the physics or the colour math (both are textbook). It was the <strong>feeling</strong>: there's a specific magic to the moment a ball clearly bounces off something <em>you're holding</em>. Toys don't have to be useful. They have to feel alive.</p>`,
+<p>The interesting part wasn't the physics or the colour math (both are textbook). It was the <strong>feeling</strong>: there's a specific magic to the moment a ball clearly bounces off something <em>you're holding</em>.</p>`,
     highlight: 'Webcam → HSV colour match → physics. Hold any object of the chosen colour and balls bounce off it in real time. Pure canvas + JS, ~200 lines.',
     cta: { href: 'demos/balls.html', label: 'Try the live demo →' },
     images: ['assets/images/DEMOS/balls.png']
