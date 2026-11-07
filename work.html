@@ -49,7 +49,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     "url": "https://saikanagat.com/work",
     "author": {"@type": "Person", "name": "Sai Prathyaksh Kanagat"},
     "itemListElement": [
-      {"@type": "ListItem", "position": 1,  "item": {"@type": "CreativeWork", "name": "Cyrano: Persona-Conditioned Conversation Architecture", "url": "https://github.com/Sai-Kanagat/cyrano", "creator": {"@type": "Person", "name": "Sai Prathyaksh Kanagat"}}},
+      {"@type": "ListItem", "position": 1,  "item": {"@type": "CreativeWork", "name": "Cyrano: Persona-Conditioned Conversation Architecture", "creator": {"@type": "Person", "name": "Sai Prathyaksh Kanagat"}}},
       {"@type": "ListItem", "position": 2,  "item": {"@type": "CreativeWork", "name": "Aperol: The Golden Hour · Speculative India Launch", "url": "https://saikanagat.com/aperol-golden-hour", "creator": {"@type": "Person", "name": "Sai Prathyaksh Kanagat"}}},
       {"@type": "ListItem", "position": 3,  "item": {"@type": "ScholarlyArticle", "name": "Monocular Musculoskeletal Biomechanics: A Unified End-to-End Visual-to-Neural-Control Pipeline", "url": "https://saikanagat.com/assets/papers/Monocular_Biomechanics_Sai_Kanagat.pdf", "author": {"@type": "Person", "name": "Sai Prathyaksh Kanagat"}}},
       {"@type": "ListItem", "position": 4,  "item": {"@type": "CreativeWork", "name": "adlib: Ad Library Reconnaissance Extension", "url": "https://github.com/Sai-Kanagat/adlib", "creator": {"@type": "Person", "name": "Sai Prathyaksh Kanagat"}}},
@@ -157,7 +157,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
         <div style="width:100%; height:100%; background:#0E1116; display:flex; flex-direction:column; justify-content:space-between; padding:28px; position:relative; overflow:hidden; border-bottom:1px solid #0A0A0A;">
           <div style="display:flex; justify-content:space-between; align-items:flex-start; font-family:'IBM Plex Mono','Geist Mono', monospace; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:rgba(244,243,239,0.6);">
             <span>CYRANO // SYS.001 · v0</span>
-            <span style="color:#1F40C7;">● OPEN SOURCE</span>
+            <span style="color:#1F40C7;">● PRIVATE REPO</span>
           </div>
           <div style="font-family:'Bricolage Grotesque','Inter Tight', sans-serif; font-weight:600; letter-spacing:-0.035em; line-height:0.9; font-size:clamp(34px, 5vw, 64px); color:#f4f5f7;">
             cyrano<span style="color:#1F40C7;">.</span>
@@ -172,7 +172,6 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
           <div class="work-card-tags">
             <span class="tag systems">AI Architecture</span>
             <span class="tag systems">NLP</span>
-            <span class="tag design">Open Source</span>
           </div>
         </div>
       </a>
@@ -753,7 +752,7 @@ const projects = {
     id: 'cyrano', num: '',
     title: 'Cyrano: Persona-Conditioned Conversation Architecture',
     category: 'AI Research · Conversation Architecture · Personal Project',
-    year: '2026', client: 'Personal · Open Source', role: 'Designer & Builder',
+    year: '2026', client: 'Personal', role: 'Designer & Builder',
     tags: ['AI Architecture', 'NLP', 'Retrieval-Augmented Gen', 'Python'],
     body: `<p><strong>Cyrano</strong> is a persona-conditioned conversational architecture that learns an individual's voice from their own chat history and produces reply candidates in that voice. The premise: general-purpose LLMs sound like nobody, because they're trained to sound like everybody. Cyrano recovers an individual idiolect through two layered mechanisms: a deterministic statistical fingerprint plus semantic retrieval over the user's own past messages.</p>
 <p>The system runs a five-stage pipeline on every incoming message: <em>perceive · retrieve · strategize · draft · enforce.</em></p>
@@ -768,9 +767,8 @@ const projects = {
 <h3 style="margin-top:20px;font-family:'Newsreader', Georgia, serif; font-weight:500; font-style:italic; font-size:1.1rem; letter-spacing:-0.01em;">Why it works</h3>
 <p>Statistical fingerprint plus few-shot retrieval recovers roughly 85% of an individual's idiolect without any fine-tuning. The retrieval layer pastes real past messages as exemplars, so the model copies voice from concrete artifacts instead of abstract instructions. Fine-tuning is the third lever if the gap matters, but at zero training cost, retrieval covers most of it.</p>
 <h3 style="margin-top:20px;font-family:'Newsreader', Georgia, serif; font-weight:500; font-style:italic; font-size:1.1rem; letter-spacing:-0.01em;">Stack</h3>
-<p>Python 3.9+ · FastAPI dashboard · sentence-transformers for local embeddings (no API) · Groq (Llama 3.3 70B) as default reasoner, Anthropic SDK pluggable · numpy + pickle vector index for v0, pgvector when corpus &gt; 100k · vanilla JS + Tailwind frontend. Personal corpus and persona data stay on local disk only. The only publishable artifact is an aggregate statistical fingerprint with zero verbatim content. MIT licensed.</p>`,
+<p>Python 3.9+ · FastAPI dashboard · sentence-transformers for local embeddings (no API) · Groq (Llama 3.3 70B) as default reasoner, Anthropic SDK pluggable · numpy + pickle vector index for v0, pgvector when corpus &gt; 100k · vanilla JS + Tailwind frontend. Personal corpus and persona data stay on local disk only. The only publishable artifact is an aggregate statistical fingerprint with zero verbatim content.</p>`,
     highlight: 'A persona-conditioned conversation pipeline that learns an individual idiolect from their chat history and produces replies in that voice, without fine-tuning. Five-stage pipeline: perceive · retrieve · strategize · draft · enforce.',
-    cta: { href: 'https://github.com/Sai-Kanagat/cyrano', label: 'View on GitHub →' },
     images: []
   },
   aperol: {
