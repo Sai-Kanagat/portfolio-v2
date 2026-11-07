@@ -28,11 +28,8 @@
     <span class="we-h-cta"></span>';
   list.appendChild(headerRow);
 
-  // Build a category lookup from the existing grid so the filter still works
-  var categories = {};
-  document.querySelectorAll('.work-card[data-project]').forEach(function(card){
-    categories[card.dataset.project] = card.dataset.category || 'design';
-  });
+  // Category lookup so the filter works
+  var categories = {"cyrano": "systems", "aperol": "marketing", "biomechanics": "systems", "adlib": "marketing", "inkwell": "systems", "vigilante": "marketing", "casamota": "design", "juicy": "marketing", "arabella": "design", "backpack": "marketing", "agora": "systems", "handcursor": "systems", "dropballs": "systems", "desk": "design", "cigarette": "design", "vijay": "systems", "flower": "design", "povera": "design", "razer": "marketing", "brand": "design"};
 
   // Cover-image lookup - grab the first image from each project's images array
   function coverFor(id){
