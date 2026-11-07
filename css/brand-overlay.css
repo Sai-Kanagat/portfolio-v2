@@ -2502,6 +2502,7 @@ main { padding-top: var(--nav-height); }
   font-family: var(--sans);
   font-style: normal;
   font-weight: 500;
+  color: var(--paper);
 }
 .hero-layer-3 .hero-cta {
   display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;

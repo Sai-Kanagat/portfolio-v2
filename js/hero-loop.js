@@ -89,6 +89,14 @@
   var beatRing  = host.querySelector('#hlBeatRing');
   var wordmark  = host.querySelector('#hlWordmark');
 
+  // Wordmark sits just below the contracted mark, measured from the real stage so it never overlaps on phones
+  var stageEl = host.querySelector('.hl-stage');
+  function wmTopPx(){
+    var sh = stageEl ? stageEl.clientHeight : H;
+    var gap = window.innerWidth <= 560 ? 14 : GAP;
+    return Math.round(sh / 2 + FINAL / 2 + gap);
+  }
+
   function paintFinal(){
     // Settle the composition at "intro complete" state
     var scale = FINAL / GIANT;
@@ -100,8 +108,7 @@
     accent.style.opacity = 1;
     accent.style.background = ACCENT;
     // Wordmark anchored just below the contracted mark
-    var wmTop = (CY + (FINAL/2) + GAP);
-    wordmark.style.top = ((wmTop / H) * 100) + '%';
+    wordmark.style.top = wmTopPx() + 'px';
     wordmark.style.opacity = 1;
     wordmark.style.clipPath = 'inset(0 0% 0 0)';
   }
@@ -156,8 +163,7 @@
     }
 
     // Wordmark
-    var wmTop = (CY + (FINAL/2) + GAP);
-    wordmark.style.top = ((wmTop / H) * 100) + '%';
+    wordmark.style.top = wmTopPx() + 'px';
     wordmark.style.opacity = wmOp;
     wordmark.style.clipPath = 'inset(0 ' + ((1 - wmReveal) * 100) + '% 0 0)';
   }
