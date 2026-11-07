@@ -2658,3 +2658,60 @@ main { padding-top: var(--nav-height); }
 .cert-card.pending .cert-name { color: var(--ink) !important; }
 .cert-card.pending .cert-issuer { color: var(--accent-ink) !important; opacity: 1 !important; }
 .cert-card .cert-icon { color: var(--n-600) !important; }
+
+/* =========================================================
+   EDITORIAL CLEANUP
+   Plain type, hairlines, no stock motion, no pills or chips.
+   Later in the cascade than everything above on purpose.
+   ========================================================= */
+:root { --r-3: 2px; --r-4: 2px; --r-5: 2px; }
+
+/* Text is visible at once */
+.reveal, .reveal.visible { opacity: 1 !important; transform: none !important; transition: none !important; }
+
+/* No lift, shadow or tilt on hover */
+.work-card:hover, .demo-tile:hover, .blog-row:hover, .cert-card:hover, .achievement-card:hover,
+.hero-cta .btn:hover { transform: none !important; box-shadow: none !important; }
+
+/* Buttons and fields: square edges */
+.btn, .btn-primary, .btn-outline, .btn-outline-yellow, .nav-score-btn, .filter-pill,
+.v3-btn, .nav-tag, .demo-tile-cta, .panel-close-btn,
+input, textarea, select, .form-group, .contact-form .form-group,
+.newsletter-input, .newsletter-btn, .news-btn, .achievement-card, .work-card, .demo-tile {
+  border-radius: 2px !important;
+}
+.nav-tag { border: 0 !important; text-transform: none !important; letter-spacing: 0 !important; font-family: var(--sans) !important; font-size: 0.8rem !important; }
+
+/* Filter pills become plain text links */
+.filter-pills { gap: 20px; }
+.filter-pill, .filter-pill:hover, .filter-pill.active {
+  background: transparent !important; border: 0 !important; padding: 4px 0 !important;
+  color: var(--n-600) !important; text-transform: none !important; letter-spacing: 0 !important;
+  font-family: var(--sans) !important; font-size: 0.95rem !important; text-decoration: none;
+}
+.filter-pill:hover { color: var(--ink) !important; }
+.filter-pill.active { color: var(--ink) !important; text-decoration: underline; text-underline-offset: 6px; }
+
+/* Process: no big numerals, tools as plain text */
+.process-step { grid-template-columns: 1fr !important; gap: 16px !important; }
+.process-step-num { display: none !important; }
+.process-tools { display: block !important; margin-top: 16px; }
+.process-tool-tag, .process-tool-tag:hover {
+  display: inline; border: 0 !important; padding: 0 !important; background: none !important;
+  font-family: var(--sans) !important; font-size: 0.9rem !important; letter-spacing: 0 !important;
+  text-transform: none !important; color: var(--n-600) !important;
+}
+.process-tool-tag:not(:last-child)::after { content: ", "; }
+
+/* Home stats: two plain figures */
+.stats-strip { display: flex !important; gap: clamp(32px, 8vw, 96px); flex-wrap: wrap; }
+.stats-strip .stat-item { border: 0 !important; flex: 0 1 auto; }
+
+/* Serif italic accents: upright, no colour */
+.v3-title em, .v3-title .v3-accent { font-family: inherit; font-style: normal; color: inherit; }
+.v3-subhead, .we-sub, .demo-tile-desc, .about-bio-intro { font-style: normal !important; }
+.about-bio-text p em, .post-body p em, .about-teaser-right p em, .v3-body em, .panel-body em {
+  color: inherit; font-family: inherit;
+}
+.about-teaser-right::before { display: none !important; }
+.about-teaser-right { transform: none !important; }

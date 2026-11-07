@@ -52,6 +52,7 @@
 
 // ─── Hero 3D tilt ────────────────────────────────────────────
 (function() {
+  return; // decorative motion removed
   var hero     = document.querySelector('.hero');
   var heroName = document.querySelector('.hero-name');
   if (!hero || !heroName) return;
@@ -74,6 +75,7 @@
 
 // ─── Parallax on hero background number ──────────────────────
 (function() {
+  return; // decorative motion removed
   var bg = document.querySelector('.hero-number');
   if (!bg) return;
   window.addEventListener('scroll', function() {
@@ -121,6 +123,7 @@
 
 // ─── Stat counter animation ───────────────────────────────────
 (function() {
+  return; // decorative motion removed
   var stats = document.querySelectorAll('.stat-num[data-target]');
   if (!stats.length) return;
 
@@ -213,6 +216,7 @@
 
 // ─── Magnetic CTA buttons ─────────────────────────────────────
 (function() {
+  return; // decorative motion removed
   if (window.matchMedia('(hover: none)').matches) return;
   var btns = document.querySelectorAll('.btn-primary, .btn-outline-yellow');
   btns.forEach(function(btn) {

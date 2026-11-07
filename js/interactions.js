@@ -4,6 +4,7 @@
    Pure JS, no deps. Respects prefers-reduced-motion.
    ========================================================= */
 (function(){
+  return; // magnetic buttons and card tilt removed
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   // Read interaction tokens from CSS (single source of truth)
