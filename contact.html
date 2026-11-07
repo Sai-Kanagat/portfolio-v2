@@ -66,6 +66,15 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="stylesheet" href="css/brand-overlay.css?v=1780012796" />
+  <style>
+    .form-msg { font-size: 0.95rem; line-height: 1.55; margin: 0 0 20px; }
+    .form-msg[hidden], .contact-form[hidden] { display: none; }
+    .form-msg-error { color: #9b1c14; border-left: 3px solid #9b1c14; padding: 10px 0 10px 14px; }
+    .form-msg-ok { border: 1px solid var(--grey-line); border-left: 3px solid var(--accent); padding: 24px 24px 28px; }
+    .form-msg-ok:focus { outline: none; }
+    .form-msg-title { font-family: var(--font-display); font-weight: 700; font-size: clamp(20px, 2.2vw, 26px); letter-spacing: -0.03em; text-transform: uppercase; margin: 0 0 12px; }
+    .form-msg-ok .btn { margin-top: 20px; }
+  </style>
   <link rel="icon" href="/favicon.ico" sizes="any" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
@@ -180,6 +189,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 
       <form class="contact-form" id="contactForm" action="https://formspree.io/f/mvzdvynq" method="POST">
         <input type="hidden" name="_subject" value="New portfolio inquiry: saikanagat" />
+        <input type="hidden" name="_next" value="https://saikanagat.com/contact?sent=1" />
         <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
 
         <div class="form-row">
@@ -221,6 +231,8 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
           <textarea id="message" name="message" placeholder="Tell me about the opportunity, project or idea you have in mind..." required></textarea>
         </div>
 
+        <p class="form-msg form-msg-error" id="formError" role="alert" hidden></p>
+
         <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
           <span data-en="Send Message" data-it="Invia Messaggio">Send Message</span>
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
@@ -228,6 +240,12 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 
         <p style="font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.1em; color: rgba(10,10,10,0.6); margin-top: 16px; text-align: center; text-transform: uppercase;">Or email directly at saikanagat1117@gmail.com</p>
       </form>
+
+      <div class="form-msg form-msg-ok" id="formSuccess" role="status" hidden>
+        <p class="form-msg-title" data-en="Message sent." data-it="Messaggio inviato.">Message sent.</p>
+        <p data-en="Thank you. I read everything myself and will reply to the email you gave, usually within two working days." data-it="Grazie. Leggo tutto personalmente e risponderò all'email che hai indicato, di solito entro due giorni lavorativi.">Thank you. I read everything myself and will reply to the email you gave, usually within two working days.</p>
+        <button type="button" class="btn btn-outline" id="formAgain" data-en="Send another message" data-it="Invia un altro messaggio">Send another message</button>
+      </div>
     </div>
 
   </div>
@@ -278,6 +296,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 <script src="js/lightbox.js"></script>
 <script src="js/hover-preview.js"></script>
 <script src="js/interactions.js"></script>
+<script src="js/contact-form.js" defer></script>
 <script src="js/consent.js" defer></script>
 <script src="js/analytics.js" defer></script>
 </body>
