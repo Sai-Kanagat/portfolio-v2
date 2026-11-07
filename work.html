@@ -14,7 +14,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Work | Sai Kanagat | Selected Design & Marketing Projects</title>
-  <meta name="description" content="Selected work by Sai Kanagat: Cyrano (persona-conditioned conversation architecture), Aperol: The Golden Hour (speculative India campaign), Monocular Biomechanics (research paper), Carlos Mota × AD, Juicy Chemistry, ARABellA, Content Vigilante, Inkwell, Agora, and a decade of industrial design + brand work." />
+  <meta name="description" content="Selected work by Sai Kanagat: Cyrano (persona-conditioned conversation architecture), Aperol: The Golden Hour (speculative India campaign), Monocular Biomechanics (research paper), Carlos Mota (Verde), Juicy Chemistry, ARABellA, Content Vigilante, Inkwell, Agora, and industrial design and brand work." />
   <meta name="author" content="Sai Prathyaksh Kanagat" />
   <link rel="canonical" href="https://saikanagat.com/work" />
 
@@ -285,14 +285,14 @@ const projects = {
   casamota: {
     id: 'casamota', num: '01',
     title: 'Carlos Mota: Verde Collection',
-    category: 'Design Collaboration / Furniture & Set Design',
-    year: '2022', client: 'Carlos Mota (New York)', role: 'Furniture Designer & Collaborator',
-    tags: ['Furniture Design', 'Set Design', 'AD Photoshoot', 'Luxury', 'CMF'],
-    body: `<p>A commissioned collaboration with Carlos Mota, the New York-based interior designer and stylist known for his maximalist, culture-rich aesthetic, for the launch of <em>Verde</em>, his debut textile line accompanying his book <em>G: Forever Green</em>.</p>
-<p>Carlos designed the textiles. I designed and fabricated the furniture that accompanied them: paired objects that gave his botanical prints a three-dimensional home. The pieces were built to be photographed for <em>Architectural Digest</em>, shot across multiple locations in Mumbai with overlapping timelines, different spatial constraints and distinct ambient palettes at each venue.</p>
+    category: 'Internship / Furniture & Set Design',
+    year: '2022', client: 'Carlos Mota (Mumbai)', role: 'Furniture & Set Design Intern',
+    tags: ['Furniture Design', 'Set Design', 'Internship', 'CMF'],
+    body: `<p>In May to July 2022 I interned with Carlos Mota in Mumbai, on the launch of <em>Verde</em>, his debut textile line accompanying his book <em>G: Forever Green</em>.</p>
+<p>Carlos designed the textiles. I made the furniture the textiles were upholstered on: paired objects that gave his botanical prints a three-dimensional home. The pieces were made to be photographed for <em>Architectural Digest</em>, shot across multiple locations in Mumbai with overlapping timelines, different spatial constraints and distinct ambient palettes at each venue.</p>
 <p>My role spanned CMF decisions (colour, material, finish), prototyping, and on-set styling adjustments. Every surface had to do two jobs simultaneously: carry Carlos's textile story, and function convincingly as a piece of furniture in the frame.</p>
 <p>It was my first exposure to working at the intersection of product, set and brand communication, and the reason I started thinking about design as a campaign language, not just an object language.</p>`,
-    highlight: 'Furniture commissioned for Carlos Mota\'s debut textile line · Shot by Architectural Digest · Launched alongside the book G: Forever Green.',
+    highlight: 'Internship in Mumbai, May to July 2022. Furniture made for Carlos Mota\'s debut textile line, Verde, which was featured in Architectural Digest.',
     images: ['assets/images/CASAMOTA/img_p4_1.jpeg','assets/images/CASAMOTA/img_p5_1.jpeg','assets/images/CASAMOTA/img_p3_1.png','assets/images/CASAMOTA/img_p3_3.png','assets/images/CASAMOTA/img_p7_2.jpeg','assets/images/CASAMOTA/img_p8_4.jpeg','assets/images/CASAMOTA/img_p9_1.jpeg','assets/images/CASAMOTA/bts_01.jpg','assets/images/CASAMOTA/bts_02.jpg','assets/images/CASAMOTA/bts_03.jpg','assets/images/CASAMOTA/bts_04.jpg','assets/images/CASAMOTA/bts_05.jpg','assets/images/CASAMOTA/bts_06.jpg','assets/images/CASAMOTA/bts_07.jpg','assets/images/CASAMOTA/bts_08.jpg','assets/images/CASAMOTA/bts_09.jpg','assets/images/CASAMOTA/bts_10.jpg','assets/images/CASAMOTA/bts_11.jpg','assets/images/CASAMOTA/bts_12.jpg','assets/images/CASAMOTA/bts_13.jpg','assets/images/CASAMOTA/bts_14.jpg']
   },
   juicy: {
@@ -449,7 +449,7 @@ const projects = {
   <li><strong>Enforce</strong>: a deterministic post-processor beats the LLM output into the measured idiolect: length distribution, capitalization rate, terminal-punctuation rate, emoji whitelist, slang dictionary, multi-bubble split rate. Strips the common LLM tells.</li>
 </ol>
 <h3 style="margin-top:20px;font-family:'Newsreader', Georgia, serif; font-weight:500; font-style:italic; font-size:1.1rem; letter-spacing:-0.01em;">Why it works</h3>
-<p>Statistical fingerprint plus few-shot retrieval recovers roughly 85% of an individual's idiolect without any fine-tuning. The retrieval layer pastes real past messages as exemplars, so the model copies voice from concrete artifacts instead of abstract instructions. Fine-tuning is the third lever if the gap matters, but at zero training cost, retrieval covers most of it.</p>
+<p>Statistical fingerprint plus few-shot retrieval approximates an individual's idiolect without any fine-tuning. The retrieval layer pastes real past messages as exemplars, so the model copies voice from concrete artifacts instead of abstract instructions. Fine-tuning is the third lever if the gap matters, but retrieval costs nothing to train and is the cheaper first step.</p>
 <h3 style="margin-top:20px;font-family:'Newsreader', Georgia, serif; font-weight:500; font-style:italic; font-size:1.1rem; letter-spacing:-0.01em;">Stack</h3>
 <p>Python 3.9+ · FastAPI dashboard · sentence-transformers for local embeddings (no API) · Groq (Llama 3.3 70B) as default reasoner, Anthropic SDK pluggable · numpy + pickle vector index for v0, pgvector when corpus &gt; 100k · vanilla JS + Tailwind frontend. Personal corpus and persona data stay on local disk only. The only publishable artifact is an aggregate statistical fingerprint with zero verbatim content.</p>`,
     highlight: 'A persona-conditioned conversation pipeline that learns an individual idiolect from their chat history and produces replies in that voice, without fine-tuning. Five-stage pipeline: perceive · retrieve · strategize · draft · enforce.',
