@@ -1,0 +1,58 @@
+{
+  "_howto": "Update only this file. status = where the build is now. changelog = newest first; each id becomes a link anchor (saikanagat.com/build-log/#<id>), so never change an id once a post links to it. wave status: done | active | next | planned.",
+  "product": {
+    "name": "Thallo",
+    "tagline": "growth with receipts",
+    "name_note": "Working name. The final name is not decided yet.",
+    "one_line": "An operated growth system for small businesses: marketing run for you, every action on the record.",
+    "for_buyers": "Your marketing, run for you. You approve in 30 minutes a week, and every post, lead and euro has a receipt.",
+    "for_hiring": "I build and run growth systems that can prove what they did, including the misses."
+  },
+  "status": {
+    "updated": "2026-11-11",
+    "wave": 0,
+    "wave_name": "Contracts",
+    "package": "WP-00",
+    "package_name": "Contracts and scaffolding",
+    "state": "In progress on a branch",
+    "merged": 0,
+    "total": 42,
+    "facts": [
+      "49 typed tables generated from the models",
+      "11 state machines",
+      "36 event types",
+      "A connection contract with mocks for all 16 capabilities",
+      "114 tests passing against Postgres"
+    ],
+    "next": "Freeze the WP-00 contracts and merge them. Then Wave 1 fans out: data layer, connections registry, truth library, and the approval gate with its audit log, built in parallel."
+  },
+  "links": {
+    "repository": { "label": "Repository", "url": null, "note": "Private for now" }
+  },
+  "waves": [
+    { "n": 0, "name": "Contracts", "packages": 1, "status": "active", "summary": "Typed contracts, database schema, state machines, events and a mock for every outside service. Frozen before any parallel work starts." },
+    { "n": 1, "name": "Foundation", "packages": 4, "status": "next", "summary": "Data layer with per-client isolation, connections registry, a library of verified claims, and the approval gate with a tamper-evident audit log." },
+    { "n": 2, "name": "Production", "packages": 5, "status": "planned", "summary": "Brand system and renderer, copy production, the check stack, the publisher, and the phone-first review app. Real businesses start using it here." },
+    { "n": 3, "name": "Source, media and demand", "packages": 6, "status": "planned", "summary": "Capturing what the founder knows, media providers, link and touch tracking, the lead desk, nurture and booking, and the growth model." },
+    { "n": 4, "name": "Intelligence", "packages": 6, "status": "planned", "summary": "Signal intake, the weekly planner with sealed forecasts, measurement, the learning loop, the trust ladder, and the receipts page." },
+    { "n": 5, "name": "Money and operations", "packages": 4, "status": "planned", "summary": "Ads desk and money screen, engagement inbox, operator console and API, and a demo client on a fake clock." },
+    { "n": 6, "name": "The rest of the plan", "packages": 10, "status": "planned", "summary": "Business profile, search pages, proof and referrals, founder desk, holdout experiments and outcome pricing." },
+    { "n": 7, "name": "Add-ons", "packages": 6, "status": "planned", "summary": "Short video, webinars, share-of-model tracking, a disclosed assistant, more providers, and an operator edition." }
+  ],
+  "changelog": [
+    {
+      "id": "2026-11-11-contracts",
+      "date": "2026-11-11",
+      "title": "WP-00: contracts frozen before the agents fan out",
+      "body": "Before several agents build in parallel, everything they share gets pinned down first: 49 typed tables generated from the models, 11 state machines, 36 event types, and one connection contract with a mock for each of the 16 outside capabilities. 114 tests pass against a real Postgres. After the freeze, additive changes are allowed and breaking ones are not, so packages can be built side by side without stepping on each other.",
+      "tags": ["Wave 0", "WP-00", "In progress"]
+    },
+    {
+      "id": "2026-11-11-plan",
+      "date": "2026-11-11",
+      "title": "Plan of record: 42 work packages in 8 waves",
+      "body": "The full build is split into 42 self-contained work packages across 8 waves. Each package has an owner, a file scope, its dependencies and a test that says it is done. Every wave ends in a working system, so the build can pause after any wave and still be usable, and real businesses start using it once Wave 2 lands.",
+      "tags": ["Plan"]
+    }
+  ]
+}

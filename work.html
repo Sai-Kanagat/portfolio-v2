@@ -153,6 +153,31 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   <div class="work-full-grid">
     <div class="full-grid" id="workGrid">
 
+      <a href="build-log/" class="work-card feature reveal" data-category="systems" data-project="thallo" id="thallo" style="display:block; text-decoration:none; color:inherit; position:relative; overflow:hidden;">
+        <div style="width:100%;height:100%;background:#F2EFE8;display:flex;flex-direction:column;justify-content:space-between;padding:24px 28px;position:relative;overflow:hidden;border-bottom:1px solid #0A0A0A;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#0A0A0A;">
+            <span>THALLO // BUILD LOG</span>
+            <span style="color:#6b7a2e;">● BUILDING</span>
+          </div>
+          <div style="font-family:'Unbounded',sans-serif;font-weight:900;letter-spacing:-0.03em;line-height:0.95;font-size:clamp(32px,4.5vw,64px);color:#0A0A0A;">
+            GROWTH WITH<br/>RECEIPTS<span style="color:#6b7a2e;">.</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:flex-end;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#1F1F1F;">
+            <span>OPERATED GROWTH SYSTEM</span>
+            <span>8 WAVES · 42 PACKAGES</span>
+          </div>
+        </div>
+        <div class="work-card-overlay">
+          <div class="work-card-number">Growth system · Build log · 2026</div>
+          <div class="work-card-title">Thallo: growth with receipts</div>
+          <div class="work-card-tags">
+            <span class="tag marketing">Growth</span>
+            <span class="tag marketing">AI agents</span>
+            <span class="tag collab">In progress</span>
+          </div>
+        </div>
+      </a>
+
       <a href="#cyrano" class="work-card feature reveal" data-category="systems" data-project="cyrano" id="cyrano" style="display:block; text-decoration:none; color:inherit; position:relative; overflow:hidden;">
         <div style="width:100%; height:100%; background:#0E1116; display:flex; flex-direction:column; justify-content:space-between; padding:28px; position:relative; overflow:hidden; border-bottom:1px solid #0A0A0A;">
           <div style="display:flex; justify-content:space-between; align-items:flex-start; font-family:'IBM Plex Mono','Geist Mono', monospace; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:rgba(244,243,239,0.6);">
@@ -486,6 +511,18 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 
 <script>
 const projects = {
+  thallo: {
+    id: 'thallo', num: '01',
+    title: 'Thallo: growth with receipts',
+    category: 'Growth system · In progress · Build log',
+    year: '2026', client: 'Independent', role: 'Founder · Builder',
+    tags: ['Growth system', 'AI agents', 'Build log'],
+    body: `<p><strong>Thallo</strong> (working name) is an operated growth system for small businesses. Your marketing, run for you: you approve in 30 minutes a week, and every post, lead and euro has a receipt.</p>
+<p>I build and run growth systems that can prove what they did, including the misses. The build is planned as 42 work packages in 8 waves, and the build log shows where it stands today, what is next, and a dated changelog.</p>`,
+    highlight: 'An operated growth system where every post, lead and euro has a receipt. Follow the build: current status, the plan, and a dated changelog.',
+    cta: { href: 'build-log/', label: 'Open the build log →' },
+    images: []
+  },
   adlib: {
     id: 'adlib', num: '—',
     title: 'adlib — Ad Library Reconnaissance Extension',
@@ -815,7 +852,7 @@ const projects = {
   }
 };
 
-const projectOrder = ['cyrano','aperol','biomechanics','adlib','inkwell','vigilante','casamota','juicy','arabella','backpack','agora','handcursor','dropballs','desk','cigarette','vijay','flower','povera','razer','brand'];
+const projectOrder = ['thallo','cyrano','aperol','biomechanics','adlib','inkwell','vigilante','casamota','juicy','arabella','backpack','agora','handcursor','dropballs','desk','cigarette','vijay','flower','povera','razer','brand'];
 let currentIndex = 0;
 
 function openPanel(projectId) {

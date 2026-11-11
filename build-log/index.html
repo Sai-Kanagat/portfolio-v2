@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Consent Mode v2 default: denied inside EEA/UK/Switzerland (GDPR), granted elsewhere -->
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+// Default: granted everywhere (for non-EEA traffic, recruiters in US/India/etc)
+gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'granted','functionality_storage':'granted','security_storage':'granted','wait_for_update':500});
+// Override: denied for EEA, UK, Switzerland (legally required until user accepts)
+gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied','region':['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH'],'wait_for_update':500});
+try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_consent_v2')){localStorage.setItem('sk_consent_v2','denied');}localStorage.removeItem('sk_consent');var c=localStorage.getItem('sk_consent_v2');if(c==='granted'){gtag('consent','update',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'granted'});}else if(c==='denied'){gtag('consent','update',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied'});}}catch(e){}</script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MRGXD7ZC');</script>
+<!-- End Google Tag Manager -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Thallo build log | Sai Kanagat</title>
+<meta name="description" content="Build log for Thallo, an operated growth system for small businesses where every post, lead and euro has a receipt. Current status, the plan, and a dated changelog." />
+<link rel="canonical" href="https://saikanagat.com/build-log/" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Thallo build log: growth with receipts" />
+<meta property="og:description" content="Current status, the 8-wave plan, and a dated changelog of the build." />
+<meta property="og:url" content="https://saikanagat.com/build-log/" />
+<meta property="og:image" content="https://saikanagat.com/og-image.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Space+Grotesk:wght@400;500;700&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f5f0e8; --paper2:#efe9df; --ink:#0a0a0a; --warm:#1A1410;
+    --grey:#6b6b6b; --line:rgba(10,10,10,0.12); --accent:#3b3ad6; --olive:#6b7a2e;
+    --display:'Unbounded',sans-serif; --body:'Space Grotesk',sans-serif; --mono:'Space Mono',monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;}
+  html{scroll-padding-top:80px;}
+  body{font-family:var(--body);background:var(--paper);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 28px;}
+  @media(max-width:600px){.wrap{padding:0 16px;}}
+  .mono{font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--grey);}
+  h1,h2,h3{font-family:var(--display);letter-spacing:-.03em;line-height:1.02;margin:0;}
+
+  header.top{border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(245,240,232,.92);backdrop-filter:blur(8px);z-index:20;}
+  header.top .wrap{display:flex;align-items:center;gap:14px;padding-top:14px;padding-bottom:14px;}
+  header.top .logo{font-family:var(--display);font-weight:900;font-size:17px;color:var(--ink);}
+  header.top .logo span{color:var(--olive);}
+  header.top nav{margin-left:auto;display:flex;gap:18px;font-size:13px;}
+  header.top nav a{color:var(--grey);}
+
+  .hero{padding:72px 0 44px;}
+  .hero h1{font-size:clamp(48px,9vw,112px);font-weight:900;}
+  .hero h1 .dot{color:var(--olive);}
+  .hero .tagline{font-family:var(--mono);font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:var(--olive);margin-top:14px;}
+  .hero .lede{max-width:680px;font-size:1.18rem;color:var(--warm);margin-top:22px;}
+  .note{font-size:.82rem;color:var(--grey);margin-top:10px;}
+  .pitch{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:34px;}
+  @media(max-width:760px){.pitch{grid-template-columns:1fr;}}
+  .card{border:1px solid var(--line);border-radius:14px;padding:20px;background:var(--paper2);}
+  .card .mono{font-size:.64rem;}
+  .card p{margin:8px 0 0;color:var(--warm);}
+
+  section{padding:52px 0;border-top:1px solid var(--line);}
+  section h2{font-size:clamp(26px,4vw,44px);font-weight:900;}
+  .sub{color:var(--grey);max-width:680px;margin-top:12px;}
+
+  .status{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px;}
+  @media(max-width:760px){.status{grid-template-columns:1fr;}}
+  .big{font-family:var(--display);font-weight:900;font-size:clamp(30px,4vw,44px);letter-spacing:-.03em;line-height:1;margin-top:10px;}
+  .meter{height:6px;background:var(--line);border-radius:6px;margin-top:14px;overflow:hidden;}
+  .meter i{display:block;height:100%;background:var(--olive);}
+  ul.facts{margin:22px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px 22px;}
+  ul.facts li{padding-left:16px;position:relative;color:var(--warm);}
+  ul.facts li:before{content:"";position:absolute;left:0;top:.62em;width:7px;height:7px;background:var(--olive);border-radius:50%;}
+  .next{margin-top:26px;border-left:3px solid var(--olive);padding:4px 0 4px 16px;max-width:760px;}
+  .next p{margin:6px 0 0;color:var(--warm);}
+
+  .waves{margin-top:30px;border-top:1px solid var(--line);}
+  .wave{display:grid;grid-template-columns:64px 1fr 110px;gap:16px;padding:16px 0;border-bottom:1px solid var(--line);align-items:start;}
+  .wave .n{font-family:var(--display);font-weight:900;font-size:26px;color:var(--grey);line-height:1;}
+  .wave h3{font-family:var(--body);font-weight:700;font-size:1.04rem;letter-spacing:0;}
+  .wave p{margin:4px 0 0;color:var(--warm);font-size:.94rem;}
+  .wave .pk{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin-top:6px;}
+  .pill{justify-self:end;font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--line);border-radius:20px;padding:4px 10px;color:var(--grey);white-space:nowrap;}
+  .wave.active .n{color:var(--olive);}
+  .wave.active .pill{border-color:var(--olive);color:var(--olive);}
+  .wave.done .pill{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+  .wave.next .pill{border-color:var(--ink);color:var(--ink);}
+  @media(max-width:600px){.wave{grid-template-columns:40px 1fr;}.wave .n{font-size:20px;}.pill{grid-column:2;justify-self:start;}}
+
+  .links{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px;}
+  .slot{border:1px dashed var(--grey);border-radius:10px;padding:12px 16px;font-size:.92rem;}
+  .slot b{font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--grey);font-weight:400;margin-right:8px;}
+
+  .log{margin-top:30px;}
+  .entry{padding:24px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:150px 1fr;gap:22px;}
+  .entry:target{background:linear-gradient(90deg,rgba(107,122,46,.10),transparent);}
+  @media(max-width:600px){.entry{grid-template-columns:1fr;gap:6px;}}
+  .entry time{font-family:var(--mono);font-size:.74rem;letter-spacing:.08em;color:var(--grey);}
+  .entry h3{font-family:var(--body);font-weight:700;font-size:1.18rem;letter-spacing:-.01em;line-height:1.3;}
+  .entry h3 a{color:var(--ink);}
+  .entry h3 a .hash{color:var(--grey);font-weight:400;margin-left:6px;opacity:0;transition:opacity .15s;}
+  .entry h3 a:hover .hash,.entry h3 a:focus .hash{opacity:1;}
+  .entry p{margin:8px 0 0;color:var(--warm);max-width:720px;}
+  .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
+  .tag{font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--line);border-radius:20px;padding:4px 10px;color:var(--grey);}
+
+  footer{border-top:1px solid var(--line);padding:38px 0 60px;color:var(--grey);font-size:.82rem;}
+  footer a{color:var(--grey);text-decoration:underline;}
+  .err{color:#b23b32;}
+</style>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MRGXD7ZC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="/">SK<span>.</span></a>
+    <span class="mono">Build log</span>
+    <nav>
+      <a href="/work.html">Work</a>
+      <a href="/contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <div class="mono">Build log · updated <span data-k="updated">2026-11-11</span></div>
+    <h1><span data-k="name">Thallo</span><span class="dot">.</span></h1>
+    <div class="tagline" data-k="tagline">growth with receipts</div>
+    <p class="lede" data-k="one_line">An operated growth system for small businesses: marketing run for you, every action on the record.</p>
+    <p class="note" data-k="name_note">Working name. The final name is not decided yet.</p>
+    <div class="pitch">
+      <div class="card"><div class="mono">For business owners</div><p data-k="for_buyers"></p></div>
+      <div class="card"><div class="mono">For hiring managers</div><p data-k="for_hiring"></p></div>
+    </div>
+  </div>
+
+  <section id="status">
+    <div class="wrap">
+      <div class="mono">Where it stands</div>
+      <h2>Current status</h2>
+      <div class="status">
+        <div class="card"><div class="mono">Wave</div><div class="big" id="s-wave">0</div><p id="s-wavename"></p></div>
+        <div class="card"><div class="mono">Work package</div><div class="big" id="s-pkg">WP-00</div><p id="s-pkgname"></p></div>
+        <div class="card"><div class="mono">Merged</div><div class="big" id="s-merged">0 / 42</div><div class="meter"><i id="s-meter" style="width:0"></i></div></div>
+      </div>
+      <ul class="facts" id="s-facts"></ul>
+      <div class="next"><div class="mono">Last significant change</div><p id="s-last"></p></div>
+      <div class="next"><div class="mono">What is next</div><p id="s-next"></p></div>
+      <div class="links" id="s-links"></div>
+    </div>
+  </section>
+
+  <section id="plan">
+    <div class="wrap">
+      <div class="mono">Course of action</div>
+      <h2>The plan: 8 waves</h2>
+      <p class="sub">Every wave ends in a working system, so the build can pause after any wave and still be usable.</p>
+      <div class="waves" id="waves"></div>
+    </div>
+  </section>
+
+  <section id="changelog">
+    <div class="wrap">
+      <div class="mono">Dated, newest first</div>
+      <h2>Changelog</h2>
+      <p class="sub">Each entry has its own link. Posts about the build point here.</p>
+      <div class="log" id="log"><p class="sub">Loading the log.</p></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">Sai Kanagat · <a href="/work.html">Work</a> · <a href="/contact.html">Contact</a></div>
+</footer>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id);};
+  function el(tag,cls,text){var e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e;}
+  function fmt(d){try{return new Date(d+"T12:00:00Z").toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric",timeZone:"UTC"});}catch(e){return d;}}
+
+  function render(D){
+    var p=D.product||{},s=D.status||{};
+    document.querySelectorAll("[data-k]").forEach(function(n){var k=n.getAttribute("data-k");var v=k==="updated"?fmt(s.updated):p[k];if(v)n.textContent=v;});
+    $("s-wave").textContent=s.wave;
+    $("s-wavename").textContent=s.wave_name||"";
+    $("s-pkg").textContent=s.package;
+    $("s-pkgname").textContent=(s.package_name||"")+(s.state?". "+s.state+".":"");
+    $("s-merged").textContent=s.merged+" / "+s.total;
+    $("s-meter").style.width=(s.total?Math.round(100*s.merged/s.total):0)+"%";
+    var f=$("s-facts");f.textContent="";(s.facts||[]).forEach(function(x){f.appendChild(el("li",null,x));});
+    $("s-next").textContent=s.next||"";
+
+    var last=(D.changelog||[])[0];
+    var lp=$("s-last");lp.textContent="";
+    if(last){var a=el("a",null,last.title);a.href="#"+last.id;lp.appendChild(a);lp.appendChild(document.createTextNode(" ("+fmt(last.date)+")"));}
+
+    var L=$("s-links");L.textContent="";
+    Object.keys(D.links||{}).forEach(function(k){var l=D.links[k];var d=el("div","slot");d.appendChild(el("b",null,l.label));
+      if(l.url){var a=el("a",null,l.url.replace(/^https?:\/\//,""));a.href=l.url;a.rel="noopener";a.target="_blank";d.appendChild(a);}
+      else d.appendChild(document.createTextNode(l.note||"Not public yet"));
+      L.appendChild(d);});
+
+    var W=$("waves");W.textContent="";
+    var labels={done:"Done",active:"In progress",next:"Next",planned:"Planned"};
+    (D.waves||[]).forEach(function(w){var r=el("div","wave "+(w.status||"planned"));
+      r.appendChild(el("div","n",String(w.n)));
+      var b=el("div");b.appendChild(el("h3",null,w.name));b.appendChild(el("p",null,w.summary));b.appendChild(el("div","pk",w.packages+(w.packages===1?" package":" packages")));r.appendChild(b);
+      r.appendChild(el("span","pill",labels[w.status]||w.status));W.appendChild(r);});
+
+    var G=$("log");G.textContent="";
+    (D.changelog||[]).forEach(function(c){var e=el("article","entry");e.id=c.id;
+      var t=el("time",null,fmt(c.date));t.setAttribute("datetime",c.date);e.appendChild(t);
+      var b=el("div");var h=el("h3");var a=el("a",null,c.title);a.href="#"+c.id;a.appendChild(el("span","hash","#"));h.appendChild(a);b.appendChild(h);
+      b.appendChild(el("p",null,c.body));
+      if(c.tags&&c.tags.length){var tg=el("div","tags");c.tags.forEach(function(x){tg.appendChild(el("span","tag",x));});b.appendChild(tg);}
+      e.appendChild(b);G.appendChild(e);});
+
+    if(location.hash){var target=document.getElementById(decodeURIComponent(location.hash.slice(1)));if(target){target.scrollIntoView();location.hash=location.hash;}}
+  }
+
+  fetch("/build-log/status.json",{cache:"no-cache"}).then(function(r){if(!r.ok)throw new Error(r.status);return r.json();}).then(render)
+    .catch(function(){$("log").innerHTML='<p class="sub err">The log could not load. Refresh to try again.</p>';});
+})();
+</script>
+<script src="/js/consent.js" defer></script>
+<script src="/js/analytics.js" defer></script>
+</body>
+</html>
