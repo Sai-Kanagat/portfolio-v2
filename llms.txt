@@ -11,6 +11,7 @@
 
 ## Selected projects
 - [Cortex Studio](https://saikanagat.com/cortex): multi-agent AI creative studio
+- [Thallo](https://saikanagat.com/thallo): AI system that runs a brand's marketing end to end (early build, waitlist)
 - [Aperol, The Golden Hour](https://saikanagat.com/aperol-golden-hour): speculative India launch campaign
 - [Content Vigilante](https://saikanagat.com/work#vigilante): local-first, open-source marketing OS
 - [Monocular Biomechanics](https://saikanagat.com/papers/monocular-biomechanics): research paper
