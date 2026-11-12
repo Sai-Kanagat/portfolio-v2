@@ -185,3 +185,9 @@ section[id]{ scroll-margin-top:72px; }
   .log li::before{ left:calc(-1 * var(--s-5) - 4px); }
   .log li p{ font-size:var(--t-base); }
 }
+
+/* Tagline sits in the lockup, not under it */
+.hero h1{ flex-wrap:wrap; }
+.hero h1 .tagline{ font-style:normal; font-family:var(--sans); font-weight:600; font-size:.42em; letter-spacing:-.02em; color:var(--ink); margin-left:.5em; padding-left:.6em; border-left:1px solid rgba(14,17,22,.2); align-self:center; line-height:1.1; }
+.hero h1 .tagline i{ font-family:'Newsreader',serif; font-style:italic; font-weight:400; color:#1F40C7; letter-spacing:-.01em; }
+@media (max-width:560px){ .hero h1 .tagline{ flex-basis:100%; margin:.5em 0 0; padding:0; border:0; font-size:.5em; } }
