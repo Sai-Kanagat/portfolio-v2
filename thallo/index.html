@@ -71,31 +71,35 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     <nav aria-label="Thallo">
       <a class="hide-sm" href="#capabilities">What it does</a>
       <a class="hide-sm" href="#trust">Trust</a>
-      <a class="btn btn-accent btn-sm" href="#waitlist">Join the waitlist</a>
+      <a class="btn btn-accent btn-sm" href="#join" id="navJoin">Join the waitlist</a>
     </nav>
   </div>
 </header>
 
 <main id="main">
+<div class="page stage">
+<div class="stage-main">
 <section class="hero">
-  <div class="page">
-    <h1><svg viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="6" fill="#0E1116"/><path class="leaf" d="M18 82 C18 44 44 18 82 18 C82 56 56 82 18 82 Z" fill="#1F40C7"/><line x1="18" y1="82" x2="82" y2="18" stroke="#0E1116" stroke-width="2.5"/></svg><span>thallo</span></h1>
+    <h1><svg viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="6" fill="#0E1116"/><path class="leaf" d="M18 82 C18 44 44 18 82 18 C82 56 56 82 18 82 Z" fill="#3D5CF0"/><line x1="18" y1="82" x2="82" y2="18" stroke="#0E1116" stroke-width="2.5"/></svg><span>thallo</span></h1>
     <p class="lede">An AI system that runs a brand&rsquo;s marketing end to end, and keeps the receipts.</p>
-    <div class="cta">
-      <a class="btn btn-accent btn-lg" href="#waitlist">Join the waitlist</a>
-      <a class="btn btn-ghost btn-lg" href="#capabilities">See what it does</a>
+    <div class="wl wl-hero" id="join">
+      <form class="wl-form" action="https://formspree.io/f/mvzdvynq" method="POST">
+        <input type="hidden" name="_subject" value="Thallo waitlist signup" />
+        <input type="hidden" name="source" value="saikanagat.com/thallo hero" />
+        <input type="hidden" name="_next" value="https://saikanagat.com/thallo?sent=1" />
+        <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <label class="sr" for="heroEmail">Email</label>
+        <div class="pill">
+          <input id="heroEmail" type="email" name="email" placeholder="Your work email" autocomplete="email" required />
+          <button class="btn btn-accent" type="submit">Join the waitlist</button>
+        </div>
+        <p class="msg" role="alert" hidden></p>
+      </form>
+      <div class="wl-ok" role="status" hidden><p class="ok">You are on the waitlist. I will be in touch.</p></div>
     </div>
-    <div class="facts">
-      <div class="kv">Status<b>Early build</b></div>
-      <div class="kv">For<b>Independent operators and small teams</b></div>
-      <div class="kv">Scale<b>Several brands at once</b></div>
-      <div class="kv">Approval<b>A person, every time</b></div>
-    </div>
-  </div>
 </section>
 
 <section class="sec" id="capabilities">
-  <div class="page">
     <h2>Four jobs, <em>one</em> system.</h2>
     <ol class="caps">
       <li><span class="n">01</span><h3>It writes for every channel</h3><p>One brief becomes the post, the email, the ad copy and the caption, each written for its channel and in the brand&rsquo;s own voice.</p></li>
@@ -103,8 +107,26 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
       <li><span class="n">03</span><h3>It audits what is live</h3><p>Technical SEO, visibility in AI search, broken links and brand voice, checked against what is actually published.</p></li>
       <li><span class="n">04</span><h3>It measures against forecasts</h3><p>A forecast is sealed before a piece ships. At day two and day seven the real numbers are scored against it, misses included.</p></li>
     </ol>
-  </div>
 </section>
+</div>
+
+<aside class="log" id="log" aria-labelledby="logTitle">
+  <div class="log-in">
+    <h2 id="logTitle">Build log</h2>
+    <ol>
+      <li><time datetime="2026-11-12">12 Nov</time><p>Every connection to an outside tool now carries your consent, and expires when you say so.</p></li>
+      <li><time datetime="2026-11-12">12 Nov</time><p>Passwords and keys stay locked away. Thallo uses them without ever showing them.</p></li>
+      <li><time datetime="2026-11-12">12 Nov</time><p>The approval step is finished: nothing goes out without a person saying yes, and every yes is on record.</p></li>
+      <li><time datetime="2026-11-12">12 Nov</time><p>Sixteen kinds of tool can now plug in, from schedulers to analytics, each one swappable.</p></li>
+      <li><time datetime="2026-11-11">11 Nov</time><p>Each brand's data is walled off from every other brand.</p></li>
+      <li><time datetime="2026-11-11">11 Nov</time><p>The foundations went in, tested on every change.</p></li>
+      <li><time datetime="2026-11-11">11 Nov</time><p>The full plan was written: 42 pieces of work, built so any outside service can be replaced.</p></li>
+      <li><time datetime="2026-11-05">5 Nov</time><p>Thallo can now be reviewed from Notion, with a crew that plans, writes and critiques each post.</p></li>
+      <li><time datetime="2026-11-05">5 Nov</time><p>The first version runs: it drafts, waits for approval, posts and reads the results.</p></li>
+    </ol>
+  </div>
+</aside>
+</div>
 
 <section class="band cobalt" id="waitlist">
   <div class="page wrap">
@@ -113,20 +135,19 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
       <p>For independent operators and small teams running several brands. Thallo is an early build, so leave your email and I will write when there is something to try.</p>
     </div>
     <div class="wl">
-      <form id="waitlistForm" action="https://formspree.io/f/mvzdvynq" method="POST">
+      <form class="wl-form" action="https://formspree.io/f/mvzdvynq" method="POST">
         <input type="hidden" name="_subject" value="Thallo waitlist signup" />
         <input type="hidden" name="source" value="saikanagat.com/thallo" />
         <input type="hidden" name="_next" value="https://saikanagat.com/thallo?sent=1" />
         <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" />
-        <label for="wlEmail">Email</label>
+        <label class="sr" for="wlEmail">Email</label>
         <div class="line">
           <input id="wlEmail" type="email" name="email" placeholder="you@studio.com" autocomplete="email" required />
           <button class="btn btn-lg" type="submit">Join the waitlist</button>
         </div>
-        <p class="note">Used only to write to you about Thallo.</p>
-        <p class="msg" id="waitlistErr" role="alert" hidden></p>
+        <p class="msg" role="alert" hidden></p>
       </form>
-      <div id="waitlistOk" role="status" hidden><p class="ok">You are on the waitlist. I will be in touch.</p></div>
+      <div class="wl-ok" role="status" hidden><p class="ok">You are on the waitlist. I will be in touch.</p></div>
     </div>
   </div>
 </section>
@@ -139,8 +160,8 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
       <div><h3>Your edits become rules</h3><p>Make the same edit again and again, and Thallo proposes it as a taste rule. It applies only if you accept it.</p></div>
       <div><h3>Nothing publishes alone</h3><p>The Approval Passport records who approved exactly what. Without a human yes, nothing goes out.</p></div>
     </div>
+    <p class="demo-lead">Here is the check on two example sentences. They are written for illustration and are not real client data.</p>
     <div class="check-demo" role="group" aria-label="Illustration of the claim check">
-      <div class="cap">Illustration, not real data</div>
       <div class="row pass"><span class="txt">Ships within two working days.</span><span class="tag">claim on file, passes</span></div>
       <div class="row block"><span class="txt">Loved by thousands of customers.</span><span class="tag">no claim on file, blocked</span></div>
     </div>
@@ -150,7 +171,9 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 <section class="film-wrap" aria-label="Launch film">
   <div class="page">
     <div class="film" id="film">
-      <img src="/thallo/assets/launch-poster.svg" alt="Launch film placeholder. The Thallo film is coming soon." width="1280" height="720">
+      <video controls playsinline preload="metadata" poster="/thallo/assets/thallo_poster.jpg" aria-label="Thallo launch film" width="1920" height="1080">
+        <source src="/thallo/assets/thallo_launch.mp4" type="video/mp4">
+      </video>
     </div>
   </div>
 </section>
@@ -161,7 +184,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   <div class="page foot">
     <div>
       <img src="/thallo/assets/thallo-mark.svg" alt="" width="32" height="32">
-      <p>Thallo, formerly Cortex Operator. An AI system for running a brand&rsquo;s marketing, built by <a href="/">Sai Kanagat</a> in Bologna.</p>
+      <p>Thallo. An AI system for running a brand&rsquo;s marketing, built by <a href="/">Sai Kanagat</a> in Bologna.</p>
     </div>
     <div><h5>Status</h5><p>Early build.</p><p>Waitlist open.</p></div>
     <div><h5>Contact</h5><p><a href="/contact">saikanagat.com/contact</a></p></div>
