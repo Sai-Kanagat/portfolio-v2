@@ -14,10 +14,10 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Thallo build log | Sai Kanagat</title>
-<meta name="description" content="Build log for Thallo, an operated growth system for small businesses where every post, lead and euro has a receipt. Current status, the plan, and a dated changelog." />
+<meta name="description" content="Build log for Thallo, an operated growth system for small businesses. Grown, not generated. Current status, the plan, and a dated changelog." />
 <link rel="canonical" href="https://saikanagat.com/build-log/" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Thallo build log: growth with receipts" />
+<meta property="og:title" content="Thallo build log: Grown, not generated." />
 <meta property="og:description" content="Current status, the 8-wave plan, and a dated changelog of the build." />
 <meta property="og:url" content="https://saikanagat.com/build-log/" />
 <meta property="og:image" content="https://saikanagat.com/og-image.jpg" />
@@ -130,9 +130,8 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   <div class="wrap hero">
     <div class="mono">Build log · updated <span data-k="updated">2026-11-11</span></div>
     <h1><span data-k="name">Thallo</span><span class="dot">.</span></h1>
-    <div class="tagline" data-k="tagline">growth with receipts</div>
+    <div class="tagline" data-k="tagline">Grown, not generated.</div>
     <p class="lede" data-k="one_line">An operated growth system for small businesses: marketing run for you, every action on the record.</p>
-    <p class="note" data-k="name_note">Working name. The final name is not decided yet.</p>
     <div class="pitch">
       <div class="card"><div class="mono">For business owners</div><p data-k="for_buyers"></p></div>
       <div class="card"><div class="mono">For hiring managers</div><p data-k="for_hiring"></p></div>
@@ -144,9 +143,9 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
       <div class="mono">Where it stands</div>
       <h2>Current status</h2>
       <div class="status">
-        <div class="card"><div class="mono">Wave</div><div class="big" id="s-wave">0</div><p id="s-wavename"></p></div>
-        <div class="card"><div class="mono">Work package</div><div class="big" id="s-pkg">WP-00</div><p id="s-pkgname"></p></div>
-        <div class="card"><div class="mono">Merged</div><div class="big" id="s-merged">0 / 42</div><div class="meter"><i id="s-meter" style="width:0"></i></div></div>
+        <div class="card"><div class="mono">Waves</div><div class="big" id="s-wave">0 to 2</div><p id="s-wavename"></p></div>
+        <div class="card"><div class="mono">Work package</div><div class="big" id="s-pkg">Next</div><p id="s-pkgname"></p></div>
+        <div class="card"><div class="mono">Waves done</div><div class="big" id="s-merged">3 / 8</div><div class="meter"><i id="s-meter" style="width:0"></i></div></div>
       </div>
       <ul class="facts" id="s-facts"></ul>
       <div class="next"><div class="mono">Last significant change</div><p id="s-last"></p></div>
@@ -210,7 +209,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     var labels={done:"Done",active:"In progress",next:"Next",planned:"Planned"};
     (D.waves||[]).forEach(function(w){var r=el("div","wave "+(w.status||"planned"));
       r.appendChild(el("div","n",String(w.n)));
-      var b=el("div");b.appendChild(el("h3",null,w.name));b.appendChild(el("p",null,w.summary));b.appendChild(el("div","pk",w.packages+(w.packages===1?" package":" packages")));r.appendChild(b);
+      var b=el("div");b.appendChild(el("h3",null,w.name));b.appendChild(el("p",null,w.summary));if(w.packages)b.appendChild(el("div","pk",w.packages+(w.packages===1?" package":" packages")));r.appendChild(b);
       r.appendChild(el("span","pill",labels[w.status]||w.status));W.appendChild(r);});
 
     var G=$("log");G.textContent="";
