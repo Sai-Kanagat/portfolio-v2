@@ -14,7 +14,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Why I Built a Psychedelic Video Game for My Portfolio | Sai Kanagat</title>
-  <meta name="description" content="Why I built Melt Sprint, a browser movement shooter, as a portfolio piece: attention, feedback loops, constraints, and directing an AI as the engineer. Play it at saikanagat.com/melt." />
+  <meta name="description" content="Why I built Melt Sprint, a browser movement shooter, as a portfolio piece: attention, feedback loops, constraints. Play it at saikanagat.com/melt." />
   <meta name="author" content="Sai Prathyaksh Kanagat" />
   <link rel="canonical" href="https://saikanagat.com/blog/why-i-built-melt-sprint" />
   <meta property="og:type" content="article" />
@@ -35,7 +35,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     "publisher": {"@type": "Person", "name": "Sai Prathyaksh Kanagat"},
     "url": "https://saikanagat.com/blog/why-i-built-melt-sprint",
     "mainEntityOfPage": "https://saikanagat.com/blog/why-i-built-melt-sprint",
-    "keywords": "Melt Sprint, browser game, portfolio, interactive demo, Sai Kanagat, AI creative direction"
+    "keywords": "Melt Sprint, browser game, portfolio, interactive demo, Sai Kanagat"
   }
   </script>
   <link rel="stylesheet" href="../css/styles.css" />
@@ -92,11 +92,6 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 
     <p>I resented these limits for about an hour. Then they started doing the designing for me. With no texture files, the art direction had to come from math, so I chose three zones where math looks good. Claymation Fever is noise-sculpted clay that "boils" like stop-motion. Liquid Chrome Dream has melting foil towers and surf ramps. Neon Flesh Cathedral has glowing veins and eyeball grapple anchors. A bigger budget would have given me a more generic game.</p>
 
-    <h2>Directing an AI instead of writing code</h2>
-    <p>I built Melt Sprint in a single session by working with Claude as my engineer. I did not write the code, and I will not claim I did. What I did was the job of a creative director: set the vision, choose the art direction for all three zones, playtest constantly, and say plainly what felt wrong. I pushed for slide and wall jump because the movement felt incomplete without them.</p>
-
-    <p>The surprise was where the bottleneck moved. It was no longer "can I build this?" It became "do I know what good feels like, and can I describe it precisely?" That is a brief-writing problem, the same skill I wrote about in <a href="the-brief-as-a-design-object.html">The Brief as a Design Object</a>. The people who will get the most out of AI tools are the ones who can tell the difference between almost right and right.</p>
-
     <h2>Play it, then beat my score</h2>
     <p>Melt Sprint works with mouse and keyboard (it captures your pointer) and on your phone. Your best score is saved in your own browser, so the first opponent is whoever played before you.</p>
 
@@ -120,6 +115,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 <script src="../js/animations.js"></script>
 <script src="../js/lang.js"></script>
 <script src="../js/interactions.js"></script>
+<script src="../js/blink-scroll.js" defer></script>
 <script src="../js/consent.js" defer></script>
 <script src="../js/analytics.js" defer></script>
 <script src="/js/newsletter.js?v=5" defer></script>
