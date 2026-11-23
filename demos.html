@@ -101,7 +101,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     /* tile backgrounds */
     /* demo thumbnails — real preview image + dark scrim so the tile text stays readable */
     .demo-tile-bg.bg-agora, .demo-tile-bg.bg-hands, .demo-tile-bg.bg-balls,
-    .demo-tile-bg.bg-roas, .demo-tile-bg.bg-poster, .demo-tile-bg.bg-audio, .demo-tile-bg.bg-cortex, .demo-tile-bg.bg-melt {
+    .demo-tile-bg.bg-roas, .demo-tile-bg.bg-poster, .demo-tile-bg.bg-audio, .demo-tile-bg.bg-cortex, .demo-tile-bg.bg-melt, .demo-tile-bg.bg-ad-autopsy {
       position: absolute !important; inset: 0 !important; height: auto !important;
       background-size: cover !important; background-position: center top !important; background-repeat: no-repeat !important;
     }
@@ -110,6 +110,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     .demo-tile-bg.bg-agora  { background-image: url('assets/images/DEMOS/agora.jpg') !important; }
     .demo-tile-bg.bg-hands  { background-image: url('assets/images/DEMOS/hands.jpg') !important; }
     .demo-tile-bg.bg-balls  { background-image: url('assets/images/DEMOS/balls.jpg') !important; }
+    .demo-tile-bg.bg-ad-autopsy { background-image: url('assets/images/DEMOS/ad-autopsy.jpg') !important; }
     .demo-tile-bg.bg-roas   { background-image: url('assets/images/DEMOS/roas.jpg') !important; }
     .demo-tile-bg.bg-poster { background-image: url('assets/images/DEMOS/poster.jpg') !important; }
     .demo-tile-bg.bg-audio  { background-image: url('assets/images/DEMOS/audio.jpg') !important; }
@@ -161,7 +162,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   <main class="demos-page">
     <div class="section-label" style="margin-bottom: 28px;"><span class="num">000</span> <span data-en="Live Demos" data-it="Demo Live">Live Demos</span></div>
     <h1><span class="outline">DE</span>MOS</h1>
-    <p class="demos-lede" data-en="Eight interactive browser experiments, including a full 3D game. No downloads, no installs. Camera and microphone data never leave your device. Cortex Studio is the exception to in-browser processing: what you submit there goes to its backend and AI model providers." data-it="Otto esperimenti interattivi, incluso un gioco 3D completo. Niente download, niente installazioni. I dati di webcam e microfono non lasciano mai il tuo dispositivo. Cortex Studio è l'eccezione: ciò che invii viene elaborato dal suo backend e da fornitori di modelli AI.">Eight interactive browser experiments, including a full 3D game. No downloads, no installs. Camera and microphone data never leave your device. Cortex Studio is the exception to in-browser processing: what you submit there goes to its backend and AI model providers.</p>
+    <p class="demos-lede" data-en="Nine interactive browser experiments, including a full 3D game. No downloads, no installs. Camera and microphone data never leave your device. Cortex Studio is the exception to in-browser processing: what you submit there goes to its backend and AI model providers." data-it="Nove esperimenti interattivi, incluso un gioco 3D completo. Niente download, niente installazioni. I dati di webcam e microfono non lasciano mai il tuo dispositivo. Cortex Studio è l'eccezione: ciò che invii viene elaborato dal suo backend e da fornitori di modelli AI.">Nine interactive browser experiments, including a full 3D game. No downloads, no installs. Camera and microphone data never leave your device. Cortex Studio is the exception to in-browser processing: what you submit there goes to its backend and AI model providers.</p>
 
     <div class="demo-filters" role="group" aria-label="Filter demos by use case">
       <button type="button" class="demo-filter is-active" data-f="all" data-en="All" data-it="Tutte">All</button>
@@ -188,6 +189,25 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
               <span class="demo-tile-tag">GLSL Shaders</span>
             </div>
             <div class="demo-tile-cta">Play Melt Sprint →</div>
+          </div>
+        </div>
+      </a>
+
+      <a href="/ad-autopsy" class="demo-tile" data-cat="marketing">
+        <div class="demo-tile-bg bg-ad-autopsy"></div>
+        <div class="demo-tile-content">
+          <div>
+            <div class="demo-tile-num">New · Marketing Tool</div>
+            <h2 class="demo-tile-title" style="margin: 14px 0 0;">Ad<br><span style="color: rgba(245,240,232,0.6); font-size: 0.42em; letter-spacing: 0.18em;">AUTOPSY</span></h2>
+          </div>
+          <div class="demo-tile-meta">
+            <p class="demo-tile-desc">Drop in an ad and get an attention heatmap with the gaze path, a thumb-stop score, mock feeds with a scroll-blur test, platform safe zones, accessibility and brand checks, an A/B verdict and a PDF of fixes. Runs in your browser, nothing is uploaded.</p>
+            <div class="demo-tile-tags">
+              <span class="demo-tile-tag">Paid Social</span>
+              <span class="demo-tile-tag">Saliency</span>
+              <span class="demo-tile-tag">Creative QA</span>
+            </div>
+            <div class="demo-tile-cta">Launch Ad Autopsy →</div>
           </div>
         </div>
       </a>
