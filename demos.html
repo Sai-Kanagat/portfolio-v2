@@ -92,10 +92,16 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     }
     .demo-tile-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
     .demo-tile-tag { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase; padding: 4px 8px; border: 1px solid rgba(245,240,232,0.3); border-radius: 2px; color: rgba(245,240,232,0.85); }
+    .demo-filters { display:flex; flex-wrap:wrap; gap:8px; margin:-28px 0 36px; }
+    .demo-filter { font-family: var(--mono, var(--font-mono)); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; padding: 10px 16px; border-radius: 999px; border: 1px solid oklch(0.16 0.012 260 / 0.18); background: transparent; color: var(--ink, #14121c); cursor: pointer; transition: background .25s, color .25s, border-color .25s; }
+    .demo-filter:hover { border-color: var(--ink, #14121c); }
+    .demo-filter.is-active { background: var(--ink, #14121c); color: var(--paper, #f4f3ef); border-color: var(--ink, #14121c); }
+    .demo-filter::after { content: attr(data-count); opacity: .55; margin-left: 8px; }
+    .demo-tile.is-hidden { display: none !important; }
     /* tile backgrounds */
     /* demo thumbnails — real preview image + dark scrim so the tile text stays readable */
     .demo-tile-bg.bg-agora, .demo-tile-bg.bg-hands, .demo-tile-bg.bg-balls,
-    .demo-tile-bg.bg-roas, .demo-tile-bg.bg-poster, .demo-tile-bg.bg-audio, .demo-tile-bg.bg-cortex {
+    .demo-tile-bg.bg-roas, .demo-tile-bg.bg-poster, .demo-tile-bg.bg-audio, .demo-tile-bg.bg-cortex, .demo-tile-bg.bg-melt {
       position: absolute !important; inset: 0 !important; height: auto !important;
       background-size: cover !important; background-position: center top !important; background-repeat: no-repeat !important;
     }
@@ -157,9 +163,17 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     <h1><span class="outline">DE</span>MOS</h1>
     <p class="demos-lede" data-en="Eight interactive browser experiments, including a full 3D game. No downloads, no installs. Camera and microphone data never leave your device. Cortex Studio is the exception to in-browser processing: what you submit there goes to its backend and AI model providers." data-it="Otto esperimenti interattivi, incluso un gioco 3D completo. Niente download, niente installazioni. I dati di webcam e microfono non lasciano mai il tuo dispositivo. Cortex Studio è l'eccezione: ciò che invii viene elaborato dal suo backend e da fornitori di modelli AI.">Eight interactive browser experiments, including a full 3D game. No downloads, no installs. Camera and microphone data never leave your device. Cortex Studio is the exception to in-browser processing: what you submit there goes to its backend and AI model providers.</p>
 
+    <div class="demo-filters" role="group" aria-label="Filter demos by use case">
+      <button type="button" class="demo-filter is-active" data-f="all" data-en="All" data-it="Tutte">All</button>
+      <button type="button" class="demo-filter" data-f="marketing" data-en="Marketing" data-it="Marketing">Marketing</button>
+      <button type="button" class="demo-filter" data-f="ai" data-en="AI agents" data-it="Agenti AI">AI agents</button>
+      <button type="button" class="demo-filter" data-f="camera" data-en="Camera" data-it="Webcam">Camera</button>
+      <button type="button" class="demo-filter" data-f="games" data-en="Games" data-it="Giochi">Games</button>
+      <button type="button" class="demo-filter" data-f="design" data-en="Design &amp; sound" data-it="Design e suono">Design &amp; sound</button>
+    </div>
     <div class="demos-grid">
 
-      <a href="/melt" class="demo-tile">
+      <a href="/melt" class="demo-tile" data-cat="games">
         <div class="demo-tile-bg bg-melt"></div>
         <div class="demo-tile-content">
           <div>
@@ -178,7 +192,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
         </div>
       </a>
 
-      <a href="/cortex" class="demo-tile">
+      <a href="/cortex" class="demo-tile" data-cat="marketing ai">
         <div class="demo-tile-bg bg-cortex"></div>
         <div class="demo-tile-content">
           <div>
@@ -197,7 +211,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
         </div>
       </a>
 
-      <a href="demos/agora.html" class="demo-tile">
+      <a href="demos/agora.html" class="demo-tile" data-cat="marketing ai">
         <div class="demo-tile-bg bg-agora"></div>
         <div class="demo-tile-content">
           <div>
@@ -216,7 +230,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
         </div>
       </a>
 
-      <a href="demos/hands.html" class="demo-tile">
+      <a href="demos/hands.html" class="demo-tile" data-cat="camera">
         <div class="demo-tile-bg bg-hands"></div>
         <div class="demo-tile-content">
           <div>
@@ -235,7 +249,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
         </div>
       </a>
 
-      <a href="demos/balls.html" class="demo-tile">
+      <a href="demos/balls.html" class="demo-tile" data-cat="camera games">
         <div class="demo-tile-bg bg-balls"></div>
         <div class="demo-tile-content">
           <div>
@@ -254,7 +268,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
         </div>
       </a>
 
-      <a href="demos/roas.html" class="demo-tile">
+      <a href="demos/roas.html" class="demo-tile" data-cat="marketing">
         <div class="demo-tile-bg bg-roas"></div>
         <div class="demo-tile-content">
           <div>
@@ -273,7 +287,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
         </div>
       </a>
 
-      <a href="demos/poster.html" class="demo-tile">
+      <a href="demos/poster.html" class="demo-tile" data-cat="design">
         <div class="demo-tile-bg bg-poster"></div>
         <div class="demo-tile-content">
           <div>
@@ -292,7 +306,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
         </div>
       </a>
 
-      <a href="demos/audio.html" class="demo-tile">
+      <a href="demos/audio.html" class="demo-tile" data-cat="design">
         <div class="demo-tile-bg bg-audio"></div>
         <div class="demo-tile-content">
           <div>
@@ -333,6 +347,13 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 <script src="js/interactions.js"></script>
 <script>
 document.getElementById('hamburger')?.addEventListener('click', () => document.getElementById('navLinks').classList.toggle('open'));
+</script>
+<script>
+(function(){
+  var btns=[].slice.call(document.querySelectorAll('.demo-filter')), tiles=[].slice.call(document.querySelectorAll('.demo-tile[data-cat]'));
+  btns.forEach(function(b){ var f=b.dataset.f; var n=f==='all'?tiles.length:tiles.filter(function(t){return t.dataset.cat.split(' ').indexOf(f)>-1;}).length; b.setAttribute('data-count',n);
+    b.addEventListener('click',function(){ btns.forEach(function(x){x.classList.toggle('is-active',x===b); x.setAttribute('aria-pressed',x===b);}); tiles.forEach(function(t){ t.classList.toggle('is-hidden', f!=='all' && t.dataset.cat.split(' ').indexOf(f)<0); }); }); });
+})();
 </script>
 <script src="js/consent.js" defer></script>
 <script src="js/analytics.js" defer></script>
