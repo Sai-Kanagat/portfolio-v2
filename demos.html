@@ -101,11 +101,12 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     /* tile backgrounds */
     /* demo thumbnails — real preview image + dark scrim so the tile text stays readable */
     .demo-tile-bg.bg-agora, .demo-tile-bg.bg-hands, .demo-tile-bg.bg-balls,
-    .demo-tile-bg.bg-roas, .demo-tile-bg.bg-poster, .demo-tile-bg.bg-audio, .demo-tile-bg.bg-cortex, .demo-tile-bg.bg-melt {
+    .demo-tile-bg.bg-roas, .demo-tile-bg.bg-poster, .demo-tile-bg.bg-audio, .demo-tile-bg.bg-cortex, .demo-tile-bg.bg-melt, .demo-tile-bg.bg-shadow {
       position: absolute !important; inset: 0 !important; height: auto !important;
       background-size: cover !important; background-position: center top !important; background-repeat: no-repeat !important;
     }
     .demo-tile-bg.bg-melt   { background-image: url('assets/images/DEMOS/melt.jpg') !important; }
+    .demo-tile-bg.bg-shadow { background-image: url('assets/images/DEMOS/shadow-theatre.jpg') !important; }
     .demo-tile-logo { display:block; width:min(78%,320px); height:auto; margin:14px 0 0; filter: drop-shadow(0 6px 18px rgba(0,0,0,.55)); }
     .demo-tile-bg.bg-agora  { background-image: url('assets/images/DEMOS/agora.jpg') !important; }
     .demo-tile-bg.bg-hands  { background-image: url('assets/images/DEMOS/hands.jpg') !important; }
@@ -161,7 +162,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   <main class="demos-page">
     <div class="section-label" style="margin-bottom: 28px;"><span class="num">000</span> <span data-en="Live Demos" data-it="Demo Live">Live Demos</span></div>
     <h1><span class="outline">DE</span>MOS</h1>
-    <p class="demos-lede" data-en="Eight interactive browser experiments, including a full 3D game. No downloads, no installs. Camera and microphone data never leave your device. Cortex Studio is the exception to in-browser processing: what you submit there goes to its backend and AI model providers." data-it="Otto esperimenti interattivi, incluso un gioco 3D completo. Niente download, niente installazioni. I dati di webcam e microfono non lasciano mai il tuo dispositivo. Cortex Studio è l'eccezione: ciò che invii viene elaborato dal suo backend e da fornitori di modelli AI.">Eight interactive browser experiments, including a full 3D game. No downloads, no installs. Camera and microphone data never leave your device. Cortex Studio is the exception to in-browser processing: what you submit there goes to its backend and AI model providers.</p>
+    <p class="demos-lede" data-en="Nine interactive browser experiments, including a full 3D game. No downloads, no installs. Camera and microphone data never leave your device. Cortex Studio is the exception to in-browser processing: what you submit there goes to its backend and AI model providers." data-it="Nove esperimenti interattivi, incluso un gioco 3D completo. Niente download, niente installazioni. I dati di webcam e microfono non lasciano mai il tuo dispositivo. Cortex Studio è l'eccezione: ciò che invii viene elaborato dal suo backend e da fornitori di modelli AI.">Nine interactive browser experiments, including a full 3D game. No downloads, no installs. Camera and microphone data never leave your device. Cortex Studio is the exception to in-browser processing: what you submit there goes to its backend and AI model providers.</p>
 
     <div class="demo-filters" role="group" aria-label="Filter demos by use case">
       <button type="button" class="demo-filter is-active" data-f="all" data-en="All" data-it="Tutte">All</button>
@@ -226,6 +227,25 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
               <span class="demo-tile-tag">Canvas</span>
             </div>
             <div class="demo-tile-cta">Launch Agora →</div>
+          </div>
+        </div>
+      </a>
+
+      <a href="/shadow-theatre" class="demo-tile" data-cat="camera games">
+        <div class="demo-tile-bg bg-shadow"></div>
+        <div class="demo-tile-content">
+          <div>
+            <div class="demo-tile-num">New · Camera Required</div>
+            <h2 class="demo-tile-title" style="margin: 14px 0 0;">Shadow Theatre<br><span style="color: rgba(245,240,232,0.6); font-size: 0.42em; letter-spacing: 0.18em;">HAND SHADOW PUPPETS</span></h2>
+          </div>
+          <div class="demo-tile-meta">
+            <p class="demo-tile-desc">Make a dog, a bird, a rabbit or a duck with your hands on a candlelit paper wall. Hold it for a second and the creature steps off the wall: the dog barks, the bird flies away. Runs entirely in your browser, camera feed never leaves your machine.</p>
+            <div class="demo-tile-tags">
+              <span class="demo-tile-tag">Computer Vision</span>
+              <span class="demo-tile-tag">MediaPipe</span>
+              <span class="demo-tile-tag">Canvas</span>
+            </div>
+            <div class="demo-tile-cta">Start the Show →</div>
           </div>
         </div>
       </a>
