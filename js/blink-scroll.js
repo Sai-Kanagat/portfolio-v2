@@ -12,7 +12,7 @@
 
   var css = document.createElement('style');
   css.textContent =
-    '.bs-sticker{position:fixed;left:22px;bottom:22px;z-index:9000;display:flex;align-items:center;gap:10px;padding:12px 16px 12px 14px;' +
+    '.bs-sticker{position:fixed;right:22px;bottom:22px;z-index:9000;display:flex;align-items:center;gap:10px;padding:12px 16px 12px 14px;' +
     'background:#ffd23f;color:#14121c;border:2.5px solid #14121c;border-radius:18px 24px 16px 22px;box-shadow:5px 5px 0 #14121c;' +
     'font:700 14px/1.15 "Bricolage Grotesque",system-ui,sans-serif;cursor:pointer;transform:rotate(-5deg);transition:transform .2s,box-shadow .2s,background .2s;max-width:260px;text-align:left}' +
     '.bs-sticker:hover{transform:rotate(-2deg) scale(1.04)}.bs-sticker:active{transform:rotate(-2deg) translate(3px,3px);box-shadow:2px 2px 0 #14121c}' +
@@ -24,7 +24,7 @@
     '.bs-sticker.on{background:#3dffb0}.bs-sticker.err{background:#ff9bb0}' +
     '.bs-sticker.on .bs-eye{box-shadow:0 0 0 3px rgba(20,18,28,.15)}' +
     '.bs-current{background:rgba(255,210,63,.32);box-shadow:-14px 0 0 rgba(255,210,63,.32),14px 0 0 rgba(255,210,63,.32);border-radius:6px;transition:background .4s}' +
-    '@media (max-width:640px){.bs-sticker{left:12px;bottom:12px;max-width:210px;font-size:13px}}';
+    '@media (max-width:640px){.bs-sticker{right:12px;bottom:12px;max-width:210px;font-size:13px}}';
   document.head.appendChild(css);
 
   var btn = document.createElement('button');
@@ -55,22 +55,23 @@
   }
 
   /* ---------- double blink detector (pure, testable) ---------- */
-  var det = { thr: 0.42, closed: false, closedAt: 0, lastBlink: -1e9, cooldownUntil: 0, calib: [], calibUntil: 0 };
+  var det = { thr: 0.35, open: 0.25, closed: false, closedAt: 0, lastBlink: -1e9, cooldownUntil: 0, calib: [], calibUntil: 0 };
   function feed(score, t) {
     if (t < det.calibUntil) { det.calib.push(score); return 'calibrating'; }
     if (det.calib.length) {
       var s = det.calib.slice().sort(function (a, b) { return a - b; });
       var base = s[Math.floor(s.length * 0.5)];
-      det.thr = Math.min(0.7, Math.max(0.32, base + 0.28));
+      det.thr = Math.min(0.55, Math.max(0.24, base + 0.18)); det.open = Math.max(base + 0.06, det.thr * 0.7);
       det.calib = [];
     }
     var ev = null;
-    if (!det.closed && score > det.thr) { det.closed = true; det.closedAt = t; flash(true); }
-    else if (det.closed && score < det.thr * 0.65) {
+    if (det.closed && score > det.peak) det.peak = score;
+    if (!det.closed && score > det.thr) { det.closed = true; det.closedAt = t; det.peak = score; flash(true); }
+    else if (det.closed && (score < det.open || score < det.peak - 0.15)) {
       det.closed = false; flash(false);
       var dur = t - det.closedAt;
-      if (dur >= 40 && dur <= 450 && t >= det.cooldownUntil) {
-        if (t - det.lastBlink <= 650) { det.lastBlink = -1e9; det.cooldownUntil = t + 700; advance(); ev = 'double'; }
+      if (dur <= 500 && t >= det.cooldownUntil) {
+        if (t - det.lastBlink <= 900) { det.lastBlink = -1e9; det.cooldownUntil = t + 500; advance(); ev = 'double'; }
         else { det.lastBlink = t; ev = 'single'; }
       }
     }
@@ -107,7 +108,7 @@
     say('Waking the camera...', 'video stays on your device');
     try {
       if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) throw new Error('nocam');
-      stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user', width: { ideal: 640 }, height: { ideal: 480 } }, audio: false });
+      stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user', width: { ideal: 640 }, height: { ideal: 480 }, frameRate: { ideal: 60 } }, audio: false });
       if (state !== 'loading') { stream.getTracks().forEach(function (tr) { tr.stop(); }); return; }
       video = video || Object.assign(document.createElement('video'), { muted: true, playsInline: true });
       video.setAttribute('playsinline', ''); video.srcObject = stream; await video.play();
