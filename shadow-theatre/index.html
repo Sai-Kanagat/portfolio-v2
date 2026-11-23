@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Consent Mode v2 default: denied inside EEA/UK/Switzerland (GDPR), granted elsewhere -->
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'granted','functionality_storage':'granted','security_storage':'granted','wait_for_update':500});
+gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied','region':['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH'],'wait_for_update':500});
+try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_consent_v2')){localStorage.setItem('sk_consent_v2','denied');}localStorage.removeItem('sk_consent');var c=localStorage.getItem('sk_consent_v2');if(c==='granted'){gtag('consent','update',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'granted'});}else if(c==='denied'){gtag('consent','update',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied'});}}catch(e){}</script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MRGXD7ZC');</script>
+<!-- End Google Tag Manager -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Shadow Theatre | Sai Kanagat</title>
+<meta name="description" content="Make hand shadow puppets in front of your webcam and watch them come alive on a candlelit paper wall. Runs entirely in your browser. A demo by Sai Kanagat.">
+<link rel="canonical" href="https://saikanagat.com/shadow-theatre">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Shadow Theatre | Sai Kanagat">
+<meta property="og:description" content="Make hand shadow puppets with your webcam and watch them come alive. Runs entirely in your browser.">
+<meta property="og:image" content="https://saikanagat.com/assets/images/DEMOS/shadow-theatre.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700;900&family=Newsreader:ital,opsz,wght@1,6..72,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1c120b; --paper: #f3e3c4; --paper-2: #e8cf9f; --ember: #f0a13c; --flame: #ffd27a;
+    --night: #120b07; --muted: rgba(243,227,196,0.68);
+    --mono: 'Space Mono', monospace; --display: 'Unbounded', sans-serif; --serif: 'Newsreader', serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--night); color: var(--paper); font-family: var(--mono); overflow: hidden; -webkit-tap-highlight-color: transparent; }
+  #wall { position: fixed; inset: 0; width: 100%; height: 100%; display: block; }
+  button { font-family: var(--mono); cursor: pointer; }
+
+  .chrome { position: fixed; z-index: 10; font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase;
+    background: rgba(18,11,7,0.72); border: 1px solid rgba(243,227,196,0.16); color: var(--paper);
+    padding: 10px 14px; border-radius: 2px; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); text-decoration: none; }
+  a.chrome:hover, button.chrome:hover { background: var(--flame); color: var(--ink); }
+  #home { top: 16px; left: 16px; }
+  #back { top: 16px; right: 16px; }
+  #guideBtn { top: 62px; right: 16px; border-color: rgba(255,210,122,0.5); }
+
+  #hud { position: fixed; z-index: 10; left: 50%; bottom: 16px; transform: translateX(-50%); display: flex; align-items: center; gap: 14px;
+    background: rgba(18,11,7,0.72); border: 1px solid rgba(243,227,196,0.16); padding: 8px 14px 8px 8px; border-radius: 2px;
+    backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); max-width: calc(100vw - 32px); }
+  #ring { width: 40px; height: 40px; flex: none; }
+  #ring circle { fill: none; stroke-width: 3; }
+  #ring .track { stroke: rgba(243,227,196,0.15); }
+  #ring .bar { stroke: var(--flame); stroke-linecap: round; transform: rotate(-90deg); transform-origin: 50% 50%; transition: stroke-dashoffset .08s linear; }
+  #status { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; line-height: 1.5; }
+  #status small { display: block; color: var(--muted); letter-spacing: 0.1em; font-size: 0.58rem; }
+  #found { display: flex; gap: 6px; }
+  #found span { font-size: 0.55rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 7px; border: 1px solid rgba(243,227,196,0.25); border-radius: 2px; color: var(--muted); }
+  #found span.on { background: var(--flame); color: var(--ink); border-color: var(--flame); }
+
+  #cam { position: fixed; z-index: 9; right: 16px; bottom: 72px; width: 132px; aspect-ratio: 4/3; object-fit: cover; transform: scaleX(-1);
+    border: 1px solid rgba(243,227,196,0.25); border-radius: 2px; opacity: 0.85; display: none; background: #000; }
+  body.live #cam { display: block; }
+
+  #setup { position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; padding: 24px;
+    background: radial-gradient(120% 90% at 50% 100%, rgba(240,161,60,0.28), transparent 60%), rgba(18,11,7,0.86); overflow-y: auto; }
+  .setup-card { max-width: 560px; display: flex; flex-direction: column; gap: 20px; }
+  .setup-card h1 { font-family: var(--display); font-weight: 900; font-size: clamp(34px, 6vw, 64px); letter-spacing: -0.03em; line-height: 0.95; margin: 0; color: var(--paper); }
+  .setup-card h1 em { font-family: var(--serif); font-weight: 400; font-style: italic; letter-spacing: -0.01em; color: var(--flame); }
+  .setup-card p { margin: 0; color: var(--muted); font-size: 0.82rem; line-height: 1.7; letter-spacing: 0.02em; }
+  .setup-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn { border: none; padding: 15px 26px; border-radius: 2px; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700; }
+  .btn-main { background: var(--flame); color: var(--ink); }
+  .btn-main:hover { background: var(--paper); }
+  .btn-ghost { background: transparent; color: var(--paper); border: 1px solid rgba(243,227,196,0.35); }
+  .btn-ghost:hover { border-color: var(--flame); color: var(--flame); }
+  .privacy { font-size: 0.62rem !important; letter-spacing: 0.12em !important; text-transform: uppercase; color: rgba(243,227,196,0.5) !important; }
+  #err { color: var(--flame) !important; display: none; }
+
+  #guide { position: fixed; z-index: 40; right: 16px; top: 108px; width: min(420px, calc(100vw - 32px)); max-height: calc(100vh - 190px); overflow-y: auto;
+    background: rgba(18,11,7,0.92); border: 1px solid rgba(243,227,196,0.18); border-radius: 2px; padding: 18px; display: none;
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+  #guide.open { display: block; }
+  #guide h2 { font-family: var(--display); font-weight: 700; font-size: 1rem; margin: 0 0 4px; letter-spacing: -0.01em; }
+  #guide > p { margin: 0 0 14px; color: var(--muted); font-size: 0.7rem; line-height: 1.6; }
+  .shape { display: grid; grid-template-columns: 112px 1fr; gap: 14px; align-items: center; padding: 12px 0; border-top: 1px solid rgba(243,227,196,0.12); }
+  .shape canvas { width: 112px; height: 84px; border-radius: 2px; display: block; }
+  .shape h3 { margin: 0 0 4px; font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--flame); }
+  .shape p { margin: 0; font-size: 0.7rem; line-height: 1.55; color: var(--paper); }
+
+  @media (max-width: 640px) {
+    #hud { bottom: 16px; left: 16px; right: 16px; transform: none; flex-wrap: wrap; }
+    #found { width: 100%; }
+    #cam { bottom: auto; top: 62px; left: 16px; right: auto; width: 96px; }
+    #guide { max-height: calc(100vh - 250px); }
+    .shape { grid-template-columns: 88px 1fr; }
+    .shape canvas { width: 88px; height: 66px; }
+  }
+  @media (prefers-reduced-motion: reduce) { #ring .bar { transition: none; } }
+</style>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MRGXD7ZC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<canvas id="wall" aria-label="Candlelit paper wall where your hand shadows appear"></canvas>
+<video id="cam" autoplay playsinline muted></video>
+
+<a href="/" class="chrome" id="home"><strong style="color:var(--flame)">SK</strong> · Home</a>
+<a href="/demos" class="chrome" id="back">Back to Demos</a>
+<button type="button" class="chrome" id="guideBtn" aria-expanded="false" aria-controls="guide">How to make each shadow</button>
+
+<div id="hud" aria-live="polite">
+  <svg id="ring" viewBox="0 0 40 40" aria-hidden="true"><circle class="track" cx="20" cy="20" r="16"/><circle class="bar" id="ringBar" cx="20" cy="20" r="16" stroke-dasharray="100.5" stroke-dashoffset="100.5"/></svg>
+  <div id="status">The curtain is down<small>Press start to light the candle</small></div>
+  <div id="found"><span data-s="dog">Dog</span><span data-s="bird">Bird</span><span data-s="rabbit">Rabbit</span><span data-s="duck">Duck</span></div>
+</div>
+
+<aside id="guide" aria-label="How to make each shadow">
+  <h2>How to make each shadow</h2>
+  <p>Hold a shape still for about a second and the creature steps off the wall. Keep your hands a forearm's length from the camera, side on to it.</p>
+  <div class="shape"><canvas data-pose="dog" width="224" height="168"></canvas><div><h3>Dog</h3><p>Hand side on, fingers pointing sideways and held together as the snout. Lift your thumb up as the ear. Drop your little finger for an open jaw.</p></div></div>
+  <div class="shape"><canvas data-pose="bird" width="224" height="168"></canvas><div><h3>Bird</h3><p>Both hands, palms toward you. Hook your thumbs together in the middle and spread the fingers of each hand wide like wings.</p></div></div>
+  <div class="shape"><canvas data-pose="rabbit" width="224" height="168"></canvas><div><h3>Rabbit</h3><p>Point your index and middle fingers straight up in a V for the ears. Fold your ring and little fingers down onto your thumb.</p></div></div>
+  <div class="shape"><canvas data-pose="duck" width="224" height="168"></canvas><div><h3>Duck</h3><p>Hand side on. Bring every fingertip together onto your thumb to make a closed beak, then point it sideways.</p></div></div>
+</aside>
+
+<div id="setup" role="dialog" aria-labelledby="setupTitle">
+  <div class="setup-card">
+    <h1 id="setupTitle">Shadow<br><em>theatre.</em></h1>
+    <p>Hold your hands up to the candle. Make a dog, a bird, a rabbit or a duck, keep it still for a second, and watch it step off the wall and come alive. Anything else still casts a shadow, with a little stardust.</p>
+    <div class="setup-actions">
+      <button type="button" class="btn btn-main" id="startBtn">Start the show</button>
+      <button type="button" class="btn btn-ghost" id="demoBtn">Watch without a camera</button>
+    </div>
+    <p class="privacy">The camera is only requested after you press start. Every frame is processed locally in your browser. Nothing is recorded or uploaded.</p>
+    <p id="err" role="alert"></p>
+  </div>
+</div>
+
+<script src="/shadow-theatre/classify.js"></script>
+<script>
+(function () {
+  'use strict';
+  var S = window.ShadowShapes;
+  var wall = document.getElementById('wall'), ctx = wall.getContext('2d');
+  var shadow = document.createElement('canvas'), sctx = shadow.getContext('2d');
+  var SHADOW_DOWN = 3;                     // shadow layer renders at 1/3 size, upscaling gives the soft penumbra
+  var W = 0, H = 0, DPR = 1;
+  var reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function resize() {
+    DPR = Math.min(devicePixelRatio || 1, 2);
+    W = Math.max(1, innerWidth || document.documentElement.clientWidth || 800);
+    H = Math.max(1, innerHeight || document.documentElement.clientHeight || 600);
+    wall.width = Math.round(W * DPR); wall.height = Math.round(H * DPR);
+    shadow.width = Math.ceil(W / SHADOW_DOWN); shadow.height = Math.ceil(H / SHADOW_DOWN);
+    buildPaper();
+  }
+
+  // Paper grain, pre-rendered once per resize.
+  var paper = document.createElement('canvas');
+  function buildPaper() {
+    var w = Math.ceil(W / 2), h = Math.ceil(H / 2);
+    paper.width = w; paper.height = h;
+    var p = paper.getContext('2d'), img = p.createImageData(w, h), seed = 7;
+    for (var i = 0; i < img.data.length; i += 4) {
+      seed = (seed * 16807) % 2147483647;
+      var n = (seed / 2147483647) * 26 - 13;
+      img.data[i] = 236 + n; img.data[i + 1] = 214 + n; img.data[i + 2] = 172 + n; img.data[i + 3] = 255;
+    }
+    p.putImageData(img, 0, 0);
+    p.globalAlpha = 0.06; p.strokeStyle = '#6b4a28';
+    for (var k = 0; k < 40; k++) { p.beginPath(); var y = Math.random() * h; p.moveTo(0, y); p.bezierCurveTo(w * 0.3, y + 8, w * 0.7, y - 8, w, y + 3); p.stroke(); }
+  }
+
+  // ---------- Hand shadows ----------
+  var BONES = [[0,1],[1,2],[2,3],[3,4],[0,5],[5,6],[6,7],[7,8],[5,9],[9,10],[10,11],[11,12],[9,13],[13,14],[14,15],[15,16],[13,17],[17,18],[18,19],[19,20],[0,17]];
+  var PALM = [0, 1, 5, 9, 13, 17];
+  function handSize(h) { return Math.hypot(h[0].x - h[9].x, h[0].y - h[9].y); }
+
+  // Candle sits low and centre; shadows grow slightly away from it, like a real flame.
+  function cast(h, t) {
+    var cx = W / 2, cy = H * 1.15, k = 1.12 + (reduceMotion ? 0 : Math.sin(t * 0.004) * 0.006);
+    return h.map(function (p) { return { x: cx + (p.x - cx) * k, y: cy + (p.y - cy) * k }; });
+  }
+
+  function drawHand(c, h) {
+    var s = handSize(h);
+    c.lineCap = 'round'; c.lineJoin = 'round';
+    c.beginPath(); PALM.forEach(function (i, n) { n ? c.lineTo(h[i].x, h[i].y) : c.moveTo(h[i].x, h[i].y); }); c.closePath(); c.fill();
+    c.lineWidth = s * 0.34; c.beginPath(); PALM.forEach(function (i, n) { n ? c.lineTo(h[i].x, h[i].y) : c.moveTo(h[i].x, h[i].y); }); c.closePath(); c.stroke();
+    BONES.forEach(function (b) {
+      var w = b[0] === 0 ? 0.3 : (b[1] % 4 === 0 ? 0.17 : 0.21);
+      c.lineWidth = s * w; c.beginPath(); c.moveTo(h[b[0]].x, h[b[0]].y); c.lineTo(h[b[1]].x, h[b[1]].y); c.stroke();
+    });
+    // forearm, fading off the bottom of the wall
+    var wx = h[0].x, wy = h[0].y, dx = h[0].x - h[9].x, dy = h[0].y - h[9].y, L = Math.hypot(dx, dy) || 1;
+    c.lineWidth = s * 0.62; c.beginPath(); c.moveTo(wx, wy); c.lineTo(wx + dx / L * s * 4, wy + dy / L * s * 4); c.stroke();
+  }
+
+  // ---------- Creatures (silhouettes drawn in local units, ~1 = body length) ----------
+  function bubble(c, x, y, text, a) {
+    c.save(); c.globalAlpha = a;
+    c.font = '700 ' + Math.round(Math.max(14, Math.min(22, W / 50))) + 'px Unbounded, sans-serif';
+    var w = c.measureText(text).width + 28, h = 40;
+    c.fillStyle = '#fbf1dc'; c.strokeStyle = '#1c120b'; c.lineWidth = 2;
+    c.beginPath(); c.moveTo(x - w / 2 + 8, y - h); c.arcTo(x + w / 2, y - h, x + w / 2, y, 8); c.arcTo(x + w / 2, y, x - w / 2, y, 8);
+    c.lineTo(x - 4, y); c.lineTo(x - 18, y + 14); c.lineTo(x - 16, y); c.arcTo(x - w / 2, y, x - w / 2, y - h, 8); c.arcTo(x - w / 2, y - h, x + w / 2, y - h, 8);
+    c.closePath(); c.fill(); c.stroke();
+    c.fillStyle = '#1c120b'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(text, x, y - h / 2 + 1);
+    c.restore();
+  }
+
+  var DRAW = {
+    dog: function (c, t, cr) {
+      var jaw = Math.max(0, Math.sin(t * 0.018)) * 0.28;
+      c.beginPath(); c.ellipse(0, 0, 0.42, 0.36, 0, 0, Math.PI * 2); c.fill();                       // skull
+      c.beginPath(); c.moveTo(0.2, -0.22); c.quadraticCurveTo(0.6, -0.26, 0.98, -0.1); c.quadraticCurveTo(1.04, 0.02, 0.96, 0.05);
+      c.lineTo(0.25, 0.08); c.closePath(); c.fill();                                                    // snout
+      c.save(); c.translate(0.25, 0.08); c.rotate(jaw);
+      c.beginPath(); c.moveTo(0, 0); c.lineTo(0.68, 0.0); c.quadraticCurveTo(0.7, 0.1, 0.6, 0.13); c.lineTo(0, 0.2); c.closePath(); c.fill(); c.restore();
+      c.beginPath(); c.moveTo(-0.2, -0.28); c.quadraticCurveTo(-0.12, -0.95, 0.12, -0.75); c.lineTo(0.12, -0.25); c.closePath(); c.fill(); // ear
+      c.beginPath(); c.moveTo(-0.38, 0.1); c.quadraticCurveTo(-0.6, 0.6, -0.55, 1.2); c.lineTo(0.25, 1.2); c.quadraticCurveTo(0.2, 0.6, 0.15, 0.2); c.closePath(); c.fill(); // neck
+      c.save(); c.globalCompositeOperation = 'destination-out'; c.beginPath(); c.arc(0.42, -0.13, 0.045, 0, Math.PI * 2); c.fill(); c.restore(); // eye
+    },
+    bird: function (c, t) {
+      var f = Math.sin(t * 0.03);
+      c.beginPath(); c.ellipse(0, 0, 0.5, 0.17, -0.1, 0, Math.PI * 2); c.fill();
+      c.beginPath(); c.arc(0.46, -0.12, 0.14, 0, Math.PI * 2); c.fill();
+      c.beginPath(); c.moveTo(0.56, -0.16); c.lineTo(0.8, -0.1); c.lineTo(0.57, -0.06); c.fill();
+      c.beginPath(); c.moveTo(-0.45, 0); c.lineTo(-0.85, -0.18); c.lineTo(-0.8, 0.12); c.closePath(); c.fill();
+      [1, -0.6].forEach(function (side, i) {
+        c.beginPath(); c.moveTo(-0.15, -0.05); c.quadraticCurveTo(-0.05, -0.75 * f * side - 0.1, -0.5 + i * 0.15, -0.95 * f * side);
+        c.quadraticCurveTo(0.1, -0.4 * f * side, 0.2, -0.04); c.closePath(); c.fill();
+      });
+    },
+    rabbit: function (c, t) {
+      c.beginPath(); c.ellipse(0, 0, 0.42, 0.3, 0, 0, Math.PI * 2); c.fill();
+      c.beginPath(); c.arc(0.38, -0.25, 0.18, 0, Math.PI * 2); c.fill();
+      var wig = Math.sin(t * 0.02) * 0.12;
+      c.beginPath(); c.ellipse(0.32, -0.62, 0.06, 0.28, -0.15 + wig, 0, Math.PI * 2); c.fill();
+      c.beginPath(); c.ellipse(0.44, -0.6, 0.06, 0.27, 0.2 + wig, 0, Math.PI * 2); c.fill();
+      c.beginPath(); c.arc(-0.44, -0.08, 0.1, 0, Math.PI * 2); c.fill();
+      c.beginPath(); c.ellipse(-0.1, 0.28, 0.3, 0.07, 0, 0, Math.PI * 2); c.fill();
+      c.save(); c.globalCompositeOperation = 'destination-out'; c.beginPath(); c.arc(0.45, -0.29, 0.03, 0, Math.PI * 2); c.fill(); c.restore();
+    },
+    duck: function (c, t) {
+      var bob = Math.sin(t * 0.012) * 0.05;
+      c.save(); c.rotate(bob);
+      c.beginPath(); c.moveTo(-0.6, -0.05); c.quadraticCurveTo(-0.4, 0.32, 0.1, 0.3); c.quadraticCurveTo(0.5, 0.28, 0.45, 0.02);
+      c.quadraticCurveTo(0.2, -0.1, -0.2, -0.05); c.quadraticCurveTo(-0.45, -0.2, -0.6, -0.05); c.fill();
+      c.beginPath(); c.arc(0.36, -0.22, 0.16, 0, Math.PI * 2); c.fill();
+      c.beginPath(); c.moveTo(0.42, -0.07); c.quadraticCurveTo(0.35, -0.02, 0.32, -0.06); c.fill();
+      c.beginPath(); c.moveTo(0.5, -0.24); c.quadraticCurveTo(0.78, -0.2, 0.74, -0.12); c.lineTo(0.48, -0.14); c.fill();
+      c.save(); c.globalCompositeOperation = 'destination-out'; c.beginPath(); c.arc(0.41, -0.27, 0.025, 0, Math.PI * 2); c.fill(); c.restore();
+      c.restore();
+    }
+  };
+
+  var creatures = [];
+  function Creature(kind, x, y, size, facing) {
+    this.kind = kind; this.x = x; this.y = y; this.x0 = x; this.y0 = y; this.size = size;
+    this.facing = facing; this.t = 0; this.alpha = 0; this.dead = false;
+    this.line = { dog: 'Woof!', duck: 'Quack!', bird: null, rabbit: null }[kind];
+  }
+  Creature.prototype.update = function (dt) {
+    this.t += dt; var t = this.t, s = this.size;
+    this.alpha = Math.min(1, t / 250);
+    if (this.kind === 'bird') { this.x += this.facing * dt * 0.00045 * W; this.y -= dt * 0.00022 * H + Math.sin(t * 0.01) * 0.6; }
+    else if (this.kind === 'rabbit') { var hop = (t % 650) / 650; this.x += this.facing * dt * 0.0003 * W; this.y = this.y0 - Math.sin(hop * Math.PI) * s * 0.55; }
+    else if (this.kind === 'duck') { if (t > 700) this.x += this.facing * dt * 0.0004 * W; this.y = this.y0 + Math.sin(t * 0.012) * s * 0.04; }
+    else if (this.kind === 'dog') { this.y = this.y0 - Math.max(0, Math.sin(t * 0.018)) * s * 0.05; if (t > 2400) this.alpha = Math.max(0, 1 - (t - 2400) / 600); }
+    if (this.x < -s * 2 || this.x > W + s * 2 || this.y < -s * 2 || (this.kind === 'dog' && t > 3000)) this.dead = true;
+  };
+  Creature.prototype.draw = function (c) {
+    c.save(); c.globalAlpha = this.alpha; c.translate(this.x, this.y); c.scale(this.size * this.facing, this.size);
+    DRAW[this.kind](c, this.t, this); c.restore();
+  };
+  Creature.prototype.overlay = function (c) {
+    if (!this.line) return;
+    var on = this.t > 150 && this.t < (this.kind === 'dog' ? 2300 : 1400);
+    if (on) bubble(c, this.x + this.facing * this.size * 0.8, this.y - this.size * 0.55, this.line, this.alpha);
+  };
+
+  // ---------- Sparkles for shapes the theatre does not know ----------
+  var sparks = [];
+  function sparkle(h) {
+    if (reduceMotion || sparks.length > 160) return;
+    [4, 8, 12, 16, 20].forEach(function (i) {
+      if (Math.random() < 0.35) sparks.push({ x: h[i].x, y: h[i].y, vx: (Math.random() - 0.5) * 0.08, vy: -0.03 - Math.random() * 0.06, life: 0, max: 700 + Math.random() * 700, r: 1 + Math.random() * 2.4 });
+    });
+  }
+
+  // ---------- Recognition state ----------
+  var HOLD_MS = 1000, COOLDOWN_MS = 2600;
+  var holdShape = null, holdStart = 0, lastSpawn = -1e9, found = {};
+  var ringBar = document.getElementById('ringBar'), statusEl = document.getElementById('status');
+  var NAMES = { dog: 'Dog', bird: 'Bird', rabbit: 'Rabbit', duck: 'Duck' };
+  var lastStatus = '';
+  function setStatus(main, sub) { var v = main + '|' + sub; if (v === lastStatus) return; lastStatus = v; statusEl.innerHTML = main + '<small>' + sub + '</small>'; }
+  function setRing(p) { ringBar.style.strokeDashoffset = (100.5 * (1 - p)).toFixed(1); }
+
+  function centroid(hands) { var x = 0, y = 0, n = 0; hands.forEach(function (h) { h.forEach(function (p) { x += p.x; y += p.y; n++; }); }); return { x: x / n, y: y / n }; }
+
+  function recognise(hands, now) {
+    if (!hands.length) { holdShape = null; setRing(0); setStatus(mode === 'demo' ? 'Rehearsal' : 'Waiting for hands', 'Raise your hands between you and the candle'); return; }
+    var r = S.classify(hands), shape = r.shape;
+    if (shape !== holdShape) { holdShape = shape; holdStart = now; }
+    if (!shape) { setRing(0); setStatus('A mystery shadow', 'Try a dog, bird, rabbit or duck'); hands.forEach(sparkle); return; }
+    var p = Math.min(1, (now - holdStart) / HOLD_MS); setRing(p);
+    setStatus(NAMES[shape] + (p < 1 ? ', hold still' : '!'), p < 1 ? 'Keep the shape for a moment' : 'It is alive');
+    if (p >= 1 && now - lastSpawn > COOLDOWN_MS) {
+      lastSpawn = now;
+      var src = r.hand >= 0 ? [hands[r.hand]] : hands, c = centroid(src), s = Math.max(60, Math.min(handSize(src[0]) * 1.15, 170));
+      var dir = r.hand >= 0 ? (src[0][9].x >= src[0][0].x ? 1 : -1) : (c.x < W / 2 ? 1 : -1); // follow the fingers
+      creatures.push(new Creature(shape, Math.max(s * 1.2, Math.min(W - s * 1.2, r.hand >= 0 ? src[0][12].x + dir * s * 0.75 : c.x)), c.y - s * (shape === 'bird' ? 0.9 : 0.4), s, dir));
+      if (!found[shape]) { found[shape] = true; var el = document.querySelector('#found [data-s="' + shape + '"]'); if (el) el.classList.add('on'); }
+    }
+  }
+
+  // ---------- Render loop ----------
+  var mode = 'idle', hands = [], targetHands = [], last = performance.now();
+  function lerpHands(dt) {
+    if (targetHands.length !== hands.length) { hands = targetHands.map(function (h) { return h.map(function (p) { return { x: p.x, y: p.y }; }); }); return; }
+    var k = 1 - Math.pow(0.0001, dt / 1000);  // frame-rate independent smoothing
+    for (var i = 0; i < hands.length; i++) for (var j = 0; j < 21; j++) {
+      hands[i][j].x += (targetHands[i][j].x - hands[i][j].x) * k; hands[i][j].y += (targetHands[i][j].y - hands[i][j].y) * k;
+    }
+  }
+
+  function frame(now) {
+    var dt = Math.min(64, now - last); last = now;
+    if (mode === 'demo') demoStep(now);
+    lerpHands(dt);
+    if (mode !== 'idle') recognise(hands, now);
+
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    // wall
+    ctx.drawImage(paper, 0, 0, W, H);
+    var flick = reduceMotion ? 1 : 1 + Math.sin(now * 0.011) * 0.03 + Math.sin(now * 0.037) * 0.02;
+    var g = ctx.createRadialGradient(W / 2, H * 1.05, 10, W / 2, H * 0.9, Math.max(W, H) * 0.9 * flick);
+    g.addColorStop(0, 'rgba(255,196,110,0.55)'); g.addColorStop(0.45, 'rgba(240,161,60,0.18)'); g.addColorStop(1, 'rgba(40,20,8,0.82)');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+
+    // shadow layer: hands + creatures, low resolution for soft edges
+    sctx.setTransform(1, 0, 0, 1, 0, 0); sctx.clearRect(0, 0, shadow.width, shadow.height);
+    sctx.setTransform(1 / SHADOW_DOWN, 0, 0, 1 / SHADOW_DOWN, 0, 0);
+    sctx.fillStyle = sctx.strokeStyle = '#1c120b';
+    hands.forEach(function (h) { drawHand(sctx, cast(h, now)); });
+    for (var i = creatures.length - 1; i >= 0; i--) { creatures[i].update(dt); if (creatures[i].dead) creatures.splice(i, 1); else creatures[i].draw(sctx); }
+    ctx.globalAlpha = 0.9; ctx.imageSmoothingEnabled = true; ctx.drawImage(shadow, 0, 0, W, H); ctx.globalAlpha = 1;
+
+    // sparkles and speech bubbles stay crisp
+    for (var k = sparks.length - 1; k >= 0; k--) {
+      var sp = sparks[k]; sp.life += dt; sp.x += sp.vx * dt; sp.y += sp.vy * dt;
+      if (sp.life > sp.max) { sparks.splice(k, 1); continue; }
+      var a = 1 - sp.life / sp.max;
+      ctx.fillStyle = 'rgba(255,214,130,' + a.toFixed(2) + ')';
+      ctx.beginPath(); ctx.arc(sp.x, sp.y, sp.r * (0.6 + a), 0, Math.PI * 2); ctx.fill();
+    }
+    creatures.forEach(function (c) { c.overlay(ctx); });
+    requestAnimationFrame(frame);
+  }
+
+  // ---------- No-camera demo: the same recogniser, fed rehearsed poses ----------
+  var DEMO = ['open', 'dog', 'open', 'bird', 'fist', 'rabbit', 'open', 'duck'], demoIdx = -1, demoUntil = 0;
+  function demoStep(now) {
+    if (now < demoUntil) {
+      var sway = Math.sin(now * 0.002) * 6;
+      targetHands = demoBase.map(function (h) { return h.map(function (p) { return { x: p.x + sway, y: p.y + Math.cos(now * 0.0017) * 4 }; }); });
+      return;
+    }
+    demoIdx = (demoIdx + 1) % DEMO.length;
+    var pose = DEMO[demoIdx], s = Math.min(W, H) * 0.16;
+    demoBase = S.POSES[pose](W / 2, H * 0.55, s);
+    demoUntil = now + (pose === 'open' || pose === 'fist' ? 1600 : 2600);
+  }
+  var demoBase = [];
+
+  // ---------- Camera ----------
+  var video = document.getElementById('cam'), landmarker = null, lastDetect = 0, DETECT_EVERY = 66;
+  function coverMap(nx, ny) {                 // video normalised coords to screen, mirrored, object-fit: cover
+    var vw = video.videoWidth || 640, vh = video.videoHeight || 480, sc = Math.max(W / vw, H / vh);
+    var dw = vw * sc, dh = vh * sc;
+    return { x: W - ((nx * dw) - (dw - W) / 2), y: ny * dh - (dh - H) / 2 };
+  }
+  function detectLoop() {
+    if (mode !== 'live') return;
+    var now = performance.now();
+    if (landmarker && video.readyState >= 2 && now - lastDetect >= DETECT_EVERY) {
+      lastDetect = now;
+      try {
+        var res = landmarker.detectForVideo(video, now);
+        targetHands = (res.landmarks || []).map(function (h) { return h.map(function (p) { return coverMap(p.x, p.y); }); });
+      } catch (e) { /* skip a bad frame */ }
+    }
+    if ('requestVideoFrameCallback' in video) video.requestVideoFrameCallback(detectLoop); else requestAnimationFrame(detectLoop);
+  }
+
+  async function startCamera() {
+    var err = document.getElementById('err'), btn = document.getElementById('startBtn');
+    btn.disabled = true; btn.textContent = 'Lighting the candle';
+    try {
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) throw new Error('nocam');
+      var stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user', width: { ideal: 640 }, height: { ideal: 480 }, frameRate: { ideal: 30, max: 30 } }, audio: false });
+      video.srcObject = stream; await video.play();
+      btn.textContent = 'Loading the hand tracker';
+      var vision = await import('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/vision_bundle.mjs');
+      var files = await vision.FilesetResolver.forVisionTasks('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm');
+      var opts = function (delegate) { return { baseOptions: { modelAssetPath: 'https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task', delegate: delegate }, runningMode: 'VIDEO', numHands: 2, minHandDetectionConfidence: 0.5, minTrackingConfidence: 0.5 }; };
+      try { landmarker = await vision.HandLandmarker.createFromOptions(files, opts('GPU')); }
+      catch (e) { landmarker = await vision.HandLandmarker.createFromOptions(files, opts('CPU')); }
+      document.getElementById('setup').style.display = 'none';
+      document.body.classList.add('live'); mode = 'live'; targetHands = []; detectLoop();
+    } catch (e) {
+      btn.disabled = false; btn.textContent = 'Start the show';
+      err.style.display = 'block';
+      err.textContent = (e && e.name === 'NotAllowedError') ? 'Camera access was declined. The rehearsal below runs without it.' : 'The camera could not start on this device. The rehearsal below runs without it.';
+      setTimeout(startDemo, 1800);
+    }
+  }
+  function startDemo() {
+    if (mode === 'live') return;
+    document.getElementById('setup').style.display = 'none';
+    mode = 'demo'; demoIdx = -1; demoUntil = 0;
+  }
+
+  // ---------- Guide diagrams, drawn with the same shadow renderer ----------
+  function drawGuides() {
+    document.querySelectorAll('canvas[data-pose]').forEach(function (cv) {
+      var c = cv.getContext('2d'), w = cv.width, h = cv.height, pose = cv.dataset.pose;
+      var g = c.createRadialGradient(w / 2, h * 1.1, 4, w / 2, h, w); g.addColorStop(0, '#f6d9a2'); g.addColorStop(1, '#a8763f');
+      c.fillStyle = g; c.fillRect(0, 0, w, h);
+      var s = pose === 'bird' ? h * 0.3 : h * 0.42, x = w / 2, y = h * (pose === 'rabbit' ? 0.82 : 0.6);
+      if (pose === 'dog' || pose === 'duck') x = w * 0.62;
+      c.fillStyle = c.strokeStyle = 'rgba(28,18,11,0.92)';
+      S.POSES[pose](x, y, s).forEach(function (hd) { drawHand(c, hd); });
+    });
+  }
+
+  var guide = document.getElementById('guide'), guideBtn = document.getElementById('guideBtn');
+  guideBtn.addEventListener('click', function () { var o = guide.classList.toggle('open'); guideBtn.setAttribute('aria-expanded', o); });
+  document.getElementById('startBtn').addEventListener('click', startCamera);
+  document.getElementById('demoBtn').addEventListener('click', startDemo);
+  addEventListener('resize', resize);
+  resize(); drawGuides(); requestAnimationFrame(frame);
+  var dm = /[?&]demo(?:=(\w+))?/.exec(location.search);
+  if (dm) { startDemo(); if (dm[1] && DEMO.indexOf(dm[1]) > 0) demoIdx = DEMO.indexOf(dm[1]) - 1; }
+})();
+</script>
+</body>
+</html>
