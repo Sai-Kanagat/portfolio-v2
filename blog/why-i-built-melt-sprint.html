@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Consent Mode v2 default: denied inside EEA/UK/Switzerland (GDPR), granted elsewhere -->
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+// Default: granted everywhere (for non-EEA traffic, recruiters in US/India/etc)
+gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'granted','functionality_storage':'granted','security_storage':'granted','wait_for_update':500});
+// Override: denied for EEA, UK, Switzerland (legally required until user accepts)
+gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied','region':['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH'],'wait_for_update':500});
+try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_consent_v2')){localStorage.setItem('sk_consent_v2','denied');}localStorage.removeItem('sk_consent');var c=localStorage.getItem('sk_consent_v2');if(c==='granted'){gtag('consent','update',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'granted'});}else if(c==='denied'){gtag('consent','update',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied'});}}catch(e){}</script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MRGXD7ZC');</script>
+<!-- End Google Tag Manager -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Why I Built a Psychedelic Video Game for My Portfolio | Sai Kanagat</title>
+  <meta name="description" content="Why I built Melt Sprint, a browser movement shooter, as a portfolio piece: attention, feedback loops, constraints, and directing an AI as the engineer. Play it at saikanagat.com/melt." />
+  <meta name="author" content="Sai Prathyaksh Kanagat" />
+  <link rel="canonical" href="https://saikanagat.com/blog/why-i-built-melt-sprint" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Why I Built a Psychedelic Video Game for My Portfolio" />
+  <meta property="og:description" content="Melt Sprint is a browser movement shooter in one HTML file. Here is why a marketer built it, and what it taught me." />
+  <meta property="og:url" content="https://saikanagat.com/blog/why-i-built-melt-sprint" />
+  <meta property="og:image" content="https://saikanagat.com/og-image.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://saikanagat.com/og-image.jpg" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Why I Built a Psychedelic Video Game for My Portfolio",
+    "datePublished": "2026-11-23",
+    "dateModified": "2026-11-23",
+    "author": {"@type": "Person", "name": "Sai Prathyaksh Kanagat", "url": "https://saikanagat.com/"},
+    "publisher": {"@type": "Person", "name": "Sai Prathyaksh Kanagat"},
+    "url": "https://saikanagat.com/blog/why-i-built-melt-sprint",
+    "mainEntityOfPage": "https://saikanagat.com/blog/why-i-built-melt-sprint",
+    "keywords": "Melt Sprint, browser game, portfolio, interactive demo, Sai Kanagat, AI creative direction"
+  }
+  </script>
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/brand-overlay.css" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MRGXD7ZC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<a href="#main" class="skip-link">Skip to content</a>
+<nav class="nav">
+  <a href="../index.html" class="nav-logo">SK<span>.</span></a>
+  <div class="nav-links" id="navLinks">
+    <a href="../work.html">Work</a><a href="../process.html">Process</a><a href="../gallery.html">Gallery</a>
+    <a href="../blog.html" class="active">Blog</a><a href="../about.html">About</a><a href="../demos.html">Demos</a>
+    <a href="../contact.html">Contact</a>
+  </div>
+  <div class="nav-tag">Available: EU &amp; Remote</div>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<main id="main" class="page" role="main">
+  <header class="post-hero">
+    <div class="post-meta">
+      <span class="post-tag">Build</span><span>November 2026</span><span>5 min read</span>
+    </div>
+    <h1 class="post-title reveal">Why I Built a<br><span style="color: var(--accent);">Video Game</span><br>for My Portfolio</h1>
+  </header>
+
+  <article class="post-body">
+    <p>A few weeks ago I watched a short video of a movement shooter: rocket jumps, grappling hooks, a combo counter climbing while the player never touched the ground. I wanted that feeling, so I built my own version with completely original art and put it on my portfolio. It is called Melt Sprint, and you can play it right now at <a href="/melt">saikanagat.com/melt</a>.</p>
+
+    <p>I am a marketing person with an industrial design background. Building a game is not an obvious move. Here is the reasoning, and what it taught me.</p>
+
+    <h2>Attention is the scarce resource</h2>
+    <p>In <a href="portfolios-are-products.html">Portfolios Are Products</a> I argued that a portfolio should have a job to do for the visitor. The hard part of that job is attention. A hiring manager gives a page a few seconds, and a case study asks for trust before it has earned any. A game asks for one click and then holds you for three minutes.</p>
+
+    <p>I do not have numbers on whether this works for job hunting, and I will not pretend otherwise. It is a bet. My Hand Cursor gesture demo was a hit, and that was enough to make me want to push the idea further.</p>
+
+    <h2>What a marketer learns from building a game</h2>
+    <p>I expected to learn about code. I learned more about my own day job.</p>
+
+    <p><strong>Feel is the headline.</strong> If moving around does not feel good in the first ten seconds, nothing else matters. That is exactly how a landing page headline works. Most of my playtesting was one question: does this feel good, or does it just work?</p>
+
+    <p><strong>A combo is a reward schedule.</strong> Every trick adds to a running total shown as POINTS × COUNT. When the timer drains, the combo banks. That single mechanic makes you chain tricks instead of doing them one at a time, because stopping costs you. The scoring also steers you: airshots on floating crystals score the most, so the game quietly pushes you toward the riskiest move. It is the same logic as a loyalty scheme, except you feel it in your thumbs.</p>
+
+    <p><strong>The world answers back.</strong> The bigger your combo gets, the harder the world warps. Feedback is not a number in the corner, it is the whole screen. Good campaigns do this too: the response should be proportional to the effort, and impossible to miss.</p>
+
+    <p><strong>Onboarding happens in the first 45 seconds.</strong> Nobody reads a manual for a free browser game. Short tips show up in the first 45 seconds, while you are already playing. Runs last three minutes, so a bad attempt costs you almost nothing and you try again. Short loops are the best retention mechanic I know.</p>
+
+    <h2>Constraints as design</h2>
+    <p>The whole game is one HTML file of about 85KB. Three.js loads from a CDN, and everything else is generated on the fly. Every texture is a procedural shader, so there are no images or models to download. The audio is synthesized with Web Audio, so there are no sound files either. It also has to run on a phone, which means a virtual joystick, JUMP, BLAST, HOOK and SLIDE buttons, and adaptive resolution that trades pixels for smoothness when the device struggles.</p>
+
+    <p>I resented these limits for about an hour. Then they started doing the designing for me. With no texture files, the art direction had to come from math, so I chose three zones where math looks good. Claymation Fever is noise-sculpted clay that "boils" like stop-motion. Liquid Chrome Dream has melting foil towers and surf ramps. Neon Flesh Cathedral has glowing veins and eyeball grapple anchors. A bigger budget would have given me a more generic game.</p>
+
+    <h2>Directing an AI instead of writing code</h2>
+    <p>I built Melt Sprint in a single session by working with Claude as my engineer. I did not write the code, and I will not claim I did. What I did was the job of a creative director: set the vision, choose the art direction for all three zones, playtest constantly, and say plainly what felt wrong. I pushed for slide and wall jump because the movement felt incomplete without them.</p>
+
+    <p>The surprise was where the bottleneck moved. It was no longer "can I build this?" It became "do I know what good feels like, and can I describe it precisely?" That is a brief-writing problem, the same skill I wrote about in <a href="the-brief-as-a-design-object.html">The Brief as a Design Object</a>. The people who will get the most out of AI tools are the ones who can tell the difference between almost right and right.</p>
+
+    <h2>Play it, then beat my score</h2>
+    <p>Melt Sprint works with mouse and keyboard (it captures your pointer) and on your phone. Your best score is saved in your own browser, so the first opponent is whoever played before you.</p>
+
+    <p><a href="/melt">Play Melt Sprint at saikanagat.com/melt</a>, bank a big combo, and then try to beat mine. If you do, <a href="../contact.html">send me your number</a>. I would like to know which zone broke you first.</p>
+  </article>
+
+  <footer class="footer">
+    <div class="footer-logo">SK<span>.</span></div>
+    <p class="footer-copy">© 2026 Sai Kanagat. All rights reserved.</p>
+    <div class="footer-socials">
+      <a href="https://linkedin.com/in/sai-kanagat" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/Sai-Kanagat" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:saikanagat1117@gmail.com">Email</a>
+    </div>
+  </footer>
+</main>
+
+<script src="../js/loader.js"></script>
+<script src="../js/cursor.js"></script>
+<script src="../js/transitions.js"></script>
+<script src="../js/animations.js"></script>
+<script src="../js/lang.js"></script>
+<script src="../js/interactions.js"></script>
+<script src="../js/consent.js" defer></script>
+<script src="../js/analytics.js" defer></script>
+<script src="/js/newsletter.js?v=5" defer></script>
+</body>
+</html>
