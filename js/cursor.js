@@ -23,7 +23,7 @@
     var s = document.createElement('style');
     s.id = 'mag-cursor-styles';
     s.textContent = [
-      '.mag-cursor{position:fixed;top:0;left:0;pointer-events:none;will-change:transform;z-index:9999;mix-blend-mode:difference;}',
+      '.mag-cursor{position:fixed;top:0;left:0;pointer-events:none;will-change:transform;z-index:2147483000;mix-blend-mode:difference;}',
       '.mag-lead{width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#ffffff;transition:width .25s cubic-bezier(.2,.8,.2,1),height .25s cubic-bezier(.2,.8,.2,1),margin .25s cubic-bezier(.2,.8,.2,1),background .25s ease,opacity .2s ease;}',
       '.mag-trail{width:42px;height:42px;margin:-21px 0 0 -21px;border:1.5px solid #ffffff;transition:width .35s cubic-bezier(.2,.8,.2,1),height .35s cubic-bezier(.2,.8,.2,1),margin .35s cubic-bezier(.2,.8,.2,1),border-color .25s ease,opacity .2s ease;mix-blend-mode:exclusion;}',
       '.mag-lead.is-grow{width:46px;height:46px;margin:-23px 0 0 -23px;background:#1F40C7;mix-blend-mode:normal;}',
