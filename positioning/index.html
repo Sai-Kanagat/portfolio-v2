@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Consent Mode v2 default: denied inside EEA/UK/Switzerland (GDPR), granted elsewhere -->
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+// Default: granted everywhere (for non-EEA traffic, recruiters in US/India/etc)
+gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'granted','functionality_storage':'granted','security_storage':'granted','wait_for_update':500});
+// Override: denied for EEA, UK, Switzerland (legally required until user accepts)
+gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied','region':['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH'],'wait_for_update':500});
+try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_consent_v2')){localStorage.setItem('sk_consent_v2','denied');}localStorage.removeItem('sk_consent');var c=localStorage.getItem('sk_consent_v2');if(c==='granted'){gtag('consent','update',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'granted'});}else if(c==='denied'){gtag('consent','update',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied'});}}catch(e){}</script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MRGXD7ZC');</script>
+<!-- End Google Tag Manager -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Positioning Mapper | Sai Kanagat</title>
+<meta name="description" content="Paste competitor headlines, taglines and prices. Get scored positions, a draggable 2x2 map, crowded zones, white space, a positioning statement draft and a messaging gap table." />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="../css/styles.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha384-JcnsjUPPylna1s1fvi1u12X5qjY5OL56iySh75FdtrwhO/SWXgMjoVqcKyIIWOLk" crossorigin="anonymous" defer></script>
+<style>
+  :root { --bg:#0a0a0a; --paper:#f5f0e8; --dim:rgba(245,240,232,0.72); --line:rgba(245,240,232,0.16); --green:#3FE07A; --red:#E5483B; --amber:#F4A93D; }
+  *{box-sizing:border-box;}
+  html,body{margin:0;background:var(--bg);color:var(--paper);font-family:var(--font-mono,monospace);min-height:100%;}
+  a{color:inherit;}
+  button,input,select,textarea{font:inherit;color:inherit;}
+  .demo-back{position:fixed;top:18px;left:18px;z-index:20;font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;background:rgba(10,10,10,0.82);border:1px solid var(--line);padding:10px 14px;border-radius:2px;text-decoration:none;}
+  .demo-back:hover{border-color:var(--paper);}
+  .wrap{max-width:1180px;margin:0 auto;padding:88px 20px 72px;}
+  h1{font-family:var(--font-display,'Unbounded',sans-serif);font-weight:900;letter-spacing:-0.03em;font-size:clamp(30px,5vw,56px);margin:0 0 10px;line-height:0.98;}
+  h2{font-family:var(--font-display,'Unbounded',sans-serif);font-weight:800;font-size:clamp(17px,2vw,22px);letter-spacing:-0.02em;margin:0 0 6px;}
+  .lede{color:var(--dim);font-size:0.8rem;line-height:1.65;max-width:680px;margin:0 0 22px;}
+  .sub{color:var(--dim);font-size:0.72rem;line-height:1.6;margin:0 0 14px;max-width:640px;}
+  .bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 22px;}
+  .bar .lbl{font-size:0.62rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--dim);margin-right:4px;}
+  .pbtn{background:transparent;border:1px solid var(--line);border-radius:2px;padding:10px 14px;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;min-height:40px;}
+  .pbtn:hover{border-color:var(--paper);}
+  .pbtn.on,.pbtn.on:hover,.pbtn.on:focus{background:var(--paper);color:var(--bg);border-color:var(--paper);}
+  .pbtn.go{border-color:var(--green);color:var(--green);}
+  .pbtn.go:hover{background:var(--green);color:var(--bg);}
+  .pbtn:disabled{opacity:0.4;cursor:not-allowed;}
+  :focus-visible{outline:2px solid var(--green);outline-offset:2px;}
+  .grid{display:grid;grid-template-columns:1fr 1.05fr;gap:28px;align-items:start;}
+  .sticky{position:sticky;top:14px;}
+  @media(max-width:920px){.grid{grid-template-columns:1fr;}.sticky{position:static;order:-1;}}
+  .panel{border:1px solid var(--line);border-radius:8px;padding:18px;background:rgba(245,240,232,0.02);}
+  .sec{margin-top:44px;}
+  .comp{border:1px solid var(--line);border-radius:8px;padding:14px;margin-bottom:12px;background:rgba(245,240,232,0.02);}
+  .comp.us{border-color:var(--green);}
+  .row{display:grid;grid-template-columns:1fr 120px;gap:8px;margin-bottom:8px;}
+  .row.one{grid-template-columns:1fr;}
+  label.f{display:block;font-size:0.58rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--dim);margin-bottom:4px;}
+  input[type=text],textarea,select{width:100%;background:rgba(245,240,232,0.05);border:1px solid var(--line);border-radius:4px;padding:9px 10px;font-size:0.78rem;min-height:40px;}
+  textarea{resize:vertical;line-height:1.45;}
+  select option{background:#111;color:var(--paper);}
+  .ctop{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+  .ctop label.radio{font-size:0.66rem;letter-spacing:0.12em;text-transform:uppercase;display:flex;align-items:center;gap:6px;cursor:pointer;}
+  .ctop .rm{background:none;border:1px solid var(--line);border-radius:2px;padding:6px 10px;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;color:var(--dim);}
+  .ctop .rm:hover:not(:disabled){border-color:var(--red);color:var(--red);}
+  .ctop .rm:disabled{opacity:0.35;cursor:not-allowed;}
+  details.sc{margin-top:6px;border-top:1px solid var(--line);padding-top:8px;}
+  details.sc summary{cursor:pointer;font-size:0.66rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--dim);padding:6px 0;}
+  .ax{margin:12px 0 14px;}
+  .ax-top{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:0.7rem;margin-bottom:6px;}
+  .ax-name{color:var(--paper);}
+  .ax-val{font-family:var(--font-display,sans-serif);font-weight:700;min-width:44px;text-align:right;}
+  .ax .mini{background:none;border:1px solid var(--line);border-radius:2px;font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;padding:3px 7px;cursor:pointer;color:var(--amber);border-color:var(--amber);}
+  .ax .mini[hidden]{display:none;}
+  input[type=radio]{accent-color:var(--green);}
+  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:3px;background:var(--line);border-radius:3px;outline:none;margin:8px 0;}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--green);cursor:pointer;border:3px solid var(--bg);box-shadow:0 0 0 1px var(--green);}
+  input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--green);cursor:pointer;border:3px solid var(--bg);}
+  .ax.manual input[type=range]::-webkit-slider-thumb{background:var(--amber);box-shadow:0 0 0 1px var(--amber);}
+  .poles{display:flex;justify-content:space-between;font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--dim);}
+  .why{margin-top:6px;display:flex;flex-wrap:wrap;gap:5px;font-size:0.64rem;line-height:1.4;color:var(--dim);}
+  .chip{border:1px solid var(--line);border-radius:3px;padding:2px 6px;}
+  .chip.p{color:var(--green);border-color:rgba(63,224,122,0.4);}
+  .chip.n{color:var(--amber);border-color:rgba(244,169,61,0.4);}
+  .mapctl{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+  .mapwrap{position:relative;}
+  #map{display:block;width:100%;border:1px solid var(--line);border-radius:6px;background:rgba(245,240,232,0.015);touch-action:none;cursor:grab;}
+  #map.drag{cursor:grabbing;}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;font-size:0.62rem;color:var(--dim);margin:10px 0;letter-spacing:0.04em;}
+  .legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:-1px;}
+  #insights{font-size:0.74rem;line-height:1.65;}
+  #insights p{margin:0 0 8px;}
+  #insights b{color:var(--paper);}
+  .tag-c{color:var(--red);} .tag-w{color:var(--amber);}
+  .acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;}
+  #msg{font-size:0.68rem;color:var(--green);min-height:1.2em;margin-top:8px;}
+  #shareurl{margin-top:8px;display:none;}
+  .stmt{font-family:var(--font-body,'Space Grotesk',sans-serif);font-size:clamp(17px,2.1vw,24px);line-height:1.45;border:1px solid var(--line);border-radius:8px;padding:20px;margin:16px 0 10px;background:rgba(245,240,232,0.03);}
+  .stmt mark{background:none;color:var(--amber);border-bottom:1px dashed var(--amber);}
+  .stmt b{color:var(--green);font-weight:700;}
+  .fields{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+  @media(max-width:620px){.fields{grid-template-columns:1fr;}.row{grid-template-columns:1fr;}}
+  table{width:100%;border-collapse:collapse;font-size:0.72rem;}
+  th{font-size:0.58rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--dim);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);font-weight:400;}
+  td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.5;}
+  .tw{overflow-x:auto;}
+  .st{font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;border:1px solid var(--line);border-radius:3px;padding:2px 7px;white-space:nowrap;}
+  .st.crowd{color:var(--red);border-color:rgba(229,72,59,0.5);}
+  .st.open{color:var(--green);border-color:rgba(63,224,122,0.5);}
+  .st.own{color:var(--amber);border-color:rgba(244,169,61,0.5);}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:14px 0 20px;}
+  @media(max-width:620px){.cols{grid-template-columns:1fr;}}
+  .cols h3{font-size:0.62rem;letter-spacing:0.16em;text-transform:uppercase;font-weight:400;margin:0 0 8px;color:var(--dim);}
+  .cols ul{margin:0;padding-left:16px;font-size:0.74rem;line-height:1.7;}
+  .foot{font-size:0.66rem;color:var(--dim);line-height:1.6;margin-top:36px;max-width:720px;}
+  .us-tick{color:var(--green);}
+</style>
+<link rel="canonical" href="https://saikanagat.com/positioning" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Positioning Mapper | Sai Kanagat" />
+<meta property="og:description" content="Paste competitor copy, get scored positions, a draggable 2x2 map, white space, a positioning statement draft and a messaging gap table." />
+<meta property="og:image" content="https://saikanagat.com/assets/images/DEMOS/positioning.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MRGXD7ZC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<a href="../demos.html" class="demo-back">← Demos</a>
+
+<div class="wrap">
+  <h1>Positioning Mapper</h1>
+  <p class="lede">Paste each competitor's homepage headline, tagline and price. The page scores them on five axes from the copy, shows its reasoning, lets you overrule any number, and maps two axes at a time. Then it finds the crowded zones and the white space, drafts a positioning statement and lists the claims everyone makes versus the claims nobody makes. Nothing leaves your browser.</p>
+
+  <div class="bar" role="group" aria-label="Start from a sample market">
+    <span class="lbl">Start from</span>
+    <button class="pbtn" data-mk="coffee" type="button">Sample: Italian specialty coffee D2C</button>
+    <button class="pbtn" data-mk="fintech" type="button">Sample: Fintech app</button>
+    <button class="pbtn" data-mk="blank" type="button">Blank market</button>
+  </div>
+
+  <div class="grid">
+    <section aria-label="Competitors">
+      <h2>Competitors</h2>
+      <p class="sub">Up to 8, including your own brand. Copy the words from each homepage by hand: this page cannot fetch other sites. Sample brands are fictional.</p>
+      <div id="cards"></div>
+      <button class="pbtn" id="add" type="button">Add competitor</button>
+    </section>
+
+    <section class="sticky panel" aria-label="Positioning map">
+      <div class="mapctl">
+        <div><label class="f" for="axx">Horizontal axis</label><select id="axx"></select></div>
+        <div><label class="f" for="axy">Vertical axis</label><select id="axy"></select></div>
+      </div>
+      <div class="mapwrap"><canvas id="map" role="img" aria-label="Positioning map"></canvas></div>
+      <div class="legend"><span><i style="background:#3FE07A"></i>Us</span><span><i style="background:rgba(245,240,232,0.5)"></i>Competitor</span><span><i style="background:rgba(229,72,59,0.6)"></i>Crowded</span><span><i style="background:rgba(244,169,61,0.7)"></i>White space</span></div>
+      <p class="sub" style="margin-bottom:10px">Drag any bubble to set its score on the two shown axes. Bubbles nudge apart so labels stay readable; a thin line points back to the true spot.</p>
+      <div id="insights" aria-live="polite"></div>
+      <div class="acts">
+        <button class="pbtn go" id="png" type="button">Export map PNG</button>
+        <button class="pbtn go" id="pdf" type="button">Export analysis PDF</button>
+        <button class="pbtn" id="share" type="button">Copy share link</button>
+      </div>
+      <input type="text" id="shareurl" readonly aria-label="Share link">
+      <div id="msg" role="status"></div>
+    </section>
+  </div>
+
+  <section class="sec" id="statement" aria-label="Positioning statement">
+    <h2>Positioning statement draft</h2>
+    <p class="sub">Fill the blanks. Empty ones stay as amber placeholders. If you leave the alternative empty, the nearest rival on the map is used.</p>
+    <div class="fields">
+      <div><label class="f" for="st-t">For (target customer)</label><input type="text" id="st-t" data-st="t" placeholder="e.g. home brewers in Italy"></div>
+      <div><label class="f" for="st-n">who (their need)</label><input type="text" id="st-n" data-st="n" placeholder="e.g. want fresh specialty coffee"></div>
+      <div><label class="f" for="st-c">is the (category)</label><input type="text" id="st-c" data-st="c" placeholder="e.g. roast-to-order subscription"></div>
+      <div><label class="f" for="st-b">that (key benefit)</label><input type="text" id="st-b" data-st="b" placeholder="e.g. ships within 48 hours of roasting"></div>
+      <div><label class="f" for="st-a">unlike (alternative)</label><input type="text" id="st-a" data-st="a" list="names" placeholder="blank = nearest rival on the map"><datalist id="names"></datalist></div>
+    </div>
+    <div class="stmt" id="stmt"></div>
+    <div id="stcheck" class="sub"></div>
+    <button class="pbtn" id="copystmt" type="button">Copy statement</button>
+  </section>
+
+  <section class="sec" id="gaps" aria-label="Messaging gap table">
+    <h2>Messaging gap table</h2>
+    <p class="sub">Claim themes found in the headlines and taglines (English keyword match). "Everyone says it" is a claim at least half the set makes, three or more brands. "Nobody says it" is open ground, worth testing before you assume it is open for a reason.</p>
+    <div class="cols"><div><h3>Everyone says it</h3><ul id="g-all"></ul></div><div><h3>Nobody says it</h3><ul id="g-none"></ul></div></div>
+    <div class="tw"><table><thead><tr><th>Claim theme</th><th>Brands</th><th>Who</th><th>Status</th></tr></thead><tbody id="g-body"></tbody></table></div>
+  </section>
+
+  <p class="foot">How the scoring works: each axis has a small keyword lexicon with weights. Matches add or subtract points, the sum is squashed to a score between -100 and 100, and for premium versus accessible the price rank inside your set is added as one more signal. It is a transparent first pass, not a verdict. Move any slider and your number wins. The lexicon is English only. Sample markets and brands are invented for demonstration.</p>
+</div>
+
+<script>
+(function(){
+'use strict';
+/* ---------- axes and lexicons ---------- */
+var AX=[
+ {k:'prem',lo:'Accessible',hi:'Premium'},
+ {k:'emo',lo:'Rational',hi:'Emotional'},
+ {k:'spec',lo:'Generalist',hi:'Specialist'},
+ {k:'inno',lo:'Heritage',hi:'Innovative'},
+ {k:'play',lo:'Serious',hi:'Playful'}
+];
+function axOf(k){for(var i=0;i<AX.length;i++)if(AX[i].k===k)return AX[i];return AX[0];}
+function axName(a){return a.lo+' to '+a.hi;}
+var RAW={
+ prem:{
+  pos:[['\\bpremium',2],['\\bluxur',2],['\\bartisan',1],['\\bcraft',1],['\\bexclusiv',2],['\\bfinest',2],['\\bbespoke',2],['\\bdiscerning',2],['\\bsignature',1],['\\breserved?\\b',1],['\\brare\\b',1],['\\bsingle[- ]origin',1],['\\bsmall[- ]lots?',1],['\\bprivate\\b',1],['\\belite',2],['\\bfine\\b',1],['\\bhand[- ]?(?:made|crafted|picked)',1],['\\bconcierge',1],['\\bwealth',1],['\\bprecision',1],['\\bspecialty',1]],
+  neg:[['\\baffordab',2],['\\bcheap',2],['\\bfree\\b',2],['\\beveryone',1],['\\bbudget',2],['\\bsave',1],['\\bdiscount',2],['\\bvalue',1],['\\bno fees?',1],['\\blow[- ]cost',2],['\\bdeals?\\b',1],['\\bsimple',1],['\\beasy',1],['\\bprice',1],['\\bfor all\\b',1]]},
+ emo:{
+  pos:[['\\blove',2],['\\bfeel',1],['\\bjoy',2],['\\bdream',2],['\\bpassion',2],['\\bsoul',2],['\\btogether',1],['\\bhome\\b',1],['\\bmoments?\\b',1],['\\bfamily',1],['\\bbelong',2],['\\britual',2],['\\bhappy|\\bsmile',1],['\\bmagic',1],['\\bcare\\b',1],['\\bstor(?:y|ies)\\b',1],['\\bheart',2],['\\bcozy|\\bwarm',1],['\\bcelebrat',1],['\\bbeaut',1],['\\bpleasure',1],['\\bsunday',1],['\\bwonder',1]],
+  neg:[['\\bdata',2],['\\bsave\\b',1],['\\bfast',1],['\\befficien',2],['\\broi\\b',2],['\\bcompar',1],['\\bproven',1],['\\bcosts?\\b',1],['\\bfees?\\b',1],['\\bresults?\\b',1],['\\btrack',2],['\\bautomat',2],['\\bperformance',1],['\\breconcil',2],['\\bforecast',2],['\\bprecision',1],['\\bengineer',2],['\\bmeasur',2],['\\baccura',1],['\\binstant',1],['\\bsecure',1],['\\bregulat',1],['\\breliab',1],['\\breproducib',2]]},
+ spec:{
+  pos:[['\\bonly\\b',1],['\\bspecialist',2],['\\bdedicated',2],['\\bbuilt for\\b',2],['\\bexpert',1],['\\bsingle[- ]origin',1],['\\bfocus',1],['\\bniche',2],['\\bfor (?:freelanc|founder|creator|athlete|runner|doctor|designer|student|nurse|teacher|developer|small business)',2],['\\bpurpose[- ]built',2],['\\bspecialty',1],['\\bone thing',1],['\\bsmall[- ]lots?',1],['\\bprecision',1]],
+  neg:[['\\beverything',2],['\\ball[- ]in[- ]one',2],['\\bevery',1],['\\banything',2],['\\bone place',2],['\\bcomplete',1],['\\bwide range',2],['\\ball your',1],['\\banyone',1],['\\bfull[- ]service',2],['\\bone app',1],['\\bfor all\\b',1]]},
+ inno:{
+  pos:[['\\bnew\\b',1],['\\bfirst\\b',1],['\\breinvent',2],['\\bsmart',1],['\\bai\\b|\\bai-',2],['\\bapp\\b',1],['\\bnext[- ]gen',2],['\\bfuture',2],['\\brethink',2],['\\bmodern',1],['\\binstant',1],['\\bdigital',1],['\\btech',1],['\\bdisrupt',2],['\\blab\\b',1],['\\bengineer',1],['\\bautomat',1],['\\breal[- ]time',1],['\\bevolv',1]],
+  neg:[['\\bsince\\b',1],['\\btradition',2],['\\bheritage',2],['\\bclassic',2],['\\bgeneration',2],['\\boriginal',1],['\\bestablish',1],['\\btrusted',1],['\\btime[- ]honou?red',2],['\\b1[89]\\d\\d\\b',2],['\\bold[- ]school',2],['\\bnonna|\\bgrandmother',1],['\\bauthentic',1]]},
+ play:{
+  pos:[['\\bfun\\b',2],['\\bplay',2],['\\bhey\\b',1],['\\bwow',1],['\\bcheeky',2],['\\bwild',1],['\\bweird',2],['\\bfunky',2],['\\byay',1],['\\blol',1],['\\bbold',1],['\\bdelight',1],['\\bsmile',1],['\\bjoy',1],['\\bcrazy|\\bsilly|\\bgoofy|\\bmischief',2]],
+  neg:[['\\bsecure',1],['\\bregulat',2],['\\bcomplian',2],['\\btrusted',1],['\\bprofessional',1],['\\benterprise',2],['\\bprotect',1],['\\bcertified|\\blicen[cs]ed',1],['\\bofficial',1],['\\bsafe',1],['\\bbank',1],['\\bserious',2],['\\bgovern',1],['\\bdiscerning',1],['\\bfiduciar',2],['\\bheritage',1],['\\bprecision',1]]}
+};
+var LEX={};
+Object.keys(RAW).forEach(function(k){LEX[k]={pos:[],neg:[]};['pos','neg'].forEach(function(s){RAW[k][s].forEach(function(e){LEX[k][s].push([new RegExp(e[0],'i'),e[1]]);});});});
+
+var THEMES=[
+ ['Craft and quality','craft|artisan|finest|quality|premium|small[- ]lot|single[- ]origin|hand[- ]?made|precision|best\\b'],
+ ['Low price and value','afford|cheap|\\bfree\\b|\\bsave|budget|\\bvalue|discount|no fees|low[- ]cost|\\bprice|\\bdeals?\\b'],
+ ['Speed and convenience','\\bfast|instant|quick|seconds|\\bhours\\b|within \\d|effortless|convenien|automat|one tap|in a blink'],
+ ['Heritage and tradition','\\bsince\\b|tradition|heritage|classic|generation|nonna|old[- ]school|\\b1[89]\\d\\d\\b'],
+ ['Innovation and technology','\\bai\\b|\\bai-|smart|\\bnew\\b|\\bfirst\\b|reinvent|future|\\bapp\\b|\\btech|digital|real[- ]time|\\blab\\b|engineer|rethink|modern'],
+ ['Trust and security','trust|secur|regulat|\\bsafe|protect|complian|licen|guarantee|reliab|certified'],
+ ['Simplicity','simple|\\beasy|effortless|no mess|\\bclear|one box|straightforward'],
+ ['Emotion and ritual','\\blove|\\bfeel|\\bjoy|dream|\\bsoul|ritual|moment|happy|smile|heart|sunday|belong|\\bhome\\b'],
+ ['Community and belonging','communit|\\bclub\\b|together|member|belong|\\bjoin|tribe|friends'],
+ ['Sustainability and ethics','sustainab|ethic|organic|\\bfair\\b|direct[- ]trade|planet|\\bgreen|\\beco\\b|carbon|climate'],
+ ['Data and proof','\\bdata|%|\\d{2,}|proven|\\btrack|measur|forecast|reconcil|numbers|accura|transparen'],
+ ['Choice and all-in-one','everything|all[- ]in[- ]one|\\bevery|anything|one place|\\brange\\b|variety|all your|complete'],
+ ['Exclusivity and status','exclusiv|\\bprivate|reserved|\\belite|discerning|\\bfew\\b|\\binvite|bespoke'],
+ ['Personal and tailored','personal|tailor|your own|made for you|\\bcustom|\\byours\\b|what.s yours'],
+ ['Specialist focus','\\bonly\\b|specialist|dedicated|built for|for freelanc|for founders|niche|focused|purpose'],
+ ['Fun and personality','\\bfun\\b|\\bplay|weird|funky|\\bwild|cheeky|!|\\byay'],
+ ['Origin and provenance','origin|\\bfarm|\\blocal|italian|made in|sourced|bologna|harvest|roasted in|roast']
+].map(function(t){return {name:t[0],re:new RegExp(t[1],'i')};});
+
+/* ---------- sample markets (all brands fictional) ---------- */
+var SAMPLES={
+ coffee:{x:'inno',y:'play',
+  c:[
+   ['Ombra Caffe','Single-origin beans, roasted in Bologna and shipped within 48 hours','Small lots. Honest roast.','€14 / 250g'],
+   ['Fornace Reale','Since 1952, the finest Italian espresso: a family tradition in every cup','Tradition you can taste','€9 / 250g'],
+   ['Rapido Capsule','Great coffee in 10 seconds, no mess, everything you need in one box','Press. Sip. Smile!','€7 / 250g'],
+   ['Zerosei Lab','Precision extraction, data-tracked: the same result in every cup','Coffee, engineered','€22 / 250g'],
+   ['Casa Tostata Club','A subscription that feels like Sunday morning at home','Join the ritual','€12 / 250g'],
+   ['Primo Risparmio','Quality coffee for everyone at a price that makes sense, save more every week','Simple. Affordable.','€4.50 / 250g'],
+   ['Sorso Selvatico','Wild, funky natural-process lots for people who love weird coffee!','Get weird.','€18 / 250g']
+  ],
+  st:['home brewers in Italy','want specialty coffee that arrives fresh, not weeks old','roast-to-order coffee subscription','ships single-origin lots within 48 hours of roasting','Primo Risparmio']},
+ fintech:{x:'prem',y:'inno',
+  c:[
+   ['Quillo','The money app for freelancers: tax set aside automatically on every invoice','Know what is yours.','€9 / month'],
+   ['Margine','Track every cost, forecast cash flow, 99.9% of transactions reconciled in real time','Numbers you can trust','€29 / month'],
+   ['Banca Tondo','Trusted by families since 1894. Secure, regulated current accounts','Your bank, for generations','€4 / month'],
+   ['Nidi','Save for what you dream of, together, one little nest at a time','Grow your nest!','Free'],
+   ['Brio','Banking for everyone: cards, transfers, savings and investing, all in one app','Money, made simple','Free'],
+   ['Vantaggia Private','Exclusive wealth management for discerning clients, with bespoke advice','Reserved for the few','€150 / month'],
+   ['Lumen','AI-powered instant invoicing and payments, the new way to get paid','Invoice in a blink!','€12 / month']
+  ],
+  st:['freelancers in Italy','lose track of how much of each invoice is really theirs after tax','money app','sets tax aside automatically on every invoice','Brio']}
+};
+
+/* ---------- state ---------- */
+var MAX=8,S,AN=[],L=[];
+function blank(){return {n:'',h:'',t:'',p:'',ov:{}};}
+function loadSample(key){
+ if(key==='blank'){S={m:'blank',x:'prem',y:'emo',u:0,c:[blank(),blank(),blank()],s:['','','','','']};S.c[0].n='Us';S.c[1].n='Competitor A';S.c[2].n='Competitor B';return;}
+ var d=SAMPLES[key];
+ S={m:key,x:d.x,y:d.y,u:0,c:d.c.map(function(r){return {n:r[0],h:r[1],t:r[2],p:r[3],ov:{}};}),s:d.st.slice()};
+}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function nm(c,i){return (c.n||'').trim()||('Brand '+(i+1));}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+
+/* ---------- scoring ---------- */
+function parsePrice(p){
+ p=String(p||'').toLowerCase();
+ if(/\b(free|gratis|gratuito)\b/.test(p))return 0;
+ var m=p.replace(',','.').match(/(\d+(?:\.\d+)?)/);
+ return m?parseFloat(m[1]):null;
+}
+function scoreAxis(k,text,priceRank,priceTxt){
+ var net=0,why=[];
+ ['pos','neg'].forEach(function(side){LEX[k][side].forEach(function(e){var m=e[0].exec(text);if(m){var d=side==='pos'?e[1]:-e[1];net+=d;why.push({w:'"'+m[0].trim()+'"',d:d});}});});
+ if(k==='emo'){var f=(text.match(/\d+(?:[.,]\d+)?\s?%?/g)||[]).length;if(f){var n=Math.min(2,f);net-=n;why.push({w:'figures cited',d:-n});}}
+ if(k==='play'){var ex=(text.match(/!/g)||[]).length;if(ex){var e2=Math.min(2,ex);net+=e2;why.push({w:'exclamation marks',d:e2});}}
+ if(k==='prem'&&priceRank!=null){var pa=(priceRank-0.5)*3;net+=pa;why.push({w:'price '+priceTxt+' ranks '+Math.round(priceRank*100)+'% in this set',d:Math.round(pa*10)/10});}
+ return {auto:Math.round(100*Math.tanh(net/3)),why:why};
+}
+function analyze(){
+ var prices=S.c.map(function(c){return parsePrice(c.p);});
+ var vals=prices.filter(function(v){return v!=null;});
+ return S.c.map(function(c,i){
+  var text=((c.h||'')+' . '+(c.t||'')).toLowerCase();
+  var pr=null;
+  if(prices[i]!=null&&vals.length>1){var less=vals.filter(function(v){return v<prices[i];}).length,eq=vals.filter(function(v){return v===prices[i];}).length;pr=(less+0.5*(eq-1))/(vals.length-1);}
+  var r={};
+  AX.forEach(function(a){
+   var s=scoreAxis(a.k,text,a.k==='prem'?pr:null,(c.p||'').trim());
+   var ov=c.ov[a.k];
+   r[a.k]={auto:s.auto,why:s.why,manual:ov!=null,v:ov!=null?ov:s.auto};
+  });
+  return r;
+ });
+}
+function pt(i){return {x:AN[i][S.x].v,y:AN[i][S.y].v};}
+
+/* ---------- insights: crowding, white space ---------- */
+function dist(a,b){return Math.hypot(a.x-b.x,a.y-b.y);}
+function insights(){
+ var P=S.c.map(function(c,i){return pt(i);}),n=P.length,par=P.map(function(_,i){return i;});
+ function find(i){while(par[i]!==i){par[i]=par[par[i]];i=par[i];}return i;}
+ var TH=30;
+ for(var i=0;i<n;i++)for(var j=i+1;j<n;j++)if(dist(P[i],P[j])<TH)par[find(i)]=find(j);
+ var g={};P.forEach(function(_,i){var r=find(i);(g[r]=g[r]||[]).push(i);});
+ var groups=[];
+ Object.keys(g).forEach(function(r){
+  var m=g[r];if(m.length<3){if(m.length===2&&dist(P[m[0]],P[m[1]])<20)groups.push({m:m,pair:true});return;}
+  groups.push({m:m,pair:false});
+ });
+ groups.forEach(function(gr){
+  var cx=0,cy=0;gr.m.forEach(function(i){cx+=P[i].x;cy+=P[i].y;});cx/=gr.m.length;cy/=gr.m.length;
+  var rr=0;gr.m.forEach(function(i){rr=Math.max(rr,Math.hypot(P[i].x-cx,P[i].y-cy));});
+  gr.cx=cx;gr.cy=cy;gr.r=rr+12;
+ });
+ var best=null;
+ if(n){for(var x=-88;x<=88;x+=4)for(var y=-88;y<=88;y+=4){
+  var md=1e9;P.forEach(function(p){md=Math.min(md,Math.hypot(p.x-x,p.y-y));});
+  var sc=Math.min(md,100-Math.max(Math.abs(x),Math.abs(y))+30);
+  if(!best||sc>best.sc)best={x:x,y:y,sc:sc,md:md};
+ }}
+ var near=null;
+ if(best){var order=P.map(function(p,i){return {i:i,d:Math.hypot(p.x-best.x,p.y-best.y)};}).sort(function(a,b){return a.d-b.d;});near=order[0];}
+ var us=S.u,rival=null;
+ P.forEach(function(p,i){if(i===us)return;var d=dist(p,P[us]);if(!rival||d<rival.d)rival={i:i,d:d};});
+ return {P:P,groups:groups,white:best,whiteNear:near,rival:rival};
+}
+function dirWords(v,a){return Math.abs(v)<18?null:(v>0?a.hi:a.lo);}
+function whiteDesc(w){
+ var ax=axOf(S.x),ay=axOf(S.y),a=dirWords(w.x,ax),b=dirWords(w.y,ay);
+ if(a&&b)return a+' and '+b;if(a)return a+', middle of '+ay.lo+' / '+ay.hi;if(b)return b+', middle of '+ax.lo+' / '+ax.hi;return 'the centre of the map';
+}
+var INS=null;
+function renderInsights(){
+ INS=insights();var h='',me=nm(S.c[S.u],S.u);
+ if(INS.groups.length){
+  INS.groups.forEach(function(gr){
+   var names=gr.m.map(function(i){return esc(nm(S.c[i],i));});
+   var usIn=gr.m.indexOf(S.u)>=0;
+   h+='<p><b class="tag-c">'+(gr.pair?'Close pair':'Crowded zone')+':</b> '+names.join(', ')+(gr.pair?' sit almost on top of each other.':' sit inside one tight cluster.')+(usIn?' <b>'+esc(me)+' is in it.</b>':'')+'</p>';
+  });
+ }else h+='<p><b>No crowded zone</b> on these two axes. Nobody is within 30 points of two others.</p>';
+ if(INS.white){
+  var nr=INS.whiteNear;
+  h+='<p><b class="tag-w">Biggest white space:</b> '+esc(whiteDesc(INS.white))+' (x '+fs(INS.white.x)+', y '+fs(INS.white.y)+'). Nearest brand there: '+esc(nm(S.c[nr.i],nr.i))+', '+Math.round(nr.d)+' points away.</p>';
+ }
+ if(INS.rival)h+='<p><b>'+esc(me)+'</b> sits closest to <b>'+esc(nm(S.c[INS.rival.i],INS.rival.i))+'</b>, '+Math.round(INS.rival.d)+' points apart on this view'+(INS.rival.d<25?'. That is a collision: customers will compare you directly.':'.')+'</p>';
+ document.getElementById('insights').innerHTML=h;
+ document.getElementById('map').setAttribute('aria-label','Positioning map of '+S.c.length+' brands on '+axName(axOf(S.x))+' (horizontal) and '+axName(axOf(S.y))+' (vertical).');
+}
+function fs(v){return (v>0?'+':'')+Math.round(v);}
+function plain(h){var d=document.createElement('div');d.innerHTML=h;return d.textContent;}
+
+/* ---------- map drawing ---------- */
+var cv=document.getElementById('map'),cx=cv.getContext('2d');
+var CW=600,CH=500,DPR=1;
+function geom(W,H,u){var px=(W<420*u?24:40)*u,py=30*u,pb=54*u;return {px:px,py:py,w:W-2*px,h:H-py-pb};}
+function toPx(g,x,y){return [g.px+(x+100)/200*g.w,g.py+(100-y)/200*g.h];}
+function fromPx(g,X,Y){return [clamp(Math.round((X-g.px)/g.w*200-100),-100,100),clamp(Math.round(100-(Y-g.py)/g.h*200),-100,100)];}
+function trunc(s,n){s=String(s);return s.length>n?s.slice(0,n-1)+'.':s;}
+function stepLayout(P,W,H,u,iters,pin){
+ var g=geom(W,H,u),a=Math.min(84*u,W/4.2),b=44*u,move=0,r=13*u;
+ for(var it=0;it<iters;it++){
+  for(var i=0;i<P.length;i++)for(var j=i+1;j<P.length;j++){
+   var dx=P[j].x-P[i].x,dy=P[j].y-P[i].y;
+   if(dx===0&&dy===0){dx=(j-i)*0.5;dy=0.3;}
+   var d=Math.sqrt(dx*dx/(a*a)+dy*dy/(b*b));
+   if(d<1){
+    var dist2=Math.sqrt(dx*dx+dy*dy)||1,req=dist2/Math.max(d,0.05),push=(req-dist2)*0.5*0.5;
+    var ux=dx/dist2,uy=dy/dist2;
+    if(i!==pin){P[i].x-=ux*push;P[i].y-=uy*push;}
+    if(j!==pin){P[j].x+=ux*push;P[j].y+=uy*push;}
+   }
+  }
+  for(var k=0;k<P.length;k++){
+   var p=P[k];if(k===pin){p.x=p.tx;p.y=p.ty;continue;}
+   var ox=p.x,oy=p.y;
+   p.x+=(p.tx-p.x)*0.018;p.y+=(p.ty-p.y)*0.018;
+   p.x=clamp(p.x,g.px,g.px+g.w);p.y=clamp(p.y,g.py,g.py+g.h);
+   move=Math.max(move,Math.abs(p.x-ox)+Math.abs(p.y-oy));
+  }
+ }
+ return move;
+}
+function drawMap(c,W,H,u,P,opts){
+ opts=opts||{};
+ var g=geom(W,H,u),ax=axOf(S.x),ay=axOf(S.y);
+ c.save();c.clearRect(0,0,W,H);
+ if(opts.bg){c.fillStyle='#0a0a0a';c.fillRect(0,0,W,H);}
+ c.strokeStyle='rgba(245,240,232,0.14)';c.lineWidth=1;
+ c.strokeRect(g.px,g.py,g.w,g.h);
+ c.beginPath();c.moveTo(g.px+g.w/2,g.py);c.lineTo(g.px+g.w/2,g.py+g.h);c.moveTo(g.px,g.py+g.h/2);c.lineTo(g.px+g.w,g.py+g.h/2);c.stroke();
+ c.fillStyle='rgba(245,240,232,0.78)';c.font=(10.5*u)+'px monospace';
+ c.textAlign='left';c.fillText(ax.lo.toUpperCase(),g.px,H-10*u);
+ c.textAlign='right';c.fillText(ax.hi.toUpperCase(),g.px+g.w,H-10*u);
+ c.textAlign='center';c.fillText(ay.hi.toUpperCase(),W/2,g.py-10*u);c.fillText(ay.lo.toUpperCase(),W/2,g.py+g.h+17*u);
+ if(!INS)INS=insights();
+ /* crowded */
+ INS.groups.forEach(function(gr){
+  var p=toPx(g,gr.cx,gr.cy),rx=gr.r/200*g.w,ry=gr.r/200*g.h;
+  c.beginPath();c.ellipse(p[0],p[1],rx,ry,0,0,7);c.fillStyle='rgba(229,72,59,0.13)';c.fill();
+  c.setLineDash([5*u,4*u]);c.strokeStyle='rgba(229,72,59,0.75)';c.lineWidth=1.2*u;c.stroke();c.setLineDash([]);
+  c.fillStyle='rgba(229,72,59,0.95)';c.font=(9.5*u)+'px monospace';c.textAlign='center';c.fillText(gr.pair?'CLOSE PAIR':'CROWDED',p[0],p[1]-ry-5*u);
+ });
+ /* white space */
+ if(INS.white){
+  var w=INS.white,wp=toPx(g,w.x,w.y),wr=Math.min(w.md*0.85,40),rx2=wr/200*g.w,ry2=wr/200*g.h;
+  c.beginPath();c.ellipse(wp[0],wp[1],rx2,ry2,0,0,7);c.fillStyle='rgba(244,169,61,0.09)';c.fill();
+  c.setLineDash([6*u,5*u]);c.strokeStyle='rgba(244,169,61,0.9)';c.lineWidth=1.4*u;c.stroke();c.setLineDash([]);
+  c.fillStyle='rgba(244,169,61,1)';c.font='bold '+(10*u)+'px monospace';c.textAlign='center';c.fillText('WHITE SPACE',wp[0],wp[1]+3*u);
+ }
+ /* leaders */
+ var r=13*u;
+ P.forEach(function(p,i){
+  if(Math.hypot(p.x-p.tx,p.y-p.ty)>6*u){
+   c.strokeStyle='rgba(245,240,232,0.4)';c.lineWidth=1;c.beginPath();c.moveTo(p.x,p.y);c.lineTo(p.tx,p.ty);c.stroke();
+   c.fillStyle='rgba(245,240,232,0.6)';c.beginPath();c.arc(p.tx,p.ty,2.2*u,0,7);c.fill();
+  }
+ });
+ /* bubbles, non-us first */
+ var order=P.map(function(_,i){return i;}).sort(function(a,b){return (a===S.u)-(b===S.u);});
+ order.forEach(function(i){
+  var p=P[i],us=i===S.u;
+  c.beginPath();c.arc(p.x,p.y,r,0,7);
+  c.fillStyle=us?'#3FE07A':'rgba(20,20,20,0.92)';c.fill();
+  c.lineWidth=(us?2:1.5)*u;c.strokeStyle=us?'#3FE07A':'rgba(245,240,232,0.85)';c.stroke();
+  c.fillStyle=us?'#0a0a0a':'#f5f0e8';c.font='bold '+(11*u)+'px monospace';c.textAlign='center';c.textBaseline='middle';
+  c.fillText(nm(S.c[i],i).charAt(0).toUpperCase(),p.x,p.y+0.5*u);
+  c.textBaseline='alphabetic';
+  c.font=(10.5*u)+'px monospace';c.fillStyle=us?'#3FE07A':'rgba(245,240,232,0.95)';
+  var lab=trunc(nm(S.c[i],i),14),lw=c.measureText(lab).width,lx=clamp(p.x,g.px-8*u+lw/2,W-lw/2-4*u);
+  c.fillText(lab,lx,p.y+r+12*u);
+ });
+ c.restore();
+}
+var raf=0;
+function size(){
+ var w=Math.max(280,cv.parentNode.clientWidth),h=Math.round(clamp(w*0.88,320,540));
+ DPR=Math.min(2,window.devicePixelRatio||1);
+ if(CW!==w||CH!==h||cv.width!==Math.round(w*DPR)){CW=w;CH=h;cv.width=Math.round(w*DPR);cv.height=Math.round(h*DPR);cv.style.height=h+'px';}
+}
+function syncTargets(snap){
+ var g=geom(CW,CH,1);
+ while(L.length<S.c.length)L.push({x:0,y:0,tx:0,ty:0,fresh:true});
+ L.length=S.c.length;
+ S.c.forEach(function(c,i){
+  var q=pt(i),p=toPx(g,q.x,q.y);L[i].tx=p[0];L[i].ty=p[1];
+  if(L[i].fresh||snap){L[i].x=p[0]+(i%3-1)*0.6;L[i].y=p[1]+(i%2)*0.4;L[i].fresh=false;}
+ });
+}
+var dragI=-1;
+function frame(){
+ raf=0;
+ var m=stepLayout(L,CW,CH,1,3,dragI);
+ cx.setTransform(DPR,0,0,DPR,0,0);drawMap(cx,CW,CH,1,L);
+ if(m>0.03||dragI>=0)raf=requestAnimationFrame(frame);
+}
+function kick(){if(!raf)raf=requestAnimationFrame(frame);}
+
+/* pointer interaction */
+function evPos(e){var r=cv.getBoundingClientRect();return [e.clientX-r.left,e.clientY-r.top];}
+function hit(X,Y){for(var i=L.length-1;i>=0;i--){if(i===S.u)continue;}
+ var best=-1,bd=1e9;L.forEach(function(p,i){var d=Math.hypot(p.x-X,p.y-Y);if(d<20&&d<bd){bd=d;best=i;}});return best;}
+cv.addEventListener('pointerdown',function(e){
+ var p=evPos(e),i=hit(p[0],p[1]);if(i<0)return;
+ dragI=i;cv.setPointerCapture(e.pointerId);cv.classList.add('drag');e.preventDefault();kick();
+});
+cv.addEventListener('pointermove',function(e){
+ var p=evPos(e);
+ if(dragI<0){cv.style.cursor=hit(p[0],p[1])>=0?'grab':'default';return;}
+ var g=geom(CW,CH,1),s=fromPx(g,p[0],p[1]),c=S.c[dragI];
+ c.ov[S.x]=s[0];c.ov[S.y]=s[1];
+ refresh(true);
+});
+function endDrag(){if(dragI<0)return;dragI=-1;cv.classList.remove('drag');kick();}
+cv.addEventListener('pointerup',endDrag);cv.addEventListener('pointercancel',endDrag);
+
+/* ---------- cards ---------- */
+var cardsEl=document.getElementById('cards');
+function axRows(i){
+ return AX.map(function(a){return '<div class="ax" data-k="'+a.k+'" data-i="'+i+'"><div class="ax-top"><span class="ax-name">'+esc(a.lo)+' / '+esc(a.hi)+'</span><span><button class="mini" type="button" data-act="reset" data-i="'+i+'" data-k="'+a.k+'" hidden>manual: reset to auto</button> <span class="ax-val"></span></span></div><input type="range" min="-100" max="100" step="1" value="0" data-i="'+i+'" data-k="'+a.k+'" aria-label="'+esc(a.lo+' to '+a.hi)+' score"><div class="poles"><span>'+esc(a.lo)+'</span><span>'+esc(a.hi)+'</span></div><div class="why"></div></div>';}).join('');
+}
+function cardHTML(c,i){
+ return '<div class="comp" data-i="'+i+'"><div class="ctop"><label class="radio"><input type="radio" name="us" data-act="us" data-i="'+i+'"'+(i===S.u?' checked':'')+'> This is us</label><button class="rm" type="button" data-act="rm" data-i="'+i+'">Remove</button></div>'+
+ '<div class="row"><div><label class="f" for="n'+i+'">Brand name</label><input type="text" id="n'+i+'" data-f="n" data-i="'+i+'" value="'+esc(c.n)+'" maxlength="40"></div><div><label class="f" for="p'+i+'">Price point</label><input type="text" id="p'+i+'" data-f="p" data-i="'+i+'" value="'+esc(c.p)+'" maxlength="30" placeholder="€12 / pack"></div></div>'+
+ '<div class="row one"><div><label class="f" for="h'+i+'">Homepage headline</label><textarea id="h'+i+'" rows="2" data-f="h" data-i="'+i+'" maxlength="220">'+esc(c.h)+'</textarea></div></div>'+
+ '<div class="row one"><div><label class="f" for="t'+i+'">Tagline</label><input type="text" id="t'+i+'" data-f="t" data-i="'+i+'" value="'+esc(c.t)+'" maxlength="120"></div></div>'+
+ '<details class="sc"><summary>Scores and reasoning (adjustable)</summary>'+axRows(i)+'</details></div>';
+}
+function renderCards(){
+ cardsEl.innerHTML=S.c.map(cardHTML).join('');
+ document.getElementById('add').disabled=S.c.length>=MAX;
+ S.c.length;
+ Array.prototype.forEach.call(cardsEl.querySelectorAll('.comp'),function(el,i){el.classList.toggle('us',i===S.u);var rm=el.querySelector('.rm');rm.disabled=S.c.length<=2;});
+}
+function sgn(v){return (v>0?'+':'')+v;}
+function updateCards(){
+ Array.prototype.forEach.call(cardsEl.querySelectorAll('.ax'),function(el){
+  var i=+el.getAttribute('data-i'),k=el.getAttribute('data-k'),r=AN[i]&&AN[i][k];if(!r)return;
+  var rg=el.querySelector('input[type=range]');if(+rg.value!==r.v)rg.value=r.v;
+  el.querySelector('.ax-val').textContent=sgn(r.v);
+  el.classList.toggle('manual',r.manual);el.querySelector('.mini').hidden=!r.manual;
+  var w=r.why.length?r.why.map(function(x){return '<span class="chip '+(x.d>0?'p':'n')+'">'+(x.d>0?'+':'')+x.d+' '+esc(x.w)+'</span>';}).join(''):'<span>No keyword signal in the copy: scored neutral (auto 0).</span>';
+  if(r.manual)w='<span>Auto score was '+sgn(r.auto)+'.</span> '+w;
+  el.querySelector('.why').innerHTML=w;
+ });
+ Array.prototype.forEach.call(cardsEl.querySelectorAll('.comp'),function(el,i){el.classList.toggle('us',i===S.u);});
+}
+
+/* ---------- statement ---------- */
+function ph(v,label){v=(v||'').trim();return v?esc(v):'<mark>['+label+']</mark>';}
+function themesOf(text){var r=[];THEMES.forEach(function(t,i){if(t.re.test(text))r.push(i);});return r;}
+function renderStatement(){
+ var s=S.s,me=nm(S.c[S.u],S.u),alt=(s[4]||'').trim(),auto=false;
+ if(!alt&&INS&&INS.rival){alt=nm(S.c[INS.rival.i],INS.rival.i);auto=true;}
+ var html='For '+ph(s[0],'target')+' who '+ph(s[1],'need')+', <b>'+esc(me)+'</b> is the '+ph(s[2],'category')+' that '+ph(s[3],'benefit')+', unlike '+(alt?esc(alt):'<mark>[alternative]</mark>')+'.';
+ document.getElementById('stmt').innerHTML=html;
+ var chk='',gp=gapData();
+ if(auto)chk+='Alternative filled with your nearest rival on the map. ';
+ if((s[3]||'').trim()){
+  var th=themesOf(s[3]);
+  if(th.length){var crowded=th.filter(function(t){return gp.rows[t].status==='crowd';});
+   chk+='Your benefit reads as "'+esc(THEMES[th[0]].name)+'". '+(crowded.length?'<span class="tag-c">Most of the set already says this ('+gp.rows[crowded[0]].who.length+' of '+S.c.length+' brands). Find the angle only you can prove.</span>':'Not a claim the whole set repeats, good.')+' ';}
+  else chk+='No known claim theme in the benefit. Fine if it is specific, risky if it is vague. ';
+ }
+ if(gp.none.length)chk+='Open claims you could own: '+gp.none.slice(0,4).map(function(t){return esc(THEMES[t].name);}).join(', ')+'.';
+ document.getElementById('stcheck').innerHTML=chk;
+ document.getElementById('names').innerHTML=S.c.map(function(c,i){return '<option value="'+esc(nm(c,i))+'">';}).join('');
+}
+function stmtText(){return plain(document.getElementById('stmt').innerHTML);}
+
+/* ---------- gap table ---------- */
+function gapData(){
+ var n=S.c.length,rows=THEMES.map(function(t,ti){
+  var who=[];S.c.forEach(function(c,i){if(t.re.test((c.h||'')+' '+(c.t||'')))who.push(i);});
+  var st='contested';
+  if(who.length===0)st='none';else if(who.length===1)st='own';else if(who.length>=3&&who.length/n>=0.5)st='crowd';
+  return {t:ti,who:who,status:st};
+ });
+ var all=[],none=[];rows.forEach(function(r){if(r.status==='crowd')all.push(r.t);if(r.status==='none')none.push(r.t);});
+ return {rows:rows,all:all,none:none};
+}
+var STL={crowd:['Everyone says it','crowd'],none:['Nobody says it','open'],own:['Owned','own'],contested:['Contested','']};
+function renderGaps(){
+ var gp=gapData(),n=S.c.length;
+ var sorted=gp.rows.slice().sort(function(a,b){return b.who.length-a.who.length;});
+ document.getElementById('g-body').innerHTML=sorted.map(function(r){
+  var who=r.who.map(function(i){var t=esc(nm(S.c[i],i));return i===S.u?'<b class="us-tick">'+t+' (us)</b>':t;}).join(', ')||'<span style="color:var(--dim)">nobody</span>';
+  var s=STL[r.status];
+  return '<tr><td>'+esc(THEMES[r.t].name)+'</td><td>'+r.who.length+' of '+n+'</td><td>'+who+'</td><td><span class="st '+s[1]+'">'+(r.status==='own'?'Owned by '+esc(nm(S.c[r.who[0]],r.who[0])):s[0])+'</span></td></tr>';
+ }).join('');
+ document.getElementById('g-all').innerHTML=gp.all.length?gp.all.map(function(t){return '<li>'+esc(THEMES[t].name)+'</li>';}).join(''):'<li>No claim reaches half the set yet.</li>';
+ document.getElementById('g-none').innerHTML=gp.none.length?gp.none.map(function(t){return '<li>'+esc(THEMES[t].name)+'</li>';}).join(''):'<li>Every theme is claimed by someone.</li>';
+}
+
+/* ---------- refresh, state, URL ---------- */
+var saveT=0;
+function refresh(light){
+ AN=analyze();syncTargets(false);
+ updateCards();renderInsights();renderStatement();renderGaps();kick();
+ clearTimeout(saveT);saveT=setTimeout(save,300);
+}
+function enc(){
+ var o={m:S.m,x:S.x,y:S.y,u:S.u,s:S.s,c:S.c.map(function(c){var a=[c.n,c.h,c.t,c.p];if(Object.keys(c.ov).length)a.push(c.ov);return a;})};
+ return btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+}
+function dec(s){
+ try{
+  s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';
+  var o=JSON.parse(decodeURIComponent(escape(atob(s))));
+  if(!o||!Array.isArray(o.c)||o.c.length<2||o.c.length>MAX)return null;
+  var ids=AX.map(function(a){return a.k;});
+  var st={m:String(o.m||'custom'),x:ids.indexOf(o.x)>=0?o.x:'prem',y:ids.indexOf(o.y)>=0?o.y:'emo',u:0,c:[],s:['','','','','']};
+  o.c.forEach(function(r){var ov={};if(r[4]&&typeof r[4]==='object')Object.keys(r[4]).forEach(function(k){if(ids.indexOf(k)>=0&&isFinite(+r[4][k]))ov[k]=clamp(Math.round(+r[4][k]),-100,100);});st.c.push({n:String(r[0]||'').slice(0,40),h:String(r[1]||'').slice(0,220),t:String(r[2]||'').slice(0,120),p:String(r[3]||'').slice(0,30),ov:ov});});
+  st.u=clamp(parseInt(o.u,10)||0,0,st.c.length-1);
+  if(Array.isArray(o.s))for(var i=0;i<5;i++)st.s[i]=String(o.s[i]||'').slice(0,200);
+  if(st.x===st.y)st.y=st.x==='emo'?'prem':'emo';
+  return st;
+ }catch(e){return null;}
+}
+function save(){try{history.replaceState(null,'','#s='+enc());}catch(e){}}
+
+/* ---------- controls ---------- */
+var axx=document.getElementById('axx'),axy=document.getElementById('axy');
+function fillAxisSelects(){
+ var opts=AX.map(function(a){return '<option value="'+a.k+'">'+esc(a.lo+' / '+a.hi)+'</option>';}).join('');
+ axx.innerHTML=opts;axy.innerHTML=opts;axx.value=S.x;axy.value=S.y;
+}
+axx.addEventListener('change',function(){S.x=axx.value;if(S.y===S.x){S.y=AX.filter(function(a){return a.k!==S.x;})[0].k;axy.value=S.y;}refresh();});
+axy.addEventListener('change',function(){S.y=axy.value;if(S.x===S.y){S.x=AX.filter(function(a){return a.k!==S.y;})[0].k;axx.value=S.x;}refresh();});
+cardsEl.addEventListener('input',function(e){
+ var t=e.target,i=+t.getAttribute('data-i');
+ if(t.getAttribute('data-f')){S.c[i][t.getAttribute('data-f')]=t.value;refresh();}
+ else if(t.type==='range'){S.c[i].ov[t.getAttribute('data-k')]=+t.value;refresh();}
+});
+cardsEl.addEventListener('change',function(e){
+ var t=e.target;if(t.getAttribute('data-act')==='us'){S.u=+t.getAttribute('data-i');refresh();}
+});
+cardsEl.addEventListener('click',function(e){
+ var b=e.target.closest('button[data-act]');if(!b)return;
+ var i=+b.getAttribute('data-i'),a=b.getAttribute('data-act');
+ if(a==='reset'){delete S.c[i].ov[b.getAttribute('data-k')];refresh();}
+ if(a==='rm'&&S.c.length>2){S.c.splice(i,1);if(S.u===i)S.u=0;else if(S.u>i)S.u--;L.splice(i,1);renderCards();refresh();}
+});
+document.getElementById('add').addEventListener('click',function(){
+ if(S.c.length>=MAX)return;var c=blank();c.n='Competitor '+String.fromCharCode(64+S.c.length);S.c.push(c);renderCards();refresh();
+ var last=cardsEl.lastElementChild;if(last&&last.scrollIntoView)last.scrollIntoView({block:'nearest',behavior:'smooth'});
+});
+Array.prototype.forEach.call(document.querySelectorAll('[data-mk]'),function(b){b.addEventListener('click',function(){
+ loadSample(b.getAttribute('data-mk'));L=[];fillAxisSelects();fillStatementFields();renderCards();refresh();syncTargets(true);kick();mark();
+});});
+function mark(){Array.prototype.forEach.call(document.querySelectorAll('[data-mk]'),function(b){b.classList.toggle('on',b.getAttribute('data-mk')===S.m);});}
+var stMap={t:0,n:1,c:2,b:3,a:4};
+function fillStatementFields(){Object.keys(stMap).forEach(function(k){document.getElementById('st-'+k).value=S.s[stMap[k]]||'';});}
+Array.prototype.forEach.call(document.querySelectorAll('[data-st]'),function(el){el.addEventListener('input',function(){S.s[stMap[el.getAttribute('data-st')]]=el.value;renderStatement();clearTimeout(saveT);saveT=setTimeout(save,300);});});
+var msg=document.getElementById('msg');
+function say(t){msg.textContent=t;clearTimeout(say.t);say.t=setTimeout(function(){msg.textContent='';},4000);}
+function copyText(t,ok){
+ function fb(){var inp=document.getElementById('shareurl');inp.style.display='block';inp.value=t;inp.focus();inp.select();say('Select and copy the text above.');}
+ if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(function(){say(ok);},fb);}else fb();
+}
+document.getElementById('share').addEventListener('click',function(){save();copyText(location.href,'Share link copied. It carries every input and score.');});
+document.getElementById('copystmt').addEventListener('click',function(){copyText(stmtText(),'Statement copied.');});
+
+/* ---------- exports ---------- */
+function mapCanvas(W,H,u){
+ var c=document.createElement('canvas');c.width=W;c.height=H;var x=c.getContext('2d');
+ var P=L.map(function(_,i){var g=geom(W,H,u),q=pt(i),p=toPx(g,q.x,q.y);return {x:p[0]+(i%3-1)*0.6,y:p[1]+(i%2)*0.4,tx:p[0],ty:p[1]};});
+ stepLayout(P,W,H,u,500,-1);
+ drawMap(x,W,H,u,P,{bg:true});
+ return c;
+}
+function download(href,name){var a=document.createElement('a');a.href=href;a.download=name;document.body.appendChild(a);a.click();a.remove();}
+document.getElementById('png').addEventListener('click',function(){
+ var W=1600,H=1200,u=1.9,m=mapCanvas(W,H-120,u),c=document.createElement('canvas');c.width=W;c.height=H;var x=c.getContext('2d');
+ x.fillStyle='#0a0a0a';x.fillRect(0,0,W,H);x.drawImage(m,0,120);
+ x.fillStyle='#f5f0e8';x.font='bold 40px sans-serif';x.textAlign='left';x.fillText('Positioning map',48,64);
+ x.font='22px monospace';x.fillStyle='rgba(245,240,232,0.75)';
+ x.fillText(axName(axOf(S.x))+'  x  '+axName(axOf(S.y))+(S.m==='coffee'||S.m==='fintech'?'   |   fictional sample brands':''),48,100);
+ x.textAlign='right';x.fillText('saikanagat.com/positioning',W-48,64);
+ c.toBlob(function(b){if(!b){say('PNG export failed in this browser.');return;}var u2=URL.createObjectURL(b);download(u2,'positioning-map.png');setTimeout(function(){URL.revokeObjectURL(u2);},4000);say('Map PNG saved.');});
+});
+function pdfSafe(s){return String(s==null?'':s).replace(/\u20ac/g,'EUR ').replace(/[\u2018\u2019]/g,"'").replace(/[\u201c\u201d]/g,'"').replace(/[\u2013\u2014]/g,'-').replace(/\u2194/g,'/').replace(/[^\x20-\x7e\xa0-\xff]/g,'');}
+document.getElementById('pdf').addEventListener('click',function(){
+ var J=window.jspdf;if(!J||!J.jsPDF){say('PDF library is still loading. Try again in a moment.');return;}
+ var doc=new J.jsPDF({unit:'mm',format:'a4'}),M=15,CWd=180,y=16;
+ function ensure(h){if(y+h>281){doc.addPage();y=16;}}
+ function T(txt,size,bold,col,indent){
+  doc.setFont('helvetica',bold?'bold':'normal');doc.setFontSize(size);doc.setTextColor.apply(doc,col||[25,25,30]);
+  var lh=size*0.44,lines=doc.splitTextToSize(pdfSafe(txt),CWd-(indent||0));
+  lines.forEach(function(l){ensure(lh);y+=lh;doc.text(l,M+(indent||0),y);});y+=1.2;
+ }
+ function H(txt){y+=4;ensure(10);T(txt,14,true);}
+ var title='Positioning analysis';
+ T(title,20,true);
+ T(axName(axOf(S.x))+' x '+axName(axOf(S.y))+(S.m==='coffee'||S.m==='fintech'?'. Fictional sample brands.':''),9.5,false,[90,90,100]);
+ var m=mapCanvas(1400,1000,1.7);y+=2;doc.addImage(m.toDataURL('image/jpeg',0.88),'JPEG',M,y,CWd,CWd*1000/1400);y+=CWd*1000/1400+3;
+ INS=insights();
+ plain(document.getElementById('insights').innerHTML);
+ Array.prototype.forEach.call(document.querySelectorAll('#insights p'),function(p){T(p.textContent,9.5);});
+ H('Positioning statement draft');
+ T(stmtText(),11.5,false);
+ var chk=document.getElementById('stcheck').textContent;if(chk)T(chk,9,false,[90,90,100]);
+ H('Scores and reasoning');
+ T('Scale -100 to +100. Left pole negative, right pole positive. "manual" marks scores you overruled.',8.5,false,[90,90,100]);
+ S.c.forEach(function(c,i){
+  ensure(40);y+=2;
+  T(nm(c,i)+(i===S.u?'  (us)':'')+(c.p?'   |   '+c.p:''),11,true);
+  if(c.h)T('Headline: '+c.h,8.5,false,[60,60,70],2);
+  if(c.t)T('Tagline: '+c.t,8.5,false,[60,60,70],2);
+  AX.forEach(function(a){
+   var r=AN[i][a.k],why=r.why.map(function(w){return (w.d>0?'+':'')+w.d+' '+w.w;}).join(', ')||'no keyword signal';
+   T(a.lo+' / '+a.hi+': '+sgn(r.v)+(r.manual?' (manual, auto '+sgn(r.auto)+')':' (auto)')+'. '+why,8.5,false,[25,25,30],2);
+  });
+ });
+ H('Messaging gap table');
+ var gp=gapData(),n=S.c.length;
+ T('Everyone says it: '+(gp.all.map(function(t){return THEMES[t].name;}).join(', ')||'none'),9.5);
+ T('Nobody says it: '+(gp.none.map(function(t){return THEMES[t].name;}).join(', ')||'none'),9.5);
+ y+=2;
+ gp.rows.slice().sort(function(a,b){return b.who.length-a.who.length;}).forEach(function(r){
+  var who=r.who.map(function(i){return nm(S.c[i],i);}).join(', ')||'nobody',st=r.status==='own'?'Owned':STL[r.status][0];
+  doc.setFont('helvetica','normal');doc.setFontSize(8.5);
+  var wl=doc.splitTextToSize(pdfSafe(who),78),h=Math.max(1,wl.length)*3.9+1.5;ensure(h);
+  doc.setTextColor(25,25,30);doc.text(pdfSafe(THEMES[r.t].name),M,y+3.6);doc.text(r.who.length+'/'+n,M+58,y+3.6);doc.text(pdfSafe(st),M+72,y+3.6);doc.text(wl,M+102,y+3.6);
+  y+=h;doc.setDrawColor(210,210,215);doc.line(M,y,M+CWd,y);
+ });
+ var pages=doc.getNumberOfPages();
+ for(var p=1;p<=pages;p++){doc.setPage(p);doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(130,130,140);doc.text('Positioning Mapper | saikanagat.com/positioning | page '+p+' of '+pages,M,290);}
+ doc.save('positioning-analysis.pdf');say('Analysis PDF saved.');
+});
+
+/* ---------- boot ---------- */
+var h0=(location.hash.match(/[#&]s=([A-Za-z0-9_-]+)/)||[])[1],parsed=h0?dec(h0):null;
+if(parsed)S=parsed;else loadSample('coffee');
+fillAxisSelects();fillStatementFields();renderCards();size();AN=analyze();syncTargets(true);
+refresh();mark();
+var rt=0;
+window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(function(){size();syncTargets(false);kick();},80);});
+if('ResizeObserver' in window)new ResizeObserver(function(){clearTimeout(rt);rt=setTimeout(function(){size();syncTargets(false);kick();},60);}).observe(cv.parentNode);
+window.addEventListener('hashchange',function(){var h=(location.hash.match(/[#&]s=([A-Za-z0-9_-]+)/)||[])[1],p=h?dec(h):null;if(p&&enc()!==h){S=p;L=[];fillAxisSelects();fillStatementFields();renderCards();refresh();syncTargets(true);mark();}});
+})();
+</script>
+<script src="../js/consent.js" defer></script>
+<script src="../js/analytics.js" defer></script>
+</body>
+</html>
