@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Consent Mode v2 default - denied inside EEA/UK/Switzerland (GDPR), granted elsewhere -->
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+// Default: granted everywhere (for non-EEA traffic - recruiters in US/India/etc)
+gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'granted','functionality_storage':'granted','security_storage':'granted','wait_for_update':500});
+// Override: denied for EEA, UK, Switzerland (legally required until user accepts)
+gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied','region':['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH'],'wait_for_update':500});
+try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_consent_v2')){localStorage.setItem('sk_consent_v2','denied');}localStorage.removeItem('sk_consent');var c=localStorage.getItem('sk_consent_v2');if(c==='granted'){gtag('consent','update',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'granted'});}else if(c==='denied'){gtag('consent','update',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied'});}}catch(e){}</script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MRGXD7ZC');</script>
+<!-- End Google Tag Manager -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hire Sai: a tailored one-pager for your role | Sai Kanagat</title>
+  <meta name="description" content="Pick your role, company type and top goals. Get a one-page brief with the projects from this site that fit, the skills, a 30/60/90 plan and a contact link. Download it as a PDF or share the link." />
+  <meta name="author" content="Sai Prathyaksh Kanagat" />
+  <link rel="canonical" href="https://saikanagat.com/hire" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Sai Kanagat" />
+  <meta property="og:title" content="Hire Sai: a tailored one-pager for your role" />
+  <meta property="og:description" content="Pick your role, company type and goals. Get the work, skills and a 30/60/90 plan that fit, as a PDF or a share link." />
+  <meta property="og:url" content="https://saikanagat.com/hire" />
+  <meta property="og:image" content="https://saikanagat.com/og-image.jpg" />
+  <meta property="og:image:alt" content="Sai Kanagat, Industrial Designer and Digital Marketer, Bologna, Italy" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/css/brand-overlay.css?v=1780012796" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha384-JcnsjUPPylna1s1fvi1u12X5qjY5OL56iySh75FdtrwhO/SWXgMjoVqcKyIIWOLk" crossorigin="anonymous" defer></script>
+  <style>
+    .hs { max-width: 1240px; margin: 0 auto; padding: 64px 48px 96px; font-family: var(--sans); color: var(--ink); }
+    .hs *, .hs *::before, .hs *::after { box-sizing: border-box; }
+    .hs h1 { font-family: var(--sans); font-weight: 700; font-size: clamp(40px, 6.4vw, 88px); letter-spacing: -0.035em; line-height: 0.98; margin: 0 0 24px; max-width: 14ch; text-transform: none; }
+    .hs .lede { font-size: 18px; line-height: 1.55; max-width: 60ch; color: var(--ink-soft); margin: 0 0 8px; }
+    .hs .note { font-family: var(--serif); font-style: italic; font-size: 18px; line-height: 1.5; max-width: 60ch; color: var(--ink-soft); margin: 0 0 48px; }
+    .hs-grid { display: grid; grid-template-columns: 2fr 3fr; gap: 48px; align-items: start; }
+    @media (max-width: 900px) { .hs { padding: 40px 16px 64px; } .hs-grid { grid-template-columns: 1fr; gap: 32px; } }
+    .hs-form { position: sticky; top: calc(var(--nav-height, 72px) + 24px); }
+    @media (max-width: 900px) { .hs-form { position: static; } }
+    .hs-field { border: 0; padding: 0; margin: 0 0 32px; min-width: 0; }
+    .hs-field legend, .hs-field > label.hs-lab { display: block; font-family: var(--sans); font-weight: 600; font-size: 16px; padding: 0; margin: 0 0 4px; color: var(--ink); }
+    .hs-hint { font-size: 14px; color: var(--n-600); margin: 0 0 12px; line-height: 1.4; }
+    .hs-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .hs-chip { font-family: var(--sans); font-size: 14px; line-height: 1.2; padding: 10px 16px; border-radius: var(--r-full); border: 1px solid var(--n-300); background: var(--paper-pure); color: var(--ink); cursor: pointer; text-align: left; min-height: 40px; transition: background .2s, color .2s, border-color .2s; }
+    .hs-chip:hover { border-color: var(--ink); }
+    .hs-chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+    .hs-chip[aria-disabled="true"] { opacity: .45; cursor: not-allowed; }
+    .hs-chip[aria-disabled="true"]:hover { border-color: var(--n-300); }
+    .hs button:focus-visible, .hs a:focus-visible, .hs input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .hs-text { width: 100%; font-family: var(--sans); font-size: 16px; padding: 10px 14px; border: 1px solid var(--n-300); border-radius: var(--r-3); background: var(--paper-pure); color: var(--ink); margin-top: 12px; }
+    .hs-text::placeholder { color: var(--n-600); }
+    .hs-count { font-family: var(--mono); font-size: 12px; color: var(--n-600); margin-top: 8px; }
+    .hs-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+    .hs-actions .btn { cursor: pointer; font-family: var(--sans); }
+    .hs-actions .btn[disabled] { opacity: .4; cursor: not-allowed; }
+    .hs-share { margin-top: 16px; }
+    .hs-share input { width: 100%; font-family: var(--mono); font-size: 12px; padding: 10px 12px; border: 1px solid var(--n-300); border-radius: var(--r-3); background: var(--n-50); color: var(--ink); }
+    .hs-status { font-size: 14px; color: var(--ink-soft); min-height: 20px; margin-top: 8px; }
+
+    .hs-sheet { border: 1px solid var(--n-300); border-radius: 12px; background: var(--paper-pure); padding: 48px; min-height: 360px; }
+    @media (max-width: 560px) { .hs-sheet { padding: 24px 16px; } }
+    .hs-empty { font-family: var(--serif); font-style: italic; font-size: 22px; line-height: 1.4; color: var(--ink-soft); max-width: 28ch; margin: 48px 0; }
+    .hs-sheet h2.hs-title { font-family: var(--sans); font-weight: 700; font-size: clamp(28px, 3.4vw, 36px); letter-spacing: -0.025em; line-height: 1.05; margin: 0 0 12px; text-transform: none; }
+    .hs-meta { font-size: 16px; line-height: 1.5; color: var(--ink-soft); margin: 0 0 8px; }
+    .hs-sec { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--n-300); }
+    .hs-sec h3 { font-family: var(--sans); font-weight: 700; font-size: 22px; letter-spacing: -0.015em; margin: 0 0 16px; text-transform: none; }
+    .hs-work { list-style: none; margin: 0; padding: 0; }
+    .hs-work li { padding: 16px 0; border-bottom: 1px solid var(--n-200); }
+    .hs-work li:first-child { padding-top: 0; }
+    .hs-work li:last-child { border-bottom: 0; padding-bottom: 0; }
+    .hs-work a.hs-t { font-weight: 600; font-size: 18px; color: var(--ink); text-decoration: underline; text-decoration-color: var(--n-300); text-underline-offset: 4px; }
+    .hs-work a.hs-t:hover { color: var(--accent); text-decoration-color: var(--accent); }
+    .hs-kind { font-family: var(--mono); font-size: 12px; color: var(--n-600); margin-left: 8px; }
+    .hs-why { margin: 4px 0 0; font-size: 16px; line-height: 1.5; color: var(--ink-soft); }
+    .hs-skills { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 0; padding: 0; }
+    .hs-skills li { font-size: 14px; padding: 8px 12px; border: 1px solid var(--n-300); border-radius: var(--r-2); }
+    .hs-skillnote { font-size: 14px; color: var(--n-600); margin: 16px 0 0; line-height: 1.5; }
+    .hs-plan { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+    @media (max-width: 700px) { .hs-plan { grid-template-columns: 1fr; } }
+    .hs-plan h4 { font-family: var(--mono); font-weight: 500; font-size: 14px; margin: 0 0 12px; color: var(--accent); }
+    .hs-plan ul { margin: 0; padding: 0 0 0 18px; }
+    .hs-plan li { font-size: 15px; line-height: 1.5; margin-bottom: 8px; color: var(--ink); }
+    .hs-frame { font-family: var(--serif); font-style: italic; font-size: 18px; line-height: 1.5; color: var(--ink-soft); margin: 0 0 24px; max-width: 62ch; }
+    .hs-cta p { font-size: 16px; line-height: 1.55; margin: 0 0 16px; max-width: 60ch; }
+    .hs-cta .hs-actions { margin-top: 16px; }
+    .hs-cta dl { margin: 16px 0 0; display: grid; grid-template-columns: max-content 1fr; gap: 6px 24px; font-size: 14px; }
+    .hs-cta dt { font-family: var(--mono); color: var(--n-600); }
+    .hs-cta dd { margin: 0; }
+    .hs-back { margin-top: 48px; font-size: 14px; color: var(--n-600); }
+    .hs-back a { color: var(--ink); }
+    @media (prefers-reduced-motion: reduce) { .hs-chip { transition: none; } }
+  </style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MRGXD7ZC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<a href="#main" class="skip-link">Skip to content</a>
+
+<nav class="nav">
+  <a href="/index.html" class="nav-logo">SK<span>.</span></a>
+  <div class="nav-links" id="navLinks">
+    <a href="/work.html" data-en="Work" data-it="Lavori">Work</a>
+    <a href="/process.html" data-en="Process" data-it="Processo">Process</a>
+    <a href="/gallery.html" data-en="Gallery" data-it="Galleria">Gallery</a>
+    <a href="/blog.html" data-en="Blog" data-it="Blog">Blog</a>
+    <a href="/about.html" data-en="About" data-it="Chi Sono">About</a>
+    <a href="/demos.html" data-en="Demos" data-it="Demo">Demos</a>
+    <a href="/contact.html" data-en="Contact" data-it="Contatti">Contact</a>
+    <a href="/brand-identity.html" class="nav-score-btn" data-en="View Brandbook" data-it="Vedi Brandbook">View Brandbook</a>
+  </div>
+  <div class="lang-toggle" aria-label="Language"><button type="button" data-l="en" class="is-active">EN</button><span>/</span><button type="button" data-l="it">IT</button></div>
+  <div class="nav-tag">Available in EU &amp; Remote</div>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<main id="main" class="page" role="main">
+<div class="hs">
+  <h1>Hire Sai, on your terms.</h1>
+  <p class="lede">Choose the role, the kind of company and up to three goals. The page builds a one-page brief: the work on this site that fits, the skills behind it, a 30/60/90 plan and how to reach me.</p>
+  <p class="note">The plan is how I would approach the job. It is not a record of past results.</p>
+
+  <div class="hs-grid">
+    <form class="hs-form" id="hsForm" onsubmit="return false" aria-label="Tell me about the role">
+      <fieldset class="hs-field" id="fRole">
+        <legend>The role</legend>
+        <p class="hs-hint">Pick one, or type your own title below.</p>
+        <div class="hs-chips" id="roleChips"></div>
+        <input class="hs-text" id="roleText" type="text" maxlength="60" placeholder="Or type a title, e.g. Social Media Manager" aria-label="Type your role title" autocomplete="off" />
+      </fieldset>
+
+      <fieldset class="hs-field" id="fCo">
+        <legend>The company</legend>
+        <div class="hs-chips" id="coChips"></div>
+      </fieldset>
+
+      <fieldset class="hs-field" id="fGoals">
+        <legend>Your top goals</legend>
+        <p class="hs-hint">Choose two or three.</p>
+        <div class="hs-chips" id="goalChips"></div>
+        <div class="hs-count" id="goalCount" aria-live="polite"></div>
+      </fieldset>
+
+      <div class="hs-actions">
+        <button type="button" class="btn btn-primary" id="btnPdf" disabled>Download the PDF</button>
+        <button type="button" class="btn btn-outline" id="btnCopy" disabled>Copy the share link</button>
+        <button type="button" class="btn btn-outline" id="btnReset">Start over</button>
+      </div>
+      <div class="hs-status" id="hsStatus" role="status" aria-live="polite"></div>
+      <div class="hs-share" id="shareBox" hidden>
+        <label class="hs-hint" for="shareUrl">Share link, keeps your choices</label>
+        <input type="text" id="shareUrl" readonly />
+      </div>
+    </form>
+
+    <article class="hs-sheet" id="sheet" aria-live="polite"></article>
+  </div>
+
+  <p class="hs-back">Prefer to browse yourself? <a href="/work.html">See all the work</a> or <a href="/about.html">read about me</a>.</p>
+</div>
+
+<footer class="footer">
+  <div class="footer-logo">SK<span>.</span></div>
+  <p class="footer-copy">© 2026 Sai Kanagat. All rights reserved.</p>
+  <div class="footer-socials">
+    <a href="https://linkedin.com/in/sai-kanagat" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://github.com/Sai-Kanagat" target="_blank" rel="noopener">GitHub</a>
+    <a href="mailto:saikanagat1117@gmail.com">Email</a>
+  </div>
+</footer>
+</main>
+
+<script>
+(function () {
+  'use strict';
+  var SITE = 'https://saikanagat.com';
+  var EMAIL = 'saikanagat1117@gmail.com';
+
+  /* ---------- Choices ---------- */
+  var ROLES = [
+    { k: 'brand',   l: 'Brand marketing' },
+    { k: 'growth',  l: 'Growth / performance' },
+    { k: 'pmm',     l: 'Product marketing' },
+    { k: 'content', l: 'Content / social' },
+    { k: 'creative',l: 'Creative strategy' },
+    { k: 'other',   l: 'Other' }
+  ];
+  var COS = [
+    { k: 'startup',  l: 'Startup' },
+    { k: 'scaleup',  l: 'Scale-up' },
+    { k: 'agency',   l: 'Agency' },
+    { k: 'corporate',l: 'Corporate' },
+    { k: 'luxury',   l: 'Luxury / Made in Italy' }
+  ];
+  var GOALS = [
+    { k: 'brand',   l: 'Build brand awareness' },
+    { k: 'acq',     l: 'Lower the cost of acquisition' },
+    { k: 'conv',    l: 'Lift conversion' },
+    { k: 'organic', l: 'Grow organic and content' },
+    { k: 'launch',  l: 'Launch a product or campaign' },
+    { k: 'pos',     l: 'Sharpen positioning and messaging' },
+    { k: 'meas',    l: 'Fix measurement and reporting' },
+    { k: 'sys',     l: 'Keep creative consistent across channels' },
+    { k: 'eu',      l: 'Reach Italian and EU audiences' }
+  ];
+  var ROLE_W = {
+    brand:   { brand: 3, creative: 2, luxury: 1, content: 1 },
+    growth:  { growth: 3, data: 3, content: 1 },
+    pmm:     { pmm: 3, launch: 2, research: 2, growth: 1 },
+    content: { content: 3, creative: 2, brand: 1, growth: 1 },
+    creative:{ creative: 3, brand: 2, content: 1, luxury: 1 },
+    other:   { brand: 1, growth: 1, content: 1, creative: 1 }
+  };
+  var GOAL_W = {
+    brand:   { brand: 2, creative: 1 },
+    acq:     { growth: 2, data: 2 },
+    conv:    { growth: 2, data: 1 },
+    organic: { content: 2, growth: 1 },
+    launch:  { launch: 2, pmm: 1, creative: 1 },
+    pos:     { pmm: 2, brand: 1, research: 1 },
+    meas:    { data: 2, growth: 1 },
+    sys:     { systems: 2, brand: 1 },
+    eu:      { italy: 2, luxury: 1 }
+  };
+  var CO_W = {
+    startup:  { growth: 1, ai: 1, launch: 1 },
+    scaleup:  { growth: 1, data: 1, systems: 1 },
+    agency:   { creative: 1, content: 1, brand: 1 },
+    corporate:{ systems: 1, research: 1, data: 1 },
+    luxury:   { luxury: 2, italy: 2, brand: 1 }
+  };
+
+  /* ---------- Project catalogue: every entry points to a page on this site ----------
+     Facts come only from work.html, about.html, demos.html, the blog and each page's own description.
+     TODO(Sai): add a role-specific product marketing case study; none exists on the site yet.
+     TODO(Sai): work.html has no deep links for Adlib, Vigilante, Juicy Chemistry or Backpack & Bottle; point them at their own pages if you create them. */
+  var PROJECTS = [
+    { id: 'thallo', t: 'Thallo', u: '/thallo', kind: 'Growth system, early build',
+      tags: { growth: 3, pmm: 2, content: 2, ai: 2, data: 2, launch: 1, systems: 2 },
+      def: 'An operated growth system for small businesses, open for a waitlist, with a public build log.',
+      why: {
+        growth: 'Shows how I think about growth as an operated system: 8 waves and 42 packages, per the work page.',
+        data: 'Results are measured against sealed forecasts, so reporting is designed in from the start.',
+        content: 'Writes for every channel and sizes every asset, and nothing publishes without a person.',
+        pmm: 'A live product with one clear promise, a waitlist and a public build log.',
+        systems: 'A growth process broken into repeatable packages rather than one-off campaigns.' } },
+    { id: 'aperol', t: 'Aperol: The Golden Hour', u: '/aperol-golden-hour.html', kind: 'Speculative campaign',
+      tags: { brand: 3, creative: 3, launch: 2, luxury: 2, italy: 2, pmm: 1, research: 1 },
+      def: 'A speculative market-entry campaign for an Italian aperitivo brand, built end to end.',
+      why: {
+        brand: 'A full brand-led campaign: strategy, creative platform, a 60-second hero film and a microsite.',
+        creative: 'One idea, an hour with no name, carried across film, four-city activation and microsite.',
+        launch: 'A market-entry plan with a four-city activation and a media plan, framed as a speculative exercise.',
+        italy: 'An Italian brand taken into a new market on paper, with its rituals as the creative core.',
+        luxury: 'Built around the codes of an Italian brand: ritual, place and restraint.',
+        pmm: 'A positioning exercise from audience to proposition to launch plan.' } },
+    { id: 'autopsy', t: 'Ad Autopsy', u: '/ad-autopsy', kind: 'Free tool, runs in your browser',
+      tags: { growth: 2, creative: 3, data: 2, content: 1 },
+      def: 'Audits an ad for attention, safe zones, accessibility and brand fit, then exports a PDF of fixes.',
+      why: {
+        creative: 'Checks an ad the way a media buyer would: thumb-stop, safe zones, accessibility and brand checks.',
+        growth: 'Turns what I learned spending 15K euros on Meta ads into a repeatable ad check.',
+        data: 'Scores creative against clear criteria so feedback is specific, not subjective.' } },
+    { id: 'roas', t: 'ROAS Playground', u: '/demos/roas.html', kind: 'Interactive calculator',
+      tags: { growth: 3, data: 3 },
+      def: 'Paid-media unit economics made interactive.',
+      why: {
+        growth: 'Spend, CPC, conversion rate, AOV and margin turned into ROAS, CAC and break-even in real time.',
+        data: 'Reads performance against break-even, not just headline ROAS.' } },
+    { id: 'cortex', t: 'Cortex Studio', u: '/cortex', kind: 'Multi-agent marketing studio',
+      tags: { creative: 3, content: 3, ai: 3, brand: 2, launch: 1 },
+      def: 'A crew of agents that research, write and storyboard a campaign, with a human signing off.',
+      why: {
+        content: 'Researches, writes copy and drafts a storyboard for a campaign from a brief, with a human approving.',
+        creative: 'Generates visuals and critiques its own images before a person signs off.',
+        brand: 'Takes a brand book as input, so the output stays on brand.',
+        ai: 'A deployed, full-stack example of using AI inside a marketing workflow.' } },
+    { id: 'agora', t: 'Agora, opinion sandbox', u: '/demos/agora.html', kind: 'Live demo',
+      tags: { research: 3, pmm: 2, ai: 2, brand: 1 },
+      def: 'Test a scenario against a synthetic crowd before it ships.',
+      why: {
+        research: 'Pressure-tests a pricing change, policy or brand pivot against a synthetic crowd before it ships.',
+        pmm: 'A way to rehearse a message or a launch decision before spending on it.',
+        ai: 'Multi-agent simulation applied to a marketing decision.' } },
+    { id: 'adlib', t: 'Adlib', u: '/work.html', kind: 'Open-source Chrome extension',
+      tags: { growth: 2, creative: 2, research: 3, pmm: 1, ai: 1 },
+      def: 'An ad library reconnaissance extension.',
+      why: {
+        research: 'Built for reconnaissance on ad libraries, to see what competitors are running.',
+        creative: 'Gives creative teams a fast read on what is in market.',
+        growth: 'Shortens competitor research before a paid test.' } },
+    { id: 'vigilante', t: 'Vigilante', u: '/work.html', kind: 'Local-first marketing OS',
+      tags: { content: 3, growth: 2, ai: 1, systems: 2 },
+      def: 'A local-first marketing operating system for content.',
+      why: {
+        content: 'A local-first marketing OS for content, open source.',
+        systems: 'Content work organised as a system, not a pile of posts.' } },
+    { id: 'meta15k', t: 'What 15K euros in Meta ads taught me', u: '/blog/what-15k-meta-ads-taught-me.html', kind: 'Article',
+      tags: { growth: 3, data: 3, content: 1 },
+      def: 'What a six-month, five-figure ad budget showed in the data.',
+      why: {
+        growth: 'My write-up of six months of paid media. The About page states a 3.2x average ROAS on a 15,000 euro budget across Meta and Google.',
+        data: 'Shows how I read campaign data and what I changed because of it.' } },
+    { id: 'nishta', t: 'Nishta, my marketing practice', u: '/blog/building-nishta.html', kind: 'Founder story',
+      tags: { growth: 3, content: 3, brand: 2, launch: 1 },
+      def: 'A digital marketing practice for social ads, web design, branding and content.',
+      why: {
+        growth: 'Clients included BikeWo, an EV dealership, and Vijay Gas Service, where the About page states a 25% cut in marketing expense.',
+        content: 'Social, web and content run as one integrated practice.',
+        brand: 'Brand and creative work offered alongside the performance side.',
+        launch: 'Taken from weekend prototype to working brand.' } },
+    { id: 'seo', t: 'SEO content programme', u: '/about.html', kind: 'Result stated on About',
+      tags: { content: 3, growth: 2, data: 1 },
+      def: 'Keyword research, editorial planning and long-form production.',
+      why: {
+        content: 'A structured six-month programme: keyword research, editorial plan, long-form. The About page states +40% organic traffic.',
+        growth: 'Organic search treated as a growth channel with a plan behind it.' } },
+    { id: 'carlos', t: 'Carlos Mota: Verde collection', u: '/blog/carlos-mota-studio-lesson.html', kind: 'Design collaboration',
+      tags: { brand: 3, creative: 3, luxury: 3, italy: 1, content: 1 },
+      def: 'Furniture and set design for a designer\'s debut textile line.',
+      why: {
+        luxury: 'Furniture and set design for a designer\'s debut textile line, featured in Architectural Digest.',
+        brand: 'What an Architectural Digest photoshoot teaches you about brand, written up.',
+        creative: 'Visual storytelling through set, material and layout.' } },
+    { id: 'juicy', t: 'Juicy Chemistry brand activation', u: '/work.html', kind: 'Visual merchandising',
+      tags: { brand: 2, creative: 2, growth: 1, launch: 1 },
+      def: 'Visual merchandising for pop-up activations.',
+      why: {
+        brand: 'Spatial brand design for pop-up activations across 6+ locations.',
+        creative: 'Design decisions in store tied to a commercial result.',
+        growth: 'The About page states an event-day sales conversion uplift of +35%.' } },
+    { id: 'backpack', t: 'Backpack & Bottle campaign site', u: '/work.html', kind: 'Live campaign',
+      tags: { growth: 2, data: 3, launch: 2, content: 1 },
+      def: 'A live travel campaign site with tracking set up.',
+      why: {
+        data: 'A live campaign site with GTM and GA4 measurement in place.',
+        launch: 'A campaign built and shipped as a working site.',
+        growth: 'Tracking planned before launch so results can be read.' } },
+    { id: 'process', t: 'How I work: the five-phase process', u: '/process.html', kind: 'Process',
+      tags: { pmm: 2, systems: 3, research: 1, growth: 1, brand: 1 },
+      def: 'Discover, Define, Design, Deploy, Measure.',
+      why: {
+        systems: 'The five phases I apply to every brief: Discover, Define, Design, Deploy, Measure.',
+        pmm: 'A repeatable path from research to a defined proposition to launch and measurement.' } },
+    { id: 'brandid', t: 'Personal brand identity system', u: '/brand-identity.html', kind: 'Brand identity',
+      tags: { brand: 3, systems: 3, creative: 2 },
+      def: 'A full identity system with colour, type and usage rules.',
+      why: {
+        systems: 'A brand system with defined tokens and rules, the kind of guideline a team can follow.',
+        brand: 'Identity, type and colour decided as one system.',
+        creative: 'Design discipline applied to a brand from the ground up.' } },
+    { id: 'melt', t: 'Melt Sprint', u: '/melt', kind: 'Browser game',
+      tags: { creative: 3, content: 2, brand: 1 },
+      def: 'A playable browser game built as a portfolio piece.',
+      why: {
+        creative: 'Built to study attention, feedback loops and constraints, and playable in the browser.',
+        content: 'A piece of content designed to be played, not just read.' } },
+    { id: 'italy', t: 'Why Italy, and why now', u: '/blog/why-italy-and-why-now.html', kind: 'Article',
+      tags: { italy: 3, brand: 2, luxury: 2 },
+      def: 'Why I am building my career in Italian brand culture.',
+      why: {
+        italy: 'My note on Italian brand culture and why I moved from Coimbatore to Bologna.',
+        luxury: 'Why Italian brand culture is an asset for European commerce.',
+        brand: 'How I read Italian brands.' } },
+    { id: 'designmk', t: 'Why industrial designers make better marketers', u: '/blog/why-industrial-designers-make-better-marketers.html', kind: 'Article',
+      tags: { brand: 2, creative: 3, pmm: 2, content: 1 },
+      def: 'The same thinking behind a well-made product produces better campaigns.',
+      why: {
+        creative: 'My argument for bringing product design discipline to campaigns.',
+        pmm: 'Product thinking applied to marketing: who it is for, what it means, why they should care.',
+        brand: 'Why form, material and story belong in one decision.' } }
+  ];
+
+  /* ---------- Skills: wording and facts from about.html ---------- */
+  var SKILLS = [
+    { t: 'Brand strategy', tags: { brand: 3, pmm: 1 } },
+    { t: 'Meta Ads and Google Ads', tags: { growth: 3 }, note: 'Google Ads Search and Meta Blueprint certifications are listed as in progress.' },
+    { t: 'Campaign analytics', tags: { data: 3, growth: 1 }, note: 'GA4 certification is listed as in progress.' },
+    { t: 'Social media strategy', tags: { content: 3, growth: 1 } },
+    { t: 'Content strategy and creation', tags: { content: 3, creative: 1 } },
+    { t: 'SEO and organic growth', tags: { content: 2, growth: 2 } },
+    { t: 'Email marketing and CRM', tags: { growth: 2, content: 1 } },
+    { t: 'Visual merchandising', tags: { brand: 2, creative: 2, luxury: 1 } },
+    { t: 'Spatial brand design', tags: { brand: 2, luxury: 2, creative: 1 } },
+    { t: 'Industrial and product design', tags: { pmm: 2, creative: 2, luxury: 1, research: 1 } },
+    { t: 'CMF and materials research', tags: { luxury: 2, research: 2 } },
+    { t: 'Adobe Creative Suite and Figma', tags: { creative: 3, systems: 1 } },
+    { t: 'Prototyping and fabrication', tags: { creative: 1, luxury: 1 } },
+    { t: 'Generative AI for marketing (BBS coursework)', tags: { ai: 3, content: 1 } },
+    { t: 'E-commerce and digital advertising (BBS coursework)', tags: { growth: 2, data: 1 } },
+    { t: 'Design systems and guidelines', tags: { systems: 3, brand: 1 } },
+    { t: 'Languages: English fluent, Hindi and Tamil native, Italian developing', tags: { italy: 3, luxury: 1 } }
+  ];
+
+  /* ---------- 30/60/90 plans: how I would approach it, no claims of past results ---------- */
+  var PLAN = {
+    brand: [
+      ['Read the brand book, past campaigns and the last year of content. List what is consistent and what is not.', 'Talk to sales and customer teams to hear how customers describe the brand in their own words.', 'Write the brand\'s non-negotiables and its audience in one paragraph, and agree it with you.'],
+      ['Fix the biggest consistency gaps first: one template, one tone guide, one asset checklist.', 'Ship one campaign idea end to end as a pilot, small enough to finish.', 'Agree the few brand measures worth tracking, such as branded search and direct traffic.'],
+      ['Turn the pilot into a repeatable campaign format with a brief template.', 'Publish a short guideline the team can use without me.', 'Report what worked, what did not, and the plan for the next quarter.']
+    ],
+    growth: [
+      ['Audit account structure, tracking and attribution before touching budget.', 'Rebuild the funnel picture: spend, CPC, conversion rate, AOV, margin, CAC and break-even ROAS.', 'Name the one or two constraints that cap growth: traffic, conversion or margin.'],
+      ['Run a small number of clean tests, each with a hypothesis, a budget and a stop rule.', 'Refresh creative on a fixed cadence and review thumb-stop and message fit.', 'Read every channel against break-even, not only against headline ROAS.'],
+      ['Scale what cleared break-even and cut what did not.', 'Document the playbook: naming, test log and weekly review.', 'Propose next quarter\'s budget split with the reasoning visible.']
+    ],
+    pmm: [
+      ['Interview sales, support and a handful of customers and collect the words they use.', 'Map competitors\' claims and where the product is genuinely different.', 'Draft a one-page positioning: who it is for, the problem, the alternative, the difference.'],
+      ['Test the message in the cheapest way available: a landing page, short ads or customer calls.', 'Build the launch kit: messaging, one-pager, FAQ and an objection list for sales.', 'Agree launch goals and measures with product and sales.'],
+      ['Run a launch or relaunch with a clear before and after.', 'Close the loop: compare what customers and sales say now with day one.', 'Set a cadence for positioning reviews as the product changes.']
+    ],
+    content: [
+      ['Audit existing content: what ranks, what converts and what is stale.', 'Interview the team to find real expertise worth publishing.', 'Draft an editorial plan around a few themes, not a calendar of random posts.'],
+      ['Publish a steady first batch in the formats that fit the audience: long-form, short social and email.', 'Set up a simple brief and review flow so quality holds as volume grows.', 'Start the measurement loop: reach, engagement, organic traffic and assisted conversions.'],
+      ['Double down on the formats that earned attention and retire the rest.', 'Repurpose the best pieces across channels.', 'Hand over a content system: briefs, calendar and style guide.']
+    ],
+    creative: [
+      ['Review the brand, past creative and results to learn what has already been tried.', 'Write the creative problem as a brief: audience, tension and one proposition.', 'Set up a fast review loop with the people who sign off.'],
+      ['Develop two or three routes and test them cheaply before full production.', 'Build a template system so every format and size stays on brand.', 'Produce the first campaign pieces to a clear spec.'],
+      ['Review performance and craft together and keep the routes that work.', 'Document the creative principles and the asset library.', 'Plan the next campaign from what the tests showed.']
+    ],
+    other: [
+      ['Learn the business: customers, product, current numbers and what has been tried.', 'Agree with you what success looks like in this role and how it is measured.', 'Audit what exists and list the quickest wins and the biggest risks.'],
+      ['Ship one small, finished piece of work that proves the way of working.', 'Set up a weekly rhythm: what shipped, what we learned, what is next.', 'Fix the most painful gap in process or tracking.'],
+      ['Turn what worked into a repeatable routine.', 'Write down the playbook so others can run it.', 'Propose the next quarter with the reasoning visible.']
+    ]
+  };
+  var GOAL_STEP = {
+    brand:   { d: 0, t: 'Baseline awareness signals: branded search, direct traffic and social mentions.' },
+    acq:     { d: 0, t: 'Map the full cost of acquiring a customer and where it leaks.' },
+    conv:    { d: 1, t: 'Walk the path from click to purchase or sign-up and fix the biggest drop-off first.' },
+    organic: { d: 1, t: 'Pick the search topics where the company can credibly win and publish against them.' },
+    launch:  { d: 1, t: 'Build a launch calendar with owners and a clear definition of launch day.' },
+    pos:     { d: 0, t: 'Write the positioning on one page and check it against how customers actually talk.' },
+    meas:    { d: 0, t: 'Set up one dashboard that ties spend and activity to outcomes, with definitions written down.' },
+    sys:     { d: 2, t: 'Roll out one shared template and asset library across channels.' },
+    eu:      { d: 1, t: 'Adapt messaging for Italian and EU audiences with native review, since my Italian is still developing.' }
+  };
+  var CO_FRAME = {
+    startup:  'At a startup I would keep the plan small: one channel, one message and a weekly review.',
+    scaleup:  'At a scale-up the work is mostly removing inconsistency as the team and the channels multiply.',
+    agency:   'In an agency I would run each account from brief to delivery with a test and a review step built in.',
+    corporate:'In a corporate setting I would spend more of the first 30 days on stakeholders, approvals and the data that already exists.',
+    luxury:   'In luxury and Made in Italy, craft and restraint come first: fewer, better pieces, each checked against the brand\'s codes. My design background in furniture, spatial work and materials is the angle I bring.',
+    none:     'The shape stays the same at any company size: learn first, ship something small, then make it repeatable.'
+  };
+
+  /* ---------- State ---------- */
+  var state = { role: '', text: '', co: '', goals: [] };
+  var $ = function (id) { return document.getElementById(id); };
+  var sheet = $('sheet'), status = $('hsStatus');
+
+  function roleFromText(s) {
+    var x = (s || '').toLowerCase();
+    if (!x.trim()) return 'other';
+    if (/product market|pmm|go.?to.?market|gtm|product launch|positioning/.test(x)) return 'pmm';
+    if (/creative|art direct|copywrit|design/.test(x)) return 'creative';
+    if (/content|social|community|seo|editor|copy|influenc|pr\b|communicat/.test(x)) return 'content';
+    if (/growth|perform|paid|ppc|sem\b|acquisition|demand|crm|e-?commerce|ads|media buy|digital market|lifecycle|retention/.test(x)) return 'growth';
+    if (/brand/.test(x)) return 'brand';
+    return 'other';
+  }
+  function effRole() { return state.role === 'other' ? roleFromText(state.text) : state.role; }
+  function roleLabel() {
+    if (state.role === 'other' && state.text.trim()) return state.text.trim();
+    var r = ROLES.filter(function (x) { return x.k === state.role; })[0];
+    return r ? (r.k === 'other' ? 'your role' : r.l) : '';
+  }
+  function coLabel() { var c = COS.filter(function (x) { return x.k === state.co; })[0]; return c ? c.l : ''; }
+  function goalLabels() { return state.goals.map(function (k) { return GOALS.filter(function (g) { return g.k === k; })[0].l; }); }
+  function ready() { return !!state.role; }
+
+  /* ---------- Matching ---------- */
+  function need() {
+    var n = {}, er = effRole();
+    function add(map, mult) { Object.keys(map || {}).forEach(function (t) { n[t] = (n[t] || 0) + map[t] * mult; }); }
+    add(ROLE_W[er], 2);
+    state.goals.forEach(function (g) { add(GOAL_W[g], 1.5); });
+    if (state.co) add(CO_W[state.co], 1);
+    return n;
+  }
+  function dot(tags, n) { var s = 0; Object.keys(tags).forEach(function (t) { s += tags[t] * (n[t] || 0); }); return s; }
+  function bestProjects() {
+    var n = need();
+    var scored = PROJECTS.map(function (p, i) {
+      var why = p.def, best = 0;
+      Object.keys(p.why).forEach(function (t) { var v = (p.tags[t] || 0) * (n[t] || 0); if (v > best) { best = v; why = p.why[t]; } });
+      return { p: p, s: dot(p.tags, n), why: why, i: i };
+    });
+    scored.sort(function (a, b) { return b.s - a.s || a.i - b.i; });
+    return scored.slice(0, 5).map(function (x) { return { t: x.p.t, u: x.p.u, kind: x.p.kind, why: x.why }; });
+  }
+  function bestSkills() {
+    var n = need();
+    var scored = SKILLS.map(function (s, i) { return { s: s, v: dot(s.tags, n), i: i }; });
+    scored.sort(function (a, b) { return b.v - a.v || a.i - b.i; });
+    var top = scored.filter(function (x) { return x.v > 0; }).slice(0, 8);
+    return { list: top.map(function (x) { return x.s.t; }), notes: top.filter(function (x) { return x.s.note; }).map(function (x) { return x.s.note; }) };
+  }
+  function plan() {
+    var base = PLAN[effRole()] || PLAN.other;
+    var out = base.map(function (a) { return a.slice(); });
+    state.goals.forEach(function (g) { var s = GOAL_STEP[g]; if (s) out[s.d].push(s.t); });
+    return out;
+  }
+  function build() {
+    return {
+      role: roleLabel(), co: coLabel(), goals: goalLabels(),
+      work: bestProjects(), skills: bestSkills(), plan: plan(),
+      frame: CO_FRAME[state.co || 'none']
+    };
+  }
+
+  /* ---------- URL state ---------- */
+  function shareUrl() {
+    var q = [];
+    if (state.role) q.push('r=' + encodeURIComponent(state.role));
+    if (state.role === 'other' && state.text.trim()) q.push('t=' + encodeURIComponent(state.text.trim()));
+    if (state.co) q.push('c=' + encodeURIComponent(state.co));
+    if (state.goals.length) q.push('g=' + state.goals.join(','));
+    return SITE + '/hire' + (q.length ? '?' + q.join('&') : '');
+  }
+  function localUrl() { return shareUrl().replace(SITE + '/hire', location.pathname); }
+  function loadFromUrl() {
+    var p = new URLSearchParams(location.search);
+    var r = p.get('r'), c = p.get('c'), g = p.get('g'), t = p.get('t');
+    if (r && ROLES.some(function (x) { return x.k === r; })) state.role = r;
+    if (t && state.role === 'other') state.text = t.slice(0, 60);
+    if (c && COS.some(function (x) { return x.k === c; })) state.co = c;
+    if (g) state.goals = g.split(',').filter(function (k, i, a) { return GOALS.some(function (x) { return x.k === k; }) && a.indexOf(k) === i; }).slice(0, 3);
+  }
+
+  /* ---------- Rendering ---------- */
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function mailto() {
+    var subj = 'Role: ' + (roleLabel() || 'a conversation');
+    var body = 'Hi Sai,\n\nI am hiring for ' + (roleLabel() || 'a role') + (coLabel() ? ' at a ' + coLabel().toLowerCase() + ' company' : '') + '.' +
+      (state.goals.length ? '\nOur priorities: ' + goalLabels().join('; ') + '.' : '') + '\n\nCould we find 20 minutes this week?\n';
+    return 'mailto:' + EMAIL + '?subject=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent(body);
+  }
+  function renderSheet() {
+    if (!ready()) {
+      sheet.innerHTML = '<p class="hs-empty">Pick a role and the one-pager builds here.</p>';
+      return;
+    }
+    var d = build(), h = '';
+    h += '<h2 class="hs-title">Sai Kanagat for ' + esc(d.role) + '</h2>';
+    h += '<p class="hs-meta">' + (d.co ? esc(d.co) + ' company. ' : '') + (d.goals.length ? 'Priorities: ' + esc(d.goals.join(', ')) + '.' : 'No goals chosen yet, so this is the general view.') + '</p>';
+    h += '<section class="hs-sec"><h3>The work that fits</h3><ul class="hs-work">';
+    d.work.forEach(function (w) {
+      h += '<li><a class="hs-t" href="' + esc(w.u) + '">' + esc(w.t) + '</a><span class="hs-kind">' + esc(w.kind) + '</span><p class="hs-why">' + esc(w.why) + '</p></li>';
+    });
+    h += '</ul></section>';
+    h += '<section class="hs-sec"><h3>Relevant skills</h3><ul class="hs-skills">';
+    d.skills.list.forEach(function (s) { h += '<li>' + esc(s) + '</li>'; });
+    h += '</ul>';
+    if (d.skills.notes.length) h += '<p class="hs-skillnote">' + esc(d.skills.notes.join(' ')) + '</p>';
+    h += '</section>';
+    h += '<section class="hs-sec"><h3>How I would approach the first 90 days</h3><p class="hs-frame">' + esc(d.frame) + '</p><div class="hs-plan">';
+    ['First 30 days', 'Days 31 to 60', 'Days 61 to 90'].forEach(function (lab, i) {
+      h += '<div><h4>' + lab + '</h4><ul>' + d.plan[i].map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>';
+    });
+    h += '</div></section>';
+    h += '<section class="hs-sec hs-cta"><h3>Let us talk</h3><p>If this looks like the shape of the job, a short call is the fastest way to find out. I am based in Bologna, available immediately, and open to relocating across Italy.</p>';
+    h += '<div class="hs-actions"><a class="btn btn-primary" href="' + esc(mailto()) + '">Email Sai about this role</a><a class="btn btn-outline" href="/contact.html">Open the contact page</a><a class="btn btn-outline" href="https://linkedin.com/in/sai-kanagat" target="_blank" rel="noopener">LinkedIn</a></div>';
+    h += '<dl><dt>Email</dt><dd>' + EMAIL + '</dd><dt>Based in</dt><dd>Bologna, Italy</dd><dt>Target cities</dt><dd>Milan, Rome, Florence, Turin</dd><dt>Languages</dt><dd>English fluent, Hindi and Tamil native, Italian developing</dd></dl></section>';
+    sheet.innerHTML = h;
+  }
+  function chip(parent, item, pressed, onClick) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'hs-chip'; b.textContent = item.l;
+    b.setAttribute('aria-pressed', pressed ? 'true' : 'false');
+    b.dataset.k = item.k;
+    b.addEventListener('click', function () { onClick(item.k, b); });
+    parent.appendChild(b);
+  }
+  function renderChips() {
+    var rc = $('roleChips'), cc = $('coChips'), gc = $('goalChips');
+    rc.innerHTML = ''; cc.innerHTML = ''; gc.innerHTML = '';
+    ROLES.forEach(function (r) { chip(rc, r, state.role === r.k, function (k) { state.role = (state.role === k ? '' : k); if (state.role !== 'other') { state.text = ''; $('roleText').value = ''; } refresh(); }); });
+    COS.forEach(function (c) { chip(cc, c, state.co === c.k, function (k) { state.co = (state.co === k ? '' : k); refresh(); }); });
+    GOALS.forEach(function (g) {
+      var on = state.goals.indexOf(g.k) > -1;
+      chip(gc, g, on, function (k) {
+        var i = state.goals.indexOf(k);
+        if (i > -1) state.goals.splice(i, 1);
+        else if (state.goals.length < 3) state.goals.push(k);
+        else { status.textContent = 'Three goals at most. Deselect one to swap.'; return; }
+        refresh();
+      });
+      var btn = gc.lastChild;
+      if (!on && state.goals.length >= 3) btn.setAttribute('aria-disabled', 'true');
+    });
+    $('goalCount').textContent = state.goals.length + ' of 3 chosen';
+  }
+  function refresh() {
+    renderChips(); renderSheet();
+    var ok = ready();
+    $('btnPdf').disabled = !ok; $('btnCopy').disabled = !ok;
+    var box = $('shareBox');
+    box.hidden = !ok;
+    if (ok) $('shareUrl').value = shareUrl();
+    try { history.replaceState(null, '', localUrl()); } catch (e) {}
+    status.textContent = '';
+  }
+
+  /* ---------- Share link ---------- */
+  $('btnCopy').addEventListener('click', function () {
+    var url = shareUrl();
+    function done(ok) { status.textContent = ok ? 'Link copied. Opening it rebuilds this page.' : 'Copy failed. Select the link below and copy it.'; if (!ok) { $('shareUrl').focus(); $('shareUrl').select(); } }
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(url).then(function () { done(true); }, function () { fallback(); });
+    } else fallback();
+    function fallback() {
+      var el = $('shareUrl'); el.value = url; el.focus(); el.select();
+      var ok = false; try { ok = document.execCommand('copy'); } catch (e) {}
+      done(ok);
+    }
+  });
+  $('btnReset').addEventListener('click', function () {
+    state = { role: '', text: '', co: '', goals: [] };
+    $('roleText').value = '';
+    refresh();
+  });
+  $('roleText').addEventListener('input', function () {
+    var v = this.value.slice(0, 60);
+    state.text = v;
+    if (v.trim()) { state.role = 'other'; } else if (state.role === 'other') { /* keep Other selected */ }
+    renderChips(); renderSheet();
+    $('btnPdf').disabled = !ready(); $('btnCopy').disabled = !ready();
+    $('shareBox').hidden = !ready();
+    if (ready()) $('shareUrl').value = shareUrl();
+    try { history.replaceState(null, '', localUrl()); } catch (e) {}
+  });
+
+  /* ---------- PDF ---------- */
+  function ascii(s) {
+    return String(s).replace(/€/g, 'EUR ').replace(/×/g, 'x').replace(/[‘’]/g, "'").replace(/[“”]/g, '"').replace(/→/g, 'to').replace(/[^\x20-\x7e -ÿ\n]/g, '');
+  }
+  $('btnPdf').addEventListener('click', function () {
+    if (!ready()) return;
+    if (!window.jspdf || !window.jspdf.jsPDF) { status.textContent = 'The PDF library did not load. Check your connection and try again.'; return; }
+    var d = build(), doc;
+    for (var nWork = 5; nWork >= 3; nWork--) { doc = makePdf(d, nWork); if (doc.getNumberOfPages() === 1) break; }
+    var slug = (d.role || 'role').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40) || 'role';
+    doc.save('sai-kanagat-one-pager-' + slug + '.pdf');
+    status.textContent = 'PDF downloaded.';
+  });
+  function makePdf(d, nWork) {
+    var doc = new window.jspdf.jsPDF({ unit: 'mm', format: 'a4' });
+    var W = 210, M = 13, CW = W - M * 2, y = M, page = 1;
+    var INK = [20, 22, 30], SOFT = [80, 84, 96], ACC = [32, 52, 190];
+    function need(h) { if (y + h > 297 - 14) { footer(); doc.addPage(); page++; y = M; } }
+    function footer() {
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(8); doc.setTextColor(SOFT[0], SOFT[1], SOFT[2]);
+      doc.textWithLink(ascii(shareUrl()), M, 291, { url: shareUrl() });
+      doc.text('Page ' + page, W - M, 291, { align: 'right' });
+    }
+    function para(text, size, style, color, gap, link) {
+      doc.setFont('helvetica', style || 'normal'); doc.setFontSize(size); doc.setTextColor(color[0], color[1], color[2]);
+      var lines = doc.splitTextToSize(ascii(text), CW), lh = size * 0.46;
+      lines.forEach(function (ln) { need(lh); if (link) doc.textWithLink(ln, M, y + lh * 0.8, { url: link }); else doc.text(ln, M, y + lh * 0.8); y += lh; });
+      y += gap || 0;
+    }
+    function bullets(arr) {
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(9); doc.setTextColor(INK[0], INK[1], INK[2]);
+      arr.forEach(function (t) {
+        var lines = doc.splitTextToSize(ascii(t), CW - 6), lh = 4.0;
+        need(lh * lines.length + 0.6);
+        doc.text('-', M + 1, y + 3.2);
+        lines.forEach(function (ln) { doc.text(ln, M + 6, y + 3.2); y += lh; });
+        y += 0.6;
+      });
+    }
+    function head(t) { need(16); y += 3; doc.setDrawColor(200, 202, 210); doc.line(M, y, W - M, y); y += 4; para(t, 12.5, 'bold', INK, 1.5); }
+    para('Sai Kanagat', 22, 'bold', INK, 0.5);
+    para('Tailored one-pager for ' + d.role, 12, 'normal', ACC, 1);
+    para((d.co ? d.co + ' company. ' : '') + (d.goals.length ? 'Priorities: ' + d.goals.join(', ') + '.' : ''), 9.5, 'normal', SOFT, 1);
+    head('The work that fits');
+    d.work.slice(0, nWork).forEach(function (w) {
+      need(16);
+      para(w.t + '  (' + w.kind + ')', 10, 'bold', INK, 0, SITE + w.u);
+      para(SITE + w.u, 7.5, 'normal', ACC, 0, SITE + w.u);
+      para(w.why, 9, 'normal', SOFT, 1.8);
+    });
+    head('Relevant skills');
+    para(d.skills.list.join('  |  '), 9, 'normal', INK, 1);
+    if (d.skills.notes.length) para(d.skills.notes.join(' '), 8.5, 'normal', SOFT, 1);
+    head('How I would approach the first 90 days');
+    para(d.frame, 9, 'italic', SOFT, 1.5);
+    ['First 30 days', 'Days 31 to 60', 'Days 61 to 90'].forEach(function (lab, i) { need(14); para(lab, 10, 'bold', ACC, 0.5); bullets(d.plan[i]); y += 1; });
+    para('This is a template for how I would approach the role, not a record of past results.', 8.5, 'italic', SOFT, 2);
+    head('Let us talk');
+    para('Based in Bologna, available immediately, open to relocating across Italy. Target cities: Milan, Rome, Florence, Turin.', 9, 'normal', INK, 2);
+    para(EMAIL + '   |   linkedin.com/in/sai-kanagat', 9, 'bold', ACC, 0, 'mailto:' + EMAIL);
+    footer();
+    return doc;
+  }
+
+  /* ---------- Init ---------- */
+  loadFromUrl();
+  $('roleText').value = state.role === 'other' ? state.text : '';
+  refresh();
+  if (window.location.search) { /* keep the loaded URL as is */ }
+})();
+</script>
+<script src="/js/cursor.js?v=1780100000"></script>
+<script src="/js/animations.js"></script>
+<script src="/js/lang.js"></script>
+<script src="/js/consent.js" defer></script>
+<script src="/js/analytics.js" defer></script>
+</body>
+</html>

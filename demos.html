@@ -101,11 +101,12 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     /* tile backgrounds */
     /* demo thumbnails — real preview image + dark scrim so the tile text stays readable */
     .demo-tile-bg.bg-agora, .demo-tile-bg.bg-hands, .demo-tile-bg.bg-balls,
-    .demo-tile-bg.bg-roas, .demo-tile-bg.bg-poster, .demo-tile-bg.bg-audio, .demo-tile-bg.bg-cortex, .demo-tile-bg.bg-melt, .demo-tile-bg.bg-ad-autopsy, .demo-tile-bg.bg-shadow {
+    .demo-tile-bg.bg-roas, .demo-tile-bg.bg-poster, .demo-tile-bg.bg-audio, .demo-tile-bg.bg-cortex, .demo-tile-bg.bg-melt, .demo-tile-bg.bg-ad-autopsy, .demo-tile-bg.bg-shadow, .demo-tile-bg.bg-hire {
       position: absolute !important; inset: 0 !important; height: auto !important;
       background-size: cover !important; background-position: center top !important; background-repeat: no-repeat !important;
     }
     .demo-tile-bg.bg-melt   { background-image: url('assets/images/DEMOS/melt.jpg') !important; }
+    .demo-tile-bg.bg-hire   { background-image: url('assets/images/DEMOS/hire.jpg') !important; }
     .demo-tile-bg.bg-shadow { background-image: url('assets/images/DEMOS/shadow-theatre.jpg') !important; }
     .demo-tile-logo { display:block; width:min(78%,320px); height:auto; margin:14px 0 0; filter: drop-shadow(0 6px 18px rgba(0,0,0,.55)); }
     .demo-tile-bg.bg-agora  { background-image: url('assets/images/DEMOS/agora.jpg') !important; }
@@ -304,6 +305,25 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
               <span class="demo-tile-tag">Canvas</span>
             </div>
             <div class="demo-tile-cta">Launch Colour Physics →</div>
+          </div>
+        </div>
+      </a>
+
+      <a href="hire" class="demo-tile" data-cat="marketing">
+        <div class="demo-tile-bg bg-hire"></div>
+        <div class="demo-tile-content">
+          <div>
+            <div class="demo-tile-num">New · Marketing Tool</div>
+            <h2 class="demo-tile-title" style="margin: 14px 0 0;">HIRE<br><span style="color: rgba(245,240,232,0.6); font-size: 0.42em; letter-spacing: 0.18em;">SAI</span></h2>
+          </div>
+          <div class="demo-tile-meta">
+            <p class="demo-tile-desc">Pick your role, company type and top goals. Get a tailored one-pager: the projects that fit, the skills, a 30/60/90 plan and a contact link. Download the PDF or share the link.</p>
+            <div class="demo-tile-tags">
+              <span class="demo-tile-tag">Hiring</span>
+              <span class="demo-tile-tag">30/60/90 Plan</span>
+              <span class="demo-tile-tag">PDF Export</span>
+            </div>
+            <div class="demo-tile-cta">Build the one-pager →</div>
           </div>
         </div>
       </a>
