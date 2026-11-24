@@ -71,7 +71,8 @@ test('health flags unknown events and an event that went quiet', async () => {
   const rows = db.prepare('select check_name, status, detail from health order by id desc limit 8').all();
   const by = Object.fromEntries(rows.map((r) => [r.check_name, r]));
   assert.equal(by.unknown_events_48h.status, 'fail');
-  assert.match(by.unknown_events_48h.detail, /surprise_event/);
+  assert.match(by.unknown_events_48h.detail, /unknown/);
+  assert.doesNotMatch(by.unknown_events_48h.detail, /surprise_event/, 'client-chosen names are never stored');
   assert.equal(by.events_gone_quiet_7d.status, 'warn');
   assert.match(by.events_gone_quiet_7d.detail, /cv_download/);
   assert.ok(by.last_event_age_h && by.rollup_fresh && by.js_errors_24h);

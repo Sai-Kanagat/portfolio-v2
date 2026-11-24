@@ -205,7 +205,8 @@ test('every catalogue event is accepted with its own params and nothing else', a
 test('drop counters record unknown events without storing payloads', async () => {
   await postEvents(srv, batch({ ev: [{ n: 'mystery_event', t: now(), p: {} }] }));
   await new Promise((r) => setTimeout(r, 400));
-  assert.equal(count("select count(*) n from ingest_stats where kind = 'unknown_event' and detail = 'mystery_event'"), 1);
+  assert.ok(count("select count(*) n from ingest_stats where kind = 'unknown_event' and detail = 'unknown'") >= 1);
+  assert.equal(count("select count(*) n from ingest_stats where detail = 'mystery_event'"), 0);
   assert.ok(count("select count(*) n from ingest_stats where kind = 'batches'") >= 1);
 });
 

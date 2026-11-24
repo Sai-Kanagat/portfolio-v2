@@ -35,7 +35,8 @@ async function readLimited(request, max) {
 }
 
 function drop(env, ctx, kind, detail) {
-  if (shouldCount(kind + ':' + detail)) ctx.waitUntil(countDrop(env, kind, detail));
+  // Throttle by kind only: detail can be attacker chosen.
+  if (shouldCount(kind)) ctx.waitUntil(countDrop(env, kind, detail));
 }
 
 export async function onRequest(context) {
@@ -78,7 +79,7 @@ export async function onRequest(context) {
     batch = validateBatch(body);
   } catch (e) {
     if (!(e instanceof Reject)) throw e;
-    drop(env, context, e.code === 'unknown_event' ? 'unknown_event' : 'invalid', e.code === 'unknown_event' ? e.detail : e.code);
+    drop(env, context, e.code === 'unknown_event' ? 'unknown_event' : 'invalid', e.code === 'unknown_event' ? 'unknown' : e.code);
     return json({ error: e.code }, 400);
   }
 

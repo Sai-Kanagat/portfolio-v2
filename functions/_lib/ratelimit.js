@@ -41,7 +41,7 @@ const lastCount = new Map();
 export function shouldCount(kind, now = Date.now(), everyMs = 30000) {
   const last = lastCount.get(kind) || 0;
   if (now - last < everyMs) return false;
-  if (lastCount.size > 200) lastCount.clear();
+  if (lastCount.size >= 50 && !lastCount.has(kind)) return false;
   lastCount.set(kind, now);
   return true;
 }

@@ -71,14 +71,26 @@ for (const f of files) {
 }
 if (files.length > 20000) console.warn('WARNING over Pages 20000 file limit:', files.length);
 
-// _routes.json: run Functions only for pages and API, never for static assets.
+// _routes.json: run Functions for pages and API, skip public asset folders.
+// Never use extension globs: '/*.js' also matches '/ops/x.js' and would skip the gate.
+const GATED = ['ops', 'api', 'go'];
+const isHtml = (f) => /\.html?$/i.test(f);
 const exclude = new Set();
-const topDirs = new Set(files.filter((f) => f.includes('/')).map((f) => f.split('/')[0]));
-for (const d of topDirs) {
-  const hasHtml = files.some((f) => f.startsWith(d + '/') && /\.html?$/i.test(f));
-  if (!hasHtml) exclude.add(`/${d}/*`);
+for (const d of new Set(files.filter((f) => f.includes('/')).map((f) => f.split('/')[0]))) {
+  if (GATED.includes(d)) continue;
+  const inside = files.filter((f) => f.startsWith(d + '/'));
+  if (!inside.some(isHtml)) { exclude.add(`/${d}/*`); continue; }
+  // Mixed folder: skip only subfolders that hold no pages.
+  for (const sub of new Set(inside.filter((f) => f.split('/').length > 2).map((f) => f.split('/').slice(0, 2).join('/')))) {
+    if (!inside.some((f) => f.startsWith(sub + '/') && isHtml(f))) exclude.add(`/${sub}/*`);
+  }
 }
-['png', 'jpg', 'jpeg', 'gif', 'svg', 'webp', 'avif', 'ico', 'woff', 'woff2', 'ttf', 'otf', 'mp4', 'webm', 'mp3', 'wav', 'ogg', 'm4a', 'pdf', 'pptx', 'docx', 'glb', 'gltf', 'wasm', 'css', 'js', 'mjs', 'txt', 'xml', 'webmanifest'].forEach((e) => exclude.add(`/*.${e}`));
+for (const f of files) if (!f.includes('/') && !isHtml(f) && !f.startsWith('_')) exclude.add('/' + f);
+// A rule covers a gated path if it matches any address under it.
+export const ruleHits = (rule, url) => new RegExp('^' + rule.split('*').map((x) => x.replace(/[.+?^${}()|[\]\\]/g, '\\$&')).join('.*') + '$').test(url);
+for (const r of exclude) for (const g of GATED) for (const u of [`/${g}`, `/${g}/`, `/${g}/x`, `/${g}/x.js`, `/${g}/a/b.css`, `/${g}/x.png`]) {
+  if (ruleHits(r, u)) { console.error(`_routes.json exclude ${r} would skip the gate on ${u}`); process.exit(1); }
+}
 const routes = { version: 1, include: ['/*'], exclude: [...exclude].sort() };
 if (routes.exclude.length > 99) {
   console.error('too many _routes.json exclude rules:', routes.exclude.length);
