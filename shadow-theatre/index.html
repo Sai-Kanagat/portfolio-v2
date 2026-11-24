@@ -579,10 +579,14 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
       document.getElementById('setup').style.display = 'none';
       document.body.classList.add('live'); mode = 'live'; targetHands = []; detectLoop();
     } catch (e) {
-      btn.disabled = false; btn.textContent = 'Start the show';
+      var denied = e && (e.name === 'NotAllowedError' || e.name === 'SecurityError');
+      btn.disabled = false; btn.textContent = denied ? 'Try again' : 'Start the show';
       err.style.display = 'block';
-      err.textContent = (e && e.name === 'NotAllowedError') ? 'Camera access was declined. The rehearsal below runs without it.' : 'The camera could not start on this device. The rehearsal below runs without it.';
-      setTimeout(startDemo, 1800);
+      err.setAttribute('role', 'alert');
+      [['background','#ffd27a'],['color','#1a1208'],['padding','12px 14px'],['border-radius','10px'],['font-weight','700'],['line-height','1.45'],['margin-top','14px'],['opacity','1'],['font-size','14px'],['-webkit-text-fill-color','#1a1208']].forEach(function (kv) { err.style.setProperty(kv[0], kv[1], 'important'); });
+      err.textContent = denied
+        ? 'Your browser is blocking the camera for this site. Click the camera or lock icon in the address bar, set Camera to Allow, then press Try again. Or watch without a camera.'
+        : 'The camera could not start on this device (no camera found, or it is busy in another app). You can still watch without a camera.';
     }
   }
   function startDemo() {
