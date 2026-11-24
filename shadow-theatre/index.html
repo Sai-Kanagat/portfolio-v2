@@ -51,9 +51,11 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   #ring .bar { stroke: var(--flame); stroke-linecap: round; transform: rotate(-90deg); transform-origin: 50% 50%; transition: stroke-dashoffset .08s linear; }
   #status { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; line-height: 1.5; }
   #status small { display: block; color: var(--muted); letter-spacing: 0.1em; font-size: 0.58rem; }
-  #found { display: flex; gap: 6px; }
-  #found span { font-size: 0.55rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 7px; border: 1px solid rgba(243,227,196,0.25); border-radius: 2px; color: var(--muted); }
-  #found span.on { background: var(--flame); color: var(--ink); border-color: var(--flame); }
+  #found { font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 5px 8px; border: 1px solid rgba(243,227,196,0.25); border-radius: 2px; color: var(--muted); white-space: nowrap; }
+  #found.on { background: var(--flame); color: var(--ink); border-color: var(--flame); }
+  .shape h3 em { font-family: var(--serif); font-style: italic; font-weight: 400; text-transform: none; letter-spacing: 0; color: var(--paper); margin-left: 6px; font-size: 0.85rem; }
+  .shape.got h3::after { content: ' \2713'; }
+  .guide-sub { margin: 18px 0 4px !important; font-size: 0.62rem !important; letter-spacing: 0.16em; text-transform: uppercase; color: var(--flame) !important; }
 
   #cam { position: fixed; z-index: 9; right: 16px; bottom: 72px; width: 132px; aspect-ratio: 4/3; object-fit: cover; transform: scaleX(-1);
     border: 1px solid rgba(243,227,196,0.25); border-radius: 2px; opacity: 0.85; display: none; background: #000; }
@@ -109,22 +111,19 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 <div id="hud" aria-live="polite">
   <svg id="ring" viewBox="0 0 40 40" aria-hidden="true"><circle class="track" cx="20" cy="20" r="16"/><circle class="bar" id="ringBar" cx="20" cy="20" r="16" stroke-dasharray="100.5" stroke-dashoffset="100.5"/></svg>
   <div id="status">The curtain is down<small>Press start to light the candle</small></div>
-  <div id="found"><span data-s="dog">Dog</span><span data-s="bird">Bird</span><span data-s="rabbit">Rabbit</span><span data-s="duck">Duck</span></div>
+  <div id="found">0 / 30 found</div>
 </div>
 
 <aside id="guide" aria-label="How to make each shadow">
   <h2>How to make each shadow</h2>
-  <p>Hold a shape still for about a second and the creature steps off the wall. Keep your hands a forearm's length from the camera, side on to it.</p>
-  <div class="shape"><canvas data-pose="dog" width="224" height="168"></canvas><div><h3>Dog</h3><p>Hand side on, fingers pointing sideways and held together as the snout. Lift your thumb up as the ear. Drop your little finger for an open jaw.</p></div></div>
-  <div class="shape"><canvas data-pose="bird" width="224" height="168"></canvas><div><h3>Bird</h3><p>Both hands, palms toward you. Hook your thumbs together in the middle and spread the fingers of each hand wide like wings.</p></div></div>
-  <div class="shape"><canvas data-pose="rabbit" width="224" height="168"></canvas><div><h3>Rabbit</h3><p>Point your index and middle fingers straight up in a V for the ears. Fold your ring and little fingers down onto your thumb.</p></div></div>
-  <div class="shape"><canvas data-pose="duck" width="224" height="168"></canvas><div><h3>Duck</h3><p>Hand side on. Bring every fingertip together onto your thumb to make a closed beak, then point it sideways.</p></div></div>
+  <p>Hold a shape still for about a second and the creature steps off the wall. Many of these come from the hastas of Bharatanatyam, the hand gestures a dancer uses to draw a swan, a deer or a lotus in the air. Keep your hands a forearm's length from the camera.</p>
+  <div id="guideList"></div>
 </aside>
 
 <div id="setup" role="dialog" aria-labelledby="setupTitle">
   <div class="setup-card">
     <h1 id="setupTitle">Shadow<br><em>theatre.</em></h1>
-    <p>Hold your hands up to the candle. Make a dog, a bird, a rabbit or a duck, keep it still for a second, and watch it step off the wall and come alive. Anything else still casts a shadow, with a little stardust.</p>
+    <p>Hold your hands up to the candle. Thirty shapes live here, many borrowed from the hastas of Bharatanatyam: a swan, a deer, a lion, a lotus, a crescent moon. Hold one still for a second and watch it step off the wall and come alive. Anything else still casts a shadow, with a little stardust.</p>
     <div class="setup-actions">
       <button type="button" class="btn btn-main" id="startBtn">Start the show</button>
       <button type="button" class="btn btn-ghost" id="demoBtn">Watch without a camera</button>
@@ -208,7 +207,160 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     c.restore();
   }
 
+  // Silhouette helpers, local units (1 = body length, facing +x, y down).
+  function E(c, x, y, rx, ry, r) { c.beginPath(); c.ellipse(x, y, rx, ry, r || 0, 0, Math.PI * 2); c.fill(); }
+  function P(c, pts) { c.beginPath(); pts.forEach(function (p, i) { i ? c.lineTo(p[0], p[1]) : c.moveTo(p[0], p[1]); }); c.closePath(); c.fill(); }
+  function L(c, w, pts) { c.lineWidth = w; c.lineCap = 'round'; c.lineJoin = 'round'; c.beginPath(); pts.forEach(function (p, i) { i ? c.lineTo(p[0], p[1]) : c.moveTo(p[0], p[1]); }); c.stroke(); }
+  function eye(c, x, y, r) { c.save(); c.globalCompositeOperation = 'destination-out'; E(c, x, y, r, r); c.restore(); }
+  function legs(c, t, xs, top, len, w, sp) {
+    xs.forEach(function (x, i) { var a = Math.sin(t * (sp || 0.02) + i * Math.PI) * 0.35; L(c, w, [[x, top], [x + Math.sin(a) * len, top + Math.cos(a) * len]]); });
+  }
+  function wave(t, k) { return Math.sin(t * (k || 0.02)); }
+
   var DRAW = {
+    lion: function (c, t) {
+      for (var i = 0; i < 14; i++) { var a = i / 14 * Math.PI * 2; E(c, 0.42 + Math.cos(a) * 0.2, -0.25 + Math.sin(a) * 0.2, 0.1, 0.06, a); }
+      E(c, 0, 0.05, 0.45, 0.22); E(c, 0.45, -0.25, 0.17, 0.17); P(c, [[0.55, -0.25], [0.72, -0.18], [0.55, -0.1]]);
+      L(c, 0.04, [[-0.42, 0], [-0.7, -0.2], [-0.75, -0.35]]); E(c, -0.75, -0.37, 0.06, 0.06);
+      legs(c, t, [-0.3, -0.15, 0.15, 0.3], 0.15, 0.35, 0.09); eye(c, 0.5, -0.3, 0.025);
+    },
+    bat: function (c, t) {
+      var f = 0.4 + Math.abs(wave(t, 0.035)) * 0.8;
+      E(c, 0, 0, 0.12, 0.2); E(c, 0, -0.22, 0.09, 0.09); P(c, [[-0.06, -0.28], [-0.09, -0.4], [-0.01, -0.3]]); P(c, [[0.06, -0.28], [0.09, -0.4], [0.01, -0.3]]);
+      [-1, 1].forEach(function (sd) { P(c, [[0, -0.1], [sd * 0.3, -0.35 * f], [sd * 0.75, -0.2 * f], [sd * 0.6, 0.05], [sd * 0.45, -0.02], [sd * 0.3, 0.12], [sd * 0.15, 0.02]]); });
+      eye(c, -0.03, -0.23, 0.018); eye(c, 0.03, -0.23, 0.018);
+    },
+    deer: function (c, t) {
+      E(c, 0, 0, 0.45, 0.2); P(c, [[0.3, -0.1], [0.42, -0.55], [0.55, -0.5], [0.45, -0.05]]); E(c, 0.55, -0.55, 0.14, 0.09, 0.3);
+      L(c, 0.03, [[0.5, -0.62], [0.42, -0.95], [0.3, -1.05]]); L(c, 0.03, [[0.45, -0.85], [0.58, -0.98]]); L(c, 0.03, [[0.56, -0.62], [0.66, -0.9], [0.78, -0.98]]);
+      P(c, [[-0.43, -0.05], [-0.55, -0.15], [-0.45, 0.05]]); legs(c, t, [-0.3, -0.18, 0.2, 0.32], 0.12, 0.5, 0.05, 0.03); eye(c, 0.58, -0.58, 0.02);
+    },
+    whale: function (c, t) {
+      E(c, 0, 0, 0.6, 0.25); P(c, [[-0.5, -0.05], [-0.85, -0.25 + wave(t) * 0.08], [-0.75, 0], [-0.85, 0.2 + wave(t) * 0.08], [-0.5, 0.08]]);
+      P(c, [[0.1, 0.18], [-0.05, 0.4], [0.2, 0.22]]); eye(c, 0.4, 0, 0.03);
+      if (Math.sin(t * 0.006) > 0) { L(c, 0.03, [[0.25, -0.25], [0.25, -0.6]]); L(c, 0.03, [[0.25, -0.5], [0.12, -0.68]]); L(c, 0.03, [[0.25, -0.5], [0.38, -0.68]]); }
+    },
+    giraffe: function (c, t) {
+      E(c, 0, 0, 0.35, 0.16); P(c, [[0.2, -0.05], [0.42, -1.0], [0.52, -0.98], [0.33, 0.05]]); E(c, 0.5, -1.02, 0.14, 0.07, 0.2);
+      L(c, 0.025, [[0.44, -1.05], [0.42, -1.16]]); L(c, 0.025, [[0.5, -1.06], [0.5, -1.17]]); legs(c, t, [-0.25, -0.12, 0.15, 0.27], 0.1, 0.65, 0.05, 0.015);
+      L(c, 0.025, [[-0.34, -0.02], [-0.45, 0.25]]); eye(c, 0.52, -1.05, 0.02);
+    },
+    snake: function (c, t) {
+      var pts = []; for (var i = 0; i <= 20; i++) { var x = -0.8 + i * 0.07; pts.push([x, Math.sin(i * 0.7 - t * 0.012) * 0.1]); }
+      c.lineWidth = 0.11; c.lineCap = 'round'; c.beginPath(); pts.forEach(function (p, i) { i ? c.lineTo(p[0], p[1]) : c.moveTo(p[0], p[1]); }); c.stroke();
+      var hd = pts[pts.length - 1]; E(c, hd[0] + 0.05, hd[1], 0.12, 0.08); if (wave(t, 0.03) > 0) L(c, 0.015, [[hd[0] + 0.16, hd[1]], [hd[0] + 0.28, hd[1] - 0.03]]);
+      eye(c, hd[0] + 0.08, hd[1] - 0.03, 0.018);
+    },
+    spider: function (c, t) {
+      L(c, 0.012, [[0, -0.2], [0, -6]]); E(c, 0, 0.1, 0.17, 0.2); E(c, 0, -0.12, 0.1, 0.09);
+      for (var i = 0; i < 4; i++) { var y = -0.08 + i * 0.08, k = wave(t + i * 200, 0.02) * 0.06; [-1, 1].forEach(function (sd) { L(c, 0.03, [[0, y], [sd * 0.3, y - 0.15 + k], [sd * 0.42, y + 0.15]]); }); }
+    },
+    moon: function (c, t) {
+      c.beginPath(); c.arc(0, 0, 0.45, 0, Math.PI * 2); c.fill();
+      c.save(); c.globalCompositeOperation = 'destination-out'; c.beginPath(); c.arc(0.2, -0.12, 0.4, 0, Math.PI * 2); c.fill(); c.restore();
+      for (var i = 0; i < 3; i++) { var a = t * 0.002 + i * 2.1; E(c, Math.cos(a) * 0.75, Math.sin(a) * 0.5, 0.04, 0.04); }
+    },
+    crocodile: function (c, t) {
+      var j = Math.max(0, wave(t, 0.012)) * 0.25;
+      E(c, -0.1, 0, 0.45, 0.12); P(c, [[-0.5, -0.05], [-1.0, 0.02], [-0.5, 0.08]]); P(c, [[0.3, -0.06], [0.85, -0.03], [0.85, 0.02], [0.3, 0.04]]);
+      c.save(); c.translate(0.3, 0.04); c.rotate(j); P(c, [[0, 0], [0.55, 0.0], [0.5, 0.05], [0, 0.07]]); c.restore();
+      for (var i = 0; i < 6; i++) P(c, [[-0.4 + i * 0.12, -0.1], [-0.35 + i * 0.12, -0.18], [-0.3 + i * 0.12, -0.1]]);
+      legs(c, t, [-0.35, -0.2, 0.05, 0.2], 0.05, 0.15, 0.06, 0.03); eye(c, 0.35, -0.04, 0.02);
+    },
+    penguin: function (c, t) {
+      c.save(); c.rotate(wave(t, 0.015) * 0.12);
+      E(c, 0, 0, 0.24, 0.42); E(c, 0.02, -0.45, 0.16, 0.15); P(c, [[0.15, -0.47], [0.32, -0.42], [0.15, -0.4]]);
+      P(c, [[0.18, -0.15], [0.32, 0.15], [0.2, 0.05]]); E(c, -0.08, 0.43, 0.1, 0.04); E(c, 0.1, 0.43, 0.1, 0.04); eye(c, 0.08, -0.5, 0.025); c.restore();
+    },
+    ghost: function (c, t) {
+      c.beginPath(); c.arc(0, -0.15, 0.32, Math.PI, 0); c.lineTo(0.32, 0.35);
+      for (var i = 0; i < 4; i++) { var x0 = 0.32 - i * 0.16; c.quadraticCurveTo(x0 - 0.08, 0.2 + wave(t + i * 150, 0.015) * 0.08, x0 - 0.16, 0.35); }
+      c.closePath(); c.fill(); eye(c, -0.1, -0.15, 0.06); eye(c, 0.1, -0.15, 0.06); E(c, 0, 0.05, 0.001, 0.001);
+      c.save(); c.globalCompositeOperation = 'destination-out'; E(c, 0, 0.03, 0.07, 0.1); c.restore();
+    },
+    mouse: function (c, t) {
+      E(c, 0, 0, 0.3, 0.17); P(c, [[0.2, -0.12], [0.5, 0.02], [0.2, 0.12]]); E(c, 0.2, -0.17, 0.09, 0.09);
+      c.strokeStyle = c.fillStyle; L(c, 0.025, [[-0.28, 0.02], [-0.55, -0.1 + wave(t, 0.02) * 0.1], [-0.8, 0.05]]);
+      legs(c, t, [-0.15, 0.12], 0.12, 0.08, 0.04, 0.05); eye(c, 0.32, -0.03, 0.02);
+    },
+    horse: function (c, t) {
+      E(c, 0, 0, 0.42, 0.18); P(c, [[0.25, -0.1], [0.45, -0.5], [0.72, -0.35], [0.68, -0.27], [0.5, -0.32], [0.38, 0.02]]);
+      P(c, [[0.42, -0.52], [0.45, -0.62], [0.5, -0.5]]); P(c, [[0.35, -0.4], [0.18, -0.15], [0.3, -0.12]]);
+      P(c, [[-0.4, -0.05], [-0.62, 0.2 + wave(t, 0.03) * 0.05], [-0.42, 0.05]]); legs(c, t, [-0.3, -0.18, 0.2, 0.3], 0.1, 0.45, 0.055, 0.04); eye(c, 0.55, -0.38, 0.02);
+    },
+    peacock: function (c, t) {
+      var o = 0.85 + wave(t, 0.004) * 0.15;
+      for (var i = 0; i < 11; i++) { var a = Math.PI + 0.15 + i / 10 * (Math.PI - 0.3); E(c, -0.1 + Math.cos(a) * 0.55 * o, -0.1 + Math.sin(a) * 0.55 * o, 0.09, 0.15, a + Math.PI / 2); L(c, 0.02, [[-0.1, 0], [-0.1 + Math.cos(a) * 0.45 * o, -0.1 + Math.sin(a) * 0.45 * o]]); }
+      for (var k = 0; k < 11; k++) { var b = Math.PI + 0.15 + k / 10 * (Math.PI - 0.3); eye(c, -0.1 + Math.cos(b) * 0.57 * o, -0.1 + Math.sin(b) * 0.57 * o, 0.03); }
+      E(c, 0.05, 0.05, 0.2, 0.13); P(c, [[0.12, -0.02], [0.25, -0.35], [0.33, -0.33], [0.24, 0.02]]); E(c, 0.3, -0.38, 0.06, 0.06);
+      P(c, [[0.35, -0.39], [0.45, -0.36], [0.35, -0.34]]); L(c, 0.015, [[0.28, -0.43], [0.27, -0.52]]); legs(c, t, [0, 0.1], 0.15, 0.25, 0.025, 0.02);
+    },
+    trident: function (c, t) {
+      L(c, 0.05, [[0, 0.7], [0, -0.3]]); L(c, 0.05, [[-0.25, -0.55], [-0.25, -0.25], [0.25, -0.25], [0.25, -0.55]]); L(c, 0.05, [[0, -0.3], [0, -0.7]]);
+      P(c, [[-0.3, -0.55], [-0.25, -0.68], [-0.2, -0.55]]); P(c, [[0.2, -0.55], [0.25, -0.68], [0.3, -0.55]]); P(c, [[-0.06, -0.68], [0, -0.85], [0.06, -0.68]]);
+      E(c, 0, 0.15, 0.06, 0.06);
+    },
+    lotus: function (c, t) {
+      var o = Math.min(1, t / 900);
+      for (var i = -3; i <= 3; i++) { var a = i * 0.32 * o; c.save(); c.rotate(a); E(c, 0, -0.32, 0.09 + o * 0.03, 0.32); c.restore(); }
+      E(c, 0, 0, 0.32, 0.08); L(c, 0.04, [[0, 0.05], [0.05, 0.7]]); E(c, -0.35, 0.6, 0.3, 0.05); E(c, 0.4, 0.62, 0.25, 0.04);
+    },
+    hedgehog: function (c, t) {
+      c.beginPath(); c.ellipse(0, 0, 0.4, 0.28, 0, Math.PI, 0); c.lineTo(0.4, 0.05); c.lineTo(-0.4, 0.05); c.fill();
+      for (var i = 0; i < 11; i++) { var a = Math.PI + i / 10 * Math.PI; P(c, [[Math.cos(a - 0.12) * 0.38, Math.sin(a - 0.12) * 0.26], [Math.cos(a) * 0.55, Math.sin(a) * 0.42], [Math.cos(a + 0.12) * 0.38, Math.sin(a + 0.12) * 0.26]]); }
+      P(c, [[0.3, -0.12], [0.6, 0.0], [0.3, 0.05]]); E(c, 0.6, 0, 0.03, 0.03); legs(c, t, [-0.2, 0.2], 0.03, 0.08, 0.05, 0.04); eye(c, 0.42, -0.06, 0.02);
+    },
+    turtle: function (c, t) {
+      c.beginPath(); c.ellipse(0, 0, 0.42, 0.3, 0, Math.PI, 0); c.fill(); E(c, 0, 0, 0.45, 0.05);
+      E(c, 0.52 + wave(t, 0.006) * 0.03, -0.05, 0.11, 0.08); P(c, [[-0.42, -0.02], [-0.55, 0.03], [-0.42, 0.05]]);
+      legs(c, t, [-0.25, 0.25], 0.03, 0.12, 0.08, 0.015); eye(c, 0.58, -0.07, 0.02);
+      c.save(); c.globalCompositeOperation = 'destination-out'; c.lineWidth = 0.015; c.beginPath(); c.moveTo(-0.15, -0.28); c.lineTo(-0.1, -0.02); c.moveTo(0.15, -0.28); c.lineTo(0.1, -0.02); c.moveTo(-0.38, -0.12); c.lineTo(0.38, -0.12); c.stroke(); c.restore();
+    },
+    shark: function (c, t) {
+      E(c, 0, 0, 0.6, 0.15); P(c, [[-0.05, -0.12], [0.05, -0.45], [0.2, -0.12]]); P(c, [[0.05, 0.1], [-0.05, 0.3], [0.15, 0.12]]);
+      var w = wave(t, 0.02) * 0.08; P(c, [[-0.52, 0], [-0.85, -0.3 + w], [-0.72, 0], [-0.82, 0.22 + w]]);
+      eye(c, 0.42, -0.04, 0.02); c.save(); c.globalCompositeOperation = 'destination-out'; c.lineWidth = 0.012; c.beginPath(); for (var i = 0; i < 3; i++) { c.moveTo(0.25 - i * 0.04, -0.06); c.lineTo(0.23 - i * 0.04, 0.06); } c.stroke(); c.restore();
+    },
+    fish: function (c, t) {
+      var w = wave(t, 0.03) * 0.1; E(c, 0, 0, 0.35, 0.18); P(c, [[-0.3, 0], [-0.6, -0.2 + w], [-0.6, 0.2 + w]]);
+      P(c, [[-0.05, -0.16], [0.05, -0.3], [0.15, -0.15]]); eye(c, 0.22, -0.04, 0.03);
+    },
+    jellyfish: function (c, t) {
+      var p = 1 + wave(t, 0.01) * 0.12;
+      c.beginPath(); c.ellipse(0, 0, 0.32 * p, 0.24 / p, 0, Math.PI, 0); c.fill();
+      for (var i = 0; i < 6; i++) { var x = -0.25 + i * 0.1, pts = []; for (var k = 0; k <= 6; k++) pts.push([x + Math.sin(k * 0.9 + t * 0.008 + i) * 0.04, k * 0.11]); L(c, 0.025, pts); }
+    },
+    butterfly: function (c, t) {
+      var f = 0.25 + Math.abs(wave(t, 0.03)) * 0.75;
+      E(c, 0.2 * f, -0.2, 0.22 * f, 0.26, 0.4); E(c, -0.2 * f, -0.2, 0.22 * f, 0.26, -0.4); E(c, 0.15 * f, 0.15, 0.15 * f, 0.17, -0.3); E(c, -0.15 * f, 0.15, 0.15 * f, 0.17, 0.3);
+      E(c, 0, 0, 0.04, 0.25); L(c, 0.015, [[0, -0.22], [0.1, -0.45]]); L(c, 0.015, [[0, -0.22], [-0.1, -0.45]]);
+      eye(c, 0.22 * f, -0.25, 0.05 * f); eye(c, -0.22 * f, -0.25, 0.05 * f);
+    },
+    bear: function (c, t) {
+      E(c, 0, 0, 0.5, 0.28); E(c, 0.5, -0.2, 0.2, 0.18); E(c, 0.45, -0.38, 0.07, 0.07); E(c, 0.6, -0.36, 0.07, 0.07); E(c, 0.7, -0.15, 0.1, 0.07);
+      legs(c, t, [-0.32, -0.15, 0.15, 0.32], 0.15, 0.3, 0.13, 0.015); eye(c, 0.58, -0.24, 0.025);
+    },
+    crab: function (c, t) {
+      E(c, 0, 0, 0.4, 0.22);
+      [-1, 1].forEach(function (sd) {
+        L(c, 0.05, [[sd * 0.3, -0.12], [sd * 0.5, -0.4]]); var o = Math.max(0, wave(t + (sd > 0 ? 0 : 300), 0.02)) * 0.4;
+        c.save(); c.translate(sd * 0.52, -0.48); c.rotate(-sd * o * 0.5); E(c, 0, 0, 0.12, 0.08, sd * 0.6); c.restore(); c.save(); c.translate(sd * 0.52, -0.48); c.rotate(sd * o); E(c, sd * 0.06, -0.08, 0.09, 0.05, sd * -0.4); c.restore();
+        for (var i = 0; i < 3; i++) L(c, 0.035, [[sd * 0.3, 0.05 + i * 0.06], [sd * 0.55, 0.15 + i * 0.08 + wave(t + i * 100, 0.04) * 0.04], [sd * 0.62, 0.32 + i * 0.05]]);
+      });
+      L(c, 0.02, [[-0.1, -0.2], [-0.12, -0.32]]); L(c, 0.02, [[0.1, -0.2], [0.12, -0.32]]); E(c, -0.12, -0.34, 0.04, 0.04); E(c, 0.12, -0.34, 0.04, 0.04);
+    },
+    fox: function (c, t) {
+      E(c, 0, 0, 0.38, 0.15); P(c, [[0.25, -0.1], [0.42, -0.32], [0.72, -0.12], [0.4, 0.02]]);
+      P(c, [[0.38, -0.28], [0.4, -0.48], [0.5, -0.3]]); P(c, [[0.47, -0.26], [0.53, -0.44], [0.58, -0.22]]);
+      c.save(); c.translate(-0.4, -0.02); c.rotate(-0.4 + wave(t, 0.015) * 0.2); E(c, -0.25, 0, 0.3, 0.11); c.restore();
+      legs(c, t, [-0.25, -0.12, 0.15, 0.26], 0.08, 0.3, 0.045, 0.035); eye(c, 0.5, -0.17, 0.02);
+    },
+    swan: function (c, t) {
+      c.save(); c.translate(0, wave(t, 0.008) * 0.03);
+      c.beginPath(); c.moveTo(-0.55, -0.1); c.quadraticCurveTo(-0.4, 0.25, 0.15, 0.2); c.quadraticCurveTo(0.45, 0.12, 0.35, -0.05); c.quadraticCurveTo(0, -0.05, -0.55, -0.1); c.fill();
+      L(c, 0.08, [[0.3, 0], [0.42, -0.25], [0.3, -0.5], [0.35, -0.68]]); E(c, 0.4, -0.7, 0.09, 0.07); P(c, [[0.46, -0.72], [0.62, -0.66], [0.46, -0.65]]);
+      P(c, [[-0.3, -0.05], [-0.05, -0.32], [0.15, -0.05]]); eye(c, 0.42, -0.72, 0.017); c.restore();
+    },
     dog: function (c, t, cr) {
       var jaw = Math.max(0, Math.sin(t * 0.018)) * 0.28;
       c.beginPath(); c.ellipse(0, 0, 0.42, 0.36, 0, 0, Math.PI * 2); c.fill();                       // skull
@@ -258,16 +410,32 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   function Creature(kind, x, y, size, facing) {
     this.kind = kind; this.x = x; this.y = y; this.x0 = x; this.y0 = y; this.size = size;
     this.facing = facing; this.t = 0; this.alpha = 0; this.dead = false;
-    this.line = { dog: 'Woof!', duck: 'Quack!', bird: null, rabbit: null }[kind];
+    this.line = (MOVE[kind] || [])[2];
   }
+  // How each creature leaves the stage: [motion, speed, line].
+  var MOVE = {
+    dog: ['stay', 0, 'Woof!'], bird: ['fly', 1], rabbit: ['hop', 1], duck: ['walk', 1, 'Quack!'],
+    swan: ['glide', 0.7], moon: ['rise', 0.5], deer: ['hop', 1.4], lion: ['walk', 0.9, 'Roar!'], peacock: ['stay', 0], trident: ['rise', 0.6],
+    lotus: ['stay', 0], penguin: ['walk', 0.5], hedgehog: ['walk', 0.4], giraffe: ['walk', 0.5], butterfly: ['flutter', 0.8], bear: ['walk', 0.5, 'Grr!'],
+    crab: ['side', 0.6], bat: ['flutter', 1.3], whale: ['glide', 0.4], snake: ['walk', 0.5, 'Hiss!'], spider: ['drop', 0], crocodile: ['walk', 0.45, 'Snap!'],
+    ghost: ['rise', 0.5, 'Boo!'], mouse: ['walk', 1.6, 'Squeak!'], horse: ['walk', 1.6, 'Neigh!'], fox: ['walk', 1.1], fish: ['glide', 1],
+    jellyfish: ['rise', 0.35], turtle: ['walk', 0.25], shark: ['glide', 1.2, 'Chomp!']
+  };
   Creature.prototype.update = function (dt) {
-    this.t += dt; var t = this.t, s = this.size;
+    this.t += dt; var t = this.t, s = this.size, m = MOVE[this.kind] || ['walk', 1], v = m[1] * dt * W;
     this.alpha = Math.min(1, t / 250);
-    if (this.kind === 'bird') { this.x += this.facing * dt * 0.00045 * W; this.y -= dt * 0.00022 * H + Math.sin(t * 0.01) * 0.6; }
-    else if (this.kind === 'rabbit') { var hop = (t % 650) / 650; this.x += this.facing * dt * 0.0003 * W; this.y = this.y0 - Math.sin(hop * Math.PI) * s * 0.55; }
-    else if (this.kind === 'duck') { if (t > 700) this.x += this.facing * dt * 0.0004 * W; this.y = this.y0 + Math.sin(t * 0.012) * s * 0.04; }
-    else if (this.kind === 'dog') { this.y = this.y0 - Math.max(0, Math.sin(t * 0.018)) * s * 0.05; if (t > 2400) this.alpha = Math.max(0, 1 - (t - 2400) / 600); }
-    if (this.x < -s * 2 || this.x > W + s * 2 || this.y < -s * 2 || (this.kind === 'dog' && t > 3000)) this.dead = true;
+    switch (m[0]) {
+      case 'fly': this.x += this.facing * v * 0.00045; this.y -= dt * 0.00022 * H + Math.sin(t * 0.01) * 0.6; break;
+      case 'flutter': this.x += this.facing * v * 0.0003; this.y -= dt * 0.00015 * H + Math.sin(t * 0.008) * 1.2; break;
+      case 'hop': var hop = (t % 650) / 650; this.x += this.facing * v * 0.0003; this.y = this.y0 - Math.sin(hop * Math.PI) * s * 0.55; break;
+      case 'walk': if (t > 700) this.x += this.facing * v * 0.0004; this.y = this.y0 + Math.sin(t * 0.012) * s * 0.03; break;
+      case 'side': if (t > 500) this.x += v * 0.0004 * (Math.sin(t * 0.002) > 0 ? 1 : -1) + this.facing * v * 0.0002; break;
+      case 'glide': if (t > 500) this.x += this.facing * v * 0.0004; this.y = this.y0 + Math.sin(t * 0.004) * s * 0.12; break;
+      case 'rise': if (t > 600) this.y -= m[1] * dt * 0.0004 * H; this.x = this.x0 + Math.sin(t * 0.003) * s * 0.2; break;
+      case 'drop': this.y = this.y0 + Math.min(t, 1400) / 1400 * s * 1.5 - Math.max(0, t - 2600) / 900 * s * 3; if (t > 2600) this.alpha = Math.max(0, 1 - (t - 2600) / 900); break;
+      default: this.y = this.y0 - Math.max(0, Math.sin(t * 0.018)) * s * 0.05; if (t > 2400) this.alpha = Math.max(0, 1 - (t - 2400) / 600);
+    }
+    if (this.x < -s * 2 || this.x > W + s * 2 || this.y < -s * 2 || this.alpha <= 0 && t > 1000 || t > 12000) this.dead = true;
   };
   Creature.prototype.draw = function (c) {
     c.save(); c.globalAlpha = this.alpha; c.translate(this.x, this.y); c.scale(this.size * this.facing, this.size);
@@ -275,7 +443,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   };
   Creature.prototype.overlay = function (c) {
     if (!this.line) return;
-    var on = this.t > 150 && this.t < (this.kind === 'dog' ? 2300 : 1400);
+    var on = this.t > 150 && this.t < (MOVE[this.kind][0] === 'stay' ? 2300 : 1400);
     if (on) bubble(c, this.x + this.facing * this.size * 0.8, this.y - this.size * 0.55, this.line, this.alpha);
   };
 
@@ -292,7 +460,8 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   var HOLD_MS = 1000, COOLDOWN_MS = 2600;
   var holdShape = null, holdStart = 0, lastSpawn = -1e9, found = {};
   var ringBar = document.getElementById('ringBar'), statusEl = document.getElementById('status');
-  var NAMES = { dog: 'Dog', bird: 'Bird', rabbit: 'Rabbit', duck: 'Duck' };
+  var NAMES = {}, MUDRA = {}; S.CATALOG.forEach(function (c) { NAMES[c.id] = c.name; MUDRA[c.id] = c.mudra; });
+  var foundEl = document.getElementById('found'), foundN = 0;
   var lastStatus = '';
   function setStatus(main, sub) { var v = main + '|' + sub; if (v === lastStatus) return; lastStatus = v; statusEl.innerHTML = main + '<small>' + sub + '</small>'; }
   function setRing(p) { ringBar.style.strokeDashoffset = (100.5 * (1 - p)).toFixed(1); }
@@ -303,15 +472,15 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     if (!hands.length) { holdShape = null; setRing(0); setStatus(mode === 'demo' ? 'Rehearsal' : 'Waiting for hands', 'Raise your hands between you and the candle'); return; }
     var r = S.classify(hands), shape = r.shape;
     if (shape !== holdShape) { holdShape = shape; holdStart = now; }
-    if (!shape) { setRing(0); setStatus('A mystery shadow', 'Try a dog, bird, rabbit or duck'); hands.forEach(sparkle); return; }
+    if (!shape) { setRing(0); setStatus('A mystery shadow', 'Open the guide for all thirty shapes'); hands.forEach(sparkle); return; }
     var p = Math.min(1, (now - holdStart) / HOLD_MS); setRing(p);
-    setStatus(NAMES[shape] + (p < 1 ? ', hold still' : '!'), p < 1 ? 'Keep the shape for a moment' : 'It is alive');
+    setStatus(NAMES[shape] + (p < 1 ? ', hold still' : '!'), MUDRA[shape] ? 'After the ' + MUDRA[shape] + ' hasta' : (p < 1 ? 'Keep the shape for a moment' : 'It is alive'));
     if (p >= 1 && now - lastSpawn > COOLDOWN_MS) {
       lastSpawn = now;
       var src = r.hand >= 0 ? [hands[r.hand]] : hands, c = centroid(src), s = Math.max(60, Math.min(handSize(src[0]) * 1.15, 170));
       var dir = r.hand >= 0 ? (src[0][9].x >= src[0][0].x ? 1 : -1) : (c.x < W / 2 ? 1 : -1); // follow the fingers
       creatures.push(new Creature(shape, Math.max(s * 1.2, Math.min(W - s * 1.2, r.hand >= 0 ? src[0][12].x + dir * s * 0.75 : c.x)), c.y - s * (shape === 'bird' ? 0.9 : 0.4), s, dir));
-      if (!found[shape]) { found[shape] = true; var el = document.querySelector('#found [data-s="' + shape + '"]'); if (el) el.classList.add('on'); }
+      if (!found[shape]) { found[shape] = true; foundN++; foundEl.textContent = foundN + ' / ' + S.CATALOG.length + ' found'; foundEl.classList.add('on'); var gi = document.querySelector('.shape[data-id="' + shape + '"]'); if (gi) gi.classList.add('got'); }
     }
   }
 
@@ -360,7 +529,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   }
 
   // ---------- No-camera demo: the same recogniser, fed rehearsed poses ----------
-  var DEMO = ['open', 'dog', 'open', 'bird', 'fist', 'rabbit', 'open', 'duck'], demoIdx = -1, demoUntil = 0;
+  var DEMO = ['mystery'].concat(S.CATALOG.map(function (c) { return c.id; })), demoIdx = -1, demoUntil = 0;
   function demoStep(now) {
     if (now < demoUntil) {
       var sway = Math.sin(now * 0.002) * 6;
@@ -370,7 +539,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     demoIdx = (demoIdx + 1) % DEMO.length;
     var pose = DEMO[demoIdx], s = Math.min(W, H) * 0.16;
     demoBase = S.POSES[pose](W / 2, H * 0.55, s);
-    demoUntil = now + (pose === 'open' || pose === 'fist' ? 1600 : 2600);
+    demoUntil = now + (pose === 'mystery' ? 1600 : 2400);
   }
   var demoBase = [];
 
@@ -424,12 +593,21 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 
   // ---------- Guide diagrams, drawn with the same shadow renderer ----------
   function drawGuides() {
+    var list = document.getElementById('guideList'), html = '', lastHasta = null;
+    S.CATALOG.forEach(function (c) {
+      var hasta = !!c.mudra;
+      if (hasta !== lastHasta) { html += '<p class="guide-sub">' + (hasta ? 'From the hastas' : 'Theatre originals') + '</p>'; lastHasta = hasta; }
+      html += '<div class="shape" data-id="' + c.id + '"><canvas data-pose="' + c.id + '" width="224" height="168"></canvas><div><h3>' + c.name + (c.mudra ? '<em>' + c.mudra + '</em>' : '') + '</h3><p>' + c.hint + '</p></div></div>';
+    });
+    list.innerHTML = html;
     document.querySelectorAll('canvas[data-pose]').forEach(function (cv) {
       var c = cv.getContext('2d'), w = cv.width, h = cv.height, pose = cv.dataset.pose;
       var g = c.createRadialGradient(w / 2, h * 1.1, 4, w / 2, h, w); g.addColorStop(0, '#f6d9a2'); g.addColorStop(1, '#a8763f');
       c.fillStyle = g; c.fillRect(0, 0, w, h);
-      var s = pose === 'bird' ? h * 0.3 : h * 0.42, x = w / 2, y = h * (pose === 'rabbit' ? 0.82 : 0.6);
-      if (pose === 'dog' || pose === 'duck') x = w * 0.62;
+      var hs = S.POSES[pose](0, 0, 1), xs = [], ys = [];
+      hs.forEach(function (hd) { hd.forEach(function (p) { xs.push(p.x); ys.push(p.y); }); });
+      var x0 = Math.min.apply(0, xs), x1 = Math.max.apply(0, xs), y0 = Math.min.apply(0, ys), y1 = Math.max.apply(0, ys);
+      var s = Math.min(w * 0.7 / (x1 - x0 + 0.4), h * 0.7 / (y1 - y0 + 0.4)), x = w / 2 - (x0 + x1) / 2 * s, y = h / 2 - (y0 + y1) / 2 * s;
       c.fillStyle = c.strokeStyle = 'rgba(28,18,11,0.92)';
       S.POSES[pose](x, y, s).forEach(function (hd) { drawHand(c, hd); });
     });

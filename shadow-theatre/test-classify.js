@@ -1,23 +1,26 @@
 // Run: node shadow-theatre/test-classify.js
 const S = require('./classify.js');
 let fail = 0;
-function check(name, got, want) { const ok = got === want; if (!ok) fail++; console.log((ok ? 'ok   ' : 'FAIL ') + name + ': ' + got + (ok ? '' : ' (want ' + want + ')')); }
+function check(name, got, want) { const ok = got === want; if (!ok) fail++; if (!ok || process.argv[2]) console.log((ok ? 'ok   ' : 'FAIL ') + name + ': ' + got + (ok ? '' : ' (want ' + want + ')')); }
 const jitter = (hands, amt, seed) => { let r = seed; const rnd = () => ((r = (r * 9301 + 49297) % 233280) / 233280 - 0.5) * amt; return hands.map(h => h.map(p => ({ x: p.x + rnd(), y: p.y + rnd() }))); };
-for (const [pose, want] of [['dog','dog'],['rabbit','rabbit'],['duck','duck'],['bird','bird'],['open',null],['fist',null]]) {
-  for (const [scale, rot] of [[100,0],[40,0],[160,0]]) {
-    check(`${pose} s${scale}`, S.classify(S.POSES[pose](300, 300, scale)).shape, want);
-    check(`${pose} s${scale} jitter`, S.classify(jitter(S.POSES[pose](300, 300, scale), scale * 0.04, scale)).shape, want);
+const rotAll = (hands, deg) => hands.map(h => h.map(p => { const a = deg * Math.PI / 180, x = p.x - 300, y = p.y - 300; return { x: 300 + x * Math.cos(a) - y * Math.sin(a), y: 300 + x * Math.sin(a) + y * Math.cos(a) }; }));
+const mir = hands => hands.map(h => h.map(p => ({ x: 1000 - p.x, y: p.y })));
+const ids = S.CATALOG.map(c => c.id);
+check('catalog size', ids.length, 30);
+for (const id of ids) {
+  check(`${id} has a pose`, typeof S.POSES[id], 'function');
+  for (const scale of [40, 100, 160]) {
+    const h = S.POSES[id](300, 300, scale);
+    check(`${id} s${scale}`, S.classify(h).shape, id);
+    for (let seed = 1; seed <= 3; seed++) check(`${id} s${scale} jitter${seed}`, S.classify(jitter(h, scale * 0.04, scale * seed)).shape, id);
   }
+  for (const deg of [-20, 20]) check(`${id} rot${deg}`, S.classify(rotAll(S.POSES[id](300, 300, 100), deg)).shape, id);
+  check(`${id} mirrored`, S.classify(mir(S.POSES[id](300, 300, 100))).shape, id);
 }
-// rotation tolerance for single-hand shapes
-for (const deg of [-20, 20]) {
-  const rot = (h) => h.map(p => { const a = deg*Math.PI/180, x = p.x-300, y = p.y-300; return { x: 300 + x*Math.cos(a)-y*Math.sin(a), y: 300 + x*Math.sin(a)+y*Math.cos(a) }; });
-  for (const pose of ['dog','rabbit','duck']) check(`${pose} rot${deg}`, S.classify(S.POSES[pose](300,300,100).map(rot)).shape, pose);
-}
-// two open hands far apart are not a bird
-check('two open hands apart', S.classify([S.POSES.open(100,300,80)[0], S.POSES.open(600,300,80)[0]]).shape, null);
-// mirrored (selfie view) inputs still classify
-const mir = h => h.map(p => ({ x: 1000 - p.x, y: p.y }));
-for (const pose of ['dog','rabbit','duck']) check(`${pose} mirrored`, S.classify(S.POSES[pose](300,300,100).map(mir)).shape, pose);
+// unknown shapes stay mysteries (they still cast and sparkle)
+check('flat hand up (fingers together)', S.classify([S.makeHand({ x: 300, y: 300, scale: 100, spread: 1 })]).shape, null);
+check('two lotus hands apart are two lotuses, not a pair', S.classify([S.POSES.lotus(100, 300, 80)[0], S.POSES.lotus(600, 300, 80)[0]]).shape, 'lotus');
+check('mystery pose', S.classify(S.POSES.mystery(300, 300, 100)).shape, null);
+check('middle finger alone', S.classify([S.makeHand({ x: 300, y: 300, scale: 100, fingers: { thumb: 'curl', index: 'curl', ring: 'curl', pinky: 'curl' } })]).shape, null);
 console.log(fail ? `\n${fail} failed` : '\nall passed');
 process.exit(fail ? 1 : 0);

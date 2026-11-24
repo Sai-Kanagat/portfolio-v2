@@ -34,25 +34,56 @@
     };
   }
 
+  // Which way the fingers point on screen.
+  function orient(h) {
+    var vx = h[9].x - h[0].x, vy = h[9].y - h[0].y, L = Math.hypot(vx, vy) || 1e-6;
+    return vy / L < -0.55 ? 'up' : (vy / L > 0.55 ? 'down' : 'side');
+  }
+  function bits(e) { return (e.thumb ? '1' : '0') + (e.index ? '1' : '0') + (e.middle ? '1' : '0') + (e.ring ? '1' : '0') + (e.pinky ? '1' : '0'); }
+
+  // Finger signature (thumb, index, middle, ring, pinky) + direction -> creature.
+  var TABLE = {
+    '01001 up': 'lion', '11001 up': 'bat', '10001 up': 'deer', '10001 side': 'whale',
+    '01000 up': 'giraffe', '01000 side': 'snake', '01000 down': 'spider',
+    '11000 up': 'moon', '11000 side': 'crocodile', '10000 up': 'penguin', '10000 down': 'ghost',
+    '00001 up': 'mouse', '01100 side': 'horse', '01101 up': 'peacock',
+    '01110 up': 'trident', '01110 side': 'fox', '11111 side': 'fish', '11111 down': 'jellyfish',
+    '00000 up': 'hedgehog', '00000 side': 'turtle', '01111 side': 'shark'
+  };
+
+
   // Single-hand shapes. Order matters: the most specific test runs first.
   function classifyHand(h) {
-    var f = features(h), e = f.ext;
+    var f = features(h), e = f.ext, o = orient(h);
     // Duck: every fingertip gathered onto the thumb to form a beak.
-    if (f.pinch < 0.38 && d(h[4], h[16]) / f.size < 0.55) return 'duck';
+    if (f.pinch < 0.38 && d(h[4], h[16]) / f.size < 0.55 && d(h[4], h[0]) / f.size > 1.1) return 'duck';
+    // Swan (Hamsasya): thumb and index tips touch as the beak, the other three fingers up.
+    if (d(h[4], h[8]) / f.size < 0.3 && e.middle && e.ring && e.pinky) return 'swan';
+    // Lotus (Alapadma): every finger open and fanned wide, pointing up.
+    if (o === 'up' && e.thumb && e.index && e.middle && e.ring && e.pinky && f.tipsTight > 1.7) return 'lotus';
     // Rabbit: index and middle up as ears, ring and pinky folded.
-    if (e.index && e.middle && !e.ring && !e.pinky && f.vSpread > 0.22) return 'rabbit';
-    // Dog: index, middle, ring held together as the snout, thumb raised as an ear.
-    if (e.index && e.middle && e.ring && f.tipsTight < 1.45 && e.thumb && f.thumbAngle > 35) return 'dog';
-    return null;
+    if (o === 'up' && e.index && e.middle && !e.ring && !e.pinky && f.vSpread > 0.22) return 'rabbit';
+    // Dog: index, middle, ring held together as the snout, thumb raised as an ear, pinky as the jaw.
+    if (e.index && e.middle && e.ring && !e.pinky && f.tipsTight < 1.45 && e.thumb && f.thumbAngle > 35) return 'dog';
+    return TABLE[bits(e) + ' ' + o] || null;
   }
 
-  // Two hands: bird when the thumbs hook together and the fingers spread as wings.
+  // Two hands.
   function classifyPair(a, b) {
     var s = (handSize(a) + handSize(b)) / 2;
-    var thumbs = d(a[4], b[4]) / s;
-    var wings = ['index', 'middle', 'ring'].every(function (n) { return extended(a, n) && extended(b, n); });
-    var apart = d(a[9], b[9]) / s;
+    var thumbs = d(a[4], b[4]) / s, apart = d(a[9], b[9]) / s, wrists = d(a[0], b[0]) / s;
+    var ea = features(a).ext, eb = features(b).ext;
+    var wings = ['index', 'middle', 'ring'].every(function (n) { return ea[n] && eb[n]; });
+    // Bird: thumbs hooked together, fingers spread as wings.
     if (thumbs < 0.5 && wings && apart > 0.9) return 'bird';
+    // Butterfly: wrists crossed together, both hands open as wings.
+    if (wrists < 0.7 && wings && thumbs > 0.8) return 'butterfly';
+    var fist = function (e) { return !e.index && !e.middle && !e.ring && !e.pinky; };
+    var vee = function (e) { return e.index && e.middle && !e.ring && !e.pinky; };
+    // Bear: two fists side by side as a big head and paws.
+    if (fist(ea) && fist(eb) && apart < 2.6) return 'bear';
+    // Crab: two V signs as claws.
+    if (vee(ea) && vee(eb)) return 'crab';
     return null;
   }
 
@@ -133,6 +164,58 @@
     fist: function (x, y, s) { return [makeHand({ x: x, y: y, scale: s, fingers: { thumb: 'curl', index: 'curl', middle: 'curl', ring: 'curl', pinky: 'curl' } })]; }
   };
 
-  var api = { classify: classify, classifyHand: classifyHand, classifyPair: classifyPair, features: features, makeHand: makeHand, POSES: POSES };
+  var ROT = { up: 0, side: -90, down: 180 }, FN = ['thumb', 'index', 'middle', 'ring', 'pinky'];
+  Object.keys(TABLE).forEach(function (k) {
+    var b = k.split(' ')[0], o = k.split(' ')[1], fg = {};
+    FN.forEach(function (n, i) { fg[n] = b[i] === '1' ? 'ext' : 'curl'; });
+    POSES[TABLE[k]] = function (x, y, s) { return [makeHand({ x: x, y: y, scale: s, rot: ROT[o], spread: 12, thumbAngle: 60, fingers: fg })]; };
+  });
+  POSES.swan = function (x, y, s) { return [makeHand({ x: x, y: y, scale: s, spread: 12, fingers: { thumb: 'pinch', index: 'pinch' } })]; };
+  function pair(x, y, s, gap, rot, spec) {
+    var l = makeHand(Object.assign({ x: x - gap, y: y, scale: s, rot: rot }, spec));
+    var r = makeHand(Object.assign({ x: x + gap, y: y, scale: s, rot: rot }, spec)).map(function (p) { return { x: 2 * (x + gap) - p.x, y: p.y }; });
+    return [l, r];
+  }
+  POSES.lotus = function (x, y, s) { return [makeHand({ x: x, y: y, scale: s, spread: 16, thumbAngle: 60 })]; };
+  POSES.mystery = function (x, y, s) { return [makeHand({ x: x, y: y, scale: s, fingers: { thumb: 'curl', index: 'curl', ring: 'curl', pinky: 'curl' } })]; };
+  POSES.butterfly = function (x, y, s) { return pair(x, y + s * 0.4, s, s * 0.12, -35, { spread: 16, thumbAngle: 70 }); };
+  POSES.bear = function (x, y, s) { return pair(x, y, s, s * 0.6, 0, { fingers: { thumb: 'curl', index: 'curl', middle: 'curl', ring: 'curl', pinky: 'curl' } }); };
+  POSES.crab = function (x, y, s) { return pair(x, y, s, s * 1.1, -20, { spread: 14, fingers: { thumb: 'curl', ring: 'curl', pinky: 'curl' } }); };
+
+  // Everything the theatre knows, in guide order, with how to make it.
+  var CATALOG = [
+    ['bird', 'Eagle', 'Garuda', 'Both hands, palms toward you. Hook your thumbs together and spread the fingers wide as wings.'],
+    ['duck', 'Duck', 'Mukula', 'Bring every fingertip onto your thumb like a closed bud, then point it sideways as a beak.'],
+    ['swan', 'Swan', 'Hamsasya', 'Touch the tips of thumb and index finger as the beak. Hold the other three fingers up.'],
+    ['moon', 'Crescent moon', 'Chandrakala', 'Thumb and index open in an L, fingers pointing up. The rest folded.'],
+    ['deer', 'Deer', 'Mrigashirsha', 'Thumb and little finger out, the middle three folded, fingers pointing up.'],
+    ['lion', 'Lion', 'Simhamukha', 'Index and little finger up, middle and ring folded onto the thumb.'],
+    ['peacock', 'Peacock', 'Mayura', 'Touch your ring finger to your thumb. Index, middle and little finger up.'],
+    ['trident', 'Trident', 'Trishula', 'Index, middle and ring up, thumb and little finger folded.'],
+    ['lotus', 'Lotus', 'Alapadma', 'Open every finger and fan them wide, palm toward the candle.'],
+    ['rabbit', 'Rabbit', 'Kartarimukha', 'Index and middle up and apart like scissors for the ears. Fold the rest.'],
+    ['penguin', 'Penguin', 'Shikhara', 'A fist with the thumb raised.'],
+    ['hedgehog', 'Hedgehog', 'Mushti', 'A closed fist, knuckles up.'],
+    ['giraffe', 'Giraffe', 'Suchi', 'Index finger alone, pointing up like a needle.'],
+    ['dog', 'Dog', '', 'Hand side on, index, middle and ring fingers together as the snout, thumb up as the ear, little finger dropped as the jaw.'],
+    ['butterfly', 'Butterfly', '', 'Cross your wrists and open both hands wide, thumbs pointing out.'],
+    ['bear', 'Bear', '', 'Two fists side by side, close together.'],
+    ['crab', 'Crab', '', 'A V on each hand, held apart like two claws.'],
+    ['bat', 'Bat', '', 'Thumb, index and little finger out, fingers pointing up.'],
+    ['whale', 'Whale', '', 'Thumb and little finger out, hand turned sideways.'],
+    ['snake', 'Snake', '', 'Index finger alone, pointing sideways.'],
+    ['spider', 'Spider', '', 'Index finger alone, pointing down.'],
+    ['crocodile', 'Crocodile', '', 'Thumb and index in an L, turned sideways.'],
+    ['ghost', 'Ghost', '', 'A thumbs down.'],
+    ['mouse', 'Mouse', '', 'Little finger alone, pointing up.'],
+    ['horse', 'Horse', '', 'Index and middle out, hand sideways.'],
+    ['fox', 'Fox', '', 'Three middle fingers out sideways, thumb and little finger folded.'],
+    ['fish', 'Fish', '', 'Open hand, fingers pointing sideways.'],
+    ['jellyfish', 'Jellyfish', '', 'Open hand, fingers dangling down.'],
+    ['turtle', 'Turtle', '', 'A fist turned sideways.'],
+    ['shark', 'Shark', '', 'Four fingers out sideways, thumb tucked in.']
+  ].map(function (r) { return { id: r[0], name: r[1], mudra: r[2], hint: r[3] }; });
+
+  var api = { classify: classify, classifyHand: classifyHand, classifyPair: classifyPair, features: features, makeHand: makeHand, POSES: POSES, CATALOG: CATALOG, orient: orient };
   if (typeof module !== 'undefined' && module.exports) module.exports = api; else root.ShadowShapes = api;
 })(this);
