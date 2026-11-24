@@ -101,7 +101,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     /* tile backgrounds */
     /* demo thumbnails — real preview image + dark scrim so the tile text stays readable */
     .demo-tile-bg.bg-agora, .demo-tile-bg.bg-hands, .demo-tile-bg.bg-balls,
-    .demo-tile-bg.bg-roas, .demo-tile-bg.bg-poster, .demo-tile-bg.bg-audio, .demo-tile-bg.bg-cortex, .demo-tile-bg.bg-melt, .demo-tile-bg.bg-ad-autopsy, .demo-tile-bg.bg-shadow {
+    .demo-tile-bg.bg-roas, .demo-tile-bg.bg-poster, .demo-tile-bg.bg-audio, .demo-tile-bg.bg-cortex, .demo-tile-bg.bg-melt, .demo-tile-bg.bg-ad-autopsy, .demo-tile-bg.bg-shadow, .demo-tile-bg.bg-positioning {
       position: absolute !important; inset: 0 !important; height: auto !important;
       background-size: cover !important; background-position: center top !important; background-repeat: no-repeat !important;
     }
@@ -113,6 +113,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     .demo-tile-bg.bg-balls  { background-image: url('assets/images/DEMOS/balls.jpg') !important; }
     .demo-tile-bg.bg-ad-autopsy { background-image: url('assets/images/DEMOS/ad-autopsy.jpg') !important; }
     .demo-tile-bg.bg-roas   { background-image: url('assets/images/DEMOS/roas.jpg') !important; }
+    .demo-tile-bg.bg-positioning { background-image: url('assets/images/DEMOS/positioning.jpg') !important; }
     .demo-tile-bg.bg-poster { background-image: url('assets/images/DEMOS/poster.jpg') !important; }
     .demo-tile-bg.bg-audio  { background-image: url('assets/images/DEMOS/audio.jpg') !important; }
     .demo-tile-bg.bg-cortex { background-image: url('assets/images/DEMOS/cortex-studio.jpg') !important; background-size: cover !important; background-position: center !important; }
@@ -323,6 +324,25 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
               <span class="demo-tile-tag">Live Calc</span>
             </div>
             <div class="demo-tile-cta">Launch ROAS Playground →</div>
+          </div>
+        </div>
+      </a>
+
+      <a href="positioning/index.html" class="demo-tile" data-cat="marketing">
+        <div class="demo-tile-bg bg-positioning"></div>
+        <div class="demo-tile-content">
+          <div>
+            <div class="demo-tile-num">Marketing Tool</div>
+            <h2 class="demo-tile-title" style="margin: 14px 0 0;">POSITIONING<br><span style="color: rgba(245,240,232,0.6); font-size: 0.42em; letter-spacing: 0.18em;">MAPPER</span></h2>
+          </div>
+          <div class="demo-tile-meta">
+            <p class="demo-tile-desc">Paste competitor headlines, taglines and prices. Get scored positions, a draggable 2x2 map, crowded zones, white space, a positioning statement draft and a messaging gap table. Exports to PNG and PDF.</p>
+            <div class="demo-tile-tags">
+              <span class="demo-tile-tag">Positioning</span>
+              <span class="demo-tile-tag">Competitive Analysis</span>
+              <span class="demo-tile-tag">Messaging</span>
+            </div>
+            <div class="demo-tile-cta">Launch Positioning Mapper →</div>
           </div>
         </div>
       </a>
