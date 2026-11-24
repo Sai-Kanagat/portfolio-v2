@@ -128,9 +128,9 @@ try{var c=localStorage.getItem('sk_consent_v2');if(c==='granted'){gtag('consent'
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MRGXD7ZC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<a href="../demos.html" class="demo-back">&larr; Demos</a>
+<a href="../demos.html" class="demo-back" data-track="ad.back">&larr; Demos</a>
 
-<div class="wrap">
+<div class="wrap" data-zone="ad">
   <h1>Ad Autopsy</h1>
   <p class="hook">I spent &euro;15K on Meta ads learning this by hand. Now it runs in your browser.</p>
   <p class="lede">Drop in an ad or a landing page screenshot. You get an attention heatmap with the likely gaze path, a thumb-stop score, the ad inside three mock feeds, platform safe zones, accessibility checks, a brand palette match, a copy check, an A/B verdict and a PDF of fixes in priority order.</p>
@@ -140,10 +140,10 @@ try{var c=localStorage.getItem('sk_consent_v2');if(c==='granted'){gtag('consent'
   </div>
 
   <div class="inbar">
-    <label class="drop" id="drop">
+    <label class="drop" id="drop" data-track="ad.drop">
       <strong>Drop your ad here</strong>
       or tap to choose a JPG or PNG. Paste from clipboard works too.
-      <input type="file" id="file" accept="image/*" hidden>
+      <input type="file" id="file" data-track="ad.file" accept="image/*" hidden>
     </label>
     <div class="samples">
       <span>Or try a sample</span>
@@ -155,17 +155,17 @@ try{var c=localStorage.getItem('sk_consent_v2');if(c==='granted'){gtag('consent'
     <div>
       <div class="stage" id="stage"><canvas id="cv"></canvas><canvas id="ov" class="ov"></canvas></div>
       <div class="layers" id="layers">
-        <button data-l="heat" class="on">Heatmap</button>
-        <button data-l="gaze" class="on">Gaze path</button>
-        <button data-l="text">Text regions</button>
-        <button data-l="face" class="on">Faces</button>
+        <button data-track="ad.layer.heat" data-l="heat" class="on">Heatmap</button>
+        <button data-track="ad.layer.gaze" data-l="gaze" class="on">Gaze path</button>
+        <button data-track="ad.layer.text" data-l="text">Text regions</button>
+        <button data-track="ad.layer.face" data-l="face" class="on">Faces</button>
       </div>
       <div class="layers" id="zones">
-        <button data-z="none" class="on">No safe zone</button>
-        <button data-z="reels">Reels</button>
-        <button data-z="stories">Stories</button>
-        <button data-z="tiktok">TikTok</button>
-        <button data-z="linkedin">LinkedIn crop</button>
+        <button data-track="ad.zone.none" data-z="none" class="on">No safe zone</button>
+        <button data-track="ad.zone.reels" data-z="reels">Reels</button>
+        <button data-track="ad.zone.stories" data-z="stories">Stories</button>
+        <button data-track="ad.zone.tiktok" data-z="tiktok">TikTok</button>
+        <button data-track="ad.zone.linkedin" data-z="linkedin">LinkedIn crop</button>
       </div>
       <div class="status" id="zoneNote"></div>
       <div class="status" id="status">Loading.</div>
@@ -181,14 +181,14 @@ try{var c=localStorage.getItem('sk_consent_v2');if(c==='granted'){gtag('consent'
     <h2>Feed simulator</h2>
     <p class="blk-lede">Your ad at true phone scale (a 375 point wide screen) inside generic mock feeds. Run the scroll test: the feed flicks past at a normal thumb speed with motion blur, which is all most people ever see.</p>
     <div class="row" id="feedTabs" style="margin-bottom:16px">
-      <button data-f="ig" class="on">Photo feed</button>
-      <button data-f="li">Professional feed</button>
-      <button data-f="tt">Short video feed</button>
+      <button data-track="ad.feed.ig" data-f="ig" class="on">Photo feed</button>
+      <button data-track="ad.feed.li" data-f="li">Professional feed</button>
+      <button data-track="ad.feed.tt" data-f="tt">Short video feed</button>
     </div>
     <div class="feedwrap">
       <div class="phone" id="phone"><div class="feed" id="feed"></div></div>
       <div>
-        <button class="primary" id="flick">Run scroll-blur test</button>
+        <button class="primary" id="flick" data-track="ad.flick">Run scroll-blur test</button>
         <div class="flickres" id="flickRes" style="margin-top:20px"></div>
       </div>
     </div>
@@ -214,7 +214,7 @@ try{var c=localStorage.getItem('sk_consent_v2');if(c==='granted'){gtag('consent'
       <div><label class="f">Ad palette</label><div class="swatches" id="adPal"></div></div>
       <div>
         <label class="f" for="brand">Brand colours (hex, any separator)</label>
-        <textarea id="brand" rows="2">#FF5A1F, #111111, #FFFFFF</textarea>
+        <textarea id="brand" data-track="ad.brand" rows="2">#FF5A1F, #111111, #FFFFFF</textarea>
         <div class="swatches" id="brandPal"></div>
       </div>
     </div>
@@ -226,8 +226,8 @@ try{var c=localStorage.getItem('sk_consent_v2');if(c==='granted'){gtag('consent'
     <p class="blk-lede">Optional. Paste the headline and primary text to score length, reading level, call to action and filler.</p>
     <div class="two">
       <div>
-        <label class="f" for="hl">Headline</label><input type="text" id="hl" value="Cold brew, done in 12 hours">
-        <label class="f" for="pt">Primary text</label><textarea id="pt" rows="4">Smooth, low-acid coffee that is ready when you are. Steep it overnight, pour it in the morning. Shop the starter kit today.</textarea>
+        <label class="f" for="hl">Headline</label><input type="text" id="hl" data-track="ad.headline" value="Cold brew, done in 12 hours">
+        <label class="f" for="pt">Primary text</label><textarea id="pt" data-track="ad.copy" rows="4">Smooth, low-acid coffee that is ready when you are. Steep it overnight, pour it in the morning. Shop the starter kit today.</textarea>
       </div>
       <div><table><tbody id="copyTable"></tbody></table></div>
     </div>
@@ -237,8 +237,8 @@ try{var c=localStorage.getItem('sk_consent_v2');if(c==='granted'){gtag('consent'
     <h2>A/B mode</h2>
     <p class="blk-lede">Two ads side by side, same checks, one verdict.</p>
     <div class="ab">
-      <div class="slot"><h3>A</h3><select id="abSelA"></select><input type="file" id="abFileA" accept="image/*" style="margin-top:8px;font-size:.66rem"><canvas id="abA"></canvas><div id="abSA"></div></div>
-      <div class="slot"><h3>B</h3><select id="abSelB"></select><input type="file" id="abFileB" accept="image/*" style="margin-top:8px;font-size:.66rem"><canvas id="abB"></canvas><div id="abSB"></div></div>
+      <div class="slot"><h3>A</h3><select id="abSelA" data-track="ad.ab.slot_a"></select><input type="file" id="abFileA" data-track="ad.ab.file_a" accept="image/*" style="margin-top:8px;font-size:.66rem"><canvas id="abA"></canvas><div id="abSA"></div></div>
+      <div class="slot"><h3>B</h3><select id="abSelB" data-track="ad.ab.slot_b"></select><input type="file" id="abFileB" data-track="ad.ab.file_b" accept="image/*" style="margin-top:8px;font-size:.66rem"><canvas id="abB"></canvas><div id="abSB"></div></div>
     </div>
     <div class="verdict" id="abVerdict">Pick two ads.</div>
   </section>
@@ -247,12 +247,53 @@ try{var c=localStorage.getItem('sk_consent_v2');if(c==='granted'){gtag('consent'
     <h2>Fixes, in priority order</h2>
     <p class="blk-lede">Ranked by how much each one is likely to cost you. Export the lot as a one-page PDF.</p>
     <ol class="fixes" id="fixes"></ol>
-    <div style="margin-top:20px"><button class="primary" id="pdf">Download PDF report</button></div>
+    <div style="margin-top:20px"><button class="primary" id="pdf" data-track="ad.pdf">Download PDF report</button></div>
   </section>
 
   <p class="foot">How it works: spectral residual saliency (Hou and Zhang, 2007) blended with face detection and an edge density text detector gives the heatmap. Scores are rules of thumb from paid social practice, calibrated by hand. They predict where attention probably goes, not where it provably goes. Everything, including face detection, runs on your device.</p>
 </div>
 
+<script>
+/* Tracking helper. Sends ids, buckets, counts and ms only: never typed text, names, file names or URL state. */
+(function(){
+  var DID='ad-autopsy',t0=Date.now(),Q=[],QT=0,QN=0,P={},HK=[];
+  var S={first:0,start:0,ended:0,eng:0,act:0,er:0};
+  function send(m,a){var s=window.sk;if(s&&typeof s[m]==='function'){try{s[m].apply(s,a);}catch(e){}return true;}return false;}
+  function flush(){while(Q.length&&send(Q[0][0],Q[0][1]))Q.shift();}
+  function emit(m,a){try{if(Q.length<80)Q.push([m,a]);flush();if(Q.length&&!QT){QN=0;QT=setInterval(function(){flush();if(!Q.length||++QN>24){clearInterval(QT);QT=0;Q.length=0;}},500);}}catch(e){}}
+  var TRK=window.TRK={
+    id:DID,
+    a:function(action,p){emit('demo',[DID,action,p||{}]);},
+    e:function(name,p){var o={demo_id:DID};if(p)for(var k in p)o[k]=p[k];emit('track',[name,o]);},
+    raw:function(name,p){emit('track',[name,p||{}]);},
+    start:function(mode){if(S.start)return;S.start=1;TRK.e('demo_start',{mode:mode});},
+    err:function(code){if(S.er++<3)TRK.e('demo_error',{code:code});},
+    model:function(state,ms){emit('model',[DID,state,{ms:ms,delegate:'CPU'}]);},
+    lb:function(n){return n<=0?'0':n<=20?'1-20':n<=80?'21-80':n<=300?'81-300':'300+';},
+    cb:function(n){return n<=0?'0':n===1?'1':n<=5?'2-5':n<=20?'6-20':'21+';},
+    q5:function(v,lo,hi){var p=(v-lo)/((hi-lo)||1);return 'q'+Math.min(5,Math.max(1,Math.floor(p*5)+1));},
+    deb:function(key,ms,fn){if(P[key])clearTimeout(P[key].t);P[key]={fn:fn,t:setTimeout(function(){var f=P[key];delete P[key];try{f&&f.fn();}catch(e){}},ms)};},
+    flush:function(){Object.keys(P).forEach(function(k){var f=P[k];delete P[k];clearTimeout(f.t);try{f.fn();}catch(e){}});},
+    onend:function(fn){HK.push(fn);},
+    nav:function(){try{return performance.getEntriesByType('navigation')[0].type;}catch(e){return 'navigate';}},
+    end:function(reason){if(S.ended)return;S.ended=1;TRK.flush();HK.forEach(function(f){try{f();}catch(e){}});TRK.e('demo_end',{ms:Date.now()-t0,reason:reason});}
+  };
+  function active(){S.act=Date.now();}
+  ['pointermove','scroll','wheel','touchmove'].forEach(function(ev){window.addEventListener(ev,active,{passive:true,capture:true});});
+  ['pointerdown','keydown','input','change'].forEach(function(ev){document.addEventListener(ev,function(){active();if(!S.first){S.first=1;TRK.a('first_interaction',{value:Math.round((Date.now()-t0)/1000)});}},true);});
+  setInterval(function(){if(document.hidden||!S.act||Date.now()-S.act>5000)return;S.eng++;if(S.eng===10||S.eng===60)TRK.e('demo_engaged',{seconds:S.eng});},1000);
+  document.addEventListener('visibilitychange',function(){if(document.hidden)TRK.end('hidden');else S.ended=0;});
+  window.addEventListener('pagehide',function(){TRK.end('leave');});
+  document.addEventListener('click',function(e){var a=e.target&&e.target.closest&&e.target.closest('a[data-track]');if(!a)return;var id=a.getAttribute('data-track')||'';if(/\.(back|home)$/.test(id))TRK.end(id.split('.').pop());},true);
+  window.addEventListener('error',function(ev){if(ev&&ev.filename&&ev.filename.indexOf(location.origin)!==0)return;TRK.err('js');});
+  window.addEventListener('unhandledrejection',function(){TRK.err('promise');});
+  TRK.e('demo_open');
+  /* return visit: a local flag, written only once analytics consent is granted */
+  var RV=0;
+  function rv(){try{if(RV||!window.sk||sk.consent!=='granted')return;RV=1;var k='sk_seen_'+DID;if(localStorage.getItem(k))TRK.a('return_visit',{item:TRK.nav()});else localStorage.setItem(k,'1');}catch(e){}}
+  setTimeout(rv,1500);window.addEventListener('sk:consent',function(){setTimeout(rv,50);});
+})();
+</script>
 <script>
 (function(){
 'use strict';
@@ -556,12 +597,13 @@ function abRender(){['A','B'].forEach(function(k){var s=abSrc[k];if(!s)return;va
   if(!abSrc.A||!abSrc.B)return;var a=abSrc.A.an,b=abSrc.B.an,d=a.total-b.total,win=d>=0?'A':'B',W=d>=0?a:b,L=d>=0?b:a;
   var reasons=Object.keys(LABEL).filter(function(k){return W.s[k]!==null&&L.s[k]!==null&&W.s[k]-L.s[k]>=5;}).sort(function(x,y){return (W.s[y]-L.s[y])-(W.s[x]-L.s[x]);}).slice(0,3).map(function(k){return LABEL[k].toLowerCase()+' ('+W.s[k]+' vs '+L.s[k]+')';});
   var against=Object.keys(LABEL).filter(function(k){return W.s[k]!==null&&L.s[k]!==null&&L.s[k]-W.s[k]>=8;}).map(function(k){return LABEL[k].toLowerCase();});
+  if(abEmit){abEmit=false;var ad=Math.abs(d);TRK.deb('abres',400,function(){TRK.a('ab_result',{item:ad<4?'tie':win,bucket:ad<4?'lt4':ad<10?'4-10':ad<20?'10-20':'20+'});});}
   $('abVerdict').innerHTML=Math.abs(d)<4?'<b>Too close to call</b> ('+a.total+' vs '+b.total+'). Put real budget behind both and let the data decide.':
     '<b>'+win+' wins, '+W.total+' to '+L.total+'.</b> '+(reasons.length?'Mostly on '+reasons.join(', ')+'.':'')+(against.length?' '+(win==='A'?'B':'A')+' still does better on '+against.join(', ')+', worth stealing for the next round.':'')+' Treat this as a pre-flight check, not a replacement for a live test.';}
 function loadAB(k,v){if(v==='current'){abSrc[k]=cur?{img:curSrc,an:cur}:null;}else{var s=samples[+v];abSrc[k]={img:s.canvas,an:null};}abRender();}
 
 /* ---------- PDF ---------- */
-function exportPdf(){if(!cur)return;if(!window.jspdf){alert('The PDF library is still loading. Try again in a second.');return;}
+function exportPdf(){if(!cur)return;if(!window.jspdf){TRK.err('pdf_lib');alert('The PDF library is still loading. Try again in a second.');return;}TRK.start('pdf');TRK.a('report_pdf',{bucket:TRK.q5(cur.total,0,100)});
   var A=cur,doc=new window.jspdf.jsPDF({unit:'pt',format:'a4'}),M=40,y=46;
   doc.setFont('helvetica','bold');doc.setFontSize(20);doc.text('Ad Autopsy report',M,y);
   doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(110);doc.text('saikanagat.com/ad-autopsy   '+new Date().toISOString().slice(0,10)+'   Heuristic audit, not an eye-tracking study.',M,y+16);
@@ -610,34 +652,38 @@ function sampleVella(){var c=document.createElement('canvas');c.width=1080;c.hei
   x.fillStyle='#fff';rr(x,390,1700,300,86,43);x.fill();x.fillStyle='#2E2420';x.font='700 34px Arial, sans-serif';x.fillText('Shop now',540,1755);return c;}
 
 /* ---------- loading ---------- */
-function setSource(src,keepUrl){curSrc=src;cur=analyze(src);render();if($('abSelA').value==='current')loadAB('A','current');}
-function fromFile(file){if(!file||!/^image\//.test(file.type))return;var r=new FileReader();r.onload=function(){var im=new Image();im.onload=function(){var c=workCanvas(im,1600);setSource(c);
+var abEmit=false;
+function ftype(f){var t=f&&f.type;return t==='image/png'?'png':t==='image/jpeg'?'jpg':t==='image/webp'?'webp':t==='image/gif'?'gif':'other';}
+function setSource(src,user){curSrc=src;var t0=performance.now();cur=analyze(src);var ms=Math.round(performance.now()-t0);render();if(user)TRK.a('analysis_done',{ms:ms});if($('abSelA').value==='current')loadAB('A','current');}
+function fromFile(file,how){if(!file)return;if(!/^image\//.test(file.type)){TRK.err('not_image');return;}TRK.start('upload');TRK.a('upload',{item:how+':'+ftype(file)});var r=new FileReader();r.onload=function(){var im=new Image();im.onload=function(){var c=workCanvas(im,1600);setSource(c,1);
   ['heat','gaze','face'].forEach(function(l){layers[l]=1;});};im.src=r.result;};r.readAsDataURL(file);}
-function fileTo(k,file){if(!file)return;var r=new FileReader();r.onload=function(){var im=new Image();im.onload=function(){abSrc[k]={img:workCanvas(im,1600),an:null};abRender();};im.src=r.result;};r.readAsDataURL(file);}
+function fileTo(k,file){if(!file)return;TRK.start('ab');TRK.a('ab_upload',{item:k+':'+ftype(file)});var r=new FileReader();r.onload=function(){var im=new Image();im.onload=function(){abSrc[k]={img:workCanvas(im,1600),an:null};abEmit=true;abRender();abEmit=false;};im.src=r.result;};r.readAsDataURL(file);}
 /* the face model's wasm runtime prints routine INFO lines through console.error; route those to console.info */
 (function(){var e=console.error;console.error=function(m){if(typeof m==='string'&&/^INFO:/.test(m))return console.info.apply(console,arguments);return e.apply(console,arguments);};})();
-function loadFace(){import(MP+'/vision_bundle.mjs').then(function(v){return v.FilesetResolver.forVisionTasks(MP+'/wasm').then(function(fs){return v.FaceDetector.createFromOptions(fs,{baseOptions:{modelAssetPath:FACE_MODEL,delegate:'CPU'},runningMode:'IMAGE',minDetectionConfidence:0.7});});})
-  .then(function(d){faceDet=d;faceState='ready';if(curSrc){cur=analyze(curSrc);render();}Object.keys(abSrc).forEach(function(k){if(abSrc[k])abSrc[k].an=null;});abRender();})
-  .catch(function(){faceState='failed';if(cur)render();});}
+var faceT0=0;
+function loadFace(){faceT0=performance.now();import(MP+'/vision_bundle.mjs').then(function(v){return v.FilesetResolver.forVisionTasks(MP+'/wasm').then(function(fs){return v.FaceDetector.createFromOptions(fs,{baseOptions:{modelAssetPath:FACE_MODEL,delegate:'CPU'},runningMode:'IMAGE',minDetectionConfidence:0.7});});})
+  .then(function(d){faceDet=d;faceState='ready';TRK.model('loaded',Math.round(performance.now()-faceT0));if(curSrc){cur=analyze(curSrc);render();}Object.keys(abSrc).forEach(function(k){if(abSrc[k])abSrc[k].an=null;});abRender();})
+  .catch(function(){faceState='failed';TRK.model('failed',Math.round(performance.now()-faceT0));if(cur)render();});}
 
 function init(){
   samples=[{name:'Lumo cold brew',canvas:sampleLumo()},{name:'Ferro gym',canvas:sampleFerro()},{name:'Vella story',canvas:sampleVella()}];
-  var sb=$('sampleBtns');samples.forEach(function(s,i){var b=document.createElement('button');b.textContent=s.name;b.onclick=function(){[].forEach.call(sb.children,function(x){x.classList.toggle('on',x===b);});setSource(s.canvas);};sb.appendChild(b);});
+  var sb=$('sampleBtns');samples.forEach(function(s,i){var b=document.createElement('button');b.textContent=s.name;var sid=['lumo','ferro','vella'][i];b.setAttribute('data-track','ad.sample.'+sid);b.onclick=function(){TRK.start('sample');TRK.a('sample',{item:sid});[].forEach.call(sb.children,function(x){x.classList.toggle('on',x===b);});setSource(s.canvas,1);};sb.appendChild(b);});
   sb.children[0].classList.add('on');
-  ['abSelA','abSelB'].forEach(function(id,j){var s=$(id);s.innerHTML='<option value="current">Current ad</option>'+samples.map(function(x,i){return '<option value="'+i+'">'+x.name+'</option>';}).join('');s.value=j?'1':'current';s.onchange=function(){loadAB(j?'B':'A',s.value);};});
+  ['abSelA','abSelB'].forEach(function(id,j){var s=$(id);s.innerHTML='<option value="current">Current ad</option>'+samples.map(function(x,i){return '<option value="'+i+'">'+x.name+'</option>';}).join('');s.value=j?'1':'current';s.onchange=function(){TRK.start('ab');var sl=j?'B':'A';TRK.a('ab_slot',{item:sl+':'+(s.value==='current'?'current':['lumo','ferro','vella'][+s.value])});abEmit=true;loadAB(sl,s.value);abEmit=false;};});
   $('abFileA').onchange=function(e){fileTo('A',e.target.files[0]);};$('abFileB').onchange=function(e){fileTo('B',e.target.files[0]);};
-  setSource(samples[0].canvas);loadAB('B','1');
-  [].forEach.call($('layers').children,function(b){b.onclick=function(){var l=b.dataset.l;layers[l]=layers[l]?0:1;b.classList.toggle('on',!!layers[l]);render();};});
-  [].forEach.call($('zones').children,function(b){b.onclick=function(){zone=b.dataset.z;[].forEach.call($('zones').children,function(x){x.classList.toggle('on',x===b);});render();};});
-  [].forEach.call($('feedTabs').children,function(b){b.onclick=function(){feedKind=b.dataset.f;[].forEach.call($('feedTabs').children,function(x){x.classList.toggle('on',x===b);});$('flickRes').innerHTML='';renderFeed();};});
-  $('flick').onclick=runFlick;$('pdf').onclick=exportPdf;
+  setSource(samples[0].canvas,0);loadAB('B','1');
+  [].forEach.call($('layers').children,function(b){b.onclick=function(){var l=b.dataset.l;layers[l]=layers[l]?0:1;TRK.start('layer');TRK.a('layer',{item:l,value:layers[l]});b.classList.toggle('on',!!layers[l]);render();};});
+  [].forEach.call($('zones').children,function(b){b.onclick=function(){zone=b.dataset.z;TRK.start('zone');TRK.a('zone',{item:zone});[].forEach.call($('zones').children,function(x){x.classList.toggle('on',x===b);});render();};});
+  [].forEach.call($('feedTabs').children,function(b){b.onclick=function(){feedKind=b.dataset.f;TRK.start('feed');TRK.a('feed',{item:feedKind});[].forEach.call($('feedTabs').children,function(x){x.classList.toggle('on',x===b);});$('flickRes').innerHTML='';renderFeed();};});
+  $('flick').onclick=function(){if(cur){TRK.start('flick');TRK.a('flick',{item:feedKind,bucket:TRK.q5(cur.flick,0,100)});}runFlick();};$('pdf').onclick=exportPdf;
   $('brand').oninput=function(){renderBrand();renderFixes();};
+  [['brand','brand_edit'],['hl','headline_edit'],['pt','copy_edit']].forEach(function(x){var el=$(x[0]);el.addEventListener('input',function(){TRK.start('edit');TRK.deb(x[1],700,function(){TRK.a(x[1],{bucket:TRK.lb(el.value.length)});});});});
   $('hl').oninput=$('pt').oninput=function(){renderCopy();renderFixes();renderFeed();};
-  var drop=$('drop');$('file').onchange=function(e){fromFile(e.target.files[0]);[].forEach.call(sb.children,function(x){x.classList.remove('on');});};
+  var drop=$('drop');$('file').onchange=function(e){fromFile(e.target.files[0],'file');[].forEach.call(sb.children,function(x){x.classList.remove('on');});};
   ['dragenter','dragover'].forEach(function(t){drop.addEventListener(t,function(e){e.preventDefault();drop.classList.add('over');});});
   ['dragleave','drop'].forEach(function(t){drop.addEventListener(t,function(e){e.preventDefault();drop.classList.remove('over');});});
-  drop.addEventListener('drop',function(e){fromFile(e.dataTransfer.files[0]);});
-  window.addEventListener('paste',function(e){var it=[].find.call(e.clipboardData.items||[],function(i){return i.type.indexOf('image')===0;});if(it)fromFile(it.getAsFile());});
+  drop.addEventListener('drop',function(e){fromFile(e.dataTransfer.files[0],'drop');});
+  window.addEventListener('paste',function(e){var it=[].find.call(e.clipboardData.items||[],function(i){return i.type.indexOf('image')===0;});if(it)fromFile(it.getAsFile(),'paste');});
   loadFace();
 }
 var fontsReady=document.fonts&&document.fonts.load?Promise.all([document.fonts.load('900 80px Unbounded'),document.fonts.load('700 30px "Space Mono"')]).catch(function(){}):Promise.resolve();

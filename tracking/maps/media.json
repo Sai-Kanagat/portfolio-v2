@@ -1,0 +1,668 @@
+{
+ "_schema": "pages -> controls (selector -> events or ignored reason) and listeners (type@target -> events or ignored reason). Keys are stable, not line numbers. Every page also carries the shared helper events: demo_open, first_interaction, demo_start, demo_engaged (10 s, 60 s), demo_end (reason back|home|leave), demo_error (js|promise|load|play|audio), demo_action fps (bucket), return_visit, revisit, gate_exit. Camera and mic pages add media_result and model_state.",
+ "demos/hands.html": {
+  "controls": {
+   "#startBtn[data-track=hands.start]": {
+    "events": [
+     "demo_action:start_camera",
+     "demo_action:retry",
+     "media_result",
+     "model_state",
+     "demo_start"
+    ]
+   },
+   "a[data-track=hands.home]": {
+    "events": [
+     "demo_end:home"
+    ],
+    "also": "nav_click by track.js"
+   },
+   "a[data-track=hands.back]": {
+    "events": [
+     "demo_end:back"
+    ],
+    "also": "nav_click by track.js"
+   },
+   "canvas#overlay[data-track=hands.overlay]": {
+    "ignored": "display only, pointer-events none"
+   },
+   "video#cam[data-track=hands.cam]": {
+    "ignored": "camera preview, display only, never read"
+   },
+   "#cursor, .target": {
+    "ignored": "virtual cursor and targets, driven by hand landmarks, hits tracked as target_hit"
+   }
+  },
+  "listeners": {
+   "pagehide@window": {
+    "events": [
+     "demo_end",
+     "media_result:stopped"
+    ]
+   },
+   "pageshow@window": {
+    "ignored": "re-arms demo_end after bfcache restore, no event"
+   },
+   "error@window": {
+    "events": [
+     "demo_error"
+    ]
+   },
+   "unhandledrejection@window": {
+    "events": [
+     "demo_error"
+    ]
+   },
+   "click@document(capture) back/home": {
+    "events": [
+     "demo_end"
+    ]
+   },
+   "pointerdown|keydown|touchstart@document(capture)": {
+    "events": [
+     "demo_action:first_interaction"
+    ]
+   },
+   "setInterval 1s": {
+    "events": [
+     "demo_engaged"
+    ]
+   },
+   "consent controls (sk-consent-*)": {
+    "ignored": "owned by js/consent.js"
+   },
+   "resize@window": {
+    "ignored": "layout only"
+   },
+   "onclick@#startBtn": {
+    "events": [
+     "demo_action:start_camera",
+     "demo_action:retry"
+    ]
+   },
+   "camera.start (getUserMedia inside MediaPipe Camera)": {
+    "events": [
+     "media_result:prompt|granted|denied|dismissed|unavailable|failed"
+    ]
+   },
+   "hands.onResults (landmarks)": {
+    "events": [
+     "model_state:loaded",
+     "demo_action:hand_found",
+     "demo_action:hand_lost",
+     "demo_action:target_hit",
+     "demo_action:first_hit",
+     "demo_action:all_targets_done",
+     "demo_action:pinch_count",
+     "demo_action:misses",
+     "demo_action:targets_cleared"
+    ],
+    "note": "transitions only, loss debounced 700 ms, summaries debounced 1.5 s; landmarks never sent"
+   }
+  }
+ },
+ "demos/balls.html": {
+  "controls": {
+   "#startBtn[data-track=balls.start]": {
+    "events": [
+     "demo_action:start_camera",
+     "demo_action:retry",
+     "media_result",
+     "demo_start"
+    ]
+   },
+   "a[data-track=balls.home]": {
+    "events": [
+     "demo_end:home"
+    ]
+   },
+   "a[data-track=balls.back]": {
+    "events": [
+     "demo_end:back"
+    ]
+   },
+   ".swatch[data-track=balls.swatch.green|red|blue|yellow]": {
+    "events": [
+     "demo_action:color_picked"
+    ],
+    "note": "only when the colour changes"
+   },
+   "#rainBtn[data-track=balls.rain]": {
+    "events": [
+     "demo_action:rain_balls",
+     "demo_action:ball_count"
+    ]
+   },
+   "#clearBtn[data-track=balls.clear]": {
+    "events": [
+     "demo_action:clear",
+     "demo_action:ball_count"
+    ]
+   },
+   "canvas#stage[data-track=balls.stage]": {
+    "ignored": "display only, pointer-events none"
+   },
+   "video#cam[data-track=balls.cam]": {
+    "ignored": "camera preview, display only, never read for upload"
+   }
+  },
+  "listeners": {
+   "pagehide@window": {
+    "events": [
+     "demo_end",
+     "media_result:stopped"
+    ]
+   },
+   "pageshow@window": {
+    "ignored": "re-arms demo_end after bfcache restore, no event"
+   },
+   "error@window": {
+    "events": [
+     "demo_error"
+    ]
+   },
+   "unhandledrejection@window": {
+    "events": [
+     "demo_error"
+    ]
+   },
+   "click@document(capture) back/home": {
+    "events": [
+     "demo_end"
+    ]
+   },
+   "pointerdown|keydown|touchstart@document(capture)": {
+    "events": [
+     "demo_action:first_interaction"
+    ]
+   },
+   "setInterval 1s": {
+    "events": [
+     "demo_engaged"
+    ]
+   },
+   "consent controls (sk-consent-*)": {
+    "ignored": "owned by js/consent.js"
+   },
+   "resize@window": {
+    "ignored": "layout only"
+   },
+   "onclick@.swatch": {
+    "events": [
+     "demo_action:color_picked"
+    ]
+   },
+   "onclick@#clearBtn": {
+    "events": [
+     "demo_action:clear"
+    ]
+   },
+   "onclick@#rainBtn": {
+    "events": [
+     "demo_action:rain_balls"
+    ]
+   },
+   "onclick@#startBtn": {
+    "events": [
+     "demo_action:start_camera"
+    ]
+   },
+   "getUserMedia (video)": {
+    "events": [
+     "media_result:prompt|granted|denied|dismissed|unavailable|failed"
+    ]
+   },
+   "loop: colour mask": {
+    "events": [
+     "demo_action:match_found",
+     "demo_action:match_lost",
+     "demo_action:balls_caught_bucket",
+     "demo_action:balls_caught",
+     "demo_action:fps"
+    ],
+    "note": "600 ms hold before a match flips, caught = unique balls that touched the paddle, bucket on change only; pixels never sent"
+   }
+  }
+ },
+ "demos/audio.html": {
+  "controls": {
+   "a[data-track=audio.back]": {
+    "events": [
+     "demo_end:back"
+    ]
+   },
+   "#useMic[data-track=audio.mic]": {
+    "events": [
+     "demo_action:use_mic",
+     "media_result",
+     "demo_start:mic"
+    ]
+   },
+   "#useDemo[data-track=audio.demo]": {
+    "events": [
+     "demo_action:demo_tone",
+     "demo_start:tone"
+    ]
+   },
+   "canvas#viz[data-track=audio.viz]": {
+    "ignored": "display only"
+   }
+  },
+  "listeners": {
+   "pagehide@window": {
+    "events": [
+     "demo_end",
+     "media_result:stopped"
+    ]
+   },
+   "pageshow@window": {
+    "ignored": "re-arms demo_end after bfcache restore, no event"
+   },
+   "error@window": {
+    "events": [
+     "demo_error"
+    ]
+   },
+   "unhandledrejection@window": {
+    "events": [
+     "demo_error"
+    ]
+   },
+   "click@document(capture) back/home": {
+    "events": [
+     "demo_end"
+    ]
+   },
+   "pointerdown|keydown|touchstart@document(capture)": {
+    "events": [
+     "demo_action:first_interaction"
+    ]
+   },
+   "setInterval 1s": {
+    "events": [
+     "demo_engaged"
+    ]
+   },
+   "consent controls (sk-consent-*)": {
+    "ignored": "owned by js/consent.js"
+   },
+   "resize@window": {
+    "ignored": "layout only"
+   },
+   "onclick@#useMic": {
+    "events": [
+     "demo_action:use_mic"
+    ]
+   },
+   "onclick@#useDemo": {
+    "events": [
+     "demo_action:demo_tone"
+    ]
+   },
+   "getUserMedia (audio)": {
+    "events": [
+     "media_result:prompt|granted|denied|dismissed|unavailable|failed"
+    ]
+   },
+   "visibilitychange@document": {
+    "events": [
+     "demo_action:tab_hidden",
+     "demo_action:tab_resumed"
+    ]
+   },
+   "loop: analyser": {
+    "events": [
+     "demo_action:sound_detected:yes",
+     "demo_action:sound_detected:no",
+     "demo_action:seconds_running",
+     "demo_action:fps"
+    ],
+    "note": "only a yes or no latch and seconds; levels and audio never leave the page"
+   }
+  }
+ },
+ "shadow-theatre/index.html": {
+  "controls": {
+   "#startBtn[data-track=shadow.start]": {
+    "events": [
+     "demo_action:start_show",
+     "demo_action:retry",
+     "media_result",
+     "model_state",
+     "demo_start:camera"
+    ]
+   },
+   "#demoBtn[data-track=shadow.demo]": {
+    "events": [
+     "demo_action:demo_without_camera",
+     "demo_start:nocamera"
+    ]
+   },
+   "#guideBtn[data-track=shadow.guide]": {
+    "events": [
+     "demo_action:guide_toggle"
+    ]
+   },
+   "a#home[data-track=shadow.home]": {
+    "events": [
+     "demo_end:home"
+    ]
+   },
+   "a#back[data-track=shadow.back]": {
+    "events": [
+     "demo_action:back_to_demos",
+     "demo_end:back"
+    ]
+   },
+   ".shape[data-track=shadow.guide.<id>] (30, runtime)": {
+    "events": [
+     "demo_action:guide_shape"
+    ],
+    "note": "once per card after 500 ms on screen"
+   },
+   "canvas.shape pose canvases (30, runtime)": {
+    "ignored": "guide drawings, covered by the parent .shape data-track"
+   },
+   "canvas#wall[data-track=shadow.wall]": {
+    "ignored": "display only"
+   },
+   "video#cam[data-track=shadow.cam]": {
+    "ignored": "camera preview, display only"
+   }
+  },
+  "listeners": {
+   "pagehide@window": {
+    "events": [
+     "demo_end",
+     "media_result:stopped"
+    ]
+   },
+   "pageshow@window": {
+    "ignored": "re-arms demo_end after bfcache restore, no event"
+   },
+   "error@window": {
+    "events": [
+     "demo_error"
+    ]
+   },
+   "unhandledrejection@window": {
+    "events": [
+     "demo_error"
+    ]
+   },
+   "click@document(capture) back/home": {
+    "events": [
+     "demo_end"
+    ]
+   },
+   "pointerdown|keydown|touchstart@document(capture)": {
+    "events": [
+     "demo_action:first_interaction"
+    ]
+   },
+   "setInterval 1s": {
+    "events": [
+     "demo_engaged"
+    ]
+   },
+   "consent controls (sk-consent-*)": {
+    "ignored": "owned by js/consent.js"
+   },
+   "resize@window": {
+    "ignored": "layout only"
+   },
+   "click@#guideBtn": {
+    "events": [
+     "demo_action:guide_toggle"
+    ]
+   },
+   "click@#startBtn": {
+    "events": [
+     "demo_action:start_show"
+    ]
+   },
+   "click@#demoBtn": {
+    "events": [
+     "demo_action:demo_without_camera"
+    ]
+   },
+   "getUserMedia (x2 lines)": {
+    "events": [
+     "media_result:prompt|granted|denied|dismissed|unavailable|failed"
+    ]
+   },
+   "click@window #back": {
+    "events": [
+     "demo_action:back_to_demos"
+    ]
+   },
+   "IntersectionObserver .shape": {
+    "events": [
+     "demo_action:guide_shape"
+    ]
+   },
+   "recognise() in live mode only": {
+    "events": [
+     "demo_action:hand_detected",
+     "demo_action:hands",
+     "demo_action:idle_tip",
+     "demo_action:no_match",
+     "demo_action:shape_recognised",
+     "demo_action:creature_spawned",
+     "demo_action:shape_new",
+     "demo_action:all_found",
+     "demo_action:creatures_total",
+     "demo_action:shapes_found"
+    ],
+    "note": "suppressed in no-camera rehearsal; hands count stable 600 ms; landmarks never sent"
+   },
+   "model load": {
+    "events": [
+     "model_state:loaded|failed"
+    ]
+   },
+   "frame loop": {
+    "events": [
+     "demo_action:fps"
+    ]
+   }
+  }
+ },
+ "melt/index.html": {
+  "controls": {
+   "#playBtn[data-track=melt.play]": {
+    "events": [
+     "demo_action:play",
+     "demo_action:run_start",
+     "demo_start"
+    ]
+   },
+   "#sens[data-track=melt.sensitivity]": {
+    "events": [
+     "demo_action:sensitivity"
+    ],
+    "note": "debounced 600 ms, bucket q1..q5"
+   },
+   "#fx[data-track=melt.fx]": {
+    "events": [
+     "demo_action:fx_toggle"
+    ]
+   },
+   "#snd[data-track=melt.sound]": {
+    "events": [
+     "demo_action:sound_toggle"
+    ]
+   },
+   "#resumeBtn[data-track=melt.resume]": {
+    "events": [
+     "demo_action:resume"
+    ]
+   },
+   "#quitBtn[data-track=melt.quit]": {
+    "events": [
+     "demo_action:quit_run",
+     "demo_action:run_end:abandoned"
+    ]
+   },
+   "#againBtn[data-track=melt.again]": {
+    "events": [
+     "demo_action:run_again",
+     "demo_action:run_start"
+    ]
+   },
+   "#menuBtn[data-track=melt.menu]": {
+    "events": [
+     "demo_action:back_to_title"
+    ]
+   },
+   "#bPause[data-track=melt.touch.pause]": {
+    "events": [
+     "demo_action:pause:button"
+    ]
+   },
+   "#bJump,#bBlast,#bHook,#bSlide (melt.touch.*)": {
+    "ignored": "gameplay input, touchstart with preventDefault, counted through trick_count; #touch is data-no-track so rapid presses are not rage clicks"
+   },
+   "canvas (three.js, data-no-track)": {
+    "ignored": "gameplay surface; firing by clicking would read as rage clicks"
+   }
+  },
+  "listeners": {
+   "pagehide@window": {
+    "events": [
+     "demo_end",
+     "media_result:stopped"
+    ]
+   },
+   "pageshow@window": {
+    "ignored": "re-arms demo_end after bfcache restore, no event"
+   },
+   "error@window": {
+    "events": [
+     "demo_error"
+    ]
+   },
+   "unhandledrejection@window": {
+    "events": [
+     "demo_error"
+    ]
+   },
+   "click@document(capture) back/home": {
+    "events": [
+     "demo_end"
+    ]
+   },
+   "pointerdown|keydown|touchstart@document(capture)": {
+    "events": [
+     "demo_action:first_interaction"
+    ]
+   },
+   "setInterval 1s": {
+    "events": [
+     "demo_engaged"
+    ]
+   },
+   "consent controls (sk-consent-*)": {
+    "ignored": "owned by js/consent.js"
+   },
+   "resize@window": {
+    "ignored": "layout only"
+   },
+   "animationend@pops": {
+    "ignored": "cosmetic"
+   },
+   "input@#sens": {
+    "events": [
+     "demo_action:sensitivity"
+    ]
+   },
+   "change@#fx": {
+    "events": [
+     "demo_action:fx_toggle"
+    ]
+   },
+   "change@#snd": {
+    "events": [
+     "demo_action:sound_toggle"
+    ]
+   },
+   "keydown@window": {
+    "events": [
+     "demo_action:respawn (KeyR)",
+     "demo_action:sound_toggle (KeyM)"
+    ],
+    "note": "movement, jump, slide, hook keys are gameplay input, ignored; aggregated as trick_count"
+   },
+   "keyup@window": {
+    "ignored": "gameplay input"
+   },
+   "contextmenu@window,canvas": {
+    "ignored": "suppresses menu in play, no event"
+   },
+   "mousemove@document": {
+    "ignored": "look input, per frame rate"
+   },
+   "mousedown|mouseup@document": {
+    "ignored": "fire and hook input, aggregated through run summaries"
+   },
+   "requestPointerLock": {
+    "events": [
+     "demo_action:pointer_lock:granted|lost|denied"
+    ]
+   },
+   "pointerlockchange@document": {
+    "events": [
+     "demo_action:pointer_lock",
+     "demo_action:pause:lock_lost"
+    ]
+   },
+   "pointerlockerror@document": {
+    "events": [
+     "demo_action:pointer_lock:denied"
+    ]
+   },
+   "visibilitychange@document": {
+    "events": [
+     "demo_action:pause:hidden"
+    ]
+   },
+   "touchstart|touchmove|touchend|touchcancel@window": {
+    "ignored": "virtual stick and look drag, gameplay input"
+   },
+   "physics fall": {
+    "events": [
+     "demo_action:fall"
+    ],
+    "note": "first 10 per run, total in run_falls"
+   },
+   "hitTarget": {
+    "events": [
+     "demo_action:target_hit"
+    ],
+    "note": "first 30 per run"
+   },
+   "trick()": {
+    "events": [
+     "demo_action:trick_count"
+    ],
+    "note": "one event per trick name per run, at run end"
+   },
+   "endRun / quit / pagehide": {
+    "events": [
+     "demo_action:run_end",
+     "demo_action:run_score",
+     "demo_action:run_best_combo",
+     "demo_action:run_crystals",
+     "demo_action:run_tricks",
+     "demo_action:run_falls",
+     "demo_action:run_respawns"
+    ]
+   },
+   "frame loop": {
+    "events": [
+     "demo_action:fps"
+    ]
+   }
+  }
+ }
+}

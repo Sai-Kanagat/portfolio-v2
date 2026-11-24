@@ -1,6 +1,14 @@
 <!doctype html>
 <html lang="en">
 <head>
+<!-- Consent Mode v2 default: denied inside EEA/UK/Switzerland (GDPR), granted elsewhere -->
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'granted','functionality_storage':'granted','security_storage':'granted','wait_for_update':500});
+gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied','region':['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH'],'wait_for_update':500});
+try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_consent_v2')){localStorage.setItem('sk_consent_v2','denied');}localStorage.removeItem('sk_consent');var c=localStorage.getItem('sk_consent_v2');if(c==='granted'){gtag('consent','update',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'granted'});}else if(c==='denied'){gtag('consent','update',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied'});}}catch(e){}</script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MRGXD7ZC');</script>
+<!-- End Google Tag Manager -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <title>Melt Sprint</title>
@@ -104,10 +112,11 @@ body.touch #tip{bottom:auto;top:170px}
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 </head>
 <body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MRGXD7ZC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="melt" x="-10%" y="-20%" width="120%" height="150%"><feTurbulence type="fractalNoise" baseFrequency="0.012 0.05" numOctaves="1" seed="3"><animate attributeName="baseFrequency" dur="7s" values="0.012 0.05;0.016 0.08;0.012 0.05" repeatCount="indefinite"/></feTurbulence><feDisplacementMap in="SourceGraphic" scale="7"/></filter></svg>
 <div id="loading">sculpting the dream...</div>
 
-<div id="hud" class="hide">
+<div id="hud" class="hide" data-zone="melt.hud">
   <div id="score"><span id="scoreN">0</span><small id="crystals">crystals 0</small></div>
   <div id="timer"><span id="timerN">3:00</span><small id="zoneName">hub</small></div>
   <div id="combo" style="opacity:0"><div id="cMain">0 × 0</div><div id="cChain"></div><div id="cBar"><i></i></div></div>
@@ -120,21 +129,21 @@ body.touch #tip{bottom:auto;top:170px}
 <div id="vig"></div>
 <div id="fade"></div>
 
-<div id="touch" class="hide">
+<div id="touch" class="hide" data-zone="melt.touch" data-no-track>
   <div id="stick" class="hide"><div id="knob"></div></div>
-  <div class="btn" id="bJump">JUMP</div>
-  <div class="btn" id="bBlast">BLAST</div>
-  <div class="btn" id="bHook">HOOK</div>
-  <div class="btn" id="bSlide">SLIDE</div>
-  <div class="btn" id="bPause">II</div>
+  <div class="btn" id="bJump" data-track="melt.touch.jump">JUMP</div>
+  <div class="btn" id="bBlast" data-track="melt.touch.blast">BLAST</div>
+  <div class="btn" id="bHook" data-track="melt.touch.hook">HOOK</div>
+  <div class="btn" id="bSlide" data-track="melt.touch.slide">SLIDE</div>
+  <div class="btn" id="bPause" data-track="melt.touch.pause">II</div>
 </div>
 
-<div id="title" class="screen hide">
+<div id="title" class="screen hide" data-zone="melt.title">
   <div class="card">
     <h1 id="logo">Melt Sprint</h1>
     <div class="credit">A game by Sai Kanagat</div>
     <p class="lede">Blast, grapple, surf and wall-ride through a melting dream. Chain tricks into a combo, shatter the floating crystals, and land it before the timer drains. You get three minutes.</p>
-    <div class="row"><button class="primary" id="playBtn">Start a 3-minute run</button><span class="best" id="bestTitle"></span></div>
+    <div class="row"><button class="primary" id="playBtn" data-track="melt.play">Start a 3-minute run</button><span class="best" id="bestTitle"></span></div>
     <div class="keys desk">
       <b>WASD</b><span>move, strafe in the air to steer and gain speed</span>
       <b>Space</b><span>jump, hold to bunny hop, tap on any wall to wall jump</span>
@@ -152,22 +161,22 @@ body.touch #tip{bottom:auto;top:170px}
       <b>JUMP</b><span>tap next to any wall to wall jump</span>
     </div>
     <div class="settings">
-      <label>Look speed <input type="range" id="sens" min="0.3" max="3" step="0.05" value="1"></label>
-      <label><input type="checkbox" id="fx" checked> Wobble FX</label>
-      <label><input type="checkbox" id="snd" checked> Sound</label>
+      <label>Look speed <input type="range" id="sens" data-track="melt.sensitivity" min="0.3" max="3" step="0.05" value="1"></label>
+      <label><input type="checkbox" id="fx" data-track="melt.fx" checked> Wobble FX</label>
+      <label><input type="checkbox" id="snd" data-track="melt.sound" checked> Sound</label>
     </div>
   </div>
 </div>
 
-<div id="pause" class="screen hide">
+<div id="pause" class="screen hide" data-zone="melt.pause">
   <div class="card">
     <h2>Paused</h2>
     <p class="lede">The dream is holding its breath. Your combo is frozen in the goo.</p>
-    <div class="row"><button class="primary" id="resumeBtn">Resume run</button><button class="ghost" id="quitBtn">Quit to title</button></div>
+    <div class="row"><button class="primary" id="resumeBtn" data-track="melt.resume">Resume run</button><button class="ghost" id="quitBtn" data-track="melt.quit">Quit to title</button></div>
   </div>
 </div>
 
-<div id="end" class="screen hide">
+<div id="end" class="screen hide" data-zone="melt.end">
   <div class="card">
     <h2 id="endTitle">Run complete</h2>
     <div class="credit">Melt Sprint, a game by Sai Kanagat</div>
@@ -179,16 +188,79 @@ body.touch #tip{bottom:auto;top:170px}
       <div><span>crystals shattered</span><b id="eCrystals">0</b></div>
       <div><span>top speed</span><b id="eSpeed">0</b></div>
     </div>
-    <div class="row"><button class="primary" id="againBtn">Run it again</button><button class="ghost" id="menuBtn">Back to title</button></div>
+    <div class="row"><button class="primary" id="againBtn" data-track="melt.again">Run it again</button><button class="ghost" id="menuBtn" data-track="melt.menu">Back to title</button></div>
   </div>
 </div>
 
+<script>
+/* Tracking helper (media). Sends ids, buckets, counts and ms only: never camera, mic, landmarks, audio levels, typed text or URL state. */
+(function(){
+  var DID='melt',t0=Date.now(),Q=[],QT=0,QN=0,P={},HK=[],F={n:0,t:0};
+  var S={first:0,start:0,startAt:0,ended:0,eng:0,er:0,fps:0,rv:0};
+  function send(m,a){var s=window.sk;if(s&&typeof s[m]==='function'){try{s[m].apply(s,a);}catch(e){}return true;}return false;}
+  function flush(){while(Q.length&&send(Q[0][0],Q[0][1]))Q.shift();}
+  function emit(m,a){try{if(Q.length<80)Q.push([m,a]);flush();if(Q.length&&!QT){QN=0;QT=setInterval(function(){flush();if(!Q.length||++QN>24){clearInterval(QT);QT=0;Q.length=0;}},500);}}catch(e){}}
+  var MT=window.MT={
+    id:DID,
+    act:function(){return true;},
+    a:function(action,p){emit('demo',[DID,action,p||{}]);},
+    e:function(name,p){var o={demo_id:DID};if(p)for(var k in p)o[k]=p[k];emit('track',[name,o]);},
+    media:function(kind,state){emit('media',[DID,kind,state]);},
+    model:function(state,ms,delegate){var o={ms:Math.max(0,Math.round(ms||0))};if(delegate)o.delegate=delegate;emit('model',[DID,state,o]);},
+    start:function(mode){if(S.start)return;S.start=1;S.startAt=Date.now();MT.e('demo_start',{mode:mode});MT.rv();},
+    started:function(){return S.start;},
+    err:function(code){if(S.er++<3)MT.e('demo_error',{code:code});},
+    lb:function(n){return n<=0?'0':n<=20?'1-20':n<=80?'21-80':n<=300?'81-300':'300+';},
+    cb:function(n){return n<=0?'0':n===1?'1':n<=5?'2-5':n<=20?'6-20':'21+';},
+    q5:function(v,lo,hi){var p=(v-lo)/((hi-lo)||1);return 'q'+Math.min(5,Math.max(1,Math.floor(p*5)+1));},
+    deb:function(key,ms,fn){if(P[key])clearTimeout(P[key].t);P[key]={fn:fn,t:setTimeout(function(){var f=P[key];delete P[key];try{f&&f.fn();}catch(e){}},ms)};},
+    flush:function(){Object.keys(P).forEach(function(k){var f=P[k];delete P[k];clearTimeout(f.t);try{f.fn();}catch(e){}});},
+    onend:function(fn){HK.push(fn);},
+    nav:function(){try{return performance.getEntriesByType('navigation')[0].type;}catch(e){return 'navigate';}},
+    rv:function(){try{if(S.rv||!window.sk||sk.consent!=='granted')return;S.rv=1;var k='sk_seen_'+DID;if(localStorage.getItem(k))MT.a('return_visit',{item:MT.nav()});else localStorage.setItem(k,'1');}catch(e){}},
+    since:function(){return Date.now()-(S.startAt||t0);},
+    tick:function(){if(S.fps||!S.start||document.hidden){F.n=0;F.t=0;return;}var n=performance.now();if(!F.t){F.t=n;F.n=0;return;}F.n++;if(n-F.t>=4000){S.fps=1;var f=F.n*1000/(n-F.t);MT.a('fps',{bucket:f<20?'lt20':f<40?'20-40':f<55?'40-55':'55+'});}},
+    end:function(reason){if(S.ended)return;S.ended=1;MT.flush();HK.forEach(function(f){try{f();}catch(e){}});if(!S.start)MT.a('gate_exit',{ms:Date.now()-t0});MT.e('demo_end',{ms:MT.since(),reason:reason});}
+  };
+  function ui(t){return t&&t.closest&&t.closest('[id^="sk-consent"],[data-consent-open]');}
+  ['pointerdown','keydown','touchstart'].forEach(function(ev){document.addEventListener(ev,function(e){if(S.first||ui(e.target))return;S.first=1;MT.a('first_interaction',{value:Math.round((Date.now()-t0)/1000)});},true);});
+  setInterval(function(){if(document.hidden||!S.start)return;var on=false;try{on=MT.act();}catch(e){}if(!on)return;S.eng++;if(S.eng===10||S.eng===60)MT.e('demo_engaged',{seconds:S.eng});},1000);
+  window.addEventListener('pagehide',function(){MT.end('leave');});
+  window.addEventListener('pageshow',function(e){if(e&&e.persisted)S.ended=0;});
+  document.addEventListener('click',function(e){var a=e.target&&e.target.closest&&e.target.closest('a[data-track]');if(!a)return;var id=a.getAttribute('data-track')||'';if(/\.(back|home)$/.test(id))MT.end(id.split('.').pop());},true);
+  window.addEventListener('error',function(ev){try{var t=ev&&ev.target;if(t&&t.tagName==='SCRIPT'){MT.err('load');return;}if(ev&&ev.filename&&ev.filename.indexOf(location.origin)!==0)return;MT.err('js');}catch(e){}},true);
+  window.addEventListener('unhandledrejection',function(){MT.err('promise');});
+  MT.e('demo_open');
+  var nv=MT.nav();if(nv==='reload'||nv==='back_forward')MT.a('revisit',{item:nv});
+})();
+</script>
 <script type="module">
 import * as THREE from 'three';
 import { mergeGeometries, mergeVertices } from 'three/addons/utils/BufferGeometryUtils.js';
 
 /* ============================== basics ============================== */
 const $ = id => document.getElementById(id);
+const T = MT.a;
+// tracking state: transitions and per-run counts only, flushed at run end. Nothing is sent per frame.
+const sb = n => n <= 0 ? '0' : n < 500 ? '1-499' : n < 2000 ? '500-1999' : n < 10000 ? '2000-9999' : n < 50000 ? '10000-49999' : '50000+';
+let runN = 0, runLive = false, pausedAt = 0, lockN = 0, runFalls = 0, runResp = 0, runHits = 0, runTricks = {};
+function runSummary(kind) {
+  runLive = false;
+  T('run_end', { item: kind, value: Math.max(0, Math.min(180, Math.round(180 - timeLeft))) });
+  T('run_score', { bucket: sb(stats.score) });
+  T('run_best_combo', { bucket: sb(stats.bestCombo) });
+  T('run_crystals', { value: stats.crystals });
+  T('run_tricks', { value: stats.tricks });
+  T('run_falls', { value: runFalls });
+  if (runResp) T('run_respawns', { value: runResp });
+  Object.keys(runTricks).forEach(k => T('trick_count', { item: k, value: runTricks[k] }));
+}
+function fell(kind) {
+  const n = kind === 'fall' ? ++runFalls : ++runResp;
+  if (n <= 10) T(kind, { value: Math.max(0, Math.round(180 - timeLeft)) });
+}
+MT.act = () => state === 'playing';
+MT.onend(() => { if (runLive) runSummary('abandoned'); });
 const IS_TOUCH = matchMedia('(pointer: coarse)').matches || ('ontouchstart' in window && navigator.maxTouchPoints > 0);
 if (IS_TOUCH) document.body.classList.add('touch');
 const store = {
@@ -972,7 +1044,7 @@ function physicsStep(dt) {
     if (!hit) for (const t of targets) if (t.alive && t.p.distanceToSquared(pr.p) < 2.4) { hit = true; break; }
     if (hit) explode(pr);
   }
-  if (P.pos.y < -70) fellOut();
+  if (P.pos.y < -70) { fell('fall'); fellOut(); }
 }
 function releaseGrapple() { G.on = false; }
 function fire() {
@@ -1004,6 +1076,7 @@ function explode(pr) {
 }
 function hitTarget(t) {
   t.alive = false; t.t = 10; stats.crystals++;
+  if (stats.crystals <= 30) T('target_hit', stats.crystals === 1 ? { item: P.grounded ? 'ground' : 'air', value: stats.crystals, ms: Math.round((180 - timeLeft) * 1000) } : { item: P.grounded ? 'ground' : 'air', value: stats.crystals });
   burst(t.p, IS_TOUCH ? 24 : 40, 16, 0.35); shockwave(t.p, '#ffd23f');
   if (!P.grounded) trick('AIRSHOT', 220); else trick('CRYSTAL', 100);
   sfx.crystal();
@@ -1024,6 +1097,7 @@ const C = { pts: 0, n: 0, chain: [], timer: 0, last: '', rep: 0, active: false }
 const stats = { score: 0, bestCombo: 0, tricks: 0, crystals: 0 };
 function trick(name, base) {
   if (state !== 'playing') return;
+  runTricks[name] = (runTricks[name] || 0) + 1;
   const hs = Math.hypot(P.vel.x, P.vel.z);
   if (name === C.last) C.rep++; else { C.rep = 0; C.last = name; }
   const v = Math.max(5, Math.round(base * (1 + hs / 35) * Math.pow(0.6, C.rep)));
@@ -1097,13 +1171,13 @@ const sfx = {
   fall() { tone('sawtooth', 600, 60, 0.6, 0.08); },
   end() { [12, 7, 4, 0].forEach((s, i) => tone('triangle', 392 * Math.pow(2, s / 12), 392 * Math.pow(2, s / 12), 0.4, 0.08, i * 0.12)); }
 };
-function setSound(on) { soundOn = on; store.set('snd', on); if (master) master.gain.value = on ? 0.55 : 0; }
+function setSound(on) { T('sound_toggle', { item: on ? 'on' : 'off' }); soundOn = on; store.set('snd', on); if (master) master.gain.value = on ? 0.55 : 0; }
 
 /* ============================== input ============================== */
 let sens = store.get('sens', 1), fxOn = store.get('fx', true);
 $('sens').value = sens; $('fx').checked = fxOn; $('snd').checked = soundOn;
-$('sens').addEventListener('input', e => { sens = +e.target.value; store.set('sens', sens); });
-$('fx').addEventListener('change', e => { fxOn = e.target.checked; store.set('fx', fxOn); });
+$('sens').addEventListener('input', e => { sens = +e.target.value; store.set('sens', sens); MT.deb('sens', 600, () => T('sensitivity', { bucket: MT.q5(sens, 0.3, 3) })); });
+$('fx').addEventListener('change', e => { fxOn = e.target.checked; store.set('fx', fxOn); T('fx_toggle', { item: fxOn ? 'on' : 'off' }); });
 $('snd').addEventListener('change', e => setSound(e.target.checked));
 const KEYMAP = { KeyW: 'f', ArrowUp: 'f', KeyS: 'b', ArrowDown: 'b', KeyA: 'l', ArrowLeft: 'l', KeyD: 'r', ArrowRight: 'r' };
 addEventListener('keydown', e => {
@@ -1112,7 +1186,7 @@ addEventListener('keydown', e => {
   if (e.code === 'Space') { if (!e.repeat) In.jumpBuf = 0.15; In.jumpHeld = true; e.preventDefault(); }
   if (e.code === 'KeyE' || e.code === 'KeyQ') In.hookHeld = true;
   if (e.code === 'KeyC' || e.code === 'ControlLeft' || e.code === 'ShiftLeft') { In.slideHeld = true; e.preventDefault(); }
-  if (e.code === 'KeyR' && !e.repeat) fellOut();
+  if (e.code === 'KeyR' && !e.repeat) { fell('respawn'); fellOut(); }
   if (e.code === 'KeyM' && !e.repeat) { setSound(!soundOn); $('snd').checked = soundOn; }
 });
 addEventListener('keyup', e => {
@@ -1122,6 +1196,7 @@ addEventListener('keyup', e => {
   if (e.code === 'KeyC' || e.code === 'ControlLeft' || e.code === 'ShiftLeft') In.slideHeld = false;
 });
 const canvas = renderer.domElement;
+canvas.setAttribute('data-no-track', '');
 canvas.addEventListener('contextmenu', e => e.preventDefault());
 addEventListener('contextmenu', e => { if (state === 'playing') e.preventDefault(); });
 let swayX = 0, swayY = 0;
@@ -1138,9 +1213,12 @@ document.addEventListener('mousedown', e => {
 document.addEventListener('mouseup', e => { if (e.button === 0) In.fireHeld = false; if (e.button === 2) In.hookHeld = false; });
 function lockPointer() { try { const r = canvas.requestPointerLock(); if (r && r.catch) r.catch(() => {}); } catch (e) {} }
 document.addEventListener('pointerlockchange', () => {
-  if (document.pointerLockElement !== canvas && state === 'playing' && !IS_TOUCH) pauseGame();
+  if (document.pointerLockElement === canvas) { if (++lockN <= 30) T('pointer_lock', { item: 'granted' }); }
+  else if (state === 'playing' && !IS_TOUCH) { if (++lockN <= 30) T('pointer_lock', { item: 'lost' }); }
+  if (document.pointerLockElement !== canvas && state === 'playing' && !IS_TOUCH) pauseGame('lock_lost');
 });
-document.addEventListener('visibilitychange', () => { if (document.hidden && state === 'playing') pauseGame(); });
+document.addEventListener('pointerlockerror', () => { if (++lockN <= 30) T('pointer_lock', { item: 'denied' }); });
+document.addEventListener('visibilitychange', () => { if (document.hidden && state === 'playing') pauseGame('hidden'); });
 
 // touch
 const touchState = { stick: null, look: null, ox: 0, oy: 0, lx: 0, ly: 0 };
@@ -1154,7 +1232,7 @@ bindBtn('bJump', () => { In.jumpBuf = 0.15; In.jumpHeld = true; }, () => { In.ju
 bindBtn('bBlast', () => { In.fireHeld = true; }, () => { In.fireHeld = false; });
 bindBtn('bHook', () => { In.hookHeld = true; }, () => { In.hookHeld = false; });
 bindBtn('bSlide', () => { In.slideHeld = true; }, () => { In.slideHeld = false; });
-bindBtn('bPause', () => pauseGame());
+bindBtn('bPause', () => pauseGame('button'));
 addEventListener('touchstart', e => {
   if (state !== 'playing') return;
   for (const t of e.changedTouches) {
@@ -1208,15 +1286,18 @@ function startRun() {
   $('pops').innerHTML = '';
   show('title', false); show('end', false); show('pause', false); show('hud', true); show('touch', IS_TOUCH);
   state = 'playing'; acc = 0;
+  runN++; runLive = true; runFalls = 0; runResp = 0; runTricks = {};
+  T('run_start', { value: runN }); MT.start(IS_TOUCH ? 'touch' : 'desktop');
   if (!IS_TOUCH) lockPointer();
 }
-function pauseGame() {
+function pauseGame(cause) {
   if (state !== 'playing') return;
+  T('pause', { item: cause || 'other' }); pausedAt = Date.now();
   state = 'paused'; Object.assign(In, { f: 0, b: 0, l: 0, r: 0, sx: 0, sy: 0, jumpHeld: false, fireHeld: false, hookHeld: false, slideHeld: false });
   show('pause', true); show('touch', false);
   if (document.pointerLockElement) document.exitPointerLock();
 }
-function resumeGame() { show('pause', false); show('touch', IS_TOUCH); state = 'playing'; acc = 0; if (!IS_TOUCH) lockPointer(); if (AC) AC.resume(); }
+function resumeGame() { T('resume', { ms: pausedAt ? Date.now() - pausedAt : 0 }); pausedAt = 0; show('pause', false); show('touch', IS_TOUCH); state = 'playing'; acc = 0; if (!IS_TOUCH) lockPointer(); if (AC) AC.resume(); }
 function toTitle() {
   state = 'title'; show('pause', false); show('end', false); show('hud', false); show('touch', false); show('title', true);
   const b = store.get('best', 0); $('bestTitle').textContent = b ? 'best ' + b.toLocaleString() : '';
@@ -1224,6 +1305,7 @@ function toTitle() {
 }
 function endRun() {
   if (C.active) bankCombo();
+  if (runLive) runSummary('completed');
   state = 'end'; G.on = false;
   const best = store.get('best', 0); const isBest = stats.score > best; if (isBest) store.set('best', stats.score);
   $('endTitle').textContent = isBest && stats.score > 0 ? 'New personal best' : 'Run complete';
@@ -1233,11 +1315,11 @@ function endRun() {
   show('hud', false); show('touch', false); show('end', true); sfx.end();
   if (document.pointerLockElement) document.exitPointerLock();
 }
-$('playBtn').addEventListener('click', startRun);
-$('againBtn').addEventListener('click', startRun);
-$('menuBtn').addEventListener('click', toTitle);
+$('playBtn').addEventListener('click', () => { T('play'); startRun(); });
+$('againBtn').addEventListener('click', () => { T('run_again'); startRun(); });
+$('menuBtn').addEventListener('click', () => { T('back_to_title'); toTitle(); });
 $('resumeBtn').addEventListener('click', resumeGame);
-$('quitBtn').addEventListener('click', toTitle);
+$('quitBtn').addEventListener('click', () => { T('quit_run'); if (runLive) runSummary('abandoned'); toTitle(); });
 // title letters
 { let i = 0; $('logo').innerHTML = 'Melt Sprint'.split(' ').map(w => '<i class="w">' + w.split('').map(c => `<span style="animation-delay:${-(i++) * 0.18}s,${-i * 0.4}s">${c}</span>`).join('') + '</i>').join(' '); }
 
@@ -1308,6 +1390,7 @@ const dummy = new THREE.Object3D();
 let acc = 0, last = performance.now(), frameEMA = 1 / 60, prTimer = 0, tipIdx = -1, crossTimer = 0, runClock = 0;
 function frame(now) {
   requestAnimationFrame(frame);
+  MT.tick();
   const dt = Math.min(0.1, (now - last) / 1000); last = now;
   U.uTime.value += dt;
   U.uWarp.value = fxOn ? 1 : 0; U.uJitter.value = fxOn ? 1 : 0;
@@ -1415,5 +1498,7 @@ fontsReady.then(() => {
 });
 requestAnimationFrame(frame);
 </script>
+<script src="/js/consent.js" defer></script>
+<script src="/js/analytics.js" defer></script>
 </body>
 </html>

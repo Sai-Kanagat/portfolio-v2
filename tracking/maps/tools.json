@@ -1,0 +1,1691 @@
+{
+ "version": 1,
+ "owner": "tools",
+ "note": "Generated from tracking/tests/tools/spec.mjs. Event strings: action[item,bucket,value,ms] for demo_action, track:name for catalogue events, model:state for model_state. re: marks a pattern, opt: an optional event. Lifecycle events (demo_open, demo_start, demo_engaged, demo_end, first_interaction, return_visit) come from the shared helper on every page and are not repeated per control.",
+ "helper": {
+  "listeners": [
+   "pointermove/scroll/wheel/touchmove: active-time clock only, no event",
+   "pointerdown/keydown/input/change (capture): first_interaction once",
+   "visibilitychange, pagehide: demo_end",
+   "click on a[data-track] ending .back or .home: demo_end",
+   "error, unhandledrejection: demo_error js or promise, three at most",
+   "sk:consent: return_visit check"
+  ],
+  "shared_events": [
+   "demo_open",
+   "first_interaction",
+   "demo_start",
+   "demo_engaged (10 s and 60 s active)",
+   "demo_end",
+   "demo_error",
+   "return_visit (needs consent granted)",
+   "fps bucket (Agora only: the only demo with an animation loop)"
+  ]
+ },
+ "pages": {
+  "demos/agora.html": {
+   "demo_id": "agora",
+   "controls": {
+    "agora.home": {
+     "kind": "link",
+     "emits": {
+      "click": []
+     },
+     "lifecycle": {
+      "click": [
+       "track:demo_end[reason=%R]"
+      ]
+     },
+     "note": "Navigation link: the generic ui_click or nav_click comes from track.js, the page adds demo_end."
+    },
+    "agora.back": {
+     "kind": "link",
+     "emits": {
+      "click": []
+     },
+     "lifecycle": {
+      "click": [
+       "track:demo_end[reason=%R]"
+      ]
+     },
+     "note": "Navigation link: the generic ui_click or nav_click comes from track.js, the page adds demo_end."
+    },
+    "agora.seed": {
+     "kind": "textarea",
+     "emits": {
+      "type": [
+       "seed_edit[bucket=21-80]"
+      ]
+     },
+     "note": "Debounced 700 ms, length bucket only."
+    },
+    "agora.preset.pricing": {
+     "kind": "button",
+     "emits": {
+      "click": [
+       "preset[item=pricing]"
+      ]
+     }
+    },
+    "agora.preset.policy": {
+     "kind": "button",
+     "emits": {
+      "click": [
+       "preset[item=policy]"
+      ]
+     }
+    },
+    "agora.preset.brand": {
+     "kind": "button",
+     "emits": {
+      "click": [
+       "preset[item=brand]"
+      ]
+     }
+    },
+    "agora.preset.culture": {
+     "kind": "button",
+     "emits": {
+      "click": [
+       "preset[item=culture]"
+      ]
+     }
+    },
+    "agora.population": {
+     "kind": "number",
+     "emits": {
+      "type": [
+       "population[bucket=q4]"
+      ]
+     },
+     "note": "Quintile of 20..120."
+    },
+    "agora.ticks": {
+     "kind": "number",
+     "emits": {
+      "type": [
+       "ticks[bucket=q3]"
+      ]
+     },
+     "note": "Quintile of 60..600."
+    },
+    "agora.go": {
+     "kind": "button",
+     "emits": {
+      "empty": [
+       "go[item=empty]"
+      ],
+      "custom": [
+       "go[item=custom]",
+       "step[item=step2]"
+      ],
+      "preset": [
+       "go[item=pricing]"
+      ]
+     },
+     "note": "Source is a preset id or custom, never the seed text. step fires once per step."
+    },
+    "agora.simulate": {
+     "kind": "button",
+     "emits": {
+      "click": [
+       "simulate[item=large]",
+       "step[item=step3]"
+      ]
+     },
+     "note": "item is a population class: small, mid, large."
+    },
+    "agora.back_to_seed": {
+     "kind": "button",
+     "emits": {
+      "click": [
+       "back_to_seed"
+      ]
+     }
+    },
+    "agora.skip": {
+     "kind": "button",
+     "emits": {
+      "click": [
+       "re:^skip_to_end\\[bucket=q[1-5]\\]$",
+       "report[item=skip]",
+       "re:^result\\[item=[a-z]+,bucket=(strong|lean|fragmented)\\]$",
+       "step[item=step4]"
+      ]
+     },
+     "note": "Skip finishes the run, so the report events chain from it."
+    },
+    "agora.report": {
+     "kind": "button",
+     "emits": {
+      "auto": [
+       "report[item=auto]",
+       "re:^result\\[item=[a-z]+,bucket=(strong|lean|fragmented)\\]$",
+       "step[item=step4]",
+       "opt:re:^fps\\[bucket=(lt20|20-40|40-55|55\\+)\\]$"
+      ]
+     },
+     "note": "Disabled until the run ends, then clicked by the page itself, so it is exercised through the auto run."
+    },
+    "agora.new_scenario": {
+     "kind": "button",
+     "emits": {
+      "click": [
+       "new_scenario"
+      ]
+     }
+    }
+   },
+   "views": {},
+   "listeners": [
+    {
+     "match": "seedInput.\\)\\.value = b\\.dataset",
+     "maps": "agora.preset.*"
+    },
+    {
+     "match": "goBtn.\\)\\.onclick",
+     "maps": "agora.go"
+    },
+    {
+     "match": "simBtn.\\)\\.onclick",
+     "maps": "agora.simulate"
+    },
+    {
+     "match": "backTo1Btn.\\)\\.onclick",
+     "maps": "agora.back_to_seed"
+    },
+    {
+     "match": "addEventListener\\(.resize., resize\\)",
+     "maps": "ignore: canvas resize, no tracking"
+    },
+    {
+     "match": "skipBtn.\\)\\.onclick",
+     "maps": "agora.skip"
+    },
+    {
+     "match": "reportBtn.\\)\\.onclick",
+     "maps": "agora.report"
+    },
+    {
+     "match": "restartBtn.\\)\\.onclick",
+     "maps": "agora.new_scenario"
+    },
+    {
+     "match": "sd\\.addEventListener\\(.input.",
+     "maps": "agora.seed"
+    },
+    {
+     "match": "f\\.addEventListener\\(.input.",
+     "maps": "agora.population, agora.ticks"
+    }
+   ]
+  },
+  "demos/poster.html": {
+   "demo_id": "poster",
+   "controls": {
+    "poster.back": {
+     "kind": "link",
+     "emits": {
+      "click": []
+     },
+     "lifecycle": {
+      "click": [
+       "track:demo_end[reason=%R]"
+      ]
+     },
+     "note": "Navigation link: the generic ui_click or nav_click comes from track.js, the page adds demo_end."
+    },
+    "poster.headline": {
+     "kind": "text",
+     "emits": {
+      "type": [
+       "headline_edit[bucket=21-80]"
+      ]
+     },
+     "note": "Debounced 700 ms, length bucket only."
+    },
+    "poster.kicker": {
+     "kind": "text",
+     "emits": {
+      "type": [
+       "kicker_edit[bucket=21-80]"
+      ]
+     },
+     "note": "Debounced 700 ms, length bucket only."
+    },
+    "poster.palette.red-lecture": {
+     "kind": "swatch",
+     "emits": {
+      "click": [
+       "palette[item=red-lecture]"
+      ]
+     },
+     "note": "Created at runtime."
+    },
+    "poster.palette.vigilante": {
+     "kind": "swatch",
+     "emits": {
+      "click": [
+       "palette[item=vigilante]"
+      ]
+     },
+     "note": "Created at runtime."
+    },
+    "poster.palette.amber-klein": {
+     "kind": "swatch",
+     "emits": {
+      "click": [
+       "palette[item=amber-klein]"
+      ]
+     },
+     "note": "Created at runtime."
+    },
+    "poster.palette.night": {
+     "kind": "swatch",
+     "emits": {
+      "click": [
+       "palette[item=night]"
+      ]
+     },
+     "note": "Created at runtime."
+    },
+    "poster.palette.bauhaus": {
+     "kind": "swatch",
+     "emits": {
+      "click": [
+       "palette[item=bauhaus]"
+      ]
+     },
+     "note": "Created at runtime."
+    },
+    "poster.regenerate": {
+     "kind": "button",
+     "emits": {
+      "click": [
+       "regenerate[value=1]"
+      ]
+     },
+     "note": "value is the running regenerate count."
+    },
+    "poster.png": {
+     "kind": "button",
+     "emits": {
+      "click": [
+       "re:^png_download\\[item=[a-z-]+,value=\\d+\\]$"
+      ]
+     }
+    }
+   },
+   "views": {},
+   "listeners": [
+    {
+     "match": "s\\.onclick=",
+     "maps": "poster.palette.*"
+    },
+    {
+     "match": "regen.\\)\\.onclick",
+     "maps": "poster.regenerate"
+    },
+    {
+     "match": "regen.\\)\\.addEventListener\\(.click.",
+     "maps": "poster.regenerate"
+    },
+    {
+     "match": "f\\.addEventListener\\(.input.",
+     "maps": "poster.headline, poster.kicker"
+    },
+    {
+     "match": "headline.\\)\\.addEventListener\\(.input.",
+     "maps": "ignore: redraw only"
+    },
+    {
+     "match": "kicker.\\)\\.addEventListener\\(.input.",
+     "maps": "ignore: redraw only"
+    },
+    {
+     "match": "download.\\)\\.onclick",
+     "maps": "poster.png"
+    },
+    {
+     "match": "download.\\)\\.addEventListener\\(.click.",
+     "maps": "poster.png"
+    }
+   ]
+  },
+  "demos/roas.html": {
+   "demo_id": "roas",
+   "controls": {
+    "roas.back": {
+     "kind": "link",
+     "emits": {
+      "click": []
+     },
+     "lifecycle": {
+      "click": [
+       "track:demo_end[reason=%R]"
+      ]
+     },
+     "note": "Navigation link: the generic ui_click or nav_click comes from track.js, the page adds demo_end."
+    },
+    "roas.slider.spend": {
+     "kind": "range",
+     "emits": {
+      "input": [
+       "re:^slider\\[item=spend,bucket=q[1-5]\\]$",
+       "re:^result\\[item=(profitable|unprofitable),bucket=(lt1|1-2|2-3|3-5|5\\+)\\]$"
+      ]
+     },
+     "note": "Debounced 600 ms. result is the settled outcome of the plan."
+    },
+    "roas.slider.cpc": {
+     "kind": "range",
+     "emits": {
+      "input": [
+       "re:^slider\\[item=cpc,bucket=q[1-5]\\]$",
+       "re:^result\\[item=(profitable|unprofitable),bucket=(lt1|1-2|2-3|3-5|5\\+)\\]$"
+      ]
+     },
+     "note": "Debounced 600 ms."
+    },
+    "roas.slider.cvr": {
+     "kind": "range",
+     "emits": {
+      "input": [
+       "re:^slider\\[item=cvr,bucket=q[1-5]\\]$",
+       "re:^result\\[item=(profitable|unprofitable),bucket=(lt1|1-2|2-3|3-5|5\\+)\\]$"
+      ]
+     },
+     "note": "Debounced 600 ms."
+    },
+    "roas.slider.aov": {
+     "kind": "range",
+     "emits": {
+      "input": [
+       "re:^slider\\[item=aov,bucket=q[1-5]\\]$",
+       "re:^result\\[item=(profitable|unprofitable),bucket=(lt1|1-2|2-3|3-5|5\\+)\\]$"
+      ]
+     },
+     "note": "Debounced 600 ms."
+    },
+    "roas.slider.margin": {
+     "kind": "range",
+     "emits": {
+      "input": [
+       "re:^slider\\[item=margin,bucket=q[1-5]\\]$",
+       "re:^result\\[item=(profitable|unprofitable),bucket=(lt1|1-2|2-3|3-5|5\\+)\\]$"
+      ]
+     },
+     "note": "Debounced 600 ms."
+    }
+   },
+   "views": {},
+   "listeners": [
+    {
+     "match": "addEventListener\\('input',update\\)",
+     "maps": "ignore: recalculation, tracking is the next listener"
+    },
+    {
+     "match": "addEventListener\\('input',function",
+     "maps": "roas.slider.*"
+    },
+    {
+     "match": "addEventListener\\('resize',update\\)",
+     "maps": "ignore: redraw"
+    }
+   ]
+  },
+  "cortex/index.html": {
+   "demo_id": "cortex",
+   "controls": {
+    "cortex.passcode": {
+     "kind": "input",
+     "emits": {
+      "type": [],
+      "enter_wrong": [
+       "passcode_fail[item=enter]"
+      ]
+     },
+     "note": "Typing sends nothing, never the value. Enter submits."
+    },
+    "cortex.passcode.enter": {
+     "kind": "button",
+     "emits": {
+      "wrong": [
+       "passcode_fail[item=click]"
+      ],
+      "right": [
+       "passcode_ok[item=click]"
+      ],
+      "right_enter": [
+       "passcode_ok[item=enter]"
+      ]
+     }
+    },
+    "cortex.nav.how": {
+     "kind": "link",
+     "emits": {
+      "click": [
+       "jump[item=how]"
+      ]
+     }
+    },
+    "cortex.nav.demo": {
+     "kind": "link",
+     "emits": {
+      "click": [
+       "jump[item=demo]"
+      ]
+     }
+    },
+    "cortex.nav.try": {
+     "kind": "link",
+     "emits": {
+      "click": [
+       "jump[item=try]"
+      ]
+     }
+    },
+    "cortex.back": {
+     "kind": "link",
+     "emits": {
+      "click": []
+     },
+     "lifecycle": {
+      "click": [
+       "track:demo_end[reason=%R]"
+      ]
+     },
+     "note": "Navigation link: the generic ui_click or nav_click comes from track.js, the page adds demo_end."
+    },
+    "cortex.hero.watch": {
+     "kind": "button",
+     "emits": {
+      "click": [
+       "jump[item=demo_hero]"
+      ]
+     }
+    },
+    "cortex.github.hero": {
+     "kind": "link",
+     "emits": {
+      "click": [
+       "github[item=hero]"
+      ]
+     }
+    },
+    "cortex.github.litebar_text": {
+     "kind": "link",
+     "emits": {
+      "click": [
+       "github[item=litebar_text]"
+      ]
+     }
+    },
+    "cortex.github.litebar_cta": {
+     "kind": "link",
+     "emits": {
+      "click": [
+       "github[item=litebar_cta]"
+      ]
+     }
+    },
+    "cortex.github.try_text": {
+     "kind": "link",
+     "emits": {
+      "click": [
+       "github[item=try_text]"
+      ]
+     }
+    },
+    "cortex.github.footer": {
+     "kind": "link",
+     "emits": {
+      "click": [
+       "github[item=footer]"
+      ]
+     }
+    },
+    "cortex.play": {
+     "kind": "button",
+     "emits": {
+      "click": [
+       "play",
+       "agent_step[item=packager]",
+       "kit_view[item=replay]"
+      ]
+     },
+     "note": "Replay finishes after about 4 s; the furthest agent is reported once, not per row."
+    },
+    "cortex.file": {
+     "kind": "file",
+     "emits": {
+      "change": [
+       "file_attach[item=pdf]"
+      ]
+     },
+     "note": "Type only, never the file name."
+    },
+    "cortex.brief": {
+     "kind": "textarea",
+     "emits": {
+      "type": [
+       "brief_edit[bucket=21-80]"
+      ]
+     },
+     "note": "Debounced 700 ms, length bucket only."
+    },
+    "cortex.runlive": {
+     "kind": "button",
+     "emits": {
+      "unreachable": [
+       "run_live[item=nofile]",
+       "re:^backend_unreachable\\[ms\\]$"
+      ],
+      "limit": [
+       "run_live[item=nofile]",
+       "re:^live_result\\[item=limit,ms\\]$"
+      ],
+      "error": [
+       "run_live[item=nofile]",
+       "re:^live_result\\[item=error,ms\\]$"
+      ],
+      "ok": [
+       "run_live[item=file]",
+       "agent_step[item=research]",
+       "kit_view[item=live]",
+       "re:^live_result\\[item=ok,ms\\]$"
+      ]
+     },
+     "note": "The live backend is always mocked or aborted in tests."
+    }
+   },
+   "views": {
+    "passcode_shown": "Emitted on load while the gate is up."
+   },
+   "listeners": [
+    {
+     "match": "\\$\\(\"gbtn\"\\)\\.onclick",
+     "maps": "cortex.passcode.enter"
+    },
+    {
+     "match": "\\$\\(\"gp\"\\)\\.addEventListener\\(\"keydown\"",
+     "maps": "cortex.passcode"
+    },
+    {
+     "match": "\\$\\(\"play\"\\)\\.addEventListener\\(\"click\"",
+     "maps": "cortex.play"
+    },
+    {
+     "match": "\\$\\(\"play\"\\)\\.onclick",
+     "maps": "cortex.play"
+    },
+    {
+     "match": "a\\.addEventListener\\(\"click\",\\(\\)=>\\{TRK\\.a\\(\"jump\"",
+     "maps": "cortex.nav.*, cortex.hero.watch"
+    },
+    {
+     "match": "a\\.addEventListener\\(\"click\",\\(\\)=>\\{TRK\\.a\\(\"github\"",
+     "maps": "cortex.github.*"
+    },
+    {
+     "match": "\\$\\(\"brief\"\\)\\.addEventListener\\(\"input\"",
+     "maps": "cortex.brief"
+    },
+    {
+     "match": "\\$\\(\"file\"\\)\\.addEventListener\\(\"change\"",
+     "maps": "cortex.file"
+    },
+    {
+     "match": "\\$\\(\"runlive\"\\)\\.onclick",
+     "maps": "cortex.runlive"
+    }
+   ]
+  },
+  "ad-autopsy/index.html": {
+   "demo_id": "ad-autopsy",
+   "controls": {
+    "ad.back": {
+     "kind": "link",
+     "emits": {
+      "click": []
+     },
+     "lifecycle": {
+      "click": [
+       "track:demo_end[reason=%R]"
+      ]
+     },
+     "note": "Navigation link: the generic ui_click or nav_click comes from track.js, the page adds demo_end."
+    },
+    "ad.drop": {
+     "kind": "label",
+     "emits": {
+      "chooser": [
+       "upload[item=file:png]",
+       "re:^analysis_done\\[ms\\]$"
+      ]
+     },
+     "note": "Opens the file chooser; the event is the upload itself."
+    },
+    "ad.file": {
+     "kind": "file",
+     "emits": {
+      "change": [
+       "upload[item=file:png]",
+       "re:^analysis_done\\[ms\\]$"
+      ],
+      "drop": [
+       "upload[item=drop:png]",
+       "re:^analysis_done\\[ms\\]$"
+      ],
+      "paste": [
+       "upload[item=paste:png]",
+       "re:^analysis_done\\[ms\\]$"
+      ]
+     },
+     "note": "Method and type only, never the file name. A non-image file sends demo_error not_image."
+    },
+    "ad.sample.lumo": {
+     "kind": "button",
+     "emits": {
+      "click": [
+       "sample[item=lumo]",
+       "re:^analysis_done\\[ms\\]$"
+      ]
+     },
+     "note": "Created at runtime."
+    },
+    "ad.sample.ferro": {
+     "kind": "button",
+     "emits": {
+      "click": [
+       "sample[item=ferro]",
+       "re:^analysis_done\\[ms\\]$"
+      ]
+     },
+     "note": "Created at runtime."
+    },
+    "ad.sample.vella": {
+     "kind": "button",
+     "emits": {
+      "click": [
+       "sample[item=vella]",
+       "re:^analysis_done\\[ms\\]$"
+      ]
+     },
+     "note": "Created at runtime."
+    },
+    "ad.layer.heat": {
+     "kind": "toggle",
+     "emits": {
+      "click": [
+       "layer[item=heat,value=0]"
+      ]
+     }
+    },
+    "ad.layer.gaze": {
+     "kind": "toggle",
+     "emits": {
+      "click": [
+       "layer[item=gaze,value=0]"
+      ]
+     }
+    },
+    "ad.layer.text": {
+     "kind": "toggle",
+     "emits": {
+      "click": [
+       "layer[item=text,value=1]"
+      ]
+     }
+    },
+    "ad.layer.face": {
+     "kind": "toggle",
+     "emits": {
+      "click": [
+       "layer[item=face,value=0]"
+      ]
+     }
+    },
+    "ad.zone.none": {
+     "kind": "button",
+     "emits": {
+      "click": [
+       "zone[item=none]"
+      ]
+     }
+    },
+    "ad.zone.reels": {
+     "kind": "button",
+     "emits": {
+      "click": [
+       "zone[item=reels]"
+      ]
+     }
+    },
+    "ad.zone.stories": {
+     "kind": "button",
+     "emits": {
+      "click": [
+       "zone[item=stories]"
+      ]
+     }
+    },
+    "ad.zone.tiktok": {
+     "kind": "button",
+     "emits": {
+      "click": [
+       "zone[item=tiktok]"
+      ]
+     }
+    },
+    "ad.zone.linkedin": {
+     "kind": "button",
+     "emits": {
+      "click": [
+       "zone[item=linkedin]"
+      ]
+     }
+    },
+    "ad.feed.ig": {
+     "kind": "button",
+     "emits": {
+      "click": [
+       "feed[item=ig]"
+      ]
+     }
+    },
+    "ad.feed.li": {
+     "kind": "button",
+     "emits": {
+      "click": [
+       "feed[item=li]"
+      ]
+     }
+    },
+    "ad.feed.tt": {
+     "kind": "button",
+     "emits": {
+      "click": [
+       "feed[item=tt]"
+      ]
+     }
+    },
+    "ad.flick": {
+     "kind": "button",
+     "emits": {
+      "click": [
+       "re:^flick\\[item=ig,bucket=q[1-5]\\]$"
+      ]
+     }
+    },
+    "ad.brand": {
+     "kind": "textarea",
+     "emits": {
+      "type": [
+       "brand_edit[bucket=21-80]"
+      ]
+     },
+     "note": "Debounced 700 ms, length bucket only."
+    },
+    "ad.headline": {
+     "kind": "text",
+     "emits": {
+      "type": [
+       "headline_edit[bucket=21-80]"
+      ]
+     },
+     "note": "Debounced 700 ms, length bucket only."
+    },
+    "ad.copy": {
+     "kind": "textarea",
+     "emits": {
+      "type": [
+       "copy_edit[bucket=21-80]"
+      ]
+     },
+     "note": "Debounced 700 ms, length bucket only."
+    },
+    "ad.ab.slot_a": {
+     "kind": "select",
+     "emits": {
+      "change": [
+       "ab_slot[item=A:ferro]",
+       "re:^ab_result\\[item=(A|B|tie),bucket=(lt4|4-10|10-20|20\\+)\\]$"
+      ]
+     }
+    },
+    "ad.ab.slot_b": {
+     "kind": "select",
+     "emits": {
+      "change": [
+       "ab_slot[item=B:vella]",
+       "re:^ab_result\\[item=(A|B|tie),bucket=(lt4|4-10|10-20|20\\+)\\]$"
+      ]
+     }
+    },
+    "ad.ab.file_a": {
+     "kind": "file",
+     "emits": {
+      "change": [
+       "ab_upload[item=A:png]",
+       "re:^ab_result\\[item=(A|B|tie),bucket=(lt4|4-10|10-20|20\\+)\\]$"
+      ]
+     }
+    },
+    "ad.ab.file_b": {
+     "kind": "file",
+     "emits": {
+      "change": [
+       "ab_upload[item=B:png]",
+       "re:^ab_result\\[item=(A|B|tie),bucket=(lt4|4-10|10-20|20\\+)\\]$"
+      ]
+     }
+    },
+    "ad.pdf": {
+     "kind": "button",
+     "emits": {
+      "click": [
+       "re:^report_pdf\\[bucket=q[1-5]\\]$"
+      ],
+      "nolib": [
+       "track:demo_error[code=pdf_lib]"
+      ]
+     }
+    }
+   },
+   "views": {
+    "model:loaded|failed": "Face model state on load, ms and CPU delegate."
+   },
+   "listeners": [
+    {
+     "match": "b\\.onclick=function\\(\\)\\{TRK\\.start\\(.sample.\\)",
+     "maps": "ad.sample.*"
+    },
+    {
+     "match": "s\\.onchange=function\\(\\)\\{TRK\\.start\\(.ab.\\)",
+     "maps": "ad.ab.slot_a, ad.ab.slot_b"
+    },
+    {
+     "match": "abFileA.\\)\\.onchange",
+     "maps": "ad.ab.file_a"
+    },
+    {
+     "match": "b\\.onclick=function\\(\\)\\{var l=b\\.dataset\\.l",
+     "maps": "ad.layer.*"
+    },
+    {
+     "match": "b\\.onclick=function\\(\\)\\{zone=",
+     "maps": "ad.zone.*"
+    },
+    {
+     "match": "b\\.onclick=function\\(\\)\\{feedKind=",
+     "maps": "ad.feed.*"
+    },
+    {
+     "match": "flick.\\)\\.onclick",
+     "maps": "ad.flick"
+    },
+    {
+     "match": "brand.\\)\\.oninput",
+     "maps": "ad.brand"
+    },
+    {
+     "match": "hl.\\)\\.oninput",
+     "maps": "ad.headline, ad.copy"
+    },
+    {
+     "match": "el\\.addEventListener\\('input'",
+     "maps": "ad.brand, ad.headline, ad.copy"
+    },
+    {
+     "match": "file.\\)\\.onchange",
+     "maps": "ad.file"
+    },
+    {
+     "match": "drop\\.addEventListener\\('drop'",
+     "maps": "ad.file"
+    },
+    {
+     "match": "window\\.addEventListener\\('paste'",
+     "maps": "ad.file"
+    }
+   ]
+  },
+  "positioning/index.html": {
+   "demo_id": "positioning",
+   "controls": {
+    "pos.back": {
+     "kind": "link",
+     "emits": {
+      "click": []
+     },
+     "lifecycle": {
+      "click": [
+       "track:demo_end[reason=%R]"
+      ]
+     },
+     "note": "Navigation link: the generic ui_click or nav_click comes from track.js, the page adds demo_end."
+    },
+    "pos.sample.coffee": {
+     "kind": "button",
+     "emits": {
+      "click": [
+       "sample[item=coffee]"
+      ]
+     }
+    },
+    "pos.sample.fintech": {
+     "kind": "button",
+     "emits": {
+      "click": [
+       "sample[item=fintech]"
+      ]
+     }
+    },
+    "pos.sample.blank": {
+     "kind": "button",
+     "emits": {
+      "click": [
+       "sample[item=blank]"
+      ]
+     }
+    },
+    "pos.card.us": {
+     "kind": "radio",
+     "emits": {
+      "change": [
+       "us_set"
+      ]
+     },
+     "note": "Created at runtime, one per card."
+    },
+    "pos.card.remove": {
+     "kind": "button",
+     "emits": {
+      "click": [
+       "competitor_remove[bucket=6-20]"
+      ]
+     },
+     "note": "Created at runtime, one per card. bucket is the count after removal."
+    },
+    "pos.card.name": {
+     "kind": "text",
+     "emits": {
+      "type": [
+       "name_edit[bucket=21-80]"
+      ]
+     },
+     "note": "Runtime. Debounced, length bucket only."
+    },
+    "pos.card.price": {
+     "kind": "text",
+     "emits": {
+      "type": [
+       "price_edit[bucket=21-80]"
+      ]
+     },
+     "note": "Runtime. Debounced, length bucket only."
+    },
+    "pos.card.headline": {
+     "kind": "textarea",
+     "emits": {
+      "type": [
+       "headline_edit[bucket=21-80]"
+      ]
+     },
+     "note": "Runtime. Debounced, length bucket only."
+    },
+    "pos.card.tagline": {
+     "kind": "text",
+     "emits": {
+      "type": [
+       "tagline_edit[bucket=21-80]"
+      ]
+     },
+     "note": "Runtime. Debounced, length bucket only."
+    },
+    "pos.card.scores_toggle": {
+     "kind": "summary",
+     "emits": {
+      "click": []
+     },
+     "note": "View state only: the generic ui_click from track.js is its one event."
+    },
+    "pos.card.score.prem": {
+     "kind": "range",
+     "emits": {
+      "input": [
+       "re:^score\\[item=prem,bucket=q[1-5]\\]$"
+      ]
+     },
+     "note": "Runtime. Debounced 600 ms."
+    },
+    "pos.card.score.emo": {
+     "kind": "range",
+     "emits": {
+      "input": [
+       "re:^score\\[item=emo,bucket=q[1-5]\\]$"
+      ]
+     },
+     "note": "Runtime. Debounced 600 ms."
+    },
+    "pos.card.score.spec": {
+     "kind": "range",
+     "emits": {
+      "input": [
+       "re:^score\\[item=spec,bucket=q[1-5]\\]$"
+      ]
+     },
+     "note": "Runtime. Debounced 600 ms."
+    },
+    "pos.card.score.inno": {
+     "kind": "range",
+     "emits": {
+      "input": [
+       "re:^score\\[item=inno,bucket=q[1-5]\\]$"
+      ]
+     },
+     "note": "Runtime. Debounced 600 ms."
+    },
+    "pos.card.score.play": {
+     "kind": "range",
+     "emits": {
+      "input": [
+       "re:^score\\[item=play,bucket=q[1-5]\\]$"
+      ]
+     },
+     "note": "Runtime. Debounced 600 ms."
+    },
+    "pos.card.reset.prem": {
+     "kind": "button",
+     "emits": {
+      "click": [
+       "score_reset[item=prem]"
+      ]
+     },
+     "note": "Runtime, hidden until a score is overruled."
+    },
+    "pos.card.reset.emo": {
+     "kind": "button",
+     "emits": {
+      "click": [
+       "score_reset[item=emo]"
+      ]
+     },
+     "note": "Runtime, hidden until a score is overruled."
+    },
+    "pos.card.reset.spec": {
+     "kind": "button",
+     "emits": {
+      "click": [
+       "score_reset[item=spec]"
+      ]
+     },
+     "note": "Runtime, hidden until a score is overruled."
+    },
+    "pos.card.reset.inno": {
+     "kind": "button",
+     "emits": {
+      "click": [
+       "score_reset[item=inno]"
+      ]
+     },
+     "note": "Runtime, hidden until a score is overruled."
+    },
+    "pos.card.reset.play": {
+     "kind": "button",
+     "emits": {
+      "click": [
+       "score_reset[item=play]"
+      ]
+     },
+     "note": "Runtime, hidden until a score is overruled."
+    },
+    "pos.add": {
+     "kind": "button",
+     "emits": {
+      "click": [
+       "competitor_add[bucket=6-20]"
+      ]
+     },
+     "note": "bucket is the count after adding."
+    },
+    "pos.axis_x": {
+     "kind": "select",
+     "emits": {
+      "change": [
+       "axis_x[item=spec]"
+      ]
+     }
+    },
+    "pos.axis_y": {
+     "kind": "select",
+     "emits": {
+      "change": [
+       "axis_y[item=play]"
+      ]
+     }
+    },
+    "pos.map": {
+     "kind": "canvas",
+     "emits": {
+      "drag": [
+       "re:^dot_drag\\[ms\\]$"
+      ]
+     },
+     "note": "One event when a drag ends after moving. Nothing is sent while moving."
+    },
+    "pos.png": {
+     "kind": "button",
+     "emits": {
+      "click": [
+       "png"
+      ]
+     }
+    },
+    "pos.pdf": {
+     "kind": "button",
+     "emits": {
+      "click": [
+       "pdf"
+      ],
+      "nolib": [
+       "track:demo_error[code=pdf_lib]"
+      ]
+     }
+    },
+    "pos.share": {
+     "kind": "button",
+     "emits": {
+      "click": [
+       "share_link"
+      ]
+     }
+    },
+    "pos.shareurl": {
+     "kind": "text",
+     "emits": {
+      "focus": []
+     },
+     "note": "Read only fallback field. No event."
+    },
+    "pos.statement.t": {
+     "kind": "text",
+     "emits": {
+      "type": [
+       "statement_start[item=t]"
+      ]
+     },
+     "note": "First input only, never the text."
+    },
+    "pos.statement.n": {
+     "kind": "text",
+     "emits": {
+      "type": [
+       "statement_start[item=n]"
+      ]
+     },
+     "note": "First input only."
+    },
+    "pos.statement.c": {
+     "kind": "text",
+     "emits": {
+      "type": [
+       "statement_start[item=c]"
+      ]
+     },
+     "note": "First input only."
+    },
+    "pos.statement.b": {
+     "kind": "text",
+     "emits": {
+      "type": [
+       "statement_start[item=b]"
+      ]
+     },
+     "note": "First input only."
+    },
+    "pos.statement.a": {
+     "kind": "text",
+     "emits": {
+      "type": [
+       "statement_start[item=a]"
+      ]
+     },
+     "note": "First input only."
+    },
+    "pos.copy_statement": {
+     "kind": "button",
+     "emits": {
+      "click": [
+       "copy_statement"
+      ]
+     }
+    }
+   },
+   "views": {
+    "insight_view": "Once, when #insights is 40 percent visible.",
+    "white_space_view": "Once, when the Nobody says it column is 40 percent visible.",
+    "share_open": "On load or hashchange with a valid #s= state. The hash is never sent."
+   },
+   "listeners": [
+    {
+     "match": "cv\\.addEventListener\\('pointerdown'",
+     "maps": "pos.map"
+    },
+    {
+     "match": "cv\\.addEventListener\\('pointermove'",
+     "maps": "pos.map"
+    },
+    {
+     "match": "cv\\.addEventListener\\('pointerup',endDrag\\)",
+     "maps": "pos.map"
+    },
+    {
+     "match": "cardsEl\\.addEventListener\\('input'",
+     "maps": "pos.card.name, pos.card.price, pos.card.headline, pos.card.tagline, pos.card.score.*"
+    },
+    {
+     "match": "cardsEl\\.addEventListener\\('change'",
+     "maps": "pos.card.us"
+    },
+    {
+     "match": "cardsEl\\.addEventListener\\('click'",
+     "maps": "pos.card.reset.*, pos.card.remove"
+    },
+    {
+     "match": "axx\\.addEventListener",
+     "maps": "pos.axis_x"
+    },
+    {
+     "match": "axy\\.addEventListener",
+     "maps": "pos.axis_y"
+    },
+    {
+     "match": "getElementById\\('add'\\)\\.addEventListener",
+     "maps": "pos.add"
+    },
+    {
+     "match": "b\\.addEventListener\\('click',function\\(\\)\\{",
+     "maps": "pos.sample.*"
+    },
+    {
+     "match": "el\\.addEventListener\\('input',function\\(\\)\\{var sk0",
+     "maps": "pos.statement.*"
+    },
+    {
+     "match": "getElementById\\('share'\\)\\.addEventListener",
+     "maps": "pos.share"
+    },
+    {
+     "match": "getElementById\\('copystmt'\\)\\.addEventListener",
+     "maps": "pos.copy_statement"
+    },
+    {
+     "match": "getElementById\\('png'\\)\\.addEventListener",
+     "maps": "pos.png"
+    },
+    {
+     "match": "getElementById\\('pdf'\\)\\.addEventListener",
+     "maps": "pos.pdf"
+    },
+    {
+     "match": "navigator\\.clipboard\\.writeText",
+     "maps": "pos.share, pos.copy_statement"
+    },
+    {
+     "match": "window\\.addEventListener\\('resize'",
+     "maps": "ignore: layout only"
+    },
+    {
+     "match": "window\\.addEventListener\\('hashchange'",
+     "maps": "views.share_open"
+    }
+   ]
+  },
+  "hire/index.html": {
+   "demo_id": "hire",
+   "controls": {
+    "hire.role_text": {
+     "kind": "text",
+     "emits": {
+      "type": [
+       "role_typed[bucket=21-80]",
+       "sheet_built[item=other:noco,value=0]"
+      ]
+     },
+     "note": "Length bucket only. Typing a role makes the sheet ready, so sheet_built chains from it."
+    },
+    "hire.chip.role.brand": {
+     "kind": "chip",
+     "emits": {
+      "click": [
+       "chip[item=role:brand,value=1]",
+       "sheet_built[item=brand:noco,value=0]"
+      ],
+      "again": [
+       "chip[item=role:brand,value=0]"
+      ]
+     },
+     "note": "Runtime. sheet_built fires when the sheet first becomes ready."
+    },
+    "hire.chip.role.growth": {
+     "kind": "chip",
+     "emits": {
+      "click": [
+       "chip[item=role:growth,value=1]"
+      ]
+     },
+     "note": "Runtime."
+    },
+    "hire.chip.role.pmm": {
+     "kind": "chip",
+     "emits": {
+      "click": [
+       "chip[item=role:pmm,value=1]"
+      ]
+     },
+     "note": "Runtime."
+    },
+    "hire.chip.role.content": {
+     "kind": "chip",
+     "emits": {
+      "click": [
+       "chip[item=role:content,value=1]"
+      ]
+     },
+     "note": "Runtime."
+    },
+    "hire.chip.role.creative": {
+     "kind": "chip",
+     "emits": {
+      "click": [
+       "chip[item=role:creative,value=1]"
+      ]
+     },
+     "note": "Runtime."
+    },
+    "hire.chip.role.other": {
+     "kind": "chip",
+     "emits": {
+      "click": [
+       "chip[item=role:other,value=1]"
+      ]
+     },
+     "note": "Runtime."
+    },
+    "hire.chip.company.startup": {
+     "kind": "chip",
+     "emits": {
+      "click": [
+       "chip[item=company:startup,value=1]"
+      ]
+     },
+     "note": "Runtime."
+    },
+    "hire.chip.company.scaleup": {
+     "kind": "chip",
+     "emits": {
+      "click": [
+       "chip[item=company:scaleup,value=1]"
+      ]
+     },
+     "note": "Runtime."
+    },
+    "hire.chip.company.agency": {
+     "kind": "chip",
+     "emits": {
+      "click": [
+       "chip[item=company:agency,value=1]"
+      ]
+     },
+     "note": "Runtime."
+    },
+    "hire.chip.company.corporate": {
+     "kind": "chip",
+     "emits": {
+      "click": [
+       "chip[item=company:corporate,value=1]"
+      ]
+     },
+     "note": "Runtime."
+    },
+    "hire.chip.company.luxury": {
+     "kind": "chip",
+     "emits": {
+      "click": [
+       "chip[item=company:luxury,value=1]"
+      ]
+     },
+     "note": "Runtime."
+    },
+    "hire.chip.goal.brand": {
+     "kind": "chip",
+     "emits": {
+      "click": [
+       "chip[item=goal:brand,value=1]"
+      ]
+     },
+     "note": "Runtime."
+    },
+    "hire.chip.goal.acq": {
+     "kind": "chip",
+     "emits": {
+      "click": [
+       "chip[item=goal:acq,value=1]"
+      ]
+     },
+     "note": "Runtime."
+    },
+    "hire.chip.goal.conv": {
+     "kind": "chip",
+     "emits": {
+      "click": [
+       "chip[item=goal:conv,value=1]"
+      ]
+     },
+     "note": "Runtime."
+    },
+    "hire.chip.goal.organic": {
+     "kind": "chip",
+     "emits": {
+      "click": [
+       "goal_limit[item=organic]"
+      ]
+     },
+     "note": "Runtime. Fourth goal is refused, so goal_limit is sent instead."
+    },
+    "hire.chip.goal.launch": {
+     "kind": "chip",
+     "emits": {
+      "click": [
+       "goal_limit[item=launch]"
+      ]
+     },
+     "note": "Runtime. Refused at the limit."
+    },
+    "hire.chip.goal.pos": {
+     "kind": "chip",
+     "emits": {
+      "click": [
+       "goal_limit[item=pos]"
+      ]
+     },
+     "note": "Runtime. Refused at the limit."
+    },
+    "hire.chip.goal.meas": {
+     "kind": "chip",
+     "emits": {
+      "click": [
+       "goal_limit[item=meas]"
+      ]
+     },
+     "note": "Runtime. Refused at the limit."
+    },
+    "hire.chip.goal.sys": {
+     "kind": "chip",
+     "emits": {
+      "click": [
+       "goal_limit[item=sys]"
+      ]
+     },
+     "note": "Runtime. Refused at the limit."
+    },
+    "hire.chip.goal.eu": {
+     "kind": "chip",
+     "emits": {
+      "click": [
+       "goal_limit[item=eu]"
+      ]
+     },
+     "note": "Runtime. Refused at the limit."
+    },
+    "hire.pdf": {
+     "kind": "button",
+     "emits": {
+      "click": [
+       "pdf[item=brand]",
+       "track:hire_pdf[role_bucket=brand]"
+      ],
+      "nolib": [
+       "track:demo_error[code=pdf_lib]"
+      ]
+     },
+     "note": "Key event hire_pdf carries role_bucket, a role category id."
+    },
+    "hire.copy_link": {
+     "kind": "button",
+     "emits": {
+      "click": [
+       "copy_link"
+      ]
+     }
+    },
+    "hire.reset": {
+     "kind": "button",
+     "emits": {
+      "click": [
+       "reset"
+      ]
+     }
+    },
+    "hire.share_url": {
+     "kind": "text",
+     "emits": {
+      "focus": []
+     },
+     "note": "Read only field. No event."
+    },
+    "hire.sheet.work": {
+     "kind": "link",
+     "emits": {
+      "click": [
+       "link[item=sheet.work]"
+      ]
+     },
+     "note": "Runtime, one per matched project."
+    },
+    "hire.sheet.email": {
+     "kind": "link",
+     "emits": {
+      "click": [
+       "link[item=sheet.email]"
+      ]
+     },
+     "note": "Runtime. track.js adds email_click."
+    },
+    "hire.sheet.contact": {
+     "kind": "link",
+     "emits": {
+      "click": [
+       "link[item=sheet.contact]"
+      ]
+     },
+     "note": "Runtime."
+    },
+    "hire.sheet.linkedin": {
+     "kind": "link",
+     "emits": {
+      "click": [
+       "link[item=sheet.linkedin]"
+      ]
+     },
+     "note": "Runtime. track.js adds outbound_click."
+    },
+    "hire.foot.all_work": {
+     "kind": "link",
+     "emits": {
+      "click": [
+       "link[item=foot.all_work]"
+      ]
+     }
+    },
+    "hire.foot.about": {
+     "kind": "link",
+     "emits": {
+      "click": [
+       "link[item=foot.about]"
+      ]
+     }
+    },
+    "hire.foot.linkedin": {
+     "kind": "link",
+     "emits": {
+      "click": [
+       "link[item=foot.linkedin]"
+      ]
+     }
+    },
+    "hire.foot.github": {
+     "kind": "link",
+     "emits": {
+      "click": [
+       "link[item=foot.github]"
+      ]
+     }
+    },
+    "hire.foot.email": {
+     "kind": "link",
+     "emits": {
+      "click": [
+       "link[item=foot.email]"
+      ]
+     }
+    }
+   },
+   "views": {
+    "share_open": "On load when the URL carries a valid role. Query values are never sent."
+   },
+   "listeners": [
+    {
+     "match": "b\\.addEventListener\\('click', function \\(\\) \\{ onClick",
+     "maps": "hire.chip.*"
+    },
+    {
+     "match": "\\$\\('btnCopy'\\)\\.addEventListener",
+     "maps": "hire.copy_link"
+    },
+    {
+     "match": "\\$\\('btnReset'\\)\\.addEventListener",
+     "maps": "hire.reset"
+    },
+    {
+     "match": "\\$\\('roleText'\\)\\.addEventListener",
+     "maps": "hire.role_text"
+    },
+    {
+     "match": "\\$\\('btnPdf'\\)\\.addEventListener",
+     "maps": "hire.pdf"
+    },
+    {
+     "match": "navigator\\.clipboard\\.writeText",
+     "maps": "hire.copy_link"
+    },
+    {
+     "match": "document\\.addEventListener\\('click', function \\(e\\)",
+     "maps": "hire.sheet.*, hire.foot.*"
+    }
+   ]
+  }
+ }
+}

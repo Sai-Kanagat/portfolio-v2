@@ -130,20 +130,20 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     <div class="mono">Cortex Studio · private preview</div>
     <h2>Enter passcode</h2>
     <div class="note">Work in progress. Ask Sai for access.</div>
-    <input id="gp" inputmode="numeric" maxlength="8" placeholder="••••" autofocus />
+    <input id="gp" data-track="cortex.passcode" inputmode="numeric" maxlength="8" placeholder="••••" autofocus />
     <div class="err" id="gerr"></div>
-    <button id="gbtn">Enter</button>
+    <button id="gbtn" data-track="cortex.passcode.enter">Enter</button>
   </div>
 </div>
 
-<header class="top">
+<header class="top" data-zone="cortex">
   <div class="wrap">
     <span class="logo">Cortex Studio</span>
     <nav>
-      <a href="#how">How it works</a>
-      <a href="#demo">Instant demo</a>
-      <a href="#try">Try it</a>
-      <a class="back" href="/">← Portfolio</a>
+      <a href="#how" data-track="cortex.nav.how">How it works</a>
+      <a href="#demo" data-track="cortex.nav.demo">Instant demo</a>
+      <a href="#try" data-track="cortex.nav.try">Try it</a>
+      <a class="back" href="/" data-track="cortex.back">← Portfolio</a>
     </nav>
   </div>
 </header>
@@ -157,8 +157,8 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
       then <b>look at their own images and critique them</b> before a human signs off. Not a mockup — a working
       multi-agent system with guardrails, tracing, cost control and a human-in-the-loop.</p>
     <div class="cta">
-      <button class="btn" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">Watch it run</button>
-      <a class="btn ghost" href="https://github.com/Sai-Kanagat/cortex-studio" target="_blank" rel="noopener">Source on GitHub</a>
+      <button class="btn" data-track="cortex.hero.watch" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">Watch it run</button>
+      <a class="btn ghost" href="https://github.com/Sai-Kanagat/cortex-studio" target="_blank" rel="noopener" data-track="cortex.github.hero">Source on GitHub</a>
     </div>
     <div class="tags">
       <span class="tag">LangGraph</span><span class="tag">FastAPI</span><span class="tag">Gemini</span>
@@ -173,11 +173,11 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     <div>
       <span class="litebadge">Lite preview</span>
       <b>This is a throttled demo running on free-tier models.</b> The full
-      <a href="https://github.com/Sai-Kanagat/cortex-studio" target="_blank" rel="noopener">open-source version</a>
+      <a href="https://github.com/Sai-Kanagat/cortex-studio" target="_blank" rel="noopener" data-track="cortex.github.litebar_text">open-source version</a>
       connected to a stronger paid model (Claude, GPT, or Gemini Pro) produces markedly better copy and visuals,
       faster, with no daily caps. This preview exists to show the system working end to end.
     </div>
-    <a class="btn ghost" href="https://github.com/Sai-Kanagat/cortex-studio" target="_blank" rel="noopener">Get the code →</a>
+    <a class="btn ghost" href="https://github.com/Sai-Kanagat/cortex-studio" target="_blank" rel="noopener" data-track="cortex.github.litebar_cta">Get the code →</a>
   </div>
 </div>
 
@@ -238,7 +238,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
       <div class="head">
         <span class="t">Vespa Elettrica · New Year</span>
         <span class="badge ok" id="dstatus">ready</span>
-        <button class="btn" style="margin-left:auto;padding:8px 16px;font-size:13px" id="play">▶ Run</button>
+        <button class="btn" style="margin-left:auto;padding:8px 16px;font-size:13px" id="play" data-track="cortex.play">▶ Run</button>
       </div>
       <div class="body">
         <div class="agents" id="agents"></div>
@@ -255,17 +255,17 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     <p class="sub">Upload a brand book and describe a campaign. The real backend runs the full multi-agent pipeline
       on live models. This lite preview uses free-tier models on a sleeping free server, so expect a ~40s cold start,
       a few minutes per run, and a small daily cap. Wired to a paid model from the
-      <a href="https://github.com/Sai-Kanagat/cortex-studio" target="_blank" rel="noopener">open-source code</a>,
+      <a href="https://github.com/Sai-Kanagat/cortex-studio" target="_blank" rel="noopener" data-track="cortex.github.try_text">open-source code</a>,
       it is far faster and sharper.</p>
     <div class="live">
       <label>Brand book (optional · PDF / PNG / JPG)</label>
-      <input type="file" id="file" accept=".pdf,.png,.jpg,.jpeg,.webp" />
+      <input type="file" id="file" data-track="cortex.file" accept=".pdf,.png,.jpg,.jpeg,.webp" />
       <small style="display:block;margin-top:6px;font-size:12px;color:#6b6b6b;">Your file and brief are sent to the Cortex backend and AI model providers for processing. Please do not upload anything confidential.</small>
       <div style="margin-top:14px"></div>
       <label>Campaign brief</label>
-      <textarea id="brief">Launch a Valentine's campaign for an artisanal Italian chocolate brand, targeting young couples in Milan. Elegant, warm, a little playful.</textarea>
+      <textarea id="brief" data-track="cortex.brief">Launch a Valentine's campaign for an artisanal Italian chocolate brand, targeting young couples in Milan. Elegant, warm, a little playful.</textarea>
       <div class="rowf">
-        <button class="btn" id="runlive">Run live</button>
+        <button class="btn" id="runlive" data-track="cortex.runlive">Run live</button>
         <span class="note" id="livenote"></span>
       </div>
       <div id="liveout" style="margin-top:18px"></div>
@@ -277,11 +277,52 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   <div class="wrap">
     Built by Sai Kanagat — Python · FastAPI · LangGraph · Gemini + Flux · deployed on Render.
     This is a free-tier lite preview; the open-source project runs far better on a paid model.
-    <a href="https://github.com/Sai-Kanagat/cortex-studio" target="_blank" rel="noopener">Clone it on GitHub →</a>
+    <a href="https://github.com/Sai-Kanagat/cortex-studio" target="_blank" rel="noopener" data-track="cortex.github.footer">Clone it on GitHub →</a>
   </div>
 </footer>
 
 <script id="pkg" type="application/json">{"brief": "Launch a test-ride campaign for the Vespa Elettrica in Italy, targeting young urban professionals in Milan and Rome. Goal: drive test-ride bookings via the Piaggio app. Tone: iconic, stylish, effortless, sustainable.", "package": {"brief": "Launch a test-ride campaign for the Vespa Elettrica in Italy, targeting young urban professionals in Milan and Rome. Goal: drive test-ride bookings via the Piaggio app. Tone: iconic, stylish, effortless, sustainable.", "research": {"findings": [{"claim": "Vespa has been an icon of Italian design and urban freedom since 1946, giving the brand unmatched heritage equity.", "source": "[brand] vespa_brand.md"}, {"claim": "The Vespa Elettrica extends that icon into zero-emission electric mobility without losing the classic silhouette.", "source": "[brand] vespa_brand.md"}, {"claim": "The campaign should lead with style, heritage and effortless city freedom rather than technical specs or price.", "source": "[brand] vespa_brand.md"}, {"claim": "Young urban professionals in Italian cities increasingly favour electric two-wheelers for congestion-free, sustainable commuting.", "source": "[web] example.com/urban-emobility"}, {"claim": "Design-led, aspirational creative plus an easy test-ride booking flow lifts conversion for premium mobility brands.", "source": "[web] example.com/premium-mobility"}], "summary": "Lead with Vespa's timeless Italian design and the effortless freedom of silent, electric city riding; make booking a test ride feel as stylish and simple as the ride itself.", "retrieved_sources": ["vespa_brand.md", "vespa_brand.md", "vespa_brand.md", "https://example.com/urban-emobility", "https://example.com/premium-mobility"]}, "strategy": {"segments": ["Young urban professionals (25-35) in Milan & Rome", "Design-conscious commuters tired of traffic & parking", "Sustainability-minded first-time scooter buyers"], "positioning": "The timeless Italian icon, now electric. Effortless, silent, zero-emission freedom through the city, with a silhouette everyone recognises.", "channels": ["Instagram", "TikTok", "Out-of-home (Milan & Rome)", "Email"]}, "copy": {"headline": "La dolce vita, now electric.", "captions": ["Sixty years of style, zero emissions. The new Vespa Elettrica glides through the city in silence. Book your test ride. #Vespa #VespaElettrica #DolceVita", "No traffic. No noise. No compromise on style. The icon goes electric, and the city has never looked better. 🛵⚡ #RideElectric #MadeInItaly", "From Rome's cobblestones to Milan's boulevards, one silhouette turns every head, now with an electric heart. Reserve your ride today."], "email_subject": "Your city, silent and electric — meet the new Vespa", "email_body": "Ciao,\n\nSince 1946, the Vespa has meant freedom, style, and the pure joy of the ride. Now that icon goes electric.\n\nThe new Vespa Elettrica keeps the same unmistakable silhouette, with silent, zero-emission power made for the modern city. No traffic stress, no fuel stops, just effortless freedom through the streets you love.\n\nBook your test ride in the Piaggio app and feel it for yourself.\n\nA presto,\nThe Vespa Team"}, "creative": {"concept": "Cinematic Italian city at golden hour: cobblestone streets, espresso bars, a young professional gliding silently past on a pastel Vespa Elettrica, heads turning. Timeless style meets silent electric motion, la dolce vita reimagined.", "image_prompts": ["Young Italian professional riding a pastel-mint Vespa Elettrica through a golden-hour Rome street, cobblestones, espresso bar in the background, cinematic, elegant, photorealistic", "Vespa Elettrica parked on a Milan boulevard at dusk, soft neon reflections, minimalist premium advertising photography, stylish composition"]}, "localization": {"language": "Italian", "headline_local": "La dolce vita, adesso elettrica.", "captions_local": ["Sessant'anni di stile, zero emissioni. La nuova Vespa Elettrica scivola in silenzio tra le strade della città. Prenota il tuo test ride. #Vespa #VespaElettrica", "Niente traffico. Niente rumore. Nessun compromesso sullo stile. L'icona diventa elettrica. 🛵⚡ #MadeInItaly"], "note": "Adapted to natural Italian; keeps the heritage plus effortless-freedom framing."}, "critique": {"approved": true, "score": 0.9, "issues": [], "violations": []}, "status": "approved", "visuals": [{"kind": "hero", "caption": "Hero visual", "url": "assets/hero.jpg", "qa_score": 0.9}, {"kind": "poster", "caption": "Poster / OOH", "url": "assets/poster.jpg", "qa_score": 0.9}, {"kind": "carousel1", "caption": "Carousel 1", "url": "assets/carousel1.jpg", "qa_score": 0.9}, {"kind": "carousel2", "caption": "Carousel 2", "url": "assets/carousel2.jpg", "qa_score": 0.9}, {"kind": "carousel3", "caption": "Carousel 3", "url": "assets/carousel3.jpg", "qa_score": 0.9}], "storyboard": [{"scene": 1, "shot": "Wide establishing shot, dawn over Rome", "caption": "A new year, a new ride.", "url": "assets/frame1.jpg"}, {"scene": 2, "shot": "Close on the reveal", "caption": "Meet the Vespa Elettrica.", "url": "assets/frame2.jpg"}, {"scene": 3, "shot": "Tracking shot, silent motion", "caption": "Silent. Electric. Effortless.", "url": "assets/frame3.jpg"}, {"scene": 4, "shot": "Piazza, festive New Year", "caption": "The city comes alive.", "url": "assets/frame4.jpg"}, {"scene": 5, "shot": "Hero end frame, golden-hour overlook", "caption": "La dolce vita, now electric.", "url": "assets/frame5.jpg"}]}, "events": [{"agent": "ingest", "message": "brief sanitized (no injection / PII)", "data": {"flags": []}}, {"agent": "planner", "message": "plan built: research, strategy, copy, creative, localize", "data": {"recalled": 0}}, {"agent": "research", "message": "grounded research done (3 brand + 2 web sources)", "data": {"sources": 5}}, {"agent": "strategy", "message": "positioning + 4 channels set", "data": {}}, {"agent": "copywriter", "message": "headline, 3 captions, email drafted", "data": {}}, {"agent": "creative_director", "message": "concept + image prompts ready", "data": {}}, {"agent": "localize", "message": "localized to Italian", "data": {}}, {"agent": "critic", "message": "brand-safety passed (score 0.90)", "data": {"approved": true, "violations": 0}}, {"agent": "human_gate", "message": "awaiting human approval", "data": {}}, {"agent": "packager", "message": "package approved & published", "data": {"published": {"published": true, "channel": "instagram+tiktok+email"}}}], "trace": {"run_id": "seed", "spans": [{"name": "planner", "kind": "agent", "latency_ms": 588, "input_tokens": 502, "output_tokens": 61, "cost_usd": 7.46e-05, "error": null}, {"name": "research", "kind": "agent", "latency_ms": 2216, "input_tokens": 1142, "output_tokens": 928, "cost_usd": 0.0026626, "error": null}, {"name": "strategy", "kind": "agent", "latency_ms": 1204, "input_tokens": 921, "output_tokens": 332, "cost_usd": 0.0011063, "error": null}, {"name": "copywriter", "kind": "agent", "latency_ms": 1812, "input_tokens": 1256, "output_tokens": 726, "cost_usd": 0.0021918, "error": null}, {"name": "creative_director", "kind": "agent", "latency_ms": 1358, "input_tokens": 1039, "output_tokens": 364, "cost_usd": 0.0012217, "error": null}, {"name": "localize", "kind": "agent", "latency_ms": 1043, "input_tokens": 744, "output_tokens": 322, "cost_usd": 0.0010282, "error": null}, {"name": "critic", "kind": "agent", "latency_ms": 921, "input_tokens": 1442, "output_tokens": 188, "cost_usd": 0.0009026, "error": null}], "total_cost_usd": 0.0091878, "total_latency_ms": 9142}}</script>
+<script>
+/* Tracking helper. Sends ids, buckets, counts and ms only: never typed text, names, file names or URL state. */
+(function(){
+  var DID='cortex',t0=Date.now(),Q=[],QT=0,QN=0,P={},HK=[];
+  var S={first:0,start:0,ended:0,eng:0,act:0,er:0};
+  function send(m,a){var s=window.sk;if(s&&typeof s[m]==='function'){try{s[m].apply(s,a);}catch(e){}return true;}return false;}
+  function flush(){while(Q.length&&send(Q[0][0],Q[0][1]))Q.shift();}
+  function emit(m,a){try{if(Q.length<80)Q.push([m,a]);flush();if(Q.length&&!QT){QN=0;QT=setInterval(function(){flush();if(!Q.length||++QN>24){clearInterval(QT);QT=0;Q.length=0;}},500);}}catch(e){}}
+  var TRK=window.TRK={
+    id:DID,
+    a:function(action,p){emit('demo',[DID,action,p||{}]);},
+    e:function(name,p){var o={demo_id:DID};if(p)for(var k in p)o[k]=p[k];emit('track',[name,o]);},
+    raw:function(name,p){emit('track',[name,p||{}]);},
+    start:function(mode){if(S.start)return;S.start=1;TRK.e('demo_start',{mode:mode});},
+    err:function(code){if(S.er++<3)TRK.e('demo_error',{code:code});},
+    model:function(state,ms){emit('model',[DID,state,{ms:ms,delegate:'CPU'}]);},
+    lb:function(n){return n<=0?'0':n<=20?'1-20':n<=80?'21-80':n<=300?'81-300':'300+';},
+    cb:function(n){return n<=0?'0':n===1?'1':n<=5?'2-5':n<=20?'6-20':'21+';},
+    q5:function(v,lo,hi){var p=(v-lo)/((hi-lo)||1);return 'q'+Math.min(5,Math.max(1,Math.floor(p*5)+1));},
+    deb:function(key,ms,fn){if(P[key])clearTimeout(P[key].t);P[key]={fn:fn,t:setTimeout(function(){var f=P[key];delete P[key];try{f&&f.fn();}catch(e){}},ms)};},
+    flush:function(){Object.keys(P).forEach(function(k){var f=P[k];delete P[k];clearTimeout(f.t);try{f.fn();}catch(e){}});},
+    onend:function(fn){HK.push(fn);},
+    nav:function(){try{return performance.getEntriesByType('navigation')[0].type;}catch(e){return 'navigate';}},
+    end:function(reason){if(S.ended)return;S.ended=1;TRK.flush();HK.forEach(function(f){try{f();}catch(e){}});TRK.e('demo_end',{ms:Date.now()-t0,reason:reason});}
+  };
+  function active(){S.act=Date.now();}
+  ['pointermove','scroll','wheel','touchmove'].forEach(function(ev){window.addEventListener(ev,active,{passive:true,capture:true});});
+  ['pointerdown','keydown','input','change'].forEach(function(ev){document.addEventListener(ev,function(){active();if(!S.first){S.first=1;TRK.a('first_interaction',{value:Math.round((Date.now()-t0)/1000)});}},true);});
+  setInterval(function(){if(document.hidden||!S.act||Date.now()-S.act>5000)return;S.eng++;if(S.eng===10||S.eng===60)TRK.e('demo_engaged',{seconds:S.eng});},1000);
+  document.addEventListener('visibilitychange',function(){if(document.hidden)TRK.end('hidden');else S.ended=0;});
+  window.addEventListener('pagehide',function(){TRK.end('leave');});
+  document.addEventListener('click',function(e){var a=e.target&&e.target.closest&&e.target.closest('a[data-track]');if(!a)return;var id=a.getAttribute('data-track')||'';if(/\.(back|home)$/.test(id))TRK.end(id.split('.').pop());},true);
+  window.addEventListener('error',function(ev){if(ev&&ev.filename&&ev.filename.indexOf(location.origin)!==0)return;TRK.err('js');});
+  window.addEventListener('unhandledrejection',function(){TRK.err('promise');});
+  TRK.e('demo_open');
+  /* return visit: a local flag, written only once analytics consent is granted */
+  var RV=0;
+  function rv(){try{if(RV||!window.sk||sk.consent!=='granted')return;RV=1;var k='sk_seen_'+DID;if(localStorage.getItem(k))TRK.a('return_visit',{item:TRK.nav()});else localStorage.setItem(k,'1');}catch(e){}}
+  setTimeout(rv,1500);window.addEventListener('sk:consent',function(){setTimeout(rv,50);});
+})();
+</script>
 <script>
 // ---- config ----
 const PASSCODE = "0000";                 // preview gate (also enforced server-side)
@@ -298,12 +339,14 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 // ---- passcode gate ----
 function unlock(){ $("gate").style.display="none"; try{sessionStorage.setItem("cortex_ok","1");}catch(e){} }
 if((()=>{try{return sessionStorage.getItem("cortex_ok")==="1";}catch(e){return false;}})()) unlock();
-$("gbtn").onclick=()=>{ if($("gp").value.trim()===PASSCODE) unlock(); else $("gerr").textContent="Nope, try again."; };
-$("gp").addEventListener("keydown",e=>{if(e.key==="Enter")$("gbtn").click();});
+let gHow="click";
+$("gbtn").onclick=()=>{ const ok=$("gp").value.trim()===PASSCODE; TRK.a(ok?"passcode_ok":"passcode_fail",{item:gHow}); gHow="click"; if(ok){ TRK.start("passcode"); unlock(); } else $("gerr").textContent="Nope, try again."; };
+$("gp").addEventListener("keydown",e=>{if(e.key==="Enter"){gHow="enter";$("gbtn").click();}});
+if($("gate").style.display!=="none") TRK.a("passcode_shown");
 
 // ---- agent rows ----
 function rows(){ const w=$("agents"); clr(w); AGENTS.forEach(a=>{const r=mk("div","ag");r.id="a-"+a;r.appendChild(mk("span","d"));const b=mk("div");b.appendChild(mk("div","nm",NAMES[a]||a));b.appendChild(mk("div","ms",""));r.appendChild(b);w.appendChild(r);}); }
-function light(a,msg){ const r=$("a-"+a); if(!r)return; r.classList.add("on"); r.querySelector(".ms").textContent=msg||""; }
+function light(a,msg){ furthest=a; const r=$("a-"+a); if(!r)return; r.classList.add("on"); r.querySelector(".ms").textContent=msg||""; }
 
 // ---- render kit ----
 function visCard(v){ const c=mk("div","vis"); const img=mk("img"); img.src=v.url; img.alt=v.kind; img.loading="lazy"; c.appendChild(img);
@@ -327,13 +370,23 @@ async function play(){
   rows(); clr($("out")); $("out").appendChild(mk("span","kv","agents working…")); $("dstatus").textContent="running";
   const evs=DATA.events||[]; const byA={}; evs.forEach(e=>{(byA[e.agent]=byA[e.agent]||[]).push(e.message);});
   for(const a of AGENTS){ light(a,(byA[a]||["done"]).slice(-1)[0]); await sleep(300); }
-  $("dstatus").textContent="approved"; renderKit();
+  $("dstatus").textContent="approved"; renderKit(); TRK.a("agent_step",{item:furthest}); TRK.a("kit_view",{item:"replay"});
 }
+$("play").addEventListener("click",()=>{TRK.start("replay");TRK.a("play");});
 $("play").onclick=play;
+// tracking: ids and buckets only
+let furthest="", ran=false;
+const jump=(sel,item)=>document.querySelectorAll(sel).forEach(a=>a.addEventListener("click",()=>{TRK.a("jump",{item});}));
+jump('[data-track="cortex.nav.how"]',"how"); jump('[data-track="cortex.nav.demo"]',"demo"); jump('[data-track="cortex.nav.try"]',"try"); jump('[data-track="cortex.hero.watch"]',"demo_hero");
+document.querySelectorAll('a[data-track^="cortex.github."]').forEach(a=>a.addEventListener("click",()=>{TRK.a("github",{item:a.getAttribute("data-track").slice(14)});}));
+$("brief").addEventListener("input",()=>{TRK.start("brief");TRK.deb("brief",700,()=>TRK.a("brief_edit",{bucket:TRK.lb($("brief").value.length)}));});
+$("file").addEventListener("change",()=>{const f=$("file").files[0];if(!f)return;const t=f.type;TRK.start("file");TRK.a("file_attach",{item:t==="application/pdf"?"pdf":t==="image/png"?"png":t==="image/jpeg"?"jpg":t==="image/webp"?"webp":"other"});});
+TRK.onend(()=>{if(furthest&&!ran)TRK.a("agent_step",{item:furthest});});
 
 // ---- live run ----
 async function runLive(){
   const note=$("livenote"), out=$("liveout"); note.textContent="";
+  const T0=Date.now(); furthest=""; ran=false; TRK.start("live"); TRK.a("run_live",{item:$("file").files[0]?"file":"nofile"});
   if(!BACKEND_URL){ note.textContent="Live backend is deploying — meanwhile, the instant demo above is a real run."; return; }
   clr(out); out.appendChild(mk("span","kv","uploading + running… this can take a minute."));
   let uploadId=null;
@@ -341,16 +394,16 @@ async function runLive(){
   try{
     if(f){ const fd=new FormData(); fd.append("file",f); const r=await fetch(BACKEND_URL.replace(/\/$/,"")+"/api/uploads",{method:"POST",headers:{"x-cortex-passcode":PASSCODE},body:fd}); uploadId=(await r.json()).upload_id; }
     const res=await fetch(BACKEND_URL.replace(/\/$/,"")+"/api/live/stream",{method:"POST",headers:{"content-type":"application/json","x-cortex-passcode":PASSCODE},body:JSON.stringify({brief:$("brief").value,upload_id:uploadId})});
-    if(!res.ok){ note.textContent = res.status===429 ? "Daily preview limit reached — see the instant demo above." : "Backend error "+res.status; return; }
+    if(!res.ok){ note.textContent = res.status===429 ? "Daily preview limit reached, see the instant demo above." : "Backend error "+res.status; TRK.a("live_result",{item:res.status===429?"limit":"error",ms:Date.now()-T0}); ran=true; return; }
     rows(); clr(out);
     const reader=res.body.getReader(),dec=new TextDecoder(); let buf="";
     while(true){ const {value,done}=await reader.read(); if(done)break; buf+=dec.decode(value,{stream:true}); let i;
       while((i=buf.indexOf("\n\n"))>=0){ const ln=buf.slice(0,i).trim(); buf=buf.slice(i+2); if(!ln.startsWith("data:"))continue; const d=JSON.parse(ln.slice(5));
         if(d.type==="agent_event"){ const map={research_agent:"research",strategy_agent:"strategy",storyboard_agent:"storyboard"}; light(map[d.node]||d.node,d.message); }
-        if(d.type==="run_finished"){ Object.assign(PKG,d.package||{}); DATA.trace=d.trace; renderKit(out); }
+        if(d.type==="run_finished"){ Object.assign(PKG,d.package||{}); DATA.trace=d.trace; renderKit(out); ran=true; TRK.a("agent_step",{item:furthest}); TRK.a("kit_view",{item:"live"}); TRK.a("live_result",{item:"ok",ms:Date.now()-T0}); }
       }
     }
-  }catch(err){ note.textContent="Could not reach the live backend. The instant demo above is a real run."; }
+  }catch(err){ ran=true; TRK.a("backend_unreachable",{ms:Date.now()-T0}); note.textContent="Could not reach the live backend. The instant demo above is a real run."; }
 }
 $("runlive").onclick=runLive;
 if(!BACKEND_URL) $("livenote").textContent="Live backend deploying soon — the instant demo above is a real run you can watch now.";

@@ -72,34 +72,101 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MRGXD7ZC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-<div id="setup">
+<div id="setup" data-zone="balls.setup">
   <small>Live Demo · Color-Tracked Physics</small>
   <h1>Hold up<br>something colored.<br>Hit the balls.</h1>
   <p>Allow camera. Pick a color below — anything you hold up matching that color (a phone case, a bottle cap, your shirt) becomes a physics paddle. Falling balls collide with it in real time. Camera stays in your browser, nothing is uploaded.</p>
-  <button id="startBtn">Start Camera</button>
+  <button id="startBtn" data-track="balls.start">Start Camera</button>
 </div>
 
-<video id="cam" autoplay playsinline muted></video>
-<canvas id="stage"></canvas>
+<video id="cam" data-track="balls.cam" autoplay playsinline muted></video>
+<canvas id="stage" data-track="balls.stage"></canvas>
 
-<div class="demo-hud">
+<div class="demo-hud" data-zone="balls.hud">
   <strong id="status">Awaiting start…</strong>
   <small>Hold a colored object up to your camera</small>
 </div>
-<a href="../index.html" class="demo-back" style="left:18px; right:auto;"><strong style="color:var(--accent)">SK</strong> · Home</a>
-<a href="../work.html#dropballs" class="demo-back">← Back to Work</a>
+<a href="../index.html" class="demo-back" data-track="balls.home" style="left:18px; right:auto;"><strong style="color:var(--accent)">SK</strong> · Home</a>
+<a href="../work.html#dropballs" class="demo-back" data-track="balls.back">← Back to Work</a>
 
-<div class="demo-controls">
-  <div class="swatch active" data-color="green"><span class="swatch-dot" style="background:#3cff5c"></span>Green</div>
-  <div class="swatch" data-color="red"><span class="swatch-dot" style="background:#ff3c3c"></span>Red</div>
-  <div class="swatch" data-color="blue"><span class="swatch-dot" style="background:#3c8cff"></span>Blue</div>
-  <div class="swatch" data-color="yellow"><span class="swatch-dot" style="background:#ffe23c"></span>Yellow</div>
-  <button id="rainBtn">Rain Balls</button>
-  <button id="clearBtn">Clear</button>
+<div class="demo-controls" data-zone="balls.controls">
+  <div class="swatch active" data-color="green" data-track="balls.swatch.green"><span class="swatch-dot" style="background:#3cff5c"></span>Green</div>
+  <div class="swatch" data-color="red" data-track="balls.swatch.red"><span class="swatch-dot" style="background:#ff3c3c"></span>Red</div>
+  <div class="swatch" data-color="blue" data-track="balls.swatch.blue"><span class="swatch-dot" style="background:#3c8cff"></span>Blue</div>
+  <div class="swatch" data-color="yellow" data-track="balls.swatch.yellow"><span class="swatch-dot" style="background:#ffe23c"></span>Yellow</div>
+  <button id="rainBtn" data-track="balls.rain">Rain Balls</button>
+  <button id="clearBtn" data-track="balls.clear">Clear</button>
 </div>
 
 <script>
+/* Tracking helper (media). Sends ids, buckets, counts and ms only: never camera, mic, landmarks, audio levels, typed text or URL state. */
 (function(){
+  var DID='balls',t0=Date.now(),Q=[],QT=0,QN=0,P={},HK=[],F={n:0,t:0};
+  var S={first:0,start:0,startAt:0,ended:0,eng:0,er:0,fps:0,rv:0};
+  function send(m,a){var s=window.sk;if(s&&typeof s[m]==='function'){try{s[m].apply(s,a);}catch(e){}return true;}return false;}
+  function flush(){while(Q.length&&send(Q[0][0],Q[0][1]))Q.shift();}
+  function emit(m,a){try{if(Q.length<80)Q.push([m,a]);flush();if(Q.length&&!QT){QN=0;QT=setInterval(function(){flush();if(!Q.length||++QN>24){clearInterval(QT);QT=0;Q.length=0;}},500);}}catch(e){}}
+  var MT=window.MT={
+    id:DID,
+    act:function(){return true;},
+    a:function(action,p){emit('demo',[DID,action,p||{}]);},
+    e:function(name,p){var o={demo_id:DID};if(p)for(var k in p)o[k]=p[k];emit('track',[name,o]);},
+    media:function(kind,state){emit('media',[DID,kind,state]);},
+    model:function(state,ms,delegate){var o={ms:Math.max(0,Math.round(ms||0))};if(delegate)o.delegate=delegate;emit('model',[DID,state,o]);},
+    start:function(mode){if(S.start)return;S.start=1;S.startAt=Date.now();MT.e('demo_start',{mode:mode});MT.rv();},
+    started:function(){return S.start;},
+    err:function(code){if(S.er++<3)MT.e('demo_error',{code:code});},
+    lb:function(n){return n<=0?'0':n<=20?'1-20':n<=80?'21-80':n<=300?'81-300':'300+';},
+    cb:function(n){return n<=0?'0':n===1?'1':n<=5?'2-5':n<=20?'6-20':'21+';},
+    q5:function(v,lo,hi){var p=(v-lo)/((hi-lo)||1);return 'q'+Math.min(5,Math.max(1,Math.floor(p*5)+1));},
+    deb:function(key,ms,fn){if(P[key])clearTimeout(P[key].t);P[key]={fn:fn,t:setTimeout(function(){var f=P[key];delete P[key];try{f&&f.fn();}catch(e){}},ms)};},
+    flush:function(){Object.keys(P).forEach(function(k){var f=P[k];delete P[k];clearTimeout(f.t);try{f.fn();}catch(e){}});},
+    onend:function(fn){HK.push(fn);},
+    nav:function(){try{return performance.getEntriesByType('navigation')[0].type;}catch(e){return 'navigate';}},
+    rv:function(){try{if(S.rv||!window.sk||sk.consent!=='granted')return;S.rv=1;var k='sk_seen_'+DID;if(localStorage.getItem(k))MT.a('return_visit',{item:MT.nav()});else localStorage.setItem(k,'1');}catch(e){}},
+    since:function(){return Date.now()-(S.startAt||t0);},
+    tick:function(){if(S.fps||!S.start||document.hidden){F.n=0;F.t=0;return;}var n=performance.now();if(!F.t){F.t=n;F.n=0;return;}F.n++;if(n-F.t>=4000){S.fps=1;var f=F.n*1000/(n-F.t);MT.a('fps',{bucket:f<20?'lt20':f<40?'20-40':f<55?'40-55':'55+'});}},
+    end:function(reason){if(S.ended)return;S.ended=1;MT.flush();HK.forEach(function(f){try{f();}catch(e){}});if(!S.start)MT.a('gate_exit',{ms:Date.now()-t0});MT.e('demo_end',{ms:MT.since(),reason:reason});}
+  };
+  function ui(t){return t&&t.closest&&t.closest('[id^="sk-consent"],[data-consent-open]');}
+  ['pointerdown','keydown','touchstart'].forEach(function(ev){document.addEventListener(ev,function(e){if(S.first||ui(e.target))return;S.first=1;MT.a('first_interaction',{value:Math.round((Date.now()-t0)/1000)});},true);});
+  setInterval(function(){if(document.hidden||!S.start)return;var on=false;try{on=MT.act();}catch(e){}if(!on)return;S.eng++;if(S.eng===10||S.eng===60)MT.e('demo_engaged',{seconds:S.eng});},1000);
+  window.addEventListener('pagehide',function(){MT.end('leave');});
+  window.addEventListener('pageshow',function(e){if(e&&e.persisted)S.ended=0;});
+  document.addEventListener('click',function(e){var a=e.target&&e.target.closest&&e.target.closest('a[data-track]');if(!a)return;var id=a.getAttribute('data-track')||'';if(/\.(back|home)$/.test(id))MT.end(id.split('.').pop());},true);
+  window.addEventListener('error',function(ev){try{var t=ev&&ev.target;if(t&&t.tagName==='SCRIPT'){MT.err('load');return;}if(ev&&ev.filename&&ev.filename.indexOf(location.origin)!==0)return;MT.err('js');}catch(e){}},true);
+  window.addEventListener('unhandledrejection',function(){MT.err('promise');});
+  MT.e('demo_open');
+  var nv=MT.nav();if(nv==='reload'||nv==='back_forward')MT.a('revisit',{item:nv});
+})();
+</script>
+<script>
+(function(){
+  const T = MT.a;
+  // tracking state: transitions and debounced counts only, nothing per frame
+  let camOn = 0, lastAct = 0, ballB = '', caughtN = 0, caughtB = '0', matchOn = false, matchCand = false, matchT = 0, matchN = 0, rains = 0, sentCaught = -1;
+  MT.act = function(){ return matchOn || Date.now() - lastAct < 5000; };
+  function ballReport(){ const b = MT.cb(balls.length); if (b !== ballB){ ballB = b; T('ball_count', {bucket:b}); } }
+  function matchSeen(v){
+    if (v === matchCand) return;
+    matchCand = v; clearTimeout(matchT);
+    if (v !== matchOn) matchT = setTimeout(function(){
+      if (matchCand === matchOn) return;
+      matchOn = matchCand;
+      if (++matchN <= 40) T(matchOn ? 'match_found' : 'match_lost', matchN === 1 ? {item:activeColor, value:matchN, ms:MT.since()} : {item:activeColor, value:matchN});
+    }, 600);
+  }
+  function failKind(e){
+    const n = e && e.name, m = String(e && e.message || '').toLowerCase();
+    if (!navigator.mediaDevices) return 'unavailable';
+    if (n === 'NotAllowedError' || n === 'SecurityError' || n === 'PermissionDeniedError') return /dismiss/.test(m) ? 'dismissed' : 'denied';
+    if (n === 'NotFoundError' || n === 'DevicesNotFoundError' || n === 'OverconstrainedError') return 'unavailable';
+    return 'failed';
+  }
+  MT.onend(function(){
+    if (caughtN !== sentCaught){ sentCaught = caughtN; T('balls_caught', {value:caughtN}); }
+    if (camOn) MT.media('camera', 'stopped');
+  });
   const cam = document.getElementById('cam');
   const stage = document.getElementById('stage');
   const ctx = stage.getContext('2d');
@@ -208,6 +275,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
           }
         }
         if (hits){
+          if (!b.caught){ b.caught = 1; caughtN++; const cbk = MT.cb(caughtN); if (cbk !== caughtB){ caughtB = cbk; T('balls_caught_bucket', {bucket:cbk}); } }
           const len = Math.sqrt(nx*nx + ny*ny) || 1;
           nx /= len; ny /= len;
           // push out a bit
@@ -276,6 +344,8 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 
   function loop(){
     const matchCount = detectColor() || 0;
+    matchSeen(matchCount >= 40);
+    MT.tick();
     step();
     draw(matchCount);
     document.getElementById('status').textContent = `${activeColor.toUpperCase()} · ${balls.length} balls · ${matchCount} px tracked`;
@@ -286,22 +356,28 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     s.onclick = () => {
       document.querySelectorAll('.swatch').forEach(x => x.classList.remove('active'));
       s.classList.add('active');
-      activeColor = s.dataset.color;
+      lastAct = Date.now();
+      if (activeColor !== s.dataset.color){ activeColor = s.dataset.color; T('color_picked', {item:activeColor}); }
     };
   });
-  document.getElementById('clearBtn').onclick = () => { balls.length = 0; };
-  document.getElementById('rainBtn').onclick = () => { for (let i = 0; i < 30; i++) spawn(rand(50, W-50), rand(-200, -10)); };
+  document.getElementById('clearBtn').onclick = () => { balls.length = 0; lastAct = Date.now(); T('clear'); ballReport(); };
+  document.getElementById('rainBtn').onclick = () => { for (let i = 0; i < 30; i++) spawn(rand(50, W-50), rand(-200, -10)); lastAct = Date.now(); T('rain_balls', {value:++rains}); ballReport(); };
 
   document.getElementById('startBtn').onclick = async () => {
+    T(document.getElementById('startBtn').textContent === 'Retry' ? 'retry' : 'start_camera');
     try {
+      MT.media('camera', 'prompt');
       const stream = await navigator.mediaDevices.getUserMedia({ video: { width: 640, height: 480 }, audio: false });
+      camOn = 1; MT.media('camera', 'granted');
       cam.srcObject = stream;
       await cam.play();
       document.getElementById('setup').style.display = 'none';
       // seed
       for (let i = 0; i < 25; i++) spawn(rand(50, innerWidth-50), rand(-300, -10));
+      MT.start('camera'); ballReport();
       loop();
     } catch (err){
+      if (!camOn) MT.media('camera', failKind(err)); else { MT.err('play'); }
       document.querySelector('#setup p').textContent = 'Camera failed: ' + err.message;
       document.getElementById('startBtn').textContent = 'Retry';
     }

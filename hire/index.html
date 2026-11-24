@@ -126,7 +126,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 </nav>
 
 <main id="main" class="page" role="main">
-<div class="hs">
+<div class="hs" data-zone="hire">
   <h1>Hire Sai, on your terms.</h1>
   <p class="lede">Choose the role, the kind of company and up to three goals. The page builds a one-page brief: the work on this site that fits, the skills behind it, a 30/60/90 plan and how to reach me.</p>
   <p class="note">The plan is how I would approach the job. It is not a record of past results.</p>
@@ -137,7 +137,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
         <legend>The role</legend>
         <p class="hs-hint">Pick one, or type your own title below.</p>
         <div class="hs-chips" id="roleChips"></div>
-        <input class="hs-text" id="roleText" type="text" maxlength="60" placeholder="Or type a title, e.g. Social Media Manager" aria-label="Type your role title" autocomplete="off" />
+        <input class="hs-text" id="roleText" data-track="hire.role_text" type="text" maxlength="60" placeholder="Or type a title, e.g. Social Media Manager" aria-label="Type your role title" autocomplete="off" />
       </fieldset>
 
       <fieldset class="hs-field" id="fCo">
@@ -153,34 +153,75 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
       </fieldset>
 
       <div class="hs-actions">
-        <button type="button" class="btn btn-primary" id="btnPdf" disabled>Download the PDF</button>
-        <button type="button" class="btn btn-outline" id="btnCopy" disabled>Copy the share link</button>
-        <button type="button" class="btn btn-outline" id="btnReset">Start over</button>
+        <button type="button" class="btn btn-primary" id="btnPdf" data-track="hire.pdf" disabled>Download the PDF</button>
+        <button type="button" class="btn btn-outline" id="btnCopy" data-track="hire.copy_link" disabled>Copy the share link</button>
+        <button type="button" class="btn btn-outline" id="btnReset" data-track="hire.reset">Start over</button>
       </div>
       <div class="hs-status" id="hsStatus" role="status" aria-live="polite"></div>
       <div class="hs-share" id="shareBox" hidden>
         <label class="hs-hint" for="shareUrl">Share link, keeps your choices</label>
-        <input type="text" id="shareUrl" readonly />
+        <input type="text" id="shareUrl" data-track="hire.share_url" readonly />
       </div>
     </form>
 
     <article class="hs-sheet" id="sheet" aria-live="polite"></article>
   </div>
 
-  <p class="hs-back">Prefer to browse yourself? <a href="/work.html">See all the work</a> or <a href="/about.html">read about me</a>.</p>
+  <p class="hs-back">Prefer to browse yourself? <a href="/work.html" data-track="hire.foot.all_work">See all the work</a> or <a href="/about.html" data-track="hire.foot.about">read about me</a>.</p>
 </div>
 
 <footer class="footer">
   <div class="footer-logo">SK<span>.</span></div>
   <p class="footer-copy">© 2026 Sai Kanagat. All rights reserved.</p>
   <div class="footer-socials">
-    <a href="https://linkedin.com/in/sai-kanagat" target="_blank" rel="noopener">LinkedIn</a>
-    <a href="https://github.com/Sai-Kanagat" target="_blank" rel="noopener">GitHub</a>
-    <a href="mailto:saikanagat1117@gmail.com">Email</a>
+    <a href="https://linkedin.com/in/sai-kanagat" data-track="hire.foot.linkedin" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://github.com/Sai-Kanagat" data-track="hire.foot.github" target="_blank" rel="noopener">GitHub</a>
+    <a href="mailto:saikanagat1117@gmail.com" data-track="hire.foot.email">Email</a>
   </div>
 </footer>
 </main>
 
+<script>
+/* Tracking helper. Sends ids, buckets, counts and ms only: never typed text, names, file names or URL state. */
+(function(){
+  var DID='hire',t0=Date.now(),Q=[],QT=0,QN=0,P={},HK=[];
+  var S={first:0,start:0,ended:0,eng:0,act:0,er:0};
+  function send(m,a){var s=window.sk;if(s&&typeof s[m]==='function'){try{s[m].apply(s,a);}catch(e){}return true;}return false;}
+  function flush(){while(Q.length&&send(Q[0][0],Q[0][1]))Q.shift();}
+  function emit(m,a){try{if(Q.length<80)Q.push([m,a]);flush();if(Q.length&&!QT){QN=0;QT=setInterval(function(){flush();if(!Q.length||++QN>24){clearInterval(QT);QT=0;Q.length=0;}},500);}}catch(e){}}
+  var TRK=window.TRK={
+    id:DID,
+    a:function(action,p){emit('demo',[DID,action,p||{}]);},
+    e:function(name,p){var o={demo_id:DID};if(p)for(var k in p)o[k]=p[k];emit('track',[name,o]);},
+    raw:function(name,p){emit('track',[name,p||{}]);},
+    start:function(mode){if(S.start)return;S.start=1;TRK.e('demo_start',{mode:mode});},
+    err:function(code){if(S.er++<3)TRK.e('demo_error',{code:code});},
+    model:function(state,ms){emit('model',[DID,state,{ms:ms,delegate:'CPU'}]);},
+    lb:function(n){return n<=0?'0':n<=20?'1-20':n<=80?'21-80':n<=300?'81-300':'300+';},
+    cb:function(n){return n<=0?'0':n===1?'1':n<=5?'2-5':n<=20?'6-20':'21+';},
+    q5:function(v,lo,hi){var p=(v-lo)/((hi-lo)||1);return 'q'+Math.min(5,Math.max(1,Math.floor(p*5)+1));},
+    deb:function(key,ms,fn){if(P[key])clearTimeout(P[key].t);P[key]={fn:fn,t:setTimeout(function(){var f=P[key];delete P[key];try{f&&f.fn();}catch(e){}},ms)};},
+    flush:function(){Object.keys(P).forEach(function(k){var f=P[k];delete P[k];clearTimeout(f.t);try{f.fn();}catch(e){}});},
+    onend:function(fn){HK.push(fn);},
+    nav:function(){try{return performance.getEntriesByType('navigation')[0].type;}catch(e){return 'navigate';}},
+    end:function(reason){if(S.ended)return;S.ended=1;TRK.flush();HK.forEach(function(f){try{f();}catch(e){}});TRK.e('demo_end',{ms:Date.now()-t0,reason:reason});}
+  };
+  function active(){S.act=Date.now();}
+  ['pointermove','scroll','wheel','touchmove'].forEach(function(ev){window.addEventListener(ev,active,{passive:true,capture:true});});
+  ['pointerdown','keydown','input','change'].forEach(function(ev){document.addEventListener(ev,function(){active();if(!S.first){S.first=1;TRK.a('first_interaction',{value:Math.round((Date.now()-t0)/1000)});}},true);});
+  setInterval(function(){if(document.hidden||!S.act||Date.now()-S.act>5000)return;S.eng++;if(S.eng===10||S.eng===60)TRK.e('demo_engaged',{seconds:S.eng});},1000);
+  document.addEventListener('visibilitychange',function(){if(document.hidden)TRK.end('hidden');else S.ended=0;});
+  window.addEventListener('pagehide',function(){TRK.end('leave');});
+  document.addEventListener('click',function(e){var a=e.target&&e.target.closest&&e.target.closest('a[data-track]');if(!a)return;var id=a.getAttribute('data-track')||'';if(/\.(back|home)$/.test(id))TRK.end(id.split('.').pop());},true);
+  window.addEventListener('error',function(ev){if(ev&&ev.filename&&ev.filename.indexOf(location.origin)!==0)return;TRK.err('js');});
+  window.addEventListener('unhandledrejection',function(){TRK.err('promise');});
+  TRK.e('demo_open');
+  /* return visit: a local flag, written only once analytics consent is granted */
+  var RV=0;
+  function rv(){try{if(RV||!window.sk||sk.consent!=='granted')return;RV=1;var k='sk_seen_'+DID;if(localStorage.getItem(k))TRK.a('return_visit',{item:TRK.nav()});else localStorage.setItem(k,'1');}catch(e){}}
+  setTimeout(rv,1500);window.addEventListener('sk:consent',function(){setTimeout(rv,50);});
+})();
+</script>
 <script>
 (function () {
   'use strict';
@@ -559,7 +600,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     h += '<p class="hs-meta">' + (d.co ? esc(d.co) + ' company. ' : '') + (d.goals.length ? 'Priorities: ' + esc(d.goals.join(', ')) + '.' : 'No goals chosen yet, so this is the general view.') + '</p>';
     h += '<section class="hs-sec"><h3>The work that fits</h3><ul class="hs-work">';
     d.work.forEach(function (w) {
-      h += '<li><a class="hs-t" href="' + esc(w.u) + '">' + esc(w.t) + '</a><span class="hs-kind">' + esc(w.kind) + '</span><p class="hs-why">' + esc(w.why) + '</p></li>';
+      h += '<li><a class="hs-t" data-track="hire.sheet.work" href="' + esc(w.u) + '">' + esc(w.t) + '</a><span class="hs-kind">' + esc(w.kind) + '</span><p class="hs-why">' + esc(w.why) + '</p></li>';
     });
     h += '</ul></section>';
     h += '<section class="hs-sec"><h3>Relevant skills</h3><ul class="hs-skills">';
@@ -573,7 +614,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     });
     h += '</div></section>';
     h += '<section class="hs-sec hs-cta"><h3>Let us talk</h3><p>If this looks like the shape of the job, a short call is the fastest way to find out. I am based in Bologna, available immediately, and open to relocating across Italy.</p>';
-    h += '<div class="hs-actions"><a class="btn btn-primary" href="' + esc(mailto()) + '">Email Sai about this role</a><a class="btn btn-outline" href="/contact.html">Open the contact page</a><a class="btn btn-outline" href="https://linkedin.com/in/sai-kanagat" target="_blank" rel="noopener">LinkedIn</a></div>';
+    h += '<div class="hs-actions"><a class="btn btn-primary" data-track="hire.sheet.email" href="' + esc(mailto()) + '">Email Sai about this role</a><a class="btn btn-outline" data-track="hire.sheet.contact" href="/contact.html">Open the contact page</a><a class="btn btn-outline" data-track="hire.sheet.linkedin" href="https://linkedin.com/in/sai-kanagat" target="_blank" rel="noopener">LinkedIn</a></div>';
     h += '<dl><dt>Email</dt><dd>' + EMAIL + '</dd><dt>Based in</dt><dd>Bologna, Italy</dd><dt>Target cities</dt><dd>Milan, Rome, Florence, Turin</dd><dt>Languages</dt><dd>English fluent, Hindi and Tamil native, Italian developing</dd></dl></section>';
     sheet.innerHTML = h;
   }
@@ -582,21 +623,23 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     b.type = 'button'; b.className = 'hs-chip'; b.textContent = item.l;
     b.setAttribute('aria-pressed', pressed ? 'true' : 'false');
     b.dataset.k = item.k;
+    b.setAttribute('data-track', 'hire.chip.' + (parent.id === 'roleChips' ? 'role' : parent.id === 'coChips' ? 'company' : 'goal') + '.' + item.k);
     b.addEventListener('click', function () { onClick(item.k, b); });
     parent.appendChild(b);
   }
   function renderChips() {
     var rc = $('roleChips'), cc = $('coChips'), gc = $('goalChips');
     rc.innerHTML = ''; cc.innerHTML = ''; gc.innerHTML = '';
-    ROLES.forEach(function (r) { chip(rc, r, state.role === r.k, function (k) { state.role = (state.role === k ? '' : k); if (state.role !== 'other') { state.text = ''; $('roleText').value = ''; } refresh(); }); });
-    COS.forEach(function (c) { chip(cc, c, state.co === c.k, function (k) { state.co = (state.co === k ? '' : k); refresh(); }); });
+    ROLES.forEach(function (r) { chip(rc, r, state.role === r.k, function (k) { TRK.start('chip'); TRK.a('chip', { item: 'role:' + k, value: state.role === k ? 0 : 1 }); state.role = (state.role === k ? '' : k); if (state.role !== 'other') { state.text = ''; $('roleText').value = ''; } refresh(); }); });
+    COS.forEach(function (c) { chip(cc, c, state.co === c.k, function (k) { TRK.start('chip'); TRK.a('chip', { item: 'company:' + k, value: state.co === k ? 0 : 1 }); state.co = (state.co === k ? '' : k); refresh(); }); });
     GOALS.forEach(function (g) {
       var on = state.goals.indexOf(g.k) > -1;
       chip(gc, g, on, function (k) {
         var i = state.goals.indexOf(k);
-        if (i > -1) state.goals.splice(i, 1);
-        else if (state.goals.length < 3) state.goals.push(k);
-        else { status.textContent = 'Three goals at most. Deselect one to swap.'; return; }
+        TRK.start('chip');
+        if (i > -1) { TRK.a('chip', { item: 'goal:' + k, value: 0 }); state.goals.splice(i, 1); }
+        else if (state.goals.length < 3) { TRK.a('chip', { item: 'goal:' + k, value: 1 }); state.goals.push(k); }
+        else { TRK.a('goal_limit', { item: k }); status.textContent = 'Three goals at most. Deselect one to swap.'; return; }
         refresh();
       });
       var btn = gc.lastChild;
@@ -604,9 +647,12 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     });
     $('goalCount').textContent = state.goals.length + ' of 3 chosen';
   }
+  var wasReady = false, trackReady = false;
   function refresh() {
     renderChips(); renderSheet();
     var ok = ready();
+    if (ok && !wasReady && trackReady) TRK.a('sheet_built', { item: state.role + ':' + (state.co ? 'co' : 'noco'), value: state.goals.length });
+    wasReady = ok;
     $('btnPdf').disabled = !ok; $('btnCopy').disabled = !ok;
     var box = $('shareBox');
     box.hidden = !ok;
@@ -617,6 +663,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 
   /* ---------- Share link ---------- */
   $('btnCopy').addEventListener('click', function () {
+    TRK.start('copy'); TRK.a('copy_link');
     var url = shareUrl();
     function done(ok) { status.textContent = ok ? 'Link copied. Opening it rebuilds this page.' : 'Copy failed. Select the link below and copy it.'; if (!ok) { $('shareUrl').focus(); $('shareUrl').select(); } }
     if (navigator.clipboard && window.isSecureContext) {
@@ -629,17 +676,22 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     }
   });
   $('btnReset').addEventListener('click', function () {
+    TRK.start('reset'); TRK.a('reset');
     state = { role: '', text: '', co: '', goals: [] };
     $('roleText').value = '';
     refresh();
   });
   $('roleText').addEventListener('input', function () {
     var v = this.value.slice(0, 60);
+    TRK.start('role_text'); TRK.deb('role', 700, function () { TRK.a('role_typed', { bucket: TRK.lb(v.length) }); });
     state.text = v;
     if (v.trim()) { state.role = 'other'; } else if (state.role === 'other') { /* keep Other selected */ }
     renderChips(); renderSheet();
     $('btnPdf').disabled = !ready(); $('btnCopy').disabled = !ready();
     $('shareBox').hidden = !ready();
+    var okT = ready();
+    if (okT && !wasReady && trackReady) TRK.a('sheet_built', { item: state.role + ':' + (state.co ? 'co' : 'noco'), value: state.goals.length });
+    wasReady = okT;
     if (ready()) $('shareUrl').value = shareUrl();
     try { history.replaceState(null, '', localUrl()); } catch (e) {}
   });
@@ -650,12 +702,13 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   }
   $('btnPdf').addEventListener('click', function () {
     if (!ready()) return;
-    if (!window.jspdf || !window.jspdf.jsPDF) { status.textContent = 'The PDF library did not load. Check your connection and try again.'; return; }
+    if (!window.jspdf || !window.jspdf.jsPDF) { TRK.err('pdf_lib'); status.textContent = 'The PDF library did not load. Check your connection and try again.'; return; }
     var d = build(), doc;
     for (var nWork = 5; nWork >= 3; nWork--) { doc = makePdf(d, nWork); if (doc.getNumberOfPages() === 1) break; }
     var slug = (d.role || 'role').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40) || 'role';
     doc.save('sai-kanagat-one-pager-' + slug + '.pdf');
     status.textContent = 'PDF downloaded.';
+    TRK.start('pdf'); TRK.a('pdf', { item: state.role || 'none' }); TRK.raw('hire_pdf', { role_bucket: state.role || 'none' });
   });
   function makePdf(d, nWork) {
     var doc = new window.jspdf.jsPDF({ unit: 'mm', format: 'a4' });
@@ -711,7 +764,15 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   /* ---------- Init ---------- */
   loadFromUrl();
   $('roleText').value = state.role === 'other' ? state.text : '';
+  var fromShare = ready();
   refresh();
+  trackReady = true;
+  if (fromShare) TRK.a('share_open', { item: state.role });
+  /* link clicks inside the sheet and footer: ids only */
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest && e.target.closest('a[data-track^="hire."]'); if (!a) return;
+    var m = /^hire\.(sheet|foot)\.(\w+)$/.exec(a.getAttribute('data-track')); if (m) TRK.a('link', { item: m[1] + '.' + m[2] });
+  }, true);
   if (window.location.search) { /* keep the loaded URL as is */ }
 })();
 </script>

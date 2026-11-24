@@ -53,28 +53,69 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 <body>
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MRGXD7ZC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<a href="../demos.html" class="demo-back">← Demos</a>
+<a href="../demos.html" class="demo-back" data-track="poster.back">← Demos</a>
 
 <div class="wrap">
   <div class="eyebrow">Design · Generative</div>
   <h1>Swiss Poster Generator</h1>
   <p class="lede">A parametric take on International-style poster design — grid, scale contrast, and a single accent, recomposed from a seed. Type your own headline, pick a palette, regenerate until one sings, then export a print-ready PNG.</p>
 
-  <div class="stage">
+  <div class="stage" data-zone="poster">
     <div class="frame"><canvas id="poster" width="760" height="1074"></canvas></div>
     <div class="controls">
-      <div><span class="ctrl-label">Headline</span><input type="text" id="headline" value="FORM FOLLOWS FEELING" maxlength="40"></div>
-      <div><span class="ctrl-label">Kicker</span><input type="text" id="kicker" value="A Generative Study №" maxlength="40"></div>
+      <div><span class="ctrl-label">Headline</span><input type="text" id="headline" data-track="poster.headline" value="FORM FOLLOWS FEELING" maxlength="40"></div>
+      <div><span class="ctrl-label">Kicker</span><input type="text" id="kicker" data-track="poster.kicker" value="A Generative Study №" maxlength="40"></div>
       <div><span class="ctrl-label">Palette</span><div class="palettes" id="palettes"></div></div>
       <div class="row">
-        <button id="regen">↻ Regenerate</button>
-        <button class="ghost" id="download">↓ PNG</button>
+        <button id="regen" data-track="poster.regenerate">↻ Regenerate</button>
+        <button class="ghost" id="download" data-track="poster.png">↓ PNG</button>
       </div>
       <div class="seedline" id="seedline">seed —</div>
     </div>
   </div>
 </div>
 
+<script>
+/* Tracking helper. Sends ids, buckets, counts and ms only: never typed text, names, file names or URL state. */
+(function(){
+  var DID='poster',t0=Date.now(),Q=[],QT=0,QN=0,P={},HK=[];
+  var S={first:0,start:0,ended:0,eng:0,act:0,er:0};
+  function send(m,a){var s=window.sk;if(s&&typeof s[m]==='function'){try{s[m].apply(s,a);}catch(e){}return true;}return false;}
+  function flush(){while(Q.length&&send(Q[0][0],Q[0][1]))Q.shift();}
+  function emit(m,a){try{if(Q.length<80)Q.push([m,a]);flush();if(Q.length&&!QT){QN=0;QT=setInterval(function(){flush();if(!Q.length||++QN>24){clearInterval(QT);QT=0;Q.length=0;}},500);}}catch(e){}}
+  var TRK=window.TRK={
+    id:DID,
+    a:function(action,p){emit('demo',[DID,action,p||{}]);},
+    e:function(name,p){var o={demo_id:DID};if(p)for(var k in p)o[k]=p[k];emit('track',[name,o]);},
+    raw:function(name,p){emit('track',[name,p||{}]);},
+    start:function(mode){if(S.start)return;S.start=1;TRK.e('demo_start',{mode:mode});},
+    err:function(code){if(S.er++<3)TRK.e('demo_error',{code:code});},
+    model:function(state,ms){emit('model',[DID,state,{ms:ms,delegate:'CPU'}]);},
+    lb:function(n){return n<=0?'0':n<=20?'1-20':n<=80?'21-80':n<=300?'81-300':'300+';},
+    cb:function(n){return n<=0?'0':n===1?'1':n<=5?'2-5':n<=20?'6-20':'21+';},
+    q5:function(v,lo,hi){var p=(v-lo)/((hi-lo)||1);return 'q'+Math.min(5,Math.max(1,Math.floor(p*5)+1));},
+    deb:function(key,ms,fn){if(P[key])clearTimeout(P[key].t);P[key]={fn:fn,t:setTimeout(function(){var f=P[key];delete P[key];try{f&&f.fn();}catch(e){}},ms)};},
+    flush:function(){Object.keys(P).forEach(function(k){var f=P[k];delete P[k];clearTimeout(f.t);try{f.fn();}catch(e){}});},
+    onend:function(fn){HK.push(fn);},
+    nav:function(){try{return performance.getEntriesByType('navigation')[0].type;}catch(e){return 'navigate';}},
+    end:function(reason){if(S.ended)return;S.ended=1;TRK.flush();HK.forEach(function(f){try{f();}catch(e){}});TRK.e('demo_end',{ms:Date.now()-t0,reason:reason});}
+  };
+  function active(){S.act=Date.now();}
+  ['pointermove','scroll','wheel','touchmove'].forEach(function(ev){window.addEventListener(ev,active,{passive:true,capture:true});});
+  ['pointerdown','keydown','input','change'].forEach(function(ev){document.addEventListener(ev,function(){active();if(!S.first){S.first=1;TRK.a('first_interaction',{value:Math.round((Date.now()-t0)/1000)});}},true);});
+  setInterval(function(){if(document.hidden||!S.act||Date.now()-S.act>5000)return;S.eng++;if(S.eng===10||S.eng===60)TRK.e('demo_engaged',{seconds:S.eng});},1000);
+  document.addEventListener('visibilitychange',function(){if(document.hidden)TRK.end('hidden');else S.ended=0;});
+  window.addEventListener('pagehide',function(){TRK.end('leave');});
+  document.addEventListener('click',function(e){var a=e.target&&e.target.closest&&e.target.closest('a[data-track]');if(!a)return;var id=a.getAttribute('data-track')||'';if(/\.(back|home)$/.test(id))TRK.end(id.split('.').pop());},true);
+  window.addEventListener('error',function(ev){if(ev&&ev.filename&&ev.filename.indexOf(location.origin)!==0)return;TRK.err('js');});
+  window.addEventListener('unhandledrejection',function(){TRK.err('promise');});
+  TRK.e('demo_open');
+  /* return visit: a local flag, written only once analytics consent is granted */
+  var RV=0;
+  function rv(){try{if(RV||!window.sk||sk.consent!=='granted')return;RV=1;var k='sk_seen_'+DID;if(localStorage.getItem(k))TRK.a('return_visit',{item:TRK.nav()});else localStorage.setItem(k,'1');}catch(e){}}
+  setTimeout(rv,1500);window.addEventListener('sk:consent',function(){setTimeout(rv,50);});
+})();
+</script>
 <script>
 (function(){
   var cv=document.getElementById('poster'),cx=cv.getContext('2d');
@@ -136,11 +177,16 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   }
   // palette swatches
   var pc=document.getElementById('palettes');
-  PALETTES.forEach(function(p,i){var s=document.createElement('div');s.className='sw'+(i===0?' active':'');s.style.background=p.ac;s.title=p.name;s.onclick=function(){pal=p;[].forEach.call(pc.children,function(c){c.classList.remove('active');});s.classList.add('active');draw();};pc.appendChild(s);});
+  PALETTES.forEach(function(p,i){var s=document.createElement('div');s.className='sw'+(i===0?' active':'');s.style.background=p.ac;s.title=p.name;var pid=p.name.toLowerCase().replace(/[^a-z0-9]+/g,'-');s.setAttribute('data-track','poster.palette.'+pid);s.addEventListener('click',function(){TRK.start('palette');TRK.a('palette',{item:pid});});s.onclick=function(){pal=p;[].forEach.call(pc.children,function(c){c.classList.remove('active');});s.classList.add('active');draw();};pc.appendChild(s);});
   document.getElementById('regen').onclick=function(){seed=Math.floor(Math.random()*99999)+1;draw();};
+  /* tracking: ids, counts and length buckets only */
+  var regens=0;
+  document.getElementById('regen').addEventListener('click',function(){TRK.start('regenerate');TRK.a('regenerate',{value:++regens});});
+  ['headline','kicker'].forEach(function(id){var f=document.getElementById(id);f.addEventListener('input',function(){TRK.start(id);TRK.deb(id,700,function(){TRK.a(id+'_edit',{bucket:TRK.lb(f.value.length)});});});});
   document.getElementById('headline').addEventListener('input',draw);
   document.getElementById('kicker').addEventListener('input',draw);
   document.getElementById('download').onclick=function(){var a=document.createElement('a');a.download='swiss-poster-'+seed+'.png';a.href=cv.toDataURL('image/png');a.click();};
+  document.getElementById('download').addEventListener('click',function(){TRK.start('png');TRK.a('png_download',{item:pal.name.toLowerCase().replace(/[^a-z0-9]+/g,'-'),value:regens});});
   // load fonts then draw
   if(document.fonts&&document.fonts.ready){document.fonts.ready.then(draw);}
   draw();setTimeout(draw,600);
