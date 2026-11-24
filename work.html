@@ -854,10 +854,14 @@ const projects = {
 
 const projectOrder = ['thallo','cyrano','aperol','biomechanics','adlib','inkwell','vigilante','casamota','juicy','arabella','backpack','agora','handcursor','dropballs','desk','cigarette','vijay','flower','povera','razer','brand'];
 let currentIndex = 0;
+function T(n, p) { try { window.sk ? sk.track(n, p) : (window.skq = window.skq || []).push(['track', n, p]); } catch (e) {} }
+let panelOpen = false, openId = null, openAt = 0;
 
 function openPanel(projectId) {
   const data = projects[projectId];
   if (!data) return;
+  if (!(panelOpen && openId === projectId)) T('project_open', { project_id: projectId });
+  panelOpen = true; openId = projectId; openAt = Date.now();
   currentIndex = projectOrder.indexOf(projectId);
   renderPanel(data);
   const panel = document.getElementById('projectPanel');
@@ -869,7 +873,10 @@ function openPanel(projectId) {
   // Update URL hash so deep-linking works without navigation
   if (history.replaceState) history.replaceState(null, '', '#' + projectId);
 }
-function closePanel() {
+function closePanel(method) {
+  if (!panelOpen) return;
+  panelOpen = false;
+  T('project_close', { project_id: openId, method: typeof method === 'string' ? method : 'button', dwell_s: Math.round((Date.now() - openAt) / 1000) });
   document.getElementById('projectPanel').classList.remove('open');
   document.getElementById('backdrop').classList.remove('open');
   document.body.style.overflow = '';
@@ -986,16 +993,18 @@ document.querySelectorAll('.work-card[data-project]').forEach(card => {
   });
   card.style.cursor = 'pointer';
 });
-document.getElementById('backdrop').addEventListener('click', closePanel);
-document.getElementById('panelClose').addEventListener('click', closePanel);
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
+document.getElementById('backdrop').addEventListener('click', () => closePanel('backdrop'));
+document.getElementById('panelClose').addEventListener('click', () => closePanel('button'));
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel('escape'); });
 document.getElementById('prevProject').addEventListener('click', () => {
   currentIndex = (currentIndex - 1 + projectOrder.length) % projectOrder.length;
+  openId = projectOrder[currentIndex]; openAt = Date.now(); T('project_prev', { project_id: openId });
   renderPanel(projects[projectOrder[currentIndex]]);
   document.getElementById('projectPanel').scrollTop = 0;
 });
 document.getElementById('nextProject').addEventListener('click', () => {
   currentIndex = (currentIndex + 1) % projectOrder.length;
+  openId = projectOrder[currentIndex]; openAt = Date.now(); T('project_next', { project_id: openId });
   renderPanel(projects[projectOrder[currentIndex]]);
   document.getElementById('projectPanel').scrollTop = 0;
 });
@@ -1012,7 +1021,11 @@ function applyFilter(filter){
   });
 }
 document.querySelectorAll('.filter-pill').forEach(pill => {
-  pill.addEventListener('click', function() { applyFilter(this.dataset.filter); });
+  pill.addEventListener('click', function() {
+    const f = this.dataset.filter, changed = !this.classList.contains('active');
+    applyFilter(f);
+    if (changed) T('filter_apply', { filter_id: f, list_id: 'work' });
+  });
 });
 // Auto-apply filter from ?filter= query param (set by persona gate on homepage)
 var urlFilter = new URLSearchParams(window.location.search).get('filter');

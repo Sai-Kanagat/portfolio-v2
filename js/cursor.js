@@ -15,8 +15,10 @@
   var trail = document.createElement('div');
   lead.className  = 'mag-cursor mag-lead';
   trail.className = 'mag-cursor mag-trail';
+  lead.setAttribute('data-no-track', ''); trail.setAttribute('data-no-track', '');
   document.body.appendChild(lead);
   document.body.appendChild(trail);
+  try { window.sk ? sk.track('cursor_enabled') : (window.skq = window.skq || []).push(['track', 'cursor_enabled']); } catch (e) {}
 
   // Scoped CSS (so deletion of brand-overlay rules doesn't kill the cursor)
   if (!document.getElementById('mag-cursor-styles')) {
@@ -43,6 +45,7 @@
   var tx = mx, ty = my, tr = 45; // trail rotation accumulates for organic feel
 
   window.addEventListener('mousemove', function (e) {
+    if (!e.isTrusted) return;
     mx = e.clientX; my = e.clientY;
   }, { passive: true });
 
