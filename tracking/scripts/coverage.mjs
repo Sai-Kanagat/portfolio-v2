@@ -8,16 +8,20 @@ const root = process.cwd();
 const require = createRequire(process.env.PW_FROM || import.meta.url);
 const { chromium, devices } = require('playwright');
 const types = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.svg': 'image/svg+xml' };
+// Loopback only, and only git-tracked files resolve.
+const tracked = new Set(execSync('git ls-files -z', { encoding: 'utf8', maxBuffer: 1 << 24 }).split('\0').filter(Boolean));
 const srv = http.createServer((q, s) => {
-  let p = path.normalize(decodeURIComponent(q.url.split('?')[0]));
-  let f = path.join(root, p);
-  if (!f.startsWith(root)) { s.writeHead(403); return s.end(); }
-  if (fs.existsSync(f) && fs.statSync(f).isDirectory()) f = path.join(f, 'index.html');
-  if (!fs.existsSync(f) && fs.existsSync(f + '.html')) f += '.html';
-  if (!fs.existsSync(f)) { s.writeHead(404); return s.end('404'); }
+  let rel;
+  try { rel = decodeURIComponent(new URL(q.url, 'http://127.0.0.1').pathname).replace(/^\/+/, ''); } catch { s.writeHead(400); return s.end(); }
+  if (!/^(127\.0\.0\.1|localhost):\d+$/.test(q.headers.host || '')) { s.writeHead(403); return s.end(); }
+  const hit = [rel, rel.replace(/\/?$/, '/index.html').replace(/^\//, ''), rel + '.html'].find(x => tracked.has(x));
+  if (!hit) { s.writeHead(404); return s.end('404'); }
+  const f = fs.realpathSync(path.join(root, hit));
+  if (!f.startsWith(fs.realpathSync(root) + path.sep)) { s.writeHead(403); return s.end(); }
   s.writeHead(200, { 'content-type': types[path.extname(f)] || 'application/octet-stream' });
   fs.createReadStream(f).pipe(s);
-}).listen(0);
+});
+await new Promise(r => srv.listen(0, '127.0.0.1', r));
 const port = srv.address().port;
 const skip = /^(googled|agency-os)/;
 const pages = execSync("git ls-files '*.html'", { encoding: 'utf8' }).trim().split('\n').filter(p => !skip.test(p));
@@ -32,7 +36,7 @@ for (const [kind, opt] of [['desktop', { viewport: { width: 1440, height: 900 } 
     const pg = await ctx.newPage(); const errs = [];
     pg.on('pageerror', e => errs.push(e.message.slice(0, 120)));
     try {
-      await pg.goto(`http://localhost:${port}/${p}`, { waitUntil: 'load', timeout: 30000 });
+      await pg.goto(`http://127.0.0.1:${port}/${p}`, { waitUntil: 'load', timeout: 30000 });
       await pg.waitForTimeout(1500);
       const c = await pg.evaluate(S => [...document.querySelectorAll(S)].map(e => ({ t: e.tagName.toLowerCase(), id: e.id || '', n: e.getAttribute('name') || '', d: Object.keys(e.dataset).join(','), x: (e.getAttribute('aria-label') || e.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 40), h: e.getAttribute('href') || '', tr: e.dataset.track || '' })), SEL);
       (out.pages[p] ||= {})[kind] = { controls: c, errors: errs };
