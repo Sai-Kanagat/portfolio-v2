@@ -7,7 +7,7 @@
 (function(){
   try {
     var h = window.location.hostname;
-    if (/\.pages\.dev$/i.test(h)) {
+    if (h === 'saikanagat-7yg.pages.dev') { // the exact production host only: previews must be testable
       window.location.replace('https://saikanagat.com' + window.location.pathname + window.location.search + window.location.hash);
     }
   } catch(e) {}

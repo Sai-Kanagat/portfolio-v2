@@ -22,3 +22,9 @@ test('drop throttle cannot be dodged by changing the detail', () => {
   for (let i = 0; i < 300; i++) shouldCount('k' + i, 1e12);
   assert.equal(shouldCount('flood_kind', 1e12), false);
 });
+
+test('encoded spellings of the private paths are recognised before static files', async () => {
+  const { privatePath } = await import('../../../functions/_middleware.js');
+  for (const p of ['/ops', '/ops/', '/ops/app.js', '/%6fps/app.js', '/%6Fps/', '/ops%2fapp.js', '/%2fops/app.js', '/%256fps/app.js', '/OPS/app.js', '/js/%2e%2e/ops/app.js', '//ops//app.js', '/ops%5capp.js', '/api/ops/live', '/api%2fops/live', '/%61pi/%6fps/live', '/%6fps/%zz']) assert.equal(privatePath(p), true, p);
+  for (const p of ['/', '/work', '/opsec', '/blog/ops', '/api/e', '/go/li-x', '/blog/100%25-off']) assert.equal(privatePath(p), false, p);
+});
