@@ -85,6 +85,8 @@ function cleanParam(type, v) {
       const c = parseCells(v);
       return c.length ? c : undefined;
     }
+    case 'str':
+      return cleanId(v);
     default: {
       if (typeof v === 'boolean') return v;
       const n = cleanNum(v);

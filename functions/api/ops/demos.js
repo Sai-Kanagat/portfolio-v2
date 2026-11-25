@@ -76,7 +76,7 @@ export async function onRequestGet({ env, request }) {
   const isPage = (id) => typeof id === 'string' && id.startsWith('pg.');
   const pageActions = [];
   for (const r of rows) {
-    if (isPage(r.demo_id)) { if (r.name === 'demo_action' && r.action) pageActions.push({ page: r.demo_id.slice(3), action: r.action, n: r.n, sessions: r.sessions, visitors: r.visitors }); continue; }
+    if (isPage(r.demo_id)) { if (r.name === 'demo_action' && r.action) pageActions.push({ page: r.demo_id.slice(3), action: String(r.action), n: r.n, sessions: r.sessions, visitors: r.visitors }); continue; }
     const d = get(r.demo_id);
     if (r.name === 'demo_open') { d.opens += r.n; d.visitors += r.visitors; }
     else if (r.name === 'demo_start') d.starts += r.n;

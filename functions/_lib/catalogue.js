@@ -21,8 +21,11 @@ export const PARAM_TYPES = {
   cells: 'cells',
 };
 
+// Identifiers are strings only: a number or boolean here would reach dashboard code that expects text.
+const STRING_ONLY = new Set(['track_id', 'zone', 'demo_id', 'form_id', 'field', 'kind', 'state', 'reason', 'mode', 'action', 'input', 'project_id', 'video_id', 'filter_id', 'list_id', 'file_id', 'method', 'choice', 'region', 'role_bucket', 'link_location', 'section_id']);
+
 export function paramType(name) {
-  return PARAM_TYPES[name] || 'id';
+  return PARAM_TYPES[name] || (STRING_ONLY.has(name) ? 'str' : 'id');
 }
 
 export function eventSpec(name) {

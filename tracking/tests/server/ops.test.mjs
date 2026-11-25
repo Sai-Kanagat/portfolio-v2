@@ -563,3 +563,21 @@ test('the shipped ops/controls.json is what the generator writes now, holds only
   assert.equal((await srv.req('GET', '/ops/controls.json')).status, 403);
   assert.equal((await get('/ops/controls.json')).status, 200);
 });
+
+test('wrong-typed ids are dropped at ingest and cannot break any dashboard endpoint', async () => {
+  const now = Date.now();
+  for (const bad of [5, true]) {
+    await postEvents(srv, batch({ ctx: { path: '/work' }, ev: [
+      { n: 'demo_action', t: now, p: { demo_id: 'pg.home', action: bad } },
+      { n: 'demo_action', t: now, p: { demo_id: 'agora', action: bad, item: bad } },
+      { n: 'demo_open', t: now, p: { demo_id: bad } },
+      { n: 'ui_click', t: now, p: { track_id: bad, zone: bad, x: 1, y: 1, nth: 1 } },
+      { n: 'form_abandon', t: now, p: { form_id: bad, field: bad } },
+      { n: 'media_result', t: now, p: { demo_id: 'hands', kind: bad, state: bad } },
+    ] }));
+  }
+  assert.equal(db.prepare("select count(*) n from events where json_type(params,'$.action') in ('integer','real','true','false') or json_type(params,'$.demo_id') in ('integer','real','true','false') or json_type(params,'$.track_id') in ('integer','real','true','false')").get().n, 0);
+  // even a bad row written by an older version must not break a view
+  for (const a of ['5', '6', 'true']) db.prepare("insert into events (ts,vid,sid,pid,name,path,owner,test,params) values (?,?,?,?,'demo_action','/',0,'',?)").run(now, hex16(), hex16(), hex16(), `{"demo_id":"pg.home","action":${a}}`);
+  for (const p of ENDPOINTS) assert.equal((await get('/api/ops/' + p)).status, 200, p);
+});
