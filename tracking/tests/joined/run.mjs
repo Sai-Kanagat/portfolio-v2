@@ -346,12 +346,18 @@ if (want('controls')) {
       const key = cc.id + '#' + cc.occ; if (done.has(key) || dall.has(key)) return 'done';
       let info;
       try { await p.evaluate(({ id, occ }) => { const el = [...document.querySelectorAll('[data-track]')].filter((e) => e.getAttribute('data-track') === id)[occ]; if (el) { try { const dt = el.closest('details'); if (dt && !dt.open && el.tagName !== 'SUMMARY') dt.open = true; /* a closed disclosure whose summary was already clicked, re-rendered closed by the page */ el.scrollIntoView({ block: 'center', inline: 'center', behavior: 'instant' }); } catch (e) {} } return new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))); }, cc);
-        info = await p.evaluate(({ id, occ }) => {
+        info = await p.evaluate(async ({ id, occ }) => {
         const el = [...document.querySelectorAll('[data-track]')].filter((e) => e.getAttribute('data-track') === id)[occ];
         if (!el) return { skip: 'gone' };
         if (el.closest('[data-no-track]')) return { skip: 'ignored subtree (data-no-track)' };
         if (el.disabled) return { skip: 'disabled' };
         try { el.scrollIntoView({ block: 'center', inline: 'center', behavior: 'instant' }); } catch (e) {}
+        // a sliding panel: measure only once the control has stopped moving, or the click lands where it used to be
+        for (let k = 0, same = 0, last = ''; k < 40 && same < 4; k++) {
+          const q = el.getBoundingClientRect(), now = Math.round(q.left) + ',' + Math.round(q.top);
+          same = now === last ? same + 1 : 0; last = now;
+          await new Promise((ok2) => setTimeout(ok2, 30));
+        }
         const r = el.getBoundingClientRect(), cs = getComputedStyle(el);
         if (r.width < 1 || r.height < 1 || cs.visibility === 'hidden' || cs.display === 'none') return { skip: 'not visible' };
         const x = r.left + r.width / 2, y = r.top + r.height / 2;
