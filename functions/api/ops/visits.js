@@ -1,6 +1,6 @@
-// GET /api/ops/visits?days=7&limit=50&before=<first_ts> -> { sessions:[{sid,first_ts,last_ts,landing,link,ref_host,country,device,pages,events,active_s}] }
+// GET /api/ops/visits?days=7&limit=50&before=<first_ts>&device=desktop|mobile|tablet -> { sessions:[{sid,first_ts,last_ts,landing,link,ref_host,country,device,pages,events,active_s}] }
 // GET /api/ops/visits?sid=<16 hex> -> { session, events:[{ts,name,path,params}] }   (timeline of one anonymous visit)
-import { all, one, reply, scopeOf, rangeOf } from '../../_lib/ops.js';
+import { all, one, reply, scopeOf, rangeOf, deviceFilter, badDevice } from '../../_lib/ops.js';
 import { json } from '../../_lib/http.js';
 export async function onRequestGet({ env, request }) {
   const url = new URL(request.url); const w = scopeOf(url).where();
@@ -12,10 +12,12 @@ export async function onRequestGet({ env, request }) {
     return reply(url, { session, events });
   }
   const { from, to } = rangeOf(url);
+  const dev = deviceFilter(url, 4);
+  if (!dev.ok) return badDevice();
   const limit = Math.min(Math.max(parseInt(url.searchParams.get('limit') || '50', 10) || 50, 1), 200);
   const before = Number(url.searchParams.get('before')) || to;
   const sessions = await all(env,
     `SELECT sid, first_ts, last_ts, landing, link, ref_host, country, device, pages, events, ROUND(active_ms / 1000.0) AS active_s
-     FROM sessions WHERE first_ts >= ?1 AND first_ts < ?2 AND ${w} ORDER BY first_ts DESC LIMIT ?3`, [from, before, limit]);
-  return reply(url, { sessions });
+     FROM sessions WHERE first_ts >= ?1 AND first_ts < ?2 AND ${w}${dev.sql} ORDER BY first_ts DESC LIMIT ?3`, [from, before, limit, ...dev.binds]);
+  return reply(url, { sessions }, dev.value);
 }

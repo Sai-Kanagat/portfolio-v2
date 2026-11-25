@@ -1,0 +1,1576 @@
+{
+ "version": 1,
+ "note": "Every known control (data-track id) and its page. Built by tracking/scripts/controls.mjs from coverage.json and tracking/maps/*.json. A control added after the last build is missing until the script is rerun.",
+ "sources": {
+  "coverage": {
+   "found": true,
+   "controls": 0
+  },
+  "pages": {
+   "found": true,
+   "controls": 0
+  },
+  "media": {
+   "found": true,
+   "controls": 29
+  },
+  "tools": {
+   "found": true,
+   "controls": 143
+  }
+ },
+ "counts": {
+  "controls": 172,
+  "pages": 12
+ },
+ "controls": [
+  {
+   "id": "ad.ab.file_a",
+   "zone": "ad",
+   "path": "/ad-autopsy/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "ad.ab.file_b",
+   "zone": "ad",
+   "path": "/ad-autopsy/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "ad.ab.slot_a",
+   "zone": "ad",
+   "path": "/ad-autopsy/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "ad.ab.slot_b",
+   "zone": "ad",
+   "path": "/ad-autopsy/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "ad.back",
+   "zone": "ad",
+   "path": "/ad-autopsy/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "ad.brand",
+   "zone": "ad",
+   "path": "/ad-autopsy/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "ad.copy",
+   "zone": "ad",
+   "path": "/ad-autopsy/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "ad.drop",
+   "zone": "ad",
+   "path": "/ad-autopsy/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "ad.feed.ig",
+   "zone": "ad",
+   "path": "/ad-autopsy/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "ad.feed.li",
+   "zone": "ad",
+   "path": "/ad-autopsy/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "ad.feed.tt",
+   "zone": "ad",
+   "path": "/ad-autopsy/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "ad.file",
+   "zone": "ad",
+   "path": "/ad-autopsy/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "ad.flick",
+   "zone": "ad",
+   "path": "/ad-autopsy/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "ad.headline",
+   "zone": "ad",
+   "path": "/ad-autopsy/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "ad.layer.face",
+   "zone": "ad",
+   "path": "/ad-autopsy/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "ad.layer.gaze",
+   "zone": "ad",
+   "path": "/ad-autopsy/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "ad.layer.heat",
+   "zone": "ad",
+   "path": "/ad-autopsy/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "ad.layer.text",
+   "zone": "ad",
+   "path": "/ad-autopsy/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "ad.pdf",
+   "zone": "ad",
+   "path": "/ad-autopsy/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "ad.sample.ferro",
+   "zone": "ad",
+   "path": "/ad-autopsy/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "ad.sample.lumo",
+   "zone": "ad",
+   "path": "/ad-autopsy/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "ad.sample.vella",
+   "zone": "ad",
+   "path": "/ad-autopsy/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "ad.zone.linkedin",
+   "zone": "ad",
+   "path": "/ad-autopsy/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "ad.zone.none",
+   "zone": "ad",
+   "path": "/ad-autopsy/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "ad.zone.reels",
+   "zone": "ad",
+   "path": "/ad-autopsy/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "ad.zone.stories",
+   "zone": "ad",
+   "path": "/ad-autopsy/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "ad.zone.tiktok",
+   "zone": "ad",
+   "path": "/ad-autopsy/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "cortex.back",
+   "zone": "cortex",
+   "path": "/cortex/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "cortex.brief",
+   "zone": "cortex",
+   "path": "/cortex/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "cortex.file",
+   "zone": "cortex",
+   "path": "/cortex/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "cortex.github.footer",
+   "zone": "cortex",
+   "path": "/cortex/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "cortex.github.hero",
+   "zone": "cortex",
+   "path": "/cortex/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "cortex.github.litebar_cta",
+   "zone": "cortex",
+   "path": "/cortex/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "cortex.github.litebar_text",
+   "zone": "cortex",
+   "path": "/cortex/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "cortex.github.try_text",
+   "zone": "cortex",
+   "path": "/cortex/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "cortex.hero.watch",
+   "zone": "cortex",
+   "path": "/cortex/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "cortex.nav.demo",
+   "zone": "cortex",
+   "path": "/cortex/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "cortex.nav.how",
+   "zone": "cortex",
+   "path": "/cortex/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "cortex.nav.try",
+   "zone": "cortex",
+   "path": "/cortex/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "cortex.passcode",
+   "zone": "cortex",
+   "path": "/cortex/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "cortex.passcode.enter",
+   "zone": "cortex",
+   "path": "/cortex/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "cortex.play",
+   "zone": "cortex",
+   "path": "/cortex/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "cortex.runlive",
+   "zone": "cortex",
+   "path": "/cortex/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "agora.back",
+   "zone": "agora",
+   "path": "/demos/agora",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "agora.back_to_seed",
+   "zone": "agora",
+   "path": "/demos/agora",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "agora.go",
+   "zone": "agora",
+   "path": "/demos/agora",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "agora.home",
+   "zone": "agora",
+   "path": "/demos/agora",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "agora.new_scenario",
+   "zone": "agora",
+   "path": "/demos/agora",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "agora.population",
+   "zone": "agora",
+   "path": "/demos/agora",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "agora.preset.brand",
+   "zone": "agora",
+   "path": "/demos/agora",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "agora.preset.culture",
+   "zone": "agora",
+   "path": "/demos/agora",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "agora.preset.policy",
+   "zone": "agora",
+   "path": "/demos/agora",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "agora.preset.pricing",
+   "zone": "agora",
+   "path": "/demos/agora",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "agora.report",
+   "zone": "agora",
+   "path": "/demos/agora",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "agora.seed",
+   "zone": "agora",
+   "path": "/demos/agora",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "agora.simulate",
+   "zone": "agora",
+   "path": "/demos/agora",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "agora.skip",
+   "zone": "agora",
+   "path": "/demos/agora",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "agora.ticks",
+   "zone": "agora",
+   "path": "/demos/agora",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "audio.back",
+   "zone": "audio",
+   "path": "/demos/audio",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "audio.demo",
+   "zone": "audio",
+   "path": "/demos/audio",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "audio.mic",
+   "zone": "audio",
+   "path": "/demos/audio",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "balls.back",
+   "zone": "balls",
+   "path": "/demos/balls",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "balls.clear",
+   "zone": "balls",
+   "path": "/demos/balls",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "balls.home",
+   "zone": "balls",
+   "path": "/demos/balls",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "balls.rain",
+   "zone": "balls",
+   "path": "/demos/balls",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "balls.start",
+   "zone": "balls",
+   "path": "/demos/balls",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "balls.swatch.blue",
+   "zone": "balls",
+   "path": "/demos/balls",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "balls.swatch.green",
+   "zone": "balls",
+   "path": "/demos/balls",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "balls.swatch.red",
+   "zone": "balls",
+   "path": "/demos/balls",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "balls.swatch.yellow",
+   "zone": "balls",
+   "path": "/demos/balls",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hands.back",
+   "zone": "hands",
+   "path": "/demos/hands",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hands.home",
+   "zone": "hands",
+   "path": "/demos/hands",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hands.start",
+   "zone": "hands",
+   "path": "/demos/hands",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "poster.back",
+   "zone": "poster",
+   "path": "/demos/poster",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "poster.headline",
+   "zone": "poster",
+   "path": "/demos/poster",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "poster.kicker",
+   "zone": "poster",
+   "path": "/demos/poster",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "poster.palette.amber-klein",
+   "zone": "poster",
+   "path": "/demos/poster",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "poster.palette.bauhaus",
+   "zone": "poster",
+   "path": "/demos/poster",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "poster.palette.night",
+   "zone": "poster",
+   "path": "/demos/poster",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "poster.palette.red-lecture",
+   "zone": "poster",
+   "path": "/demos/poster",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "poster.palette.vigilante",
+   "zone": "poster",
+   "path": "/demos/poster",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "poster.png",
+   "zone": "poster",
+   "path": "/demos/poster",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "poster.regenerate",
+   "zone": "poster",
+   "path": "/demos/poster",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "roas.back",
+   "zone": "roas",
+   "path": "/demos/roas",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "roas.slider.aov",
+   "zone": "roas",
+   "path": "/demos/roas",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "roas.slider.cpc",
+   "zone": "roas",
+   "path": "/demos/roas",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "roas.slider.cvr",
+   "zone": "roas",
+   "path": "/demos/roas",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "roas.slider.margin",
+   "zone": "roas",
+   "path": "/demos/roas",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "roas.slider.spend",
+   "zone": "roas",
+   "path": "/demos/roas",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hire.chip.company.agency",
+   "zone": "hire",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hire.chip.company.corporate",
+   "zone": "hire",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hire.chip.company.luxury",
+   "zone": "hire",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hire.chip.company.scaleup",
+   "zone": "hire",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hire.chip.company.startup",
+   "zone": "hire",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hire.chip.goal.acq",
+   "zone": "hire",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hire.chip.goal.brand",
+   "zone": "hire",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hire.chip.goal.conv",
+   "zone": "hire",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hire.chip.goal.eu",
+   "zone": "hire",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hire.chip.goal.launch",
+   "zone": "hire",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hire.chip.goal.meas",
+   "zone": "hire",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hire.chip.goal.organic",
+   "zone": "hire",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hire.chip.goal.pos",
+   "zone": "hire",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hire.chip.goal.sys",
+   "zone": "hire",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hire.chip.role.brand",
+   "zone": "hire",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hire.chip.role.content",
+   "zone": "hire",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hire.chip.role.creative",
+   "zone": "hire",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hire.chip.role.growth",
+   "zone": "hire",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hire.chip.role.other",
+   "zone": "hire",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hire.chip.role.pmm",
+   "zone": "hire",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hire.copy_link",
+   "zone": "hire",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hire.foot.about",
+   "zone": "hire",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hire.foot.all_work",
+   "zone": "hire",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hire.foot.email",
+   "zone": "hire",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hire.foot.github",
+   "zone": "hire",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hire.foot.linkedin",
+   "zone": "hire",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hire.pdf",
+   "zone": "hire",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hire.reset",
+   "zone": "hire",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hire.role_text",
+   "zone": "hire",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hire.share_url",
+   "zone": "hire",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hire.sheet.contact",
+   "zone": "hire",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hire.sheet.email",
+   "zone": "hire",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hire.sheet.linkedin",
+   "zone": "hire",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hire.sheet.work",
+   "zone": "hire",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "melt.again",
+   "zone": "melt",
+   "path": "/melt/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "melt.fx",
+   "zone": "melt",
+   "path": "/melt/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "melt.menu",
+   "zone": "melt",
+   "path": "/melt/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "melt.play",
+   "zone": "melt",
+   "path": "/melt/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "melt.quit",
+   "zone": "melt",
+   "path": "/melt/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "melt.resume",
+   "zone": "melt",
+   "path": "/melt/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "melt.sensitivity",
+   "zone": "melt",
+   "path": "/melt/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "melt.sound",
+   "zone": "melt",
+   "path": "/melt/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "melt.touch.pause",
+   "zone": "melt",
+   "path": "/melt/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "pos.add",
+   "zone": "pos",
+   "path": "/positioning/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "pos.axis_x",
+   "zone": "pos",
+   "path": "/positioning/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "pos.axis_y",
+   "zone": "pos",
+   "path": "/positioning/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "pos.back",
+   "zone": "pos",
+   "path": "/positioning/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "pos.card.headline",
+   "zone": "pos",
+   "path": "/positioning/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "pos.card.name",
+   "zone": "pos",
+   "path": "/positioning/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "pos.card.price",
+   "zone": "pos",
+   "path": "/positioning/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "pos.card.remove",
+   "zone": "pos",
+   "path": "/positioning/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "pos.card.reset.emo",
+   "zone": "pos",
+   "path": "/positioning/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "pos.card.reset.inno",
+   "zone": "pos",
+   "path": "/positioning/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "pos.card.reset.play",
+   "zone": "pos",
+   "path": "/positioning/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "pos.card.reset.prem",
+   "zone": "pos",
+   "path": "/positioning/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "pos.card.reset.spec",
+   "zone": "pos",
+   "path": "/positioning/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "pos.card.score.emo",
+   "zone": "pos",
+   "path": "/positioning/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "pos.card.score.inno",
+   "zone": "pos",
+   "path": "/positioning/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "pos.card.score.play",
+   "zone": "pos",
+   "path": "/positioning/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "pos.card.score.prem",
+   "zone": "pos",
+   "path": "/positioning/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "pos.card.score.spec",
+   "zone": "pos",
+   "path": "/positioning/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "pos.card.scores_toggle",
+   "zone": "pos",
+   "path": "/positioning/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "pos.card.tagline",
+   "zone": "pos",
+   "path": "/positioning/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "pos.card.us",
+   "zone": "pos",
+   "path": "/positioning/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "pos.copy_statement",
+   "zone": "pos",
+   "path": "/positioning/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "pos.map",
+   "zone": "pos",
+   "path": "/positioning/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "pos.pdf",
+   "zone": "pos",
+   "path": "/positioning/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "pos.png",
+   "zone": "pos",
+   "path": "/positioning/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "pos.sample.blank",
+   "zone": "pos",
+   "path": "/positioning/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "pos.sample.coffee",
+   "zone": "pos",
+   "path": "/positioning/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "pos.sample.fintech",
+   "zone": "pos",
+   "path": "/positioning/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "pos.share",
+   "zone": "pos",
+   "path": "/positioning/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "pos.shareurl",
+   "zone": "pos",
+   "path": "/positioning/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "pos.statement.a",
+   "zone": "pos",
+   "path": "/positioning/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "pos.statement.b",
+   "zone": "pos",
+   "path": "/positioning/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "pos.statement.c",
+   "zone": "pos",
+   "path": "/positioning/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "pos.statement.n",
+   "zone": "pos",
+   "path": "/positioning/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "pos.statement.t",
+   "zone": "pos",
+   "path": "/positioning/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "shadow.back",
+   "zone": "shadow",
+   "path": "/shadow-theatre/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "shadow.demo",
+   "zone": "shadow",
+   "path": "/shadow-theatre/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "shadow.guide",
+   "zone": "shadow",
+   "path": "/shadow-theatre/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "shadow.home",
+   "zone": "shadow",
+   "path": "/shadow-theatre/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "shadow.start",
+   "zone": "shadow",
+   "path": "/shadow-theatre/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  }
+ ]
+}

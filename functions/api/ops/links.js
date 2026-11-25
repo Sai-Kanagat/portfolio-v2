@@ -1,4 +1,7 @@
-// GET  /api/ops/links?days=30 -> { links:[{slug,dest,channel,campaign,content_label,app_label,created,retired,clicks_human,clicks_bot,sessions,pages,active_s,demos,conversions}] }
+// GET  /api/ops/links?days=30 -> { links:[{slug,dest,channel,campaign,content_label,app_label,created,retired,clicks_human,clicks_bot,sessions,pages,active_s,demos,conversions}], clicks_note }
+// LIMIT, stated on purpose: link_clicks (written by /go/<slug>) is an aggregate redirect log with no vid, sid, owner or test column, so clicks_human and
+// clicks_bot can NOT be split by owner or test, and the include= switches do not change them. A click by the owner is a click here. Only the visit-based columns
+// (sessions, pages, active_s, demos, conversions) follow the owner and test scope, because they come from sessions and events. The device filter is not offered either.
 // POST /api/ops/links {slug,dest,campaign?,content_label?,app_label?} -> 201 {link, warnings:[...]}; 409 duplicate; 400 invalid
 import { all, reply, scopeOf, rangeOf } from '../../_lib/ops.js';
 import { json } from '../../_lib/http.js';
@@ -20,6 +23,7 @@ export async function onRequestGet({ env, request }) {
   const idx = (rows) => new Map(rows.map((r) => [r.slug, r]));
   const c = idx(clicks), s = idx(sess), d = idx(demos), v = idx(conv);
   return reply(url, {
+    clicks_note: 'Link clicks come from the redirect log, which keeps no visitor id, owner flag or test flag. They cannot be split by owner or test and ignore those switches. Visits, pages, time, demos and key events do follow them.',
     links: links.map((l) => ({
       ...l,
       clicks_human: c.get(l.slug)?.human || 0, clicks_bot: c.get(l.slug)?.bot || 0,

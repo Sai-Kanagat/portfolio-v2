@@ -1,9 +1,9 @@
 // One function per view. Each takes ctx and returns a DOM node (or throws an ApiError for the shell to show).
-// ctx: { get(name, extra), post(name, body), href(view, arg, extra), query, arg, state, every(fn, ms), signal, rerun() }
+// ctx: { get(name, extra), post(name, body), controls() (ops/controls.json or null), href(view, arg, extra), go(view, arg, extra), query, arg, state, every(fn, ms) (never faster than 60 s, paused while hidden), signal }
 // Every value from the API is untrusted. It is placed with textContent (through h/table) and never parsed as HTML.
 import {
   isSlug, isSid, isPath, linkUrl, destOk, SLUG_RE, LABEL_RE, rate, avg, num, fmtInt, fmtDec, fmtSecs, fmtMs, fmtTs, fmtDay, fmtAge, fmtPct,
-  clip, classifyHost, channelLabel, paramPairs, MIN_N,
+  clip, classifyHost, channelLabel, paramPairs, MIN_N, DEVICES, DEVICE_LABELS, mergeControls, normPath,
 } from './lib.js';
 import { h, clear, table, facts, bars, note, rateCell, avgCell, secsCell, toast, download, copyText } from './dom.js';
 
@@ -23,8 +23,17 @@ function scopeLine(res, extra, noRange) {
   else parts.push('The server did not say which period it used.');
   parts.push(`Owner visits: ${sc.owner ? 'included' : 'excluded'}.`);
   parts.push(`Test traffic: ${sc.test ? 'included' : 'excluded'}.`);
+  if (DEVICES.includes(sc.device)) parts.push(`Device: ${sc.device} only.`);
   if (extra) parts.push(extra);
   return h('p', { class: 'lede', text: parts.join(' ') });
+}
+// Device filter for the views whose API takes one. Empty means all devices. Sent only when it is one of the three real values.
+const deviceOf = (ctx) => (DEVICES.includes(ctx.query.get('device')) ? ctx.query.get('device') : '');
+function deviceField(ctx, view, id, extra = {}) {
+  const cur = deviceOf(ctx);
+  const sel = h('select', { id }, [['', 'All devices'], ...DEVICES.map((d) => [d, DEVICE_LABELS[d]])].map(([v, t]) => h('option', { value: v, text: t, selected: v === cur ? true : null })));
+  sel.addEventListener('change', () => ctx.go(view, ctx.arg, { ...extra, device: sel.value }));
+  return h('div', { class: 'field' }, h('label', { for: id, text: 'Device' }), sel);
 }
 const pageLink = (ctx, view, path, label) => (isPath(path) ? h('a', { href: ctx.href(view, '', { page: path }), text: label }) : null);
 
@@ -71,18 +80,24 @@ export async function live(ctx) {
   const first = await ctx.get('live');
   paint(first);
   lastOk = Date.now();
+  let lastTry = Date.now();
   const refresh = async () => {
+    lastTry = Date.now();
     try {
       const d = await ctx.get('live');
       paint(d);
       lastOk = Date.now();
-      setStatus(`Updated ${fmtTs(lastOk, { seconds: true })}. Refreshes every 15 seconds while this tab is visible.`);
+      setStatus(`Updated ${fmtTs(lastOk, { seconds: true })}. Refreshes every 60 seconds while this tab is visible.`);
     } catch {
       setStatus(`Refresh failed. The data below is from ${fmtTs(lastOk, { seconds: true })} (${fmtAge(lastOk)}).`);
     }
   };
-  setStatus(`Updated ${fmtTs(lastOk, { seconds: true })}. Refreshes every 15 seconds while this tab is visible.`);
-  ctx.every(refresh, 15000);
+  setStatus(`Updated ${fmtTs(lastOk, { seconds: true })}. Refreshes every 60 seconds while this tab is visible, and waits while it is hidden.`);
+  ctx.every(refresh, 60000);
+  // Coming back to the tab refreshes at once, but never more often than every 60 seconds.
+  const onShow = () => { if (!document.hidden && Date.now() - lastTry >= 60000) refresh(); };
+  document.addEventListener('visibilitychange', onShow);
+  ctx.onTeardown(() => document.removeEventListener('visibilitychange', onShow));
   const bar = h('div', { class: 'actions' }, h('button', { type: 'button', text: 'Refresh now', onclick: refresh }));
   return h('div', null, scopeLine(first, 'This view always shows the last 30 minutes, so the period picker does not apply.', true), status, bar, host);
 }
@@ -96,7 +111,7 @@ export async function where(ctx) {
   out.appendChild(facts([{ label: 'Visits', value: fmtInt(total) }, { label: 'Visitors', value: fmtInt(d.visitors), sub: 'distinct anonymous ids' }]));
   out.appendChild(table({
     id: 'where-channels', title: 'Channels', csvName: 'where-channels',
-    limitNote: 'Visitors are added up per group inside a channel, so a person who came by two groups of the same channel counts twice.',
+    limitNote: 'Visitors are distinct people per channel. A person who arrived by two channels is counted once in each, so the rows can add up to more than the total. A tracked link wins over the referrer, and a campaign tag that names an AI assistant counts as AI assistants.',
     cols: [
       { key: 'channel', label: 'Channel', get: (r) => channelLabel(r.channel), wrap: true },
       { key: 'sessions', label: 'Visits', num: true, get: (r) => n0(r.sessions) },
@@ -107,7 +122,7 @@ export async function where(ctx) {
     rows: arr(d.channels), sort: { key: 'sessions', dir: 'desc' },
   }));
   out.appendChild(table({
-    id: 'where-referrers', title: 'Referring websites', csvName: 'where-referrers', limitNote: 'Top 25 hosts. Visits with no referrer are in Direct or unknown.',
+    id: 'where-referrers', title: 'Referring websites', csvName: 'where-referrers', limitNote: 'Top 25 hosts. Visits with no referrer are in Direct or unknown. Search engines and AI assistants are listed in full, with no row cap, under Search and AI assistants.',
     cols: [
       { key: 'ref_host', label: 'Host', get: (r) => s(r.ref_host), wrap: true },
       { key: 'sessions', label: 'Visits', num: true, get: (r) => n0(r.sessions) },
@@ -303,19 +318,21 @@ export async function links(ctx) {
   root.appendChild(qrHost);
   root.appendChild(tableHost);
   paint();
-  return h('div', null, scopeLine(data, 'Link clicks are counted for the period only, with no owner or test split.'), root);
+  return h('div', null, scopeLine(data, 'Link clicks come from the redirect log, which keeps no visitor id, owner flag or test flag, so they cannot be split by owner or test and ignore those two switches. Visits, pages, time, demos and key events do follow them. There is no device filter on this view.'), root);
 }
 
 // ======================================================================= Pages and time
 export async function pages(ctx) {
-  const d = await ctx.get('pages');
+  const dev = deviceOf(ctx);
+  const d = await ctx.get('pages', dev ? { device: dev } : {});
   const rows = arr(d.pages);
-  if (!rows.length) return h('div', null, scopeLine(d), empty('No page views in this period', 'Try a longer period, or include test traffic.'));
-  return h('div', null, scopeLine(d), table({
+  const bar = h('div', { class: 'controls' }, deviceField(ctx, 'pages', 'pages-device'));
+  if (!rows.length) return h('div', null, scopeLine(d), bar, empty('No page views in this period', dev ? 'No page views on this device type. Try all devices or a longer period.' : 'Try a longer period, or include test traffic.'));
+  return h('div', null, scopeLine(d), bar, table({
     id: 'pages-table', title: 'Pages', csvName: 'pages',
-    limitNote: 'Time and scroll averages use only visits that sent a page_leave event. The sample size is the Leaves column. Top 200 pages by views.',
+    limitNote: 'Time and scroll averages use only visits that sent a page_leave event. The sample size is the Leaves column. Top 200 pages by views. The device filter applies to views, visitors, time and scroll together.',
     cols: [
-      { key: 'path', label: 'Page', get: (r) => s(r.path), wrap: true, cell: (r) => (isPath(r.path) ? h('span', null, clip(r.path, 120), ' ', h('a', { href: ctx.href('buttons', '', { page: r.path }), text: 'controls' }), ' ', h('a', { href: ctx.href('heatmap', '', { page: r.path }), text: 'heatmap' })) : clip(r.path, 120)) },
+      { key: 'path', label: 'Page', get: (r) => s(r.path), wrap: true, cell: (r) => (isPath(r.path) ? h('span', null, clip(r.path, 120), ' ', h('a', { href: ctx.href('buttons', '', { page: r.path, device: dev }), text: 'controls' }), ' ', h('a', { href: ctx.href('heatmap', '', { page: r.path, device: dev }), text: 'heatmap' })) : clip(r.path, 120)) },
       { key: 'views', label: 'Page views', num: true, get: (r) => n0(r.views) },
       { key: 'visitors', label: 'Visitors', num: true, get: (r) => n0(r.visitors) },
       { key: 'leaves', label: 'Leaves (sample size)', num: true, get: (r) => n0(r.leaves) },
@@ -330,40 +347,58 @@ export async function pages(ctx) {
 // ======================================================================= Buttons
 export async function buttons(ctx) {
   const page = isPath(ctx.query.get('page')) ? ctx.query.get('page') : '';
-  const [d, pg] = await Promise.all([ctx.get('buttons', page ? { path: page } : {}), ctx.get('pages').catch(() => ({ pages: [] }))]);
-  const rows = arr(d.buttons);
-  const paths = arr(pg.pages).map((p) => s(p.path)).filter(isPath);
-  if (page && !paths.includes(page)) paths.unshift(page);
-  const sel = h('select', { id: 'btn-page' }, h('option', { value: '', text: 'All pages' }), paths.map((p) => h('option', { value: p, text: clip(p, 80), selected: p === page ? true : null })));
-  sel.addEventListener('change', () => ctx.go('buttons', '', { page: sel.value }));
-  const q = h('input', { type: 'search', id: 'btn-q', autocomplete: 'off', placeholder: 'control id contains' });
+  const dev = deviceOf(ctx);
+  const q = dev ? { device: dev } : {};
+  const [d, pg, known] = await Promise.all([ctx.get('buttons', page ? { path: page, ...q } : q), ctx.get('pages', q).catch(() => ({ pages: [] })), ctx.controls()]);
+  const merged = mergeControls(known, arr(d.buttons), { page, device: dev, paths: arr(d.paths), truncated: !!d.truncated });
+  const rows = merged.rows;
+  const seen = new Set();
+  const paths = [];
+  for (const p of [...arr(pg.pages).map((x) => s(x.path)), ...(known ? known.controls.map((c) => c.path) : [])].filter(isPath)) { const k = normPath(p); if (!seen.has(k)) { seen.add(k); paths.push(p); } }
+  if (page && !seen.has(normPath(page))) paths.unshift(page);
+  const sel = h('select', { id: 'btn-page' }, h('option', { value: '', text: 'All pages' }), paths.map((p) => h('option', { value: p, text: clip(p, 80), selected: normPath(p) === normPath(page) && page ? true : null })));
+  sel.addEventListener('change', () => ctx.go('buttons', '', { page: sel.value, device: dev }));
+  const qin = h('input', { type: 'search', id: 'btn-q', autocomplete: 'off', placeholder: 'control id contains' });
   const tableHost = h('div');
+  const noClicks = !arr(d.buttons).length;
+  const notes = [
+    known
+      ? `Every control in the build-time list is shown, so controls with no clicks appear as 0. The list holds ${fmtInt(known.controls.length)} controls on ${fmtInt(known.pages)} pages and is rebuilt by a script, so a control added since is missing until it is rerun.`
+      : 'The list of known controls could not be read, so controls with no clicks are not shown, only the ones that were clicked.',
+    'Click rate is the visits that clicked the control divided by all visits that viewed the page (page visits), for the same period, scope and device. It can pass 100% if a page view was not recorded. Clicks per visit divides by the visits that clicked only.',
+  ];
+  if (d.truncated) notes.push('More than 5,000 controls were clicked or viewed in this period, so the list was cut and controls with no clicks are not shown.');
+  if (known && merged.unlisted) notes.push(`${fmtInt(merged.unlisted)} clicked control${merged.unlisted === 1 ? ' is' : 's are'} not in the build-time list (marked), for example controls created at run time.`);
   const paint = () => {
     clear(tableHost);
-    const needle = q.value.trim().toLowerCase();
+    const needle = qin.value.trim().toLowerCase();
     const shown = needle ? rows.filter((r) => s(r.track_id).toLowerCase().includes(needle)) : rows;
+    if (noClicks && !needle) tableHost.appendChild(note(`No clicks recorded${page ? ' for this page' : ''} in this period${dev ? ' on this device type' : ''}.${rows.length ? ' Every known control is listed at 0.' : ''}`));
     tableHost.appendChild(table({
       id: 'buttons-table', title: page ? 'Controls on ' + clip(page, 80) : 'Controls on all pages', csvName: 'buttons',
-      limitNote: 'Only controls clicked at least once appear. Per visit is clicks divided by the visits that clicked the control, not by all visits. The API returns at most 500 rows.',
+      limitNote: notes.join(' '),
       empty: needle ? 'No control matches that text.' : 'No clicks recorded for this page in this period.',
       cols: [
-        { key: 'track_id', label: 'Control', get: (r) => s(r.track_id), cell: (r) => h('code', { text: clip(r.track_id, 120) }), wrap: true },
+        { key: 'track_id', label: 'Control', get: (r) => s(r.track_id), cell: (r) => (r.listed ? h('code', { text: clip(r.track_id, 120) }) : h('span', null, h('code', { text: clip(r.track_id, 120) }), ' ', h('span', { class: 'tag warn', text: 'not in list' }))), wrap: true },
         { key: 'zone', label: 'Zone', get: (r) => s(r.zone) },
         { key: 'path', label: 'Page', get: (r) => s(r.path), wrap: true },
         { key: 'clicks', label: 'Clicks', num: true, get: (r) => n0(r.clicks) },
         { key: 'visitors', label: 'Visitors', num: true, get: (r) => n0(r.visitors) },
         { key: 'sessions', label: 'Visits that clicked', num: true, get: (r) => n0(r.sessions) },
+        { key: 'page_sessions', label: 'Page visits', num: true, get: (r) => n0(r.page_sessions) },
+        { key: 'rate', label: 'Click rate', num: true, get: (r) => (n0(r.page_sessions) ? n0(r.sessions) / n0(r.page_sessions) : null), cell: (r) => rateCell(r.sessions, r.page_sessions), csv: (r) => rate(r.sessions, r.page_sessions).pct, csvExtra: [{ label: 'click_rate_sample_n', get: (r) => n0(r.page_sessions) }] },
         { key: 'per', label: 'Clicks per visit', num: true, get: (r) => num(r.per_session), cell: (r) => avgCell(r.per_session, r.sessions, (v) => fmtDec(v, 2)), csvExtra: [{ label: 'per_visit_sample_n', get: (r) => n0(r.sessions) }] },
         { key: 'last', label: 'Last click', num: true, get: (r) => num(r.last_ts), cell: (r) => fmtTs(r.last_ts), csv: (r) => (num(r.last_ts) === null ? '' : new Date(r.last_ts).toISOString()) },
       ],
       rows: shown, sort: { key: 'clicks', dir: 'desc' },
     }));
   };
-  q.addEventListener('input', paint);
+  qin.addEventListener('input', paint);
   paint();
   const bar = h('div', { class: 'controls' },
     h('div', { class: 'field' }, h('label', { for: 'btn-page', text: 'Page' }), sel),
-    h('div', { class: 'field' }, h('label', { for: 'btn-q', text: 'Find a control' }), q));
+    deviceField(ctx, 'buttons', 'btn-device', { page }),
+    h('div', { class: 'field' }, h('label', { for: 'btn-q', text: 'Find a control' }), qin));
   return h('div', null, scopeLine(d), bar, tableHost);
 }
 
@@ -459,10 +494,13 @@ export async function heatmap(ctx) {
 export async function visits(ctx) {
   if (ctx.arg) return visit(ctx);
   const LIMIT = 50;
-  const first = await ctx.get('visits', { limit: LIMIT });
+  const dev = deviceOf(ctx);
+  const dq = dev ? { device: dev } : {};
+  const first = await ctx.get('visits', { limit: LIMIT, ...dq });
   let rows = arr(first.sessions);
   let more = rows.length >= LIMIT;
-  if (!rows.length) return h('div', null, scopeLine(first), empty('No visits in this period', 'Try a longer period, or include test traffic.'));
+  const bar = h('div', { class: 'controls' }, deviceField(ctx, 'visits', 'visits-device'));
+  if (!rows.length) return h('div', null, scopeLine(first), bar, empty('No visits in this period', dev ? 'No visits on this device type. Try all devices or a longer period.' : 'Try a longer period, or include test traffic.'));
   const host = h('div');
   const loadBtn = h('button', { type: 'button', id: 'visits-older', text: 'Load older visits' });
   const paint = () => {
@@ -491,7 +529,7 @@ export async function visits(ctx) {
     loadBtn.disabled = true;
     try {
       const before = Math.min(...rows.map((r) => n0(r.first_ts)).filter(Boolean));
-      const res = await ctx.get('visits', { limit: LIMIT, before });
+      const res = await ctx.get('visits', { limit: LIMIT, before, ...dq });
       const add = arr(res.sessions);
       const seen = new Set(rows.map((r) => r.sid));
       rows = rows.concat(add.filter((r) => !seen.has(r.sid)));
@@ -500,7 +538,7 @@ export async function visits(ctx) {
     } catch { toast('Could not load older visits'); loadBtn.disabled = false; }
   });
   paint();
-  return h('div', null, scopeLine(first), host, h('div', { class: 'actions' }, loadBtn));
+  return h('div', null, scopeLine(first), bar, host, h('div', { class: 'actions' }, loadBtn));
 }
 
 async function visit(ctx) {
@@ -540,30 +578,71 @@ async function visit(ctx) {
 
 // ======================================================================= Demos
 const MEDIA_ORDER = ['prompt', 'granted', 'denied', 'dismissed', 'unavailable', 'failed', 'stopped'];
+const sess = (r) => obj(r.sessions);
+const fun = (r) => obj(r.funnel);
 export async function demos(ctx) {
-  const d = await ctx.get('demos');
+  const dev = deviceOf(ctx);
+  const d = await ctx.get('demos', dev ? { device: dev } : {});
   const rows = arr(d.demos).filter((x) => x && x.demo_id !== null && x.demo_id !== undefined);
-  if (!rows.length) return h('div', null, scopeLine(d), empty('No demo activity in this period', 'Nothing was recorded for any demo or tool. Try a longer period.'));
-  const mediaRate = (r, kind) => { const m = obj(r[kind]); return [n0(m.granted), n0(m.prompt)]; };
+  const bar = h('div', { class: 'controls' }, deviceField(ctx, 'demos', 'demos-device'));
+  if (!rows.length) return h('div', null, scopeLine(d), bar, empty('No demo activity in this period', dev ? 'Nothing was recorded for any demo or tool on this device type. Try all devices or a longer period.' : 'Nothing was recorded for any demo or tool. Try a longer period.'));
+  const skippedOf = (r) => n0(obj(r.skipped).started) + n0(obj(r.skipped).engaged_10) + n0(obj(r.skipped).engaged_60);
+  const mediaRate = (r, kind) => { const m = obj(r[kind + '_sessions']); return [n0(m.granted), n0(m.prompt)]; };
   const out = h('div', { class: 'stack' });
   out.appendChild(table({
-    id: 'demos-table', title: 'Every demo and tool', csvName: 'demos',
-    limitNote: 'Counts are events, not unique visits, so a step can exceed the one before it. Engaged merges the 10 second and 60 second milestones. Model load times are recorded but this API does not return them yet.',
+    id: 'demos-table', title: 'Every demo and tool, by visits', csvName: 'demos',
+    limitNote: 'Every step counts visits (sessions), not events: a visit that opens a demo three times is one. Each step counts only visits that also reached the steps before it, so no step is above the one before it. A visit that sent a step without the earlier ones, for example a start with no open event, is counted under Skipped steps instead. Engaged is split into 10 seconds and 60 seconds of active time. Event counts are in the next table.',
     cols: [
       { key: 'demo_id', label: 'Demo', get: (r) => s(r.demo_id), wrap: true },
-      { key: 'opens', label: 'Opens', num: true, get: (r) => n0(r.opens) },
+      { key: 'opened', label: 'Visits that opened', num: true, get: (r) => n0(fun(r).opened) },
       { key: 'visitors', label: 'Visitors who opened', num: true, get: (r) => n0(r.visitors) },
-      { key: 'starts', label: 'Starts', num: true, get: (r) => (n0(r.opens) ? n0(r.starts) / n0(r.opens) : null), cell: (r) => rateCell(r.starts, r.opens), csv: (r) => n0(r.starts), csvExtra: [{ label: 'starts_per_open_pct', get: (r) => rate(r.starts, r.opens).pct }, { label: 'starts_sample_n', get: (r) => n0(r.opens) }] },
-      { key: 'engaged', label: 'Engaged', num: true, get: (r) => (n0(r.starts) ? n0(r.engaged) / n0(r.starts) : null), cell: (r) => rateCell(r.engaged, r.starts), csv: (r) => n0(r.engaged), csvExtra: [{ label: 'engaged_per_start_pct', get: (r) => rate(r.engaged, r.starts).pct }, { label: 'engaged_sample_n', get: (r) => n0(r.starts) }] },
-      { key: 'ends', label: 'Ended', num: true, get: (r) => (n0(r.starts) ? n0(r.ends) / n0(r.starts) : null), cell: (r) => rateCell(r.ends, r.starts), csv: (r) => n0(r.ends), csvExtra: [{ label: 'ended_per_start_pct', get: (r) => rate(r.ends, r.starts).pct }, { label: 'ended_sample_n', get: (r) => n0(r.starts) }] },
-      { key: 'dropoff', label: 'Opened but never started', num: true, get: (r) => (n0(r.opens) ? Math.max(0, n0(r.opens) - n0(r.starts)) / n0(r.opens) : null), cell: (r) => rateCell(Math.max(0, n0(r.opens) - n0(r.starts)), r.opens), csv: (r) => Math.max(0, n0(r.opens) - n0(r.starts)), csvExtra: [{ label: 'dropoff_sample_n', get: (r) => n0(r.opens) }] },
+      { key: 'started', label: 'Started', num: true, get: (r) => (n0(fun(r).opened) ? n0(fun(r).started) / n0(fun(r).opened) : null), cell: (r) => rateCell(fun(r).started, fun(r).opened), csv: (r) => n0(fun(r).started), csvExtra: [{ label: 'started_per_open_pct', get: (r) => rate(fun(r).started, fun(r).opened).pct }, { label: 'started_sample_n', get: (r) => n0(fun(r).opened) }] },
+      { key: 'engaged_10', label: 'Engaged 10 s', num: true, get: (r) => (n0(fun(r).started) ? n0(fun(r).engaged_10) / n0(fun(r).started) : null), cell: (r) => rateCell(fun(r).engaged_10, fun(r).started), csv: (r) => n0(fun(r).engaged_10), csvExtra: [{ label: 'engaged_10_per_start_pct', get: (r) => rate(fun(r).engaged_10, fun(r).started).pct }, { label: 'engaged_10_sample_n', get: (r) => n0(fun(r).started) }] },
+      { key: 'engaged_60', label: 'Engaged 60 s', num: true, get: (r) => (n0(fun(r).engaged_10) ? n0(fun(r).engaged_60) / n0(fun(r).engaged_10) : null), cell: (r) => rateCell(fun(r).engaged_60, fun(r).engaged_10), csv: (r) => n0(fun(r).engaged_60), csvExtra: [{ label: 'engaged_60_per_10s_pct', get: (r) => rate(fun(r).engaged_60, fun(r).engaged_10).pct }, { label: 'engaged_60_sample_n', get: (r) => n0(fun(r).engaged_10) }] },
+      { key: 'ended', label: 'Visits that ended it', num: true, get: (r) => n0(sess(r).ended) },
+      { key: 'dropoff', label: 'Opened but never started', num: true, get: (r) => (n0(fun(r).opened) ? Math.max(0, n0(fun(r).opened) - n0(fun(r).started)) / n0(fun(r).opened) : null), cell: (r) => rateCell(Math.max(0, n0(fun(r).opened) - n0(fun(r).started)), fun(r).opened), csv: (r) => Math.max(0, n0(fun(r).opened) - n0(fun(r).started)), csvExtra: [{ label: 'dropoff_sample_n', get: (r) => n0(fun(r).opened) }] },
+      { key: 'skipped', label: 'Skipped steps', num: true, get: (r) => skippedOf(r) },
       { key: 'avg_ms', label: 'Average length', num: true, get: (r) => num(r.avg_ms), cell: (r) => avgCell(num(r.avg_ms) === null ? null : n0(r.avg_ms) / 1000, r.ends, fmtSecs), csvExtra: [{ label: 'length_sample_n', get: (r) => n0(r.ends) }] },
-      { key: 'errors', label: 'Errors', num: true, get: (r) => n0(r.errors) },
       { key: 'cam', label: 'Camera allowed', num: true, get: (r) => { const [g, p] = mediaRate(r, 'camera'); return p ? g / p : null; }, cell: (r) => { const [g, p] = mediaRate(r, 'camera'); return rateCell(g, p); }, csv: (r) => mediaRate(r, 'camera')[0], csvExtra: [{ label: 'camera_prompts_n', get: (r) => mediaRate(r, 'camera')[1] }] },
       { key: 'mic', label: 'Microphone allowed', num: true, get: (r) => { const [g, p] = mediaRate(r, 'mic'); return p ? g / p : null; }, cell: (r) => { const [g, p] = mediaRate(r, 'mic'); return rateCell(g, p); }, csv: (r) => mediaRate(r, 'mic')[0], csvExtra: [{ label: 'mic_prompts_n', get: (r) => mediaRate(r, 'mic')[1] }] },
     ],
-    rows, sort: { key: 'opens', dir: 'desc' },
+    rows, sort: { key: 'opened', dir: 'desc' },
   }));
+
+  const STEPS = [['Opened', 'opens', 'opened'], ['Started', 'starts', 'started'], ['Engaged 10 s', 'engaged_10', 'engaged_10'], ['Engaged 60 s', 'engaged_60', 'engaged_60'], ['Ended', 'ends', 'ended'], ['Errors', 'errors', 'errored']];
+  const stepRows = [];
+  for (const r of rows) for (const [label, ek, sk] of STEPS) stepRows.push({ demo_id: s(r.demo_id), step: label, events: n0(r[ek]), visits: n0(sess(r)[sk]) });
+  out.appendChild(table({
+    id: 'demos-events', title: 'Events and visits for every step', csvName: 'demos-events',
+    limitNote: 'Events are everything that was sent. Visits are the distinct visits that sent the step in any order, so unlike the funnel above a step here can exceed the one before it.',
+    cols: [
+      { key: 'demo_id', label: 'Demo', get: (r) => r.demo_id, wrap: true },
+      { key: 'step', label: 'Step', get: (r) => r.step },
+      { key: 'events', label: 'Events', num: true, get: (r) => r.events },
+      { key: 'visits', label: 'Visits', num: true, get: (r) => r.visits },
+      { key: 'per', label: 'Events per visit', num: true, get: (r) => (r.visits ? r.events / r.visits : null), cell: (r) => avgCell(r.visits ? r.events / r.visits : null, r.visits, (v) => fmtDec(v, 2)), csvExtra: [{ label: 'per_visit_sample_n', get: (r) => r.visits }] },
+    ],
+    rows: stepRows.filter((r) => r.events || r.visits), sort: null,
+  }));
+
+  const mrows = rows.filter((r) => obj(r.model).loaded || obj(r.model).failed);
+  out.appendChild(table({
+    id: 'demos-model', title: 'Model loading', csvName: 'demos-model',
+    limitNote: 'Camera and microphone demos load a model in the browser. Loaded and failed are events; the visit columns count distinct visits. Load time averages the loads that reported a time. Delegate is where the model ran: gpu or cpu.',
+    empty: 'No model load was recorded in this period.',
+    cols: [
+      { key: 'demo_id', label: 'Demo', get: (r) => s(r.demo_id), wrap: true },
+      { key: 'loaded', label: 'Loaded', num: true, get: (r) => n0(obj(r.model).loaded) },
+      { key: 'loaded_s', label: 'Visits that loaded', num: true, get: (r) => n0(obj(r.model).loaded_sessions) },
+      { key: 'failed', label: 'Failed', num: true, get: (r) => n0(obj(r.model).failed) },
+      { key: 'failed_s', label: 'Visits that failed', num: true, get: (r) => n0(obj(r.model).failed_sessions) },
+      { key: 'share', label: 'Failed share of loads', num: true, get: (r) => { const m = obj(r.model); return n0(m.loaded) + n0(m.failed) ? n0(m.failed) / (n0(m.loaded) + n0(m.failed)) : null; }, cell: (r) => { const m = obj(r.model); return rateCell(m.failed, n0(m.loaded) + n0(m.failed)); }, csv: (r) => n0(obj(r.model).failed), csvExtra: [{ label: 'failed_share_pct', get: (r) => { const m = obj(r.model); return rate(m.failed, n0(m.loaded) + n0(m.failed)).pct; } }, { label: 'failed_share_sample_n', get: (r) => n0(obj(r.model).loaded) + n0(obj(r.model).failed) }] },
+      { key: 'ms', label: 'Average load time', num: true, get: (r) => num(obj(r.model).avg_ms), cell: (r) => avgCell(num(obj(r.model).avg_ms) === null ? null : n0(obj(r.model).avg_ms) / 1000, obj(r.model).ms_n, fmtSecs), csvExtra: [{ label: 'load_time_sample_n', get: (r) => n0(obj(r.model).ms_n) }] },
+      { key: 'delegates', label: 'Ran on', get: (r) => arr(obj(r.model).delegates).map((x) => `${s(x.delegate)} ${n0(x.loaded)} loaded${n0(x.failed) ? ', ' + n0(x.failed) + ' failed' : ''}`).join('; '), wrap: true },
+    ],
+    rows: mrows, sort: { key: 'loaded', dir: 'desc' },
+  }));
+
   const details = h('div', { class: 'stack' });
   rows.forEach((r, i) => {
     const sec = h('section', { class: 'section', 'aria-labelledby': 'demo-h-' + i });
@@ -571,27 +650,29 @@ export async function demos(ctx) {
     let any = false;
     for (const kind of ['camera', 'mic']) {
       const m = obj(r[kind]);
+      const ms = obj(r[kind + '_sessions']);
       const keys = [...MEDIA_ORDER.filter((k) => k in m), ...Object.keys(m).filter((k) => !MEDIA_ORDER.includes(k))];
       if (!keys.length) continue;
       any = true;
-      const prompts = n0(m.prompt);
+      const prompts = n0(ms.prompt);
       sec.appendChild(table({
         id: `demo-${i}-${kind}`, title: kind === 'camera' ? 'Camera permission funnel' : 'Microphone permission funnel', csvName: `demo-${s(r.demo_id)}-${kind}`,
-        limitNote: prompts ? null : 'No prompt events were recorded, so shares of prompts cannot be worked out.',
+        limitNote: prompts ? 'Events repeat when a visit is asked more than once. Shares divide visits by the visits that were prompted.' : 'No prompt events were recorded, so shares of prompted visits cannot be worked out.',
         cols: [
           { key: 'state', label: 'Result', get: (x) => x.k, wrap: true },
           { key: 'n', label: 'Events', num: true, get: (x) => x.n },
-          { key: 'share', label: 'Share of prompts', num: true, get: (x) => (prompts ? x.n / prompts : null), cell: (x) => (x.k === 'prompt' ? 'base' : rateCell(x.n, prompts)), csv: (x) => rate(x.n, prompts).pct, csvExtra: [{ label: 'prompt_sample_n', get: () => prompts }] },
+          { key: 'v', label: 'Visits', num: true, get: (x) => x.v },
+          { key: 'share', label: 'Share of prompted visits', num: true, get: (x) => (prompts ? x.v / prompts : null), cell: (x) => (x.k === 'prompt' ? 'base' : rateCell(x.v, prompts)), csv: (x) => rate(x.v, prompts).pct, csvExtra: [{ label: 'prompt_sample_n', get: () => prompts }] },
         ],
-        rows: keys.map((k) => ({ k, n: n0(m[k]) })), sort: null,
+        rows: keys.map((k) => ({ k, n: n0(m[k]), v: n0(ms[k]) })), sort: null,
       }));
     }
     const acts = arr(r.top_actions);
     if (acts.length) {
       any = true;
       sec.appendChild(table({
-        id: `demo-${i}-actions`, title: 'Most used actions', csvName: `demo-${s(r.demo_id)}-actions`, limitNote: 'Top 10 actions by count.',
-        cols: [{ key: 'action', label: 'Action', get: (x) => s(x.action), wrap: true }, { key: 'n', label: 'Times', num: true, get: (x) => n0(x.n) }],
+        id: `demo-${i}-actions`, title: 'Most used actions', csvName: `demo-${s(r.demo_id)}-actions`, limitNote: 'Top 10 actions by count. Visits are the distinct visits that used the action.',
+        cols: [{ key: 'action', label: 'Action', get: (x) => s(x.action), wrap: true }, { key: 'n', label: 'Times', num: true, get: (x) => n0(x.n) }, { key: 'v', label: 'Visits', num: true, get: (x) => n0(x.sessions) }],
         rows: acts, sort: { key: 'n', dir: 'desc' },
       }));
     }
@@ -599,42 +680,95 @@ export async function demos(ctx) {
     details.appendChild(sec);
   });
   out.appendChild(details);
-  return h('div', null, scopeLine(d), out);
+  return h('div', null, scopeLine(d), bar, out);
 }
 
 // ======================================================================= Forms
+const FORM_FUNNEL = [['view', 'Viewed'], ['start', 'Started'], ['attempt', 'Tried to send'], ['success', 'Succeeded']];
 export async function forms(ctx) {
   const d = await ctx.get('forms');
   const rows = arr(d.forms);
-  if (!rows.length) return h('div', null, scopeLine(d), empty('No form activity in this period', 'No form was viewed or started. Try a longer period.'));
+  const nl = obj(d.newsletter);
+  const nlTotal = ['view', 'fab_shown', 'fab_click', 'start', 'invalid', 'request', 'failed', 'confirmed'].reduce((a, k) => a + n0(nl[k]), 0);
+  if (!rows.length && !nlTotal) return h('div', null, scopeLine(d), empty('No form activity in this period', 'No form was viewed or started. Try a longer period.'));
   const out = h('div', { class: 'stack' });
+  const F = (r) => obj(r.funnel);
+  const S = (r) => obj(r.sessions);
+  const skipped = (r) => n0(obj(r.skipped).start) + n0(obj(r.skipped).attempt) + n0(obj(r.skipped).success);
+  if (rows.length) {
+    out.appendChild(table({
+      id: 'forms-table', title: 'Forms, by visits', csvName: 'forms',
+      limitNote: 'Every step counts visits (sessions), not events, and only visits that also reached the steps before it, so no step is above the one before it. A visit that sent a step without the earlier ones, for example a send attempt with no start, is counted under Skipped steps instead. Only the form id and the field id are stored, never what was typed. Succeeded divides by send attempts, and Abandoned counts started visits that left without sending.',
+      cols: [
+        { key: 'form_id', label: 'Form', get: (r) => s(r.form_id), wrap: true },
+        { key: 'view', label: 'Visits that viewed', num: true, get: (r) => n0(F(r).view) },
+        { key: 'start', label: 'Started', num: true, get: (r) => (n0(F(r).view) ? n0(F(r).start) / n0(F(r).view) : null), cell: (r) => rateCell(F(r).start, F(r).view), csv: (r) => n0(F(r).start), csvExtra: [{ label: 'start_per_view_pct', get: (r) => rate(F(r).start, F(r).view).pct }, { label: 'start_sample_n', get: (r) => n0(F(r).view) }] },
+        { key: 'attempt', label: 'Tried to send', num: true, get: (r) => (n0(F(r).start) ? n0(F(r).attempt) / n0(F(r).start) : null), cell: (r) => rateCell(F(r).attempt, F(r).start), csv: (r) => n0(F(r).attempt), csvExtra: [{ label: 'attempt_per_start_pct', get: (r) => rate(F(r).attempt, F(r).start).pct }, { label: 'attempt_sample_n', get: (r) => n0(F(r).start) }] },
+        { key: 'success', label: 'Succeeded', num: true, get: (r) => (n0(F(r).attempt) ? n0(F(r).success) / n0(F(r).attempt) : null), cell: (r) => rateCell(F(r).success, F(r).attempt), csv: (r) => n0(F(r).success), csvExtra: [{ label: 'success_per_attempt_pct', get: (r) => rate(F(r).success, F(r).attempt).pct }, { label: 'success_sample_n', get: (r) => n0(F(r).attempt) }] },
+        { key: 'failure', label: 'Visits with a failure', num: true, get: (r) => n0(S(r).failure) },
+        { key: 'abandon', label: 'Abandoned', num: true, get: (r) => (n0(F(r).start) ? n0(r.abandoned_after_start) / n0(F(r).start) : null), cell: (r) => rateCell(r.abandoned_after_start, F(r).start), csv: (r) => n0(r.abandoned_after_start), csvExtra: [{ label: 'abandon_per_start_pct', get: (r) => rate(r.abandoned_after_start, F(r).start).pct }, { label: 'abandon_sample_n', get: (r) => n0(F(r).start) }] },
+        { key: 'skipped', label: 'Skipped steps', num: true, get: (r) => skipped(r) },
+      ],
+      rows, sort: { key: 'view', dir: 'desc' },
+    }));
+    const STEPS = [['Viewed', 'view'], ['Started', 'start'], ['Field touched', 'field'], ['Field errors', 'error'], ['Tried to send', 'attempt'], ['Succeeded', 'success'], ['Failed', 'failure'], ['Abandoned', 'abandon']];
+    const stepRows = [];
+    for (const r of rows) for (const [label, k] of STEPS) stepRows.push({ form_id: s(r.form_id), step: label, events: n0(r[k]), visits: n0(S(r)[k]) });
+    out.appendChild(table({
+      id: 'forms-events', title: 'Events and visits for every step', csvName: 'forms-events',
+      limitNote: 'Events are everything that was sent, so a visit that tries to send twice counts twice. Visits are distinct visits that sent the step in any order, so unlike the funnel above a step here can exceed the one before it.',
+      cols: [
+        { key: 'form_id', label: 'Form', get: (r) => r.form_id, wrap: true },
+        { key: 'step', label: 'Step', get: (r) => r.step },
+        { key: 'events', label: 'Events', num: true, get: (r) => r.events },
+        { key: 'visits', label: 'Visits', num: true, get: (r) => r.visits },
+        { key: 'per', label: 'Events per visit', num: true, get: (r) => (r.visits ? r.events / r.visits : null), cell: (r) => avgCell(r.visits ? r.events / r.visits : null, r.visits, (v) => fmtDec(v, 2)), csvExtra: [{ label: 'per_visit_sample_n', get: (r) => r.visits }] },
+      ],
+      rows: stepRows.filter((r) => r.events || r.visits), sort: null,
+    }));
+    const ab = [];
+    for (const f of rows) for (const a of arr(f.abandon_fields)) ab.push({ form_id: f.form_id, field: a.field, n: n0(a.n), started: n0(F(f).start) });
+    out.appendChild(table({
+      id: 'forms-abandon', title: 'Where people stopped', csvName: 'forms-abandon', limitNote: 'The field that was last active when a form was abandoned. Abandons are events and the base is visits that started.',
+      empty: 'No abandoned forms in this period.',
+      cols: [
+        { key: 'form_id', label: 'Form', get: (r) => s(r.form_id), wrap: true },
+        { key: 'field', label: 'Field', get: (r) => s(r.field), wrap: true },
+        { key: 'n', label: 'Abandons', num: true, get: (r) => r.n },
+        { key: 'share', label: 'Share of starts', num: true, get: (r) => (r.started ? r.n / r.started : null), cell: (r) => rateCell(r.n, r.started), csv: (r) => rate(r.n, r.started).pct, csvExtra: [{ label: 'sample_n', get: (r) => r.started }] },
+      ],
+      rows: ab, sort: { key: 'n', dir: 'desc' },
+    }));
+  } else out.appendChild(note('No form was viewed or started in this period. The newsletter box is below.'));
+
+  // The newsletter box sends its own newsletter_* events (no form_* events), so it is shown here once, as its own block.
+  const nf = obj(nl.funnel), ns = obj(nl.sessions);
+  const NL = [['Floating button shown', 'fab_shown', null], ['Floating button clicked', 'fab_click', null], ['Box seen', 'view', 'first'], ['Started typing', 'start', 'view'], ['Invalid address', 'invalid', null], ['Request sent', 'request', 'start'], ['Request failed', 'failed', null], ['Confirmed', 'confirmed', 'request']];
   out.appendChild(table({
-    id: 'forms-table', title: 'Forms', csvName: 'forms',
-    limitNote: 'Counts are events. Only the form id and the field id are stored, never what was typed. Success rate divides by attempts.',
+    id: 'newsletter-steps', title: 'Newsletter box', csvName: 'newsletter',
+    limitNote: 'Events and visits for every newsletter step. Share of the step before only applies to the four funnel steps (seen, started, request sent, confirmed), which count visits that also reached the steps before. Only the page path is stored, never the address. Confirmed needs the Brevo confirmation webhook: until it posts newsletter_confirmed it stays at 0 and a request sent is the last step this site can see.',
+    empty: 'No newsletter activity in this period.',
     cols: [
-      { key: 'form_id', label: 'Form', get: (r) => s(r.form_id), wrap: true },
-      { key: 'view', label: 'Views', num: true, get: (r) => n0(r.view) },
-      { key: 'start', label: 'Started', num: true, get: (r) => (n0(r.view) ? n0(r.start) / n0(r.view) : null), cell: (r) => rateCell(r.start, r.view), csv: (r) => n0(r.start), csvExtra: [{ label: 'start_per_view_pct', get: (r) => rate(r.start, r.view).pct }, { label: 'start_sample_n', get: (r) => n0(r.view) }] },
-      { key: 'error', label: 'Field errors', num: true, get: (r) => n0(r.error) },
-      { key: 'attempt', label: 'Send attempts', num: true, get: (r) => (n0(r.start) ? n0(r.attempt) / n0(r.start) : null), cell: (r) => rateCell(r.attempt, r.start), csv: (r) => n0(r.attempt), csvExtra: [{ label: 'attempt_per_start_pct', get: (r) => rate(r.attempt, r.start).pct }, { label: 'attempt_sample_n', get: (r) => n0(r.start) }] },
-      { key: 'success', label: 'Succeeded', num: true, get: (r) => (n0(r.attempt) ? n0(r.success) / n0(r.attempt) : null), cell: (r) => rateCell(r.success, r.attempt), csv: (r) => n0(r.success), csvExtra: [{ label: 'success_per_attempt_pct', get: (r) => rate(r.success, r.attempt).pct }, { label: 'success_sample_n', get: (r) => n0(r.attempt) }] },
-      { key: 'failure', label: 'Failed', num: true, get: (r) => n0(r.failure) },
-      { key: 'abandon', label: 'Abandoned', num: true, get: (r) => (n0(r.start) ? n0(r.abandon) / n0(r.start) : null), cell: (r) => rateCell(r.abandon, r.start), csv: (r) => n0(r.abandon), csvExtra: [{ label: 'abandon_per_start_pct', get: (r) => rate(r.abandon, r.start).pct }, { label: 'abandon_sample_n', get: (r) => n0(r.start) }] },
+      { key: 'step', label: 'Step', get: (r) => r.label, wrap: true },
+      { key: 'events', label: 'Events', num: true, get: (r) => r.events },
+      { key: 'visits', label: 'Visits', num: true, get: (r) => r.visits },
+      { key: 'funnel', label: 'Funnel visits', num: true, get: (r) => r.funnel, cell: (r) => (r.funnel === null ? '' : String(r.funnel)) },
+      { key: 'share', label: 'Share of the step before', num: true, get: (r) => (!r.first && r.prev !== null && r.prev > 0 ? r.funnel / r.prev : null), cell: (r) => (r.first ? h('td', { class: 'num', text: 'first step' }) : r.prev === null ? h('td', { class: 'num', text: 'not a funnel step' }) : rateCell(r.funnel, r.prev)), csv: (r) => (r.first || r.prev === null ? '' : rate(r.funnel, r.prev).pct), csvExtra: [{ label: 'share_sample_n', get: (r) => (r.first || r.prev === null ? '' : r.prev) }] },
     ],
-    rows, sort: { key: 'view', dir: 'desc' },
+    rows: nlTotal ? NL.map(([label, k, prevKey]) => ({ label, events: n0(nl[k]), visits: n0(ns[k]), funnel: k in nf ? n0(nf[k]) : null, first: prevKey === 'first', prev: prevKey && prevKey !== 'first' ? n0(nf[prevKey]) : null })) : [],
+    sort: null,
   }));
-  const ab = [];
-  for (const f of rows) for (const a of arr(f.abandon_fields)) ab.push({ form_id: f.form_id, field: a.field, n: n0(a.n), started: n0(f.start) });
   out.appendChild(table({
-    id: 'forms-abandon', title: 'Where people stopped', csvName: 'forms-abandon', limitNote: 'The field that was last active when a form was abandoned.',
-    empty: 'No abandoned forms in this period.',
+    id: 'newsletter-pages', title: 'Newsletter box by page', csvName: 'newsletter-pages', limitNote: 'Events by the page the box was on. Request sent per view divides events by events.',
+    empty: 'No newsletter activity in this period.',
     cols: [
-      { key: 'form_id', label: 'Form', get: (r) => s(r.form_id), wrap: true },
-      { key: 'field', label: 'Field', get: (r) => s(r.field), wrap: true },
-      { key: 'n', label: 'Abandons', num: true, get: (r) => r.n },
-      { key: 'share', label: 'Share of starts', num: true, get: (r) => (r.started ? r.n / r.started : null), cell: (r) => rateCell(r.n, r.started), csv: (r) => rate(r.n, r.started).pct, csvExtra: [{ label: 'sample_n', get: (r) => r.started }] },
+      { key: 'page_path', label: 'Page', get: (r) => s(r.page_path), wrap: true },
+      { key: 'view', label: 'Box seen', num: true, get: (r) => n0(r.view) },
+      { key: 'start', label: 'Started', num: true, get: (r) => n0(r.start) },
+      { key: 'request', label: 'Request sent', num: true, get: (r) => (n0(r.view) ? n0(r.request) / n0(r.view) : null), cell: (r) => rateCell(r.request, r.view), csv: (r) => n0(r.request), csvExtra: [{ label: 'request_per_view_pct', get: (r) => rate(r.request, r.view).pct }, { label: 'request_sample_n', get: (r) => n0(r.view) }] },
+      { key: 'confirmed', label: 'Confirmed', num: true, get: (r) => n0(r.confirmed) },
     ],
-    rows: ab, sort: { key: 'n', dir: 'desc' },
+    rows: arr(nl.by_page), sort: { key: 'view', dir: 'desc' },
   }));
   return h('div', null, scopeLine(d), out);
 }
@@ -676,17 +810,21 @@ export async function search(ctx) {
   const total = n0(d.sessions);
   const channels = arr(d.channels);
   const byCh = (c) => channels.find((x) => x.channel === c);
-  const refs = arr(d.referrers).map((r) => ({ host: s(r.ref_host), sessions: n0(r.sessions), cls: classifyHost(r.ref_host) }));
-  const utms = arr(d.utm).map((r) => ({ src: s(r.utm_source), medium: s(r.utm_medium), campaign: s(r.utm_campaign), sessions: n0(r.sessions), cls: classifyHost(r.utm_source) }));
+  const refHost = (r) => ({ host: s(r.ref_host), sessions: n0(r.sessions) });
+  const aiRefs = arr(d.ai_referrers).map(refHost);
+  const searchRefs = arr(d.search_referrers).map(refHost);
+  const tag = (r) => ({ src: s(r.utm_source), medium: s(r.utm_medium), campaign: s(r.utm_campaign), sessions: n0(r.sessions) });
+  const tags = [...arr(d.ai_utm).map((r) => ({ ...tag(r), kind: 'AI assistant' })), ...arr(d.search_utm).map((r) => ({ ...tag(r), kind: 'Search engine' }))];
   const out = h('div', { class: 'stack' });
   out.appendChild(h('div', { class: 'state' },
     h('h2', { text: 'What is connected, and what is not' }),
-    h('p', { text: 'Connected: the referrer host of each visit, as recorded by this site. Not connected yet: Google Search Console (queries, impressions, clicks, average position) and Bing Webmaster Tools. No query terms are shown here because search engines do not pass them in the referrer, and nothing below is filled in from elsewhere.' }),
-    h('p', { text: 'AI assistants appear here only when the assistant sends a referrer or a campaign tag. Visits from assistants that send neither are counted under Direct or unknown in Where from.' })));
+    h('p', { text: 'Connected: the referrer host and the campaign tag of each visit, as recorded by this site. Not connected yet: Google Search Console (queries, impressions, clicks, average position) and Bing Webmaster Tools. No query terms are shown here because search engines do not pass them in the referrer, and nothing below is filled in from elsewhere.' }),
+    h('p', { text: 'AI assistants appear here only when the assistant sends a referrer or a campaign tag that names it (chatgpt.com, perplexity, gemini, copilot, claude and similar). Visits from assistants that send neither are counted under Direct or unknown in Where from. A visit that arrived by one of your tracked links is counted under that link, even when its referrer was an assistant.' })));
   if (!total) { out.appendChild(empty('No visits in this period', 'Try a longer period.')); return h('div', null, scopeLine(d), out); }
   const searchCh = byCh('search'), aiCh = byCh('ai');
   out.appendChild(table({
     id: 'search-summary', title: 'Visits by search engines and AI assistants', csvName: 'search-ai-summary',
+    limitNote: 'AI assistants counts visits by referrer host and by campaign tag together. Search engines counts referrer hosts only.',
     cols: [
       { key: 'k', label: 'Group', get: (r) => r.label },
       { key: 'sessions', label: 'Visits', num: true, get: (r) => r.sessions },
@@ -694,25 +832,25 @@ export async function search(ctx) {
     ],
     rows: [
       { label: 'Search engines (referrer)', sessions: n0(searchCh && searchCh.sessions) },
-      { label: 'AI assistants (referrer)', sessions: n0(aiCh && aiCh.sessions) },
+      { label: 'AI assistants (referrer or campaign tag)', sessions: n0(aiCh && aiCh.sessions) },
     ], sort: null,
   }));
-  const refCols = (id) => [
+  const refCols = () => [
     { key: 'host', label: 'Host', get: (r) => r.host, wrap: true },
     { key: 'sessions', label: 'Visits', num: true, get: (r) => r.sessions },
     { key: 'share', label: 'Share of all visits', num: true, get: (r) => r.sessions / total, cell: (r) => rateCell(r.sessions, total), csv: (r) => rate(r.sessions, total).pct, csvExtra: [{ label: 'share_sample_n', get: () => total }] },
   ];
-  out.appendChild(table({ id: 'search-engines', title: 'Search engine referrers', csvName: 'search-engines', limitNote: 'From the top 25 referrer hosts only.', empty: 'No search engine referrer among the top 25 hosts.', cols: refCols(), rows: refs.filter((r) => r.cls === 'search'), sort: { key: 'sessions', dir: 'desc' } }));
-  out.appendChild(table({ id: 'search-ai', title: 'AI assistant referrers', csvName: 'ai-assistants', limitNote: 'From the top 25 referrer hosts only.', empty: 'No AI assistant referrer among the top 25 hosts.', cols: refCols(), rows: refs.filter((r) => r.cls === 'ai'), sort: { key: 'sessions', dir: 'desc' } }));
+  out.appendChild(table({ id: 'search-engines', title: 'Search engine referrers', csvName: 'search-engines', limitNote: 'Every referrer host that is a search engine, with no row cap. Counts every visit with that referrer, including visits that came in through a tracked link.', empty: 'No search engine referrer in this period.', cols: refCols(), rows: searchRefs, sort: { key: 'sessions', dir: 'desc' } }));
+  out.appendChild(table({ id: 'search-ai', title: 'AI assistant referrers', csvName: 'ai-assistants', limitNote: 'Every referrer host that is an AI assistant, with no row cap. Counts every visit with that referrer, including visits that came in through a tracked link.', empty: 'No AI assistant referrer in this period.', cols: refCols(), rows: aiRefs, sort: { key: 'sessions', dir: 'desc' } }));
   out.appendChild(table({
-    id: 'search-utm', title: 'Visits tagged by an assistant or search engine', csvName: 'search-ai-utm', limitNote: 'From campaign tags on arrival, which Where from files under UTM source rather than AI.',
+    id: 'search-utm', title: 'Visits tagged by an assistant or search engine', csvName: 'search-ai-utm', limitNote: 'Every campaign tag whose source names an assistant or a search engine, with no row cap. Assistant tags count as AI assistants in Where from.',
     empty: 'No tagged visit names an assistant or a search engine.',
     cols: [
-      { key: 'src', label: 'Source tag', get: (r) => r.src, wrap: true }, { key: 'kind', label: 'Group', get: (r) => (r.cls === 'ai' ? 'AI assistant' : 'Search engine') },
+      { key: 'src', label: 'Source tag', get: (r) => r.src, wrap: true }, { key: 'kind', label: 'Group', get: (r) => r.kind },
       { key: 'medium', label: 'Medium tag', get: (r) => r.medium }, { key: 'campaign', label: 'Campaign tag', get: (r) => r.campaign },
       { key: 'sessions', label: 'Visits', num: true, get: (r) => r.sessions },
     ],
-    rows: utms.filter((r) => r.cls === 'ai' || r.cls === 'search'), sort: { key: 'sessions', dir: 'desc' },
+    rows: tags, sort: { key: 'sessions', dir: 'desc' },
   }));
   return h('div', null, scopeLine(d), out);
 }

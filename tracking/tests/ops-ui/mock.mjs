@@ -41,7 +41,8 @@ function wrap(body, sp) {
   const inc = (sp.get('include') || '').split(',');
   const days = Number(sp.get('days')) || 7;
   const r = sp.get('from') ? { from: Number(sp.get('from')), to: Number(sp.get('to')) || NOW() } : range(days);
-  return { range: r, scope: { owner: inc.includes('owner'), test: inc.includes('test') }, ...body };
+  const dv = sp.get('device');
+  return { range: r, scope: { owner: inc.includes('owner'), test: inc.includes('test'), device: ['desktop', 'mobile', 'tablet'].includes(dv) ? dv : null }, ...body };
 }
 
 function visitsFor(hostile, before) {
@@ -73,7 +74,7 @@ export function respond(name, sp, mode, store, hostile, method = 'GET', postBody
         recent: Array.from({ length: 50 }, (_, i) => ({ ts: NOW() - i * 20e3, name: i % 3 ? 'ui_click' : H(i, 'page_view'), path: H(i + 1, '/work'), device: i % 2 ? 'mobile' : 'desktop', country: 'IT', link: i % 7 ? null : HOT_SLUG, params: i % 4 ? JSON.stringify({ track_id: H(i + 3, 'nav.demos'), zone: 'nav', x: 3, y: 4, nth: 1 }) : H(i, null) })),
       }, sp));
     case 'acquisition':
-      if (empty) return ok(wrap({ sessions: 0, visitors: 0, channels: [], referrers: [], utm: [], countries: [] }, sp));
+      if (empty) return ok(wrap({ sessions: 0, visitors: 0, channels: [], referrers: [], ai_referrers: [], search_referrers: [], utm: [], ai_utm: [], search_utm: [], countries: [] }, sp));
       return ok(wrap({
         sessions: 120, visitors: 90,
         channels: [
@@ -83,6 +84,10 @@ export function respond(name, sp, mode, store, hostile, method = 'GET', postBody
         ],
         referrers: [{ ref_host: 'www.google.com', sessions: 12 }, { ref_host: 'chatgpt.com', sessions: 5 }, { ref_host: 'www.bing.com', sessions: 3 }, { ref_host: 'perplexity.ai', sessions: 1 }, { ref_host: H(4, 'news.example'), sessions: 2 }],
         utm: [{ utm_source: 'chatgpt.com', utm_medium: 'referral', utm_campaign: null, sessions: 4 }, { utm_source: H(1, 'li'), utm_medium: H(2, 'social'), utm_campaign: H(3, 'launch'), sessions: 3 }],
+        ai_referrers: [{ ref_host: 'chatgpt.com', sessions: 5 }, { ref_host: 'perplexity.ai', sessions: 1 }, ...Array.from({ length: 30 }, (_, i) => ({ ref_host: `c${i}.chatgpt.com`, sessions: 1 }))],
+        search_referrers: [{ ref_host: 'www.google.com', sessions: 12 }, { ref_host: 'www.bing.com', sessions: 3 }],
+        ai_utm: [{ utm_source: 'chatgpt.com', utm_medium: 'referral', utm_campaign: null, sessions: 4 }, { utm_source: 'gemini', utm_medium: null, utm_campaign: null, sessions: 1 }],
+        search_utm: [{ utm_source: H(1, 'google'), utm_medium: 'organic', utm_campaign: null, sessions: 2 }],
         countries: [{ country: 'IT', sessions: 70 }, { country: 'US', sessions: 20 }, { country: null, sessions: 3 }],
       }, sp));
     case 'links':
@@ -97,7 +102,7 @@ export function respond(name, sp, mode, store, hostile, method = 'GET', postBody
         { path: '/about.html', views: 2, visitors: 2, leaves: 20, avg_visible_s: 61, avg_active_s: 12, avg_max_scroll: 50 },
       ] }, sp));
     case 'buttons': {
-      if (empty) return ok(wrap({ buttons: [] }, sp));
+      if (empty) return ok(wrap({ buttons: [], paths: [], truncated: false }, sp));
       const p = sp.get('path');
       const all = [
         { track_id: 'nav.demos', zone: 'nav', path: '/', clicks: 30, visitors: 20, sessions: 22, per_session: 1.36, last_ts: NOW() - 3600e3 },
@@ -105,7 +110,10 @@ export function respond(name, sp, mode, store, hostile, method = 'GET', postBody
         { track_id: 'work.project_1', zone: 'work', path: '/work', clicks: 4, visitors: 3, sessions: 3, per_session: 1.33, last_ts: NOW() - 864e5 },
         { track_id: H(3, 'footer.email'), zone: 'footer', path: '/work', clicks: 1, visitors: 1, sessions: 1, per_session: 1, last_ts: NOW() - 2 * 864e5 },
       ];
-      return ok(wrap({ buttons: p ? all.filter((b) => b.path === p) : all }, sp));
+      const den = { '/': 150, '/work': 40, '/about': 12 };
+      const paths = Object.entries(den).filter(([k]) => !p || k === p).map(([path, sessions]) => ({ path, sessions }));
+      const rows = (p ? all.filter((b) => b.path === p) : all).map((b) => ({ ...b, page_sessions: den[b.path], click_rate: Math.round((b.sessions / den[b.path]) * 10000) / 10000 }));
+      return ok(wrap({ buttons: rows, paths, truncated: false }, sp));
     }
     case 'heatmap': {
       const path = sp.get('path');
@@ -134,16 +142,32 @@ export function respond(name, sp, mode, store, hostile, method = 'GET', postBody
     case 'demos':
       if (empty) return ok(wrap({ demos: [] }, sp));
       return ok(wrap({ demos: [
-        { demo_id: 'hands', opens: 40, starts: 30, engaged: 18, ends: 12, errors: 1, visitors: 25, avg_ms: 64000, camera: { prompt: 30, granted: 22, denied: 5, dismissed: 2, unavailable: 1 }, mic: {}, top_actions: [{ action: 'pinch', n: 90 }, { action: H(1, 'retry'), n: 4 }] },
-        { demo_id: 'agora', opens: 8, starts: 3, engaged: 1, ends: 0, errors: 0, visitors: 6, avg_ms: null, camera: {}, mic: {}, top_actions: [] },
-        { demo_id: H(2, 'audio'), opens: 5, starts: 5, engaged: 6, ends: 5, errors: 0, visitors: 4, avg_ms: 12000, camera: {}, mic: { prompt: 4, granted: 3, denied: 1, [H(3, 'odd')]: 1 }, top_actions: [{ action: 'use_mic', n: 3 }] },
+        { demo_id: 'hands', opens: 44, starts: 33, engaged_10: 18, engaged_60: 6, ends: 12, errors: 1, visitors: 25, avg_ms: 64000,
+          sessions: { opened: 40, started: 31, engaged_10: 18, engaged_60: 6, ended: 12, errored: 1 }, funnel: { opened: 40, started: 30, engaged_10: 18, engaged_60: 6 }, skipped: { started: 1, engaged_10: 0, engaged_60: 0 },
+          camera: { prompt: 33, granted: 24, denied: 5, dismissed: 2, unavailable: 1 }, camera_sessions: { prompt: 30, granted: 22, denied: 5, dismissed: 2, unavailable: 1 }, mic: {}, mic_sessions: {},
+          model: { loaded: 20, failed: 3, loaded_sessions: 18, failed_sessions: 3, avg_ms: 2400, ms_n: 20, delegates: [{ delegate: 'gpu', loaded: 15, failed: 0 }, { delegate: H(4, 'cpu'), loaded: 5, failed: 3 }] },
+          top_actions: [{ action: 'pinch', n: 90, sessions: 20 }, { action: H(1, 'retry'), n: 4, sessions: 3 }] },
+        { demo_id: 'agora', opens: 8, starts: 3, engaged_10: 1, engaged_60: 0, ends: 0, errors: 0, visitors: 6, avg_ms: null,
+          sessions: { opened: 7, started: 3, engaged_10: 1, engaged_60: 0, ended: 0, errored: 0 }, funnel: { opened: 7, started: 3, engaged_10: 1, engaged_60: 0 }, skipped: { started: 0, engaged_10: 0, engaged_60: 0 },
+          camera: {}, camera_sessions: {}, mic: {}, mic_sessions: {}, model: { loaded: 0, failed: 0, loaded_sessions: 0, failed_sessions: 0, avg_ms: null, ms_n: 0, delegates: [] }, top_actions: [] },
+        { demo_id: H(2, 'audio'), opens: 6, starts: 5, engaged_10: 5, engaged_60: 2, ends: 5, errors: 0, visitors: 4, avg_ms: 12000,
+          sessions: { opened: 5, started: 5, engaged_10: 5, engaged_60: 2, ended: 5, errored: 0 }, funnel: { opened: 5, started: 4, engaged_10: 4, engaged_60: 2 }, skipped: { started: 1, engaged_10: 1, engaged_60: 0 },
+          camera: {}, camera_sessions: {}, mic: { prompt: 4, granted: 3, denied: 1, [H(3, 'odd')]: 1 }, mic_sessions: { prompt: 4, granted: 3, denied: 1, [H(3, 'odd')]: 1 },
+          model: { loaded: 4, failed: 0, loaded_sessions: 4, failed_sessions: 0, avg_ms: 800, ms_n: 4, delegates: [{ delegate: 'cpu', loaded: 4, failed: 0 }] }, top_actions: [{ action: 'use_mic', n: 3, sessions: 3 }] },
       ] }, sp));
-    case 'forms':
-      if (empty) return ok(wrap({ forms: [] }, sp));
+    case 'forms': {
+      const nlZero = { view: 0, fab_shown: 0, fab_click: 0, start: 0, invalid: 0, request: 0, failed: 0, confirmed: 0 };
+      if (empty) return ok(wrap({ forms: [], newsletter: { ...nlZero, sessions: { ...nlZero }, funnel: { view: 0, start: 0, request: 0, confirmed: 0 }, skipped: { start: 0, request: 0, confirmed: 0 }, by_page: [] } }, sp));
       return ok(wrap({ forms: [
-        { form_id: 'contact', view: 80, start: 24, field: 60, error: 3, attempt: 10, success: 8, failure: 1, abandon: 12, abandon_fields: [{ field: 'message', n: 7 }, { field: H(1, 'email'), n: 5 }] },
-        { form_id: H(2, 'newsletter'), view: 5, start: 2, field: 2, error: 0, attempt: 1, success: 1, failure: 0, abandon: 1, abandon_fields: [] },
-      ] }, sp));
+        { form_id: 'contact', view: 90, start: 28, field: 60, error: 3, attempt: 12, success: 8, failure: 1, abandon: 13,
+          sessions: { view: 80, start: 24, field: 20, error: 3, attempt: 10, success: 8, failure: 1, abandon: 12 }, funnel: { view: 80, start: 24, attempt: 10, success: 8 }, skipped: { start: 0, attempt: 1, success: 0 }, abandoned_after_start: 12,
+          abandon_fields: [{ field: 'message', n: 7 }, { field: H(1, 'email'), n: 5 }] },
+        { form_id: H(2, 'sample'), view: 5, start: 2, field: 2, error: 0, attempt: 1, success: 1, failure: 0, abandon: 1,
+          sessions: { view: 5, start: 2, field: 2, error: 0, attempt: 1, success: 1, failure: 0, abandon: 1 }, funnel: { view: 5, start: 2, attempt: 1, success: 1 }, skipped: { start: 0, attempt: 0, success: 0 }, abandoned_after_start: 1, abandon_fields: [] },
+      ], newsletter: { view: 30, fab_shown: 40, fab_click: 6, start: 12, invalid: 3, request: 8, failed: 1, confirmed: 0,
+        sessions: { view: 26, fab_shown: 35, fab_click: 6, start: 11, invalid: 3, request: 8, failed: 1, confirmed: 0 }, funnel: { view: 26, start: 11, request: 7, confirmed: 0 }, skipped: { start: 0, request: 1, confirmed: 0 },
+        by_page: [{ page_path: '/blog', view: 20, fab_shown: 25, fab_click: 4, start: 8, invalid: 2, request: 6, failed: 0, confirmed: 0 }, { page_path: H(5, '/about'), view: 10, fab_shown: 15, fab_click: 2, start: 4, invalid: 1, request: 2, failed: 1, confirmed: 0 }] } }, sp));
+    }
     case 'ghost':
       if (empty) return ok(wrap({ starts: 0, ends: 0, stop_clicks: 0, modes: [], end_reasons: [], interrupts: [] }, sp));
       return ok(wrap({ starts: 25, ends: 20, stop_clicks: 4, modes: [{ mode: 'tour', n: 15 }, { mode: H(1, 'replay'), n: 10 }], end_reasons: [{ reason: 'done', n: 15 }, { reason: H(2, 'user'), n: 5 }], interrupts: [{ input: 'mouse', n: 8, avg_ms: 6200 }, { input: H(3, 'key'), n: 2, avg_ms: null }] }, sp));
@@ -183,4 +207,17 @@ function respondPost(name, b, store) {
     return { status: 200, body: { slug: b.slug, retired: 1 } };
   }
   return { status: 404, body: { error: 'not_found' } };
+}
+
+// The build-time list of every known control (ops/controls.json). Four of these are clicked in the mock API data, the rest have zero clicks.
+export function controlsFixture(hostile) {
+  const c = (id, path, devices = ['desktop', 'mobile']) => ({ id, zone: id.split('.')[0], path, devices });
+  return {
+    version: 1,
+    controls: [
+      c('nav.demos', '/'), c('hero.cta', '/'), c('hero.secondary', '/'), c('nav.menu', '/', ['mobile']), c('hover.preview', '/', ['desktop']),
+      c('work.project_1', '/work'), c('work.project_2', '/work'), c('footer.email', '/work'), c('about.cv', '/about'),
+      ...(hostile ? [{ id: 'bad id <img src=x onerror=window.__pwn=9>', zone: 'x', path: '/work', devices: [] }, { id: 'ok.id', zone: 'ok', path: '/evil path', devices: [] }] : []),
+    ],
+  };
 }

@@ -6,7 +6,7 @@ import path from 'node:path';
 import os from 'node:os';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
-import { respond, makeStore } from './mock.mjs';
+import { respond, makeStore, controlsFixture } from './mock.mjs';
 
 const require = createRequire('/Users/saikanagat/saikanagat-analytics/tools/package.json');
 export const { chromium } = require('playwright');
@@ -36,12 +36,23 @@ export async function startStatic() {
 // mode: full | empty | error | expired403 | expired302 | html | network | slow
 // per-endpoint override: modeFor(name) => mode
 export async function openPage(browser, base, o = {}) {
-  const { hash = '#/live', mode = 'full', hostile = false, width = 1280, height = 900, scheme = 'light', delay = 0, modeFor = null, store = makeStore(hostile) } = o;
+  const { hash = '#/live', mode = 'full', hostile = false, width = 1280, height = 900, scheme = 'light', delay = 0, modeFor = null, store = makeStore(hostile), controls = 'fixture', clock = false } = o;
   const ctx = await browser.newContext({ viewport: { width, height }, colorScheme: scheme, timezoneId: 'UTC', locale: 'en-GB', acceptDownloads: true });
   await ctx.grantPermissions(['clipboard-read', 'clipboard-write'], { origin: base });
   const log = { api: [], external: [], hits: [], posts: [], csp: [], errors: [], consoleErrors: [] };
   await ctx.route(/googletagmanager|google-analytics|clarity\.ms|formspree|sibforms/, (r) => { log.external.push(r.request().url()); r.abort(); });
   await ctx.route('**/api/e', (r) => { log.hits.push(r.request().url()); r.fulfill({ status: 204, body: '' }); });
+  // ops/controls.json: 'fixture' (a small known list), 'real' (the file the static server ships), 'missing', 'garbage', 'html'
+  log.controls = 0;
+  if (controls !== 'real') {
+    await ctx.route('**/ops/controls.json', (r) => {
+      log.controls++;
+      if (controls === 'missing') return r.fulfill({ status: 404, contentType: 'text/plain', body: 'nf' });
+      if (controls === 'html') return r.fulfill({ status: 200, contentType: 'text/html', body: '<html>Sign in</html>' });
+      if (controls === 'garbage') return r.fulfill({ status: 200, contentType: 'application/json', body: '{"controls":"nope"}' });
+      return r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(controlsFixture(hostile)) });
+    });
+  }
   await ctx.route('**/api/ops/**', async (r) => {
     const req = r.request();
     const u = new URL(req.url());
@@ -68,6 +79,7 @@ export async function openPage(browser, base, o = {}) {
     window.__csp = [];
     document.addEventListener('securitypolicyviolation', (e) => window.__csp.push(e.violatedDirective + ' ' + e.blockedURI));
   });
+  if (clock) await page.clock.install();
   await page.goto(base + '/ops/' + hash, { waitUntil: 'load' });
   return { ctx, page, log, store };
 }

@@ -6,7 +6,7 @@ export async function onRequestGet({ env, request }) {
     one(env, 'SELECT MAX(ts) AS ts FROM events'),
     one(env, `SELECT COUNT(*) AS n FROM events WHERE ts > ?1 AND ${w}`, [now - 864e5]),
     one(env, `SELECT COUNT(*) AS n FROM sessions WHERE last_ts > ?1 AND ${w}`, [now - 864e5]),
-    all(env, 'SELECT day, kind, detail, n FROM ingest_stats ORDER BY day DESC, n DESC LIMIT 60'),
+    all(env, 'SELECT day, kind, detail, n FROM ingest_stats WHERE day >= ?1 ORDER BY day DESC, n DESC LIMIT 60', [new Date(now - 90 * 864e5).toISOString().slice(0, 10)]),
     all(env, 'SELECT ts, check_name, status, detail FROM health ORDER BY id DESC LIMIT 40'),
     all(env, `SELECT json_extract(params,'$.choice') AS choice, COUNT(*) AS n FROM events WHERE name = 'consent_choice' AND ts > ?1 AND ${w} GROUP BY choice`, [now - 30 * 864e5]),
   ]);

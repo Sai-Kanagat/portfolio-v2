@@ -228,9 +228,8 @@ test('rates carry counts and sample size, and are marked under 20', async () => 
     await settled(page);
     const t = await page.textContent('#demos-table');
     assert.match(t, /75%\s*30 of 40/); assert.match(t, /n under 20/);
-    assert.match(t, /120%/, 'a step above 100% is shown as is, with the note about events');
-    assert.match(await body(page), /not unique visits/);
-    assert.match(await body(page), /10 second and 60 second/);
+    assert.match(await body(page), /Every step counts visits \(sessions\), not events/);
+    assert.match(await body(page), /10 seconds and 60 seconds of active time/);
   });
   await run('where', {}, async ({ page }) => {
     await settled(page);
@@ -246,7 +245,7 @@ test('CSV per table: formulas neutralised, sample size columns present, full str
     assert.match(dl.suggestedFilename(), /^buttons-\d{4}-\d{2}-\d{2}\.csv$/);
     const csv = fs.readFileSync(await dl.path(), 'utf8');
     const lines = csv.trim().split('\r\n');
-    assert.match(lines[0], /^Control,Zone,Page,Clicks,Visitors,Visits that clicked,Clicks per visit,per_visit_sample_n,Last click$/);
+    assert.match(lines[0], /^Control,Zone,Page,Clicks,Visitors,Visits that clicked,Page visits,Click rate,click_rate_sample_n,Clicks per visit,per_visit_sample_n,Last click$/);
     assert.ok(csv.includes("'=HYPERLINK"), 'formula neutralised');
     assert.ok(!/(^|,)=HYPERLINK/.test(csv), 'no raw formula cell');
     assert.ok(!/(^|,)@SUM/.test(csv));
@@ -261,9 +260,9 @@ test('CSV per table: formulas neutralised, sample size columns present, full str
   });
   await run('demos', {}, async ({ page }) => {
     await settled(page);
-    const [dl] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: 'Download CSV: Every demo and tool' }).click()]);
+    const [dl] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: 'Download CSV: Every demo and tool, by visits' }).click()]);
     const head = fs.readFileSync(await dl.path(), 'utf8').split('\r\n')[0];
-    for (const c of ['starts_per_open_pct', 'starts_sample_n', 'camera_prompts_n', 'dropoff_sample_n']) assert.ok(head.includes(c), c);
+    for (const c of ['started_per_open_pct', 'started_sample_n', 'engaged_10_sample_n', 'engaged_60_sample_n', 'camera_prompts_n', 'dropoff_sample_n']) assert.ok(head.includes(c), c);
   });
 });
 
@@ -517,11 +516,14 @@ test('search: says what is not connected, invents nothing, classifies AI and sea
     assert.match(await page.textContent('#search-ai'), /chatgpt\.com/);
     assert.match(await page.textContent('#search-ai'), /perplexity\.ai/);
     assert.doesNotMatch(await page.textContent('#search-ai'), /google/);
+    assert.equal(await page.locator('#search-ai tbody tr').count(), 32, 'every AI referrer is listed, no 25 row cap');
     assert.match(await page.textContent('#search-engines'), /www\.google\.com/);
     assert.match(await page.textContent('#search-engines'), /www\.bing\.com/);
     assert.doesNotMatch(await page.textContent('#search-engines'), /chatgpt/);
     assert.match(await page.textContent('#search-utm'), /chatgpt\.com/);
+    assert.match(await page.textContent('#search-utm'), /gemini/);
     assert.match(await page.textContent('#search-summary'), /15/); assert.match(await page.textContent('#search-summary'), /15 of 120/);
+    assert.doesNotMatch(await body(page), /top 25 referrer hosts only/i, 'the old 25 row limit text is gone');
     assert.equal(await page.locator('text=/impressions|average position/').count() > 0, true, 'only named as not connected');
     assert.equal(await page.locator('table:has-text("impressions")').count(), 0, 'no table of impressions');
   });
@@ -562,14 +564,197 @@ test('live: refreshes on its own, keeps old data when a refresh fails', async ()
 test('buttons: page filter and text filter', async () => {
   await run('buttons', {}, async ({ page, log }) => {
     await settled(page);
-    assert.equal(await page.locator('#buttons-table tbody tr').count(), 4);
+    assert.equal(await page.locator('#buttons-table tbody tr').count(), 9, '4 clicked controls and 5 known controls with no clicks');
     await act(page, log, () => page.selectOption('#btn-page', '/work'));
     assert.equal(log.api.filter((a) => a.name === 'buttons').at(-1).params.get('path'), '/work');
-    assert.equal(await page.locator('#buttons-table tbody tr').count(), 2);
-    await page.fill('#btn-q', 'project'); assert.equal(await page.locator('#buttons-table tbody tr').count(), 1);
+    assert.equal(await page.locator('#buttons-table tbody tr').count(), 3, 'two clicked and work.project_2 at 0');
+    await page.fill('#btn-q', 'project'); assert.equal(await page.locator('#buttons-table tbody tr').count(), 2);
     await page.fill('#btn-q', 'zzz'); assert.match(await body(page), /No control matches that text/);
-    assert.match(await body(page), /Only controls clicked at least once appear/);
+    assert.match(await body(page), /Every control in the build-time list is shown/);
+    assert.doesNotMatch(await body(page), /Only controls clicked at least once appear/);
   });
+});
+
+const cellsOf = (page, id, ctl) => page.$$eval(`#${id} tbody tr`, (trs, c) => trs.find((tr) => tr.cells[0].textContent.startsWith(c)).cells.length && [...trs.find((tr) => tr.cells[0].textContent.startsWith(c)).cells].map((x) => x.textContent), ctl);
+
+test('buttons: controls with zero clicks are listed as 0, with the page visits as denominator and the click rate beside it', async () => {
+  await run('buttons', {}, async ({ page }) => {
+    await settled(page);
+    const head = await page.$$eval('#buttons-table thead th', (ths) => ths.map((t) => t.textContent));
+    assert.deepEqual(head, ['Control', 'Zone', 'Page', 'Clicks', 'Visitors', 'Visits that clicked', 'Page visits', 'Click rate', 'Clicks per visit', 'Last click']);
+    const clicked = await cellsOf(page, 'buttons-table', 'work.project_1');
+    assert.deepEqual([clicked[3], clicked[5], clicked[6]], ['4', '3', '40']);
+    assert.match(clicked[7], /7\.5%/); assert.match(clicked[7], /3 of 40/); assert.doesNotMatch(clicked[7], /n under 20/, 'denominator 40 is a real sample');
+    const zero = await cellsOf(page, 'buttons-table', 'work.project_2');
+    assert.deepEqual([zero[3], zero[4], zero[5], zero[6]], ['0', '0', '0', '40'], 'zero clicks shown as 0, not left out');
+    assert.match(zero[7], /0%/); assert.match(zero[7], /0 of 40/);
+    const about = await cellsOf(page, 'buttons-table', 'about.cv');
+    assert.match(about[7], /0 of 12/); assert.match(about[7], /n under 20/, 'a small denominator is marked');
+    assert.match(await body(page), /9 controls on 4 pages|holds 9 controls/);
+  });
+});
+
+test('buttons: device filter reaches buttons and pages, drops controls the crawler never saw on that device, and says so in the scope line', async () => {
+  await run('buttons', {}, async ({ page, log }) => {
+    await settled(page);
+    assert.equal(log.api.filter((a) => a.name === 'buttons').at(-1).params.get('device'), null, 'no device sent for all devices');
+    assert.ok((await page.locator('#buttons-table tbody tr').allTextContents()).some((t) => t.startsWith('hover.preview')));
+    await act(page, log, () => page.selectOption('#btn-device', 'mobile'));
+    for (const n of ['buttons', 'pages']) assert.equal(log.api.filter((a) => a.name === n).at(-1).params.get('device'), 'mobile', n);
+    const text = await page.locator('#buttons-table tbody tr').allTextContents();
+    assert.ok(!text.some((t) => t.startsWith('hover.preview')), 'a desktop-only control is not a zero on mobile');
+    assert.ok(text.some((t) => t.startsWith('nav.menu')), 'a mobile control is listed');
+    assert.match(await body(page), /Device: mobile only/);
+    assert.ok(page.url().includes('device=mobile'), 'the filter is in the address');
+    await act(page, log, () => page.click('#nav >> text=Pages and time'));
+    assert.equal(log.api.filter((a) => a.name === 'pages').at(-1).params.get('device'), null, 'the filter does not leak into other views');
+  });
+  await run('buttons?device=phone', {}, async ({ page, log }) => {
+    await settled(page);
+    assert.equal(log.api.filter((a) => a.name === 'buttons').at(-1).params.get('device'), null, 'an unknown device in the address is never sent');
+  });
+});
+
+test('device filter on pages, demos and visits: sent when chosen, kept when loading older visits', async () => {
+  await run('pages', {}, async ({ page, log }) => {
+    await settled(page);
+    await act(page, log, () => page.selectOption('#pages-device', 'tablet'));
+    assert.equal(log.api.filter((a) => a.name === 'pages').at(-1).params.get('device'), 'tablet');
+    assert.match(await body(page), /Device: tablet only/);
+  });
+  await run('demos', {}, async ({ page, log }) => {
+    await settled(page);
+    await act(page, log, () => page.selectOption('#demos-device', 'desktop'));
+    assert.equal(log.api.filter((a) => a.name === 'demos').at(-1).params.get('device'), 'desktop');
+  });
+  await run('visits', {}, async ({ page, log }) => {
+    await settled(page);
+    await act(page, log, () => page.selectOption('#visits-device', 'mobile'));
+    assert.equal(log.api.filter((a) => a.name === 'visits').at(-1).params.get('device'), 'mobile');
+    await page.click('#visits-older'); await page.waitForFunction(() => document.querySelectorAll('#visits-table tbody tr').length > 50);
+    assert.equal(log.api.filter((a) => a.name === 'visits').at(-1).params.get('device'), 'mobile', 'older visits keep the filter');
+  });
+});
+
+test('buttons: a missing, unreadable or hostile controls list falls back to clicked controls and says so, never an error page', async () => {
+  for (const controls of ['missing', 'garbage', 'html']) {
+    await run('buttons', { controls }, async ({ page, log }) => {
+      await settled(page);
+      assert.equal(await page.locator('#state-err').count(), 0, controls);
+      assert.equal(await page.locator('#buttons-table tbody tr').count(), 4, controls + ': only clicked controls');
+      assert.match(await body(page), /list of known controls could not be read/);
+      assert.equal(log.controls, 1);
+    });
+  }
+  await run('buttons', { controls: 'fixture', hostile: true }, async ({ page, log }) => {
+    await settled(page);
+    const ids = await page.$$eval('#buttons-table tbody tr', (trs) => trs.map((t) => t.cells[0].textContent));
+    assert.ok(!ids.some((t) => t.includes('<img') || t.startsWith('bad id')), 'invalid ids in the file are dropped');
+    assert.ok(!ids.some((t) => t.startsWith('ok.id')), 'a control on an invalid path is dropped');
+    assert.equal(await page.evaluate(() => window.__pwn), undefined);
+  });
+});
+
+test('buttons: the shipped ops/controls.json loads through the same static route and is merged', async () => {
+  const real = JSON.parse(fs.readFileSync(path.join(ROOT, 'ops/controls.json'), 'utf8'));
+  await run('buttons', { controls: 'real' }, async ({ page, log }) => {
+    await settled(page);
+    assert.equal(await page.locator('#state-err').count(), 0);
+    const rows = await page.locator('#buttons-table tbody tr').count();
+    assert.ok(rows >= real.controls.length, `${rows} rows for ${real.controls.length} known controls`);
+    assert.match(await body(page), new RegExp(`holds ${real.controls.length.toLocaleString('en-GB')} controls`));
+    await noLeaks(page, log);
+  });
+});
+
+test('demos: the funnel is in visits, never above the step before, with events, model loads and skipped steps beside it', async () => {
+  await run('demos', {}, async ({ page, log }) => {
+    await settled(page);
+    const head = await page.$$eval('#demos-table thead th', (t) => t.map((x) => x.textContent));
+    for (const c of ['Visits that opened', 'Started', 'Engaged 10 s', 'Engaged 60 s', 'Skipped steps']) assert.ok(head.includes(c), c);
+    assert.ok(!head.includes('Engaged'), 'the merged Engaged column is gone');
+    const hands = await cellsOf(page, 'demos-table', 'hands');
+    assert.match(hands[3], /75%\s*30 of 40/); assert.match(hands[4], /60%\s*18 of 30/); assert.match(hands[5], /33%\s*6 of 18/);
+    for (const tr of await page.$$eval('#demos-table tbody tr', (trs) => trs.map((t) => [...t.cells].map((c) => c.textContent)))) {
+      for (const i of [3, 4, 5]) { const m = /(\d+)%/.exec(tr[i]); assert.ok(!m || +m[1] <= 100, 'funnel step above 100%: ' + tr[i]); }
+    }
+    assert.equal(hands[8], '1', 'skipped steps shown');
+    const ev = await page.$$eval('#demos-events tbody tr', (trs) => trs.map((t) => [...t.cells].map((c) => c.textContent.replace(/n=.*/, ''))));
+    const opened = ev.find((r) => r[0] === 'hands' && r[1] === 'Opened');
+    assert.deepEqual([opened[2], opened[3]], ['44', '40'], 'events and visits side by side');
+    assert.ok(ev.find((r) => r[0] === 'hands' && r[1] === 'Engaged 60 s'));
+    assert.match(await page.textContent('#demos-model'), /gpu 15 loaded/); assert.match(await page.textContent('#demos-model'), /3 of 23|13%/);
+    assert.match(await page.textContent('#demo-0-camera'), /Visits/); assert.match(await page.textContent('#demo-0-camera'), /73%\s*22 of 30/);
+    const text = await body(page);
+    for (const gone of ['not unique visits', 'this API does not return them yet', 'merges the 10 second']) assert.doesNotMatch(text, new RegExp(gone));
+  });
+});
+
+test('forms: the funnel is in visits, events and skipped steps are separate, and the newsletter box is aggregated', async () => {
+  await run('forms', {}, async ({ page }) => {
+    await settled(page);
+    const contact = await cellsOf(page, 'forms-table', 'contact');
+    assert.match(contact[2], /30%\s*24 of 80/); assert.match(contact[3], /42%\s*10 of 24/); assert.match(contact[4], /80%\s*8 of 10/);
+    const f = await page.$$eval('#forms-events tbody tr', (trs) => trs.map((t) => [...t.cells].map((c) => c.textContent.replace(/n=.*/, ''))));
+    const sent = f.find((r) => r[0] === 'contact' && r[1] === 'Tried to send');
+    assert.deepEqual([sent[2], sent[3]], ['12', '10'], 'events and visits');
+    const nl = await page.$$eval('#newsletter-steps tbody tr', (trs) => trs.map((t) => [...t.cells].map((c) => c.textContent)));
+    assert.deepEqual(nl.map((r) => r[0]), ['Floating button shown', 'Floating button clicked', 'Box seen', 'Started typing', 'Invalid address', 'Request sent', 'Request failed', 'Confirmed']);
+    const seen = nl.find((r) => r[0] === 'Box seen'); assert.deepEqual([seen[1], seen[2], seen[3]], ['30', '26', '26']);
+    const start = nl.find((r) => r[0] === 'Started typing'); assert.match(start[4], /42%\s*11 of 26/);
+    assert.match(nl.find((r) => r[0] === 'Invalid address')[4], /not a funnel step/);
+    assert.match(await body(page), /Brevo confirmation webhook/);
+    assert.ok((await page.locator('#newsletter-pages tbody tr').count()) === 2);
+    assert.doesNotMatch(await body(page), /Counts are events\./);
+  });
+  await run('forms', { mode: 'empty' }, async ({ page }) => { await settled(page); assert.match(await body(page), /No form activity in this period/); });
+});
+
+test('where from: visitors note says distinct per channel, and the old summed-per-group text is gone', async () => {
+  await run('where', {}, async ({ page }) => {
+    await settled(page);
+    const t = await body(page);
+    assert.match(t, /Visitors are distinct people per channel/); assert.match(t, /counts as AI assistants/);
+    assert.doesNotMatch(t, /added up per group/);
+  });
+});
+
+test('links: says clicks cannot be split by owner or test', async () => {
+  await run('links', {}, async ({ page }) => {
+    await settled(page);
+    assert.match(await body(page), /cannot be split by owner or test and ignore those two switches/);
+  });
+});
+
+test('live polling: at most once a minute, paused while the tab is hidden, one catch-up when it comes back', async () => {
+  await run('live', { clock: true }, async ({ page, log }) => {
+    await settled(page);
+    const calls = () => log.api.filter((a) => a.name === 'live').length;
+    const n0 = calls();
+    assert.match(await body(page), /Refreshes every 60 seconds/); assert.doesNotMatch(await body(page), /15 seconds/);
+    await page.clock.runFor(15000); await page.waitForTimeout(100); assert.equal(calls(), n0, 'nothing at 15 s');
+    await page.clock.runFor(44000); await page.waitForTimeout(100); assert.equal(calls(), n0, 'nothing at 59 s');
+    await page.clock.runFor(1500); await page.waitForFunction((n) => true, n0); await page.waitForTimeout(150);
+    assert.equal(calls(), n0 + 1, 'one refresh at 60 s');
+    await page.evaluate(() => { Object.defineProperty(document, 'hidden', { configurable: true, get: () => true }); document.dispatchEvent(new Event('visibilitychange')); });
+    await page.clock.runFor(10 * 60000); await page.waitForTimeout(150);
+    assert.equal(calls(), n0 + 1, 'nothing for ten minutes while hidden');
+    await page.evaluate(() => { Object.defineProperty(document, 'hidden', { configurable: true, get: () => false }); document.dispatchEvent(new Event('visibilitychange')); });
+    await page.waitForTimeout(250);
+    assert.equal(calls(), n0 + 2, 'one catch-up when the tab is shown again');
+    await page.evaluate(() => document.dispatchEvent(new Event('visibilitychange'))); await page.waitForTimeout(250);
+    assert.equal(calls(), n0 + 2, 'showing it again at once does not refresh again');
+  });
+});
+
+test('source: the dashboard has one timer and it cannot run faster than 60 seconds', () => {
+  const app = fs.readFileSync(path.join(ROOT, 'ops/app.js'), 'utf8');
+  assert.match(app, /MIN_POLL_MS = 60000/); assert.match(app, /Math\.max\(ms, MIN_POLL_MS\)/);
+  const timers = ['app.js', 'views.js', 'dom.js', 'lib.js'].flatMap((f) => (fs.readFileSync(path.join(ROOT, 'ops', f), 'utf8').match(/setInterval\(/g) || []).map(() => f));
+  assert.deepEqual(timers, ['app.js'], 'setInterval appears once, in ctx.every');
+  const views = fs.readFileSync(path.join(ROOT, 'ops/views.js'), 'utf8');
+  assert.match(views, /ctx\.every\(refresh, 60000\)/);
+  for (const old of ['Only controls clicked at least once appear', 'not unique visits', 'does not return them yet', 'added up per group', 'top 25 referrer hosts only', 'every 15 seconds', 'Counts are events.']) assert.ok(!views.includes(old), 'old limit text still in views.js: ' + old);
 });
 
 // ------------------------------------------------------------------ look and contrast
@@ -646,5 +831,5 @@ test('no request ever left 127.0.0.1 and nothing was served outside ops, favicon
   const odd = srv.served.filter((p) => !(p.startsWith('/ops/') || p === '/ops' || p === '/favicon.svg'));
   assert.deepEqual(odd, []);
   const files = new Set(srv.served.filter((p) => p.startsWith('/ops/')));
-  for (const f of files) assert.ok(['/ops/', '/ops/ops.css', '/ops/app.js', '/ops/lib.js', '/ops/dom.js', '/ops/views.js', '/ops/vendor/qrcode.js'].includes(f), 'unexpected asset ' + f);
+  for (const f of files) assert.ok(['/ops/', '/ops/ops.css', '/ops/app.js', '/ops/lib.js', '/ops/dom.js', '/ops/views.js', '/ops/vendor/qrcode.js', '/ops/controls.json'].includes(f), 'unexpected asset ' + f);
 });

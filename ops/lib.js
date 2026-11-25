@@ -18,6 +18,66 @@ export const isSlug = (s) => typeof s === 'string' && s.length <= 64 && SLUG_RE.
 export const isSid = (s) => typeof s === 'string' && SID_RE.test(s);
 export const isPath = (s) => typeof s === 'string' && PATH_RE.test(s);
 export const linkUrl = (slug) => PUBLIC_ORIGIN + '/go/' + slug;
+export const DEVICES = ['desktop', 'mobile', 'tablet'];
+export const DEVICE_LABELS = { desktop: 'Desktop', mobile: 'Mobile', tablet: 'Tablet' };
+export const CONTROL_ID_RE = /^[a-z0-9][a-z0-9._-]{0,59}$/;
+
+// Page paths are compared without a trailing slash, a trailing index.html or .html, so /work, /work/ and /work.html are one page.
+export function normPath(p) {
+  let s = String(p === null || p === undefined ? '' : p).split(/[?#]/)[0];
+  s = s.replace(/\/index\.html$/, '/').replace(/\.html$/, '');
+  if (s.length > 1) s = s.replace(/\/+$/, '');
+  return s || '/';
+}
+
+// ops/controls.json comes from a build script, so it is checked like any other input. Anything that does not fit is dropped.
+// Returns null when the file is unusable as a whole.
+export function parseControls(raw) {
+  if (!raw || typeof raw !== 'object' || !Array.isArray(raw.controls)) return null;
+  const controls = [];
+  for (const c of raw.controls) {
+    if (!c || typeof c.id !== 'string' || !CONTROL_ID_RE.test(c.id) || !isPath(c.path)) continue;
+    const devices = Array.isArray(c.devices) ? c.devices.filter((d) => d === 'desktop' || d === 'mobile') : [];
+    controls.push({ id: c.id, zone: typeof c.zone === 'string' ? c.zone.slice(0, 40) : c.id.split('.')[0], path: c.path, devices });
+  }
+  const pages = new Set(controls.map((c) => normPath(c.path)));
+  return { controls, pages: pages.size, dropped: raw.controls.length - controls.length };
+}
+
+// Joins the clicked controls from the API with the list of every known control. A known control with no row is a control with 0 clicks.
+// known: parseControls() result or null. rows: API buttons. paths: API paths (visits that viewed each page). The device filter only applies
+// to the list (the crawler saw desktop and mobile; tablet shows both). When the API cut its list (truncated) a missing row is not proof of zero clicks,
+// so no zero rows are made.
+export function mergeControls(known, rows, { page = '', device = '', paths = [], truncated = false } = {}) {
+  const den = new Map();
+  for (const p of paths || []) den.set(normPath(p.path), (den.get(normPath(p.path)) || 0) + (num(p.sessions) ?? 0));
+  const keyOf = (path, id) => normPath(path) + '|' + id;
+  const listed = new Set(known ? known.controls.map((c) => keyOf(c.path, c.id)) : []);
+  const out = [];
+  const have = new Set();
+  let unlisted = 0;
+  for (const r of rows || []) {
+    const k = keyOf(r.path, r.track_id);
+    have.add(k);
+    const isListed = !known || listed.has(k);
+    if (!isListed) unlisted++;
+    out.push({ ...r, page_sessions: num(r.page_sessions) ?? den.get(normPath(r.path)) ?? 0, listed: isListed, zero: false });
+  }
+  let zero = 0;
+  if (known && !truncated) {
+    const want = page ? normPath(page) : '';
+    for (const c of known.controls) {
+      if (want && normPath(c.path) !== want) continue;
+      if ((device === 'desktop' || device === 'mobile') && c.devices.length && !c.devices.includes(device)) continue;
+      const k = keyOf(c.path, c.id);
+      if (have.has(k)) continue;
+      have.add(k);
+      zero++;
+      out.push({ track_id: c.id, zone: c.zone, path: c.path, clicks: 0, visitors: 0, sessions: 0, per_session: null, last_ts: null, page_sessions: den.get(normPath(c.path)) ?? 0, click_rate: null, listed: true, zero: true });
+    }
+  }
+  return { rows: out, zero, unlisted, known: known ? known.controls.length : 0 };
+}
 
 // Destination rules mirror safeDest in functions/_lib/links.js: own domain or a root-relative path.
 export function destOk(dest) {

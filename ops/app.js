@@ -1,6 +1,6 @@
 // /ops shell: hash router, API client, period and scope controls, and the loading, empty, error and expired states.
 // Same-origin only. No analytics, no consent script, no third-party request. Nothing from the API is parsed as HTML.
-import { PERIODS, apiQuery, parseHash, stateFromQuery, queryFromState, isSid } from './lib.js';
+import { PERIODS, apiQuery, parseHash, stateFromQuery, queryFromState, isSid, parseControls } from './lib.js';
 import { h, clear } from './dom.js';
 import { VIEWS } from './views.js';
 
@@ -37,6 +37,22 @@ async function request(name, query, opts = {}) {
   if (!body || typeof body !== 'object') throw new ApiError('bad', res.status);
   return body;
 }
+
+// ops/controls.json is a build-time file (every known control). It is optional: if it is missing or unreadable the Buttons view says so
+// and shows only controls that were clicked. Checked like any other input.
+async function loadControls(signal) {
+  try {
+    const res = await fetch('/ops/controls.json', { credentials: 'same-origin', cache: 'no-store', redirect: 'manual', signal });
+    if (!res.ok || res.type === 'opaqueredirect' || !(res.headers.get('content-type') || '').toLowerCase().includes('json')) return null;
+    return parseControls(await res.json());
+  } catch (e) {
+    if (e && e.name === 'AbortError') throw e;
+    return null;
+  }
+}
+
+// D1's free tier allows 5 million rows read per day, and every refresh reads rows. Nothing may poll faster than this.
+export const MIN_POLL_MS = 60000;
 
 const $ = (id) => document.getElementById(id);
 const nav = $('nav'), controls = $('controls'), viewHost = $('view'), menu = $('menu'), main = $('main');
@@ -144,7 +160,8 @@ async function route(force) {
     get: (name, extra) => request(name, apiQuery(effective, extra), { signal }),
     post: (name, body) => request(name, '', { method: 'POST', body }),
     href: hrefFor, go,
-    every: (fn, ms) => { const t = setInterval(() => { if (!document.hidden && !signal.aborted) fn(); }, ms); cleanup.push(() => clearInterval(t)); },
+    controls: () => loadControls(signal),
+    every: (fn, ms) => { const t = setInterval(() => { if (!document.hidden && !signal.aborted) fn(); }, Math.max(ms, MIN_POLL_MS)); cleanup.push(() => clearInterval(t)); },
     afterMount: (fn) => mounts.push(fn),
     onTeardown: (fn) => cleanup.push(fn),
   };
