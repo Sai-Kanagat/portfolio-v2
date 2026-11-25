@@ -1,4 +1,4 @@
-/* /ops dashboard. Tokens follow the brand book Vol. 02 (~/.claude/DESIGN.md).
+/* /ops dashboard. Tokens follow the brand book Vol. 02.
    Brand fonts are named first. No font files ship with the site, so system fonts stand in
    until woff2 files are added under /ops/fonts. No third-party request is ever made. */
 :root {
