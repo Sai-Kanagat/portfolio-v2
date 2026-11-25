@@ -171,6 +171,8 @@ for (const [mode, want] of [['ok', 'form_submit_success'], ['error', 'form_submi
   await go(t.page, '/contact.html');
   await t.page.fill('#fname', 'CANARYFIRST'); await t.page.fill('#lname', 'CANARYLAST'); await t.page.fill('#email', 'canary@example.com');
   await t.page.selectOption('#subject', 'job'); await t.page.fill('#message', 'CANARYMESSAGE hello');
+  // the privacy notice can sit over the button in a short window: dismiss it first, as a visitor would
+  const ack = t.page.locator('#sk-consent .sk-c-p'); if (await ack.count()) { await ack.first().click(); await t.page.waitForTimeout(400); }
   await t.page.locator('#contactForm button[type=submit]').click(); await t.page.waitForTimeout(800); await flush(t.page);
   const n = names(t.posts);
   ok(n.filter(x => x === want).length === 1, mode + ': exactly one ' + want);

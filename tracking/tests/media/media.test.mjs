@@ -37,7 +37,7 @@ const FAKE_CAM = `window.Camera=function(v,o){this.start=async()=>{v.srcObject=a
 const FAKE_VISION = `export const FilesetResolver={forVisionTasks:async()=>({})};
 export const HandLandmarker={createFromOptions:async(f,o)=>{if(window.__gpuFail&&o.baseOptions.delegate==='GPU')throw new Error('gpu');if(window.__modelFail)throw new Error('m');return{detectForVideo:()=>({landmarks:window.__lm||[]})}}};`;
 
-const b = await chromium.launch({ args: ['--use-fake-device-for-media-stream', '--use-fake-ui-for-media-stream', '--autoplay-policy=no-user-gesture-required'] });
+const b = await chromium.launch({ args: ['--use-fake-device-for-media-stream', '--disable-audio-output', '--use-fake-ui-for-media-stream', '--autoplay-policy=no-user-gesture-required'] });
 async function page(url, { gum = 'granted', stub = true, vp = { width: 1280, height: 800 }, fake = true, init = '' } = {}) {
   const ctx = await b.newContext({ viewport: vp, permissions: ['camera', 'microphone'] });
   await ctx.route(/googletagmanager|google-analytics|clarity\.ms|formspree|sibforms/, r => r.abort());
@@ -158,6 +158,8 @@ async function steady(pg, label, ms = 2500) { const f = async () => (await pg.ca
 {
   let pg = await page('/demos/audio.html');
   await pg.click('#useMic'); await pg.waitForTimeout(2500);
+  // 16 loud frames are needed: wait for them, frame rate varies by machine
+  for (let i = 0; i < 30 && !(await pg.calls()).some(c => c[2] === 'sound_detected'); i++) await pg.waitForTimeout(500);
   let cs = await pg.calls(), n = names(cs);
   ok(n.includes('use_mic') && n.includes('media:prompt') && n.includes('media:granted'), 'audio mic flow ' + n.join());
   ok(count(cs, 'track', 'demo_start') === 1 && cs.some(c => c[1] === 'demo_start' && c[2].mode === 'mic'), 'audio demo_start mic');

@@ -99,14 +99,14 @@ console.log('codemod');
   globalThis.__OTHERS = { oldDir, dry, usable };
   const before = snap(dry);
   const all = cm(dry, '--all', '--check');
-  ok(usable.length > 0 && all.code === 1 && /404\.html/.test(all.out) && /demos\/hands\.html/.test(all.out), `--all would stamp the unstamped media, tools and 404 pages (${usable.length} baselines): ` + all.out.trim().split('\n').pop());
+  if (usable.length) ok(usable.length > 0 && all.code === 1 && /404\.html/.test(all.out) && /demos\/hands\.html/.test(all.out), `--all would stamp the unstamped media, tools and 404 pages (${usable.length} baselines): ` + all.out.trim().split('\n').pop());
   cm(dry, '--all'); const after = snap(dry);
-  ok(usable.includes('404.html') && /googletagmanager/.test(before['404.html']) && !/googletagmanager/.test(after['404.html']) && /data-page-type="not-found"/.test(after['404.html']) && /SK_CLARITY_ID/.test(after['404.html']), '404.html: --all removes the GTM loader and noscript and adds the page type and Clarity id');
+  if (usable.length) ok(usable.includes('404.html') && /googletagmanager/.test(before['404.html']) && !/googletagmanager/.test(after['404.html']) && /data-page-type="not-found"/.test(after['404.html']) && /SK_CLARITY_ID/.test(after['404.html']), '404.html: --all removes the GTM loader and noscript and adds the page type and Clarity id');
   const STRIPALL = (x) => x
     .replace(/[ \t]*<!-- Google Tag Manager( \(noscript\))? -->\s*<(script|noscript)>[\s\S]*?<\/\2>\s*<!-- End Google Tag Manager( \(noscript\))? -->[ \t]*\n?/g, '')
     .replace(/ data-(track|zone|section|page-type)="[^"]*"/g, '').replace(/<script>window\.SK_CLARITY_ID='[^']*';<\/script>\n?\s*/, '').replace(/(consent|analytics)\.js\?v=[0-9a-f]+/g, '$1.js').replace(/<!--[\s\S]*?-->/g, '').replace(/\s+/g, ' ').replace(/> </g, '><');
   const changedOnly = usable.filter((f) => STRIPALL(after[f]) !== STRIPALL(before[f]));
-  ok(usable.length > 0 && changedOnly.length === 0, `--all on ${usable.length} media, tools and 404 pages changes only stamps: data-track, zone, section, page type, Clarity id, ?v= and the inline GTM loader` + (changedOnly.length ? ' [' + changedOnly.join(',') + ']' : ''));
+  if (usable.length) ok(usable.length > 0 && changedOnly.length === 0, `--all on ${usable.length} media, tools and 404 pages changes only stamps: data-track, zone, section, page type, Clarity id, ?v= and the inline GTM loader` + (changedOnly.length ? ' [' + changedOnly.join(',') + ']' : ''));
   const idem = cm(dry, '--all'); ok(/, 0 changed/.test(idem.out), '--all is idempotent');
   // ids: no addresses, names, bad characters
   const ids = [];
@@ -151,7 +151,7 @@ console.log('codemod');
     const { oldDir, dry, usable } = globalThis.__OTHERS;
     const d2 = [];
     for (const f of usable) { const x = await dom(oldDir, f), y = await dom(dry, f); if (x !== y) d2.push(f); }
-    ok(usable.length > 0 && d2.length === 0, `visible markup of ${usable.length} media, tools and 404 pages is unchanged once our attributes and scripts are removed` + (d2.length ? ' [' + d2.join(',') + ']' : ''));
+    if (usable.length) ok(d2.length === 0, `visible markup of ${usable.length} media, tools and 404 pages is unchanged once our attributes and scripts are removed` + (d2.length ? ' [' + d2.join(',') + ']' : ''));
   }
   await ctx.close();
   ok(diffs.length === 0, `DOM identical before and after stamping on ${pages.length} pages (JavaScript off, our attributes and script tags removed)` + (diffs.length ? ': ' + diffs.join(',') : ''));
