@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
@@ -33,7 +33,8 @@ test('build-dist publishes the site and nothing private', () => {
   none(/(^|\/)(migrations|workers|functions)(\/|$)/, 'no migrations, workers or functions source');
   none(/(^|\/)(package(-lock)?\.json|wrangler\.toml|\.gitignore)$/, 'no package files or wrangler config');
   none(/(^|\/)\.(github|wrangler|claude)(\/|$)/, 'no dot folders');
-  assert.ok(all.includes('ops/index.html') && all.includes('ops/app.js') && all.includes('ops/controls.json'), 'the dashboard itself ships (it is gated by Access, not hidden by the build)');
+  none(/^ops(\/|$)/, 'no dashboard file is static: when the free limit is hit Pages serves static files with no gate');
+  assert.equal(spawnSync(process.execPath, [path.join(ROOT, 'tracking/build-ops.mjs'), '--check'], { encoding: 'utf8' }).status, 0, 'run node tracking/build-ops.mjs');
   const routes = JSON.parse(fs.readFileSync(path.join(target, '_routes.json'), 'utf8'));
   assert.deepEqual(routes.include, ['/*']);
   assert.ok(routes.exclude.length > 0 && routes.exclude.length <= 99);

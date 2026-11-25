@@ -78,7 +78,10 @@ test('claims are enforced: aud, iss, exp, nbf, email, alg, kid', async () => {
 test('a valid token reaches the dashboard shell and its assets, with no-store and noindex', async () => {
   const r = await get('/ops/');
   assert.equal(r.status, 200);
-  assert.match(r.text, /dashboard shell/);
+  assert.equal(r.text.trim().slice(0, 15).toLowerCase(), '<!doctype html>');
+  assert.match(r.text, /app\.js/);
+  assert.equal((await get('/ops/nope.js')).status, 404);
+  assert.equal((await get('/ops/constructor')).status, 404);
   assert.equal(r.headers['x-robots-tag'], 'noindex, nofollow');
   assert.equal(r.headers['cache-control'], 'no-store');
   assert.equal((await get('/ops/app.js')).status, 200);
@@ -559,7 +562,6 @@ test('the shipped ops/controls.json is what the generator writes now, holds only
   const d = JSON.parse(fs.readFileSync(path.join(ROOT, 'ops/controls.json'), 'utf8'));
   assert.ok(d.controls.every((c) => /^[a-z0-9][a-z0-9._-]{0,59}$/.test(c.id) && c.path.startsWith('/')));
   // served from the same place as the dashboard: no token, no file
-  fs.writeFileSync(path.join(srv.tmp, 'site/ops/controls.json'), JSON.stringify(d));
   assert.equal((await srv.req('GET', '/ops/controls.json')).status, 403);
   assert.equal((await get('/ops/controls.json')).status, 200);
 });

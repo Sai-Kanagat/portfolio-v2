@@ -44,12 +44,13 @@ jobs:
           node tracking/codemod.mjs --root "$PWD" --all --check
           node tracking/scripts/coverage.mjs --check
           node tracking/scripts/controls.mjs --check
+          node tracking/build-ops.mjs --check
           node --test tracking/tests/gate/negative.test.mjs
 
       - name: Server (local D1, ingest, links, dashboard API, cron, build)
         run: npm run test:server
 
-      - name: Client (consent matrix, ghost, forms, GTM gating)
+      - name: Client (consent matrix, forms, GTM gating)
         run: node tracking/tests/client/run.mjs
 
       - name: Pages, tools, media demos and dashboard UI

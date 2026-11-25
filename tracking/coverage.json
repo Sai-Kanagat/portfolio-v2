@@ -12240,14 +12240,6 @@
       "tr": "footer.email"
      },
      {
-      "t": "button",
-      "id": "",
-      "n": "",
-      "x": "Stop auto cursor",
-      "h": "",
-      "tr": ""
-     },
-     {
       "t": "summary",
       "id": "",
       "n": "",
@@ -18090,12 +18082,12 @@
    "150:visibilitychange"
   ],
   "js/consent.js": [
-   "114:storage",
-   "192:click",
-   "218:sk",
-   "224:click",
-   "244:sk",
-   "252:domcontentloaded"
+   "116:storage",
+   "194:click",
+   "220:sk",
+   "226:click",
+   "246:sk",
+   "254:domcontentloaded"
   ],
   "js/cursor.js": [
    "47:mousemove",
@@ -18103,12 +18095,6 @@
    "85:mouseout",
    "98:mouseleave",
    "102:mouseenter"
-  ],
-  "js/haunted.js": [
-   "31:pagehide",
-   "32:sk",
-   "166:click",
-   "191:visibilitychange"
   ],
   "js/hover-preview.js": [
    "54:mousemove",

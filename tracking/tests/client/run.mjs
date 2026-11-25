@@ -198,46 +198,16 @@ for (const [mode, want] of [['ok', 'form_submit_success'], ['error', 'form_submi
   await t.ctx.close();
 }
 
-// ---------- ghost ----------
-console.log('ghost');
+// ---------- auto cursor removed ----------
+console.log('auto cursor removed');
 const allEv = posts => posts.flatMap(p => p.ev);
-for (const w of [1440, 1024]) {
-  const t = await mk({ viewport: { width: w, height: 800 } });
+{
+  const t = await mk({ viewport: { width: 1440, height: 800 } });
   await t.page.goto(BASE + '/index.html?haunt=fast', { waitUntil: 'load' });
-  await t.page.waitForFunction(() => window.sk && sk.v && window.__haunt, null, { timeout: 8000 });
-  await flush(t.page);
-  const y0 = await t.page.evaluate(() => scrollY);
-  await t.page.waitForFunction(() => window.__haunt.on, null, { timeout: 15000 });
-  await t.page.waitForTimeout(700);
-  const vis = await t.page.evaluate(() => { const g = document.querySelector('.sk-ghost'); return { on: g.classList.contains('on'), op: getComputedStyle(g).opacity, cap: document.querySelector('.haunt-cap').innerText, mag: getComputedStyle(document.querySelector('.mag-lead') || document.body).opacity, ghostFill: document.querySelector('.sk-ghost path').getAttribute('fill') }; });
-  ok(vis.on && +vis.op > 0.9 && /Auto cursor, not you/.test(vis.cap) && /Stop/.test(vis.cap), w + ': green AUTO cursor visible, caption with Stop');
-  ok(vis.mag === '0', w + ': visitor cursor hidden while it runs');
-  await t.page.screenshot({ path: path.join(SHOTS, 'ghost-' + w + '.png') });
-  await t.page.waitForFunction(() => !window.__haunt.on, null, { timeout: 60000 });
-  const y1 = await t.page.evaluate(() => scrollY);
-  ok(y0 === y1, w + ': scrollY unchanged by ghost (' + y0 + ' to ' + y1 + ')');
-  await flush(t.page);
-  const E = allEv(t.posts), hs = E.find(e => e.n === 'haunt_start'), he = E.find(e => e.n === 'haunt_end');
-  ok(!!hs && !!he && he.p.reason === 'done', w + ': haunt_start and haunt_end(done) sent');
-  const inside = E.filter(e => hs && he && e.t > hs.t && e.t < he.t && !/^(haunt_|consent_)/.test(e.n) && !/^(page_leave|web_vital|js_error|page_view)$/.test(e.n));
-  ok(inside.length === 0, w + ': zero non-haunt events between start and end (' + [...new Set(inside.map(e => e.n))].join(',') + ')');
-  ok(E.some(e => e.n === 'haunt_mode'), w + ': haunt_mode sent');
-  // takeover by real input
-  await t.page.evaluate(() => window.__haunt.start());
-  await t.page.waitForFunction(() => window.__haunt.on); await t.page.waitForTimeout(400);
-  await t.page.mouse.move(300, 300); await t.page.mouse.move(380, 340);
-  await t.page.waitForTimeout(400); await flush(t.page);
-  ok(await t.page.evaluate(() => !window.__haunt.on && !document.querySelector('.sk-ghost').classList.contains('on')), w + ': real mouse move hands control back');
-  const E2 = allEv(t.posts);
-  ok(E2.some(e => e.n === 'haunt_interrupted' && e.p.input === 'mousemove') && E2.some(e => e.n === 'haunt_end' && e.p.reason === 'interrupted'), w + ': haunt_interrupted and haunt_end(interrupted)');
-  // stop
-  await t.page.evaluate(() => window.__haunt.start());
-  await t.page.waitForFunction(() => window.__haunt.on);
-  await t.page.locator('.haunt-cap button').click({ force: true }); await t.page.waitForTimeout(400); await flush(t.page);
-  ok(allEv(t.posts).some(e => e.n === 'haunt_stop_click') && await t.page.evaluate(() => !__haunt.on), w + ': Stop ends it and logs haunt_stop_click');
-  await t.page.waitForTimeout(5000);
-  ok(await t.page.evaluate(() => !__haunt.on), w + ': stays off for the rest of the visit');
-  ok(!allEv(t.posts).some(e => e.n === 'ui_click' && /haunt|ghost/.test(e.p.track_id || '')), w + ': Stop click not counted as ui_click');
+  await t.page.waitForFunction(() => window.sk && sk.v, null, { timeout: 8000 });
+  await t.page.waitForTimeout(6000); await flush(t.page);
+  ok(await t.page.evaluate(() => !window.__haunt && !document.querySelector('.sk-ghost')) && !/haunted\.js/.test(await t.page.content()), 'no auto cursor script or element on the home page');
+  ok(allEv(t.posts).length > 0 && !allEv(t.posts).some(e => /^haunt_/.test(e.n)), 'an idle visitor produces no haunt events');
   await t.ctx.close();
 }
 // ---------- GTM loads only when consent is granted ----------

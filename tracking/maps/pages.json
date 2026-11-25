@@ -339,34 +339,6 @@
     "ignored": "custom cursor visual, no event; cursor_enabled is client wired"
    }
   ],
-  "js/haunted.js": [
-   {
-    "type": "pagehide",
-    "n": 1,
-    "events": [
-     "haunt_end"
-    ]
-   },
-   {
-    "type": "sk",
-    "n": 1,
-    "ignored": "sk:consent listener"
-   },
-   {
-    "type": "click",
-    "n": 1,
-    "events": [
-     "haunt_stop_click"
-    ]
-   },
-   {
-    "type": "visibilitychange",
-    "n": 1,
-    "events": [
-     "haunt_end"
-    ]
-   }
-  ],
   "js/hover-preview.js": [
    {
     "type": "mousemove",

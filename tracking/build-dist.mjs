@@ -20,6 +20,7 @@ const DENY_TOP = new Set([
   '.git', '.github', '.claude', '.wrangler', '.netlify', '.gstack', '.vscode', '.idea',
   'node_modules', 'dist', 'functions', 'migrations', 'workers', 'tools', 'tracking', 'tests',
   '_gtm', 'syndication', 'social-kit',
+  'ops', // served by functions/ops from the bundle, never as static files
   'package.json', 'package-lock.json', 'wrangler.toml', 'README.md', 'CLAUDE.md', 'CONTRIBUTING.md', 'DESIGN.md', '.gitignore',
 ]);
 const DENY_NAME = /^(\.DS_Store|\.dev\.vars.*|\.env.*|.*\.log|.*\.map|.*\.md|.*\.sqlite3?|.*\.pem|.*\.key|.*\.sh|Thumbs\.db)$/i;

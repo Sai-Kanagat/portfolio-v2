@@ -554,38 +554,23 @@ if (want('links')) {
   ok(bad.status === 302 && bad.headers.location === '/', 'an unknown slug goes home');
 }
 
-// ================================================================ ghost
+// ================================================================ auto cursor removed
 if (want('ghost')) {
-  group('ghost: the auto cursor produces only haunt rows');
-  for (const w of [1440, 1024]) {
-    const t = T('ghost-');
-    const c = await ctx({ region: 'US', stored: 'granted', test: t, viewport: { width: w, height: 900 } }); const p = await c.newPage();
-    await p.goto('/?haunt=fast', { waitUntil: 'load' }); await ready(p, 800);
-    const y0 = await p.evaluate(() => scrollY);
-    await p.waitForFunction(() => window.__haunt && window.__haunt.on, null, { timeout: 20000 }).catch(() => {});
-    ok(await p.evaluate(() => !!(window.__haunt && window.__haunt.on)), `${w}: the ghost starts`);
-    await p.waitForFunction(() => !window.__haunt.on, null, { timeout: 90000 }).catch(() => {});
-    await p.waitForTimeout(600); await flush(p, 700);
-    const y1 = await p.evaluate(() => scrollY);
-    const rows = ev('test = ?', t);
-    const hs = rows.find((r) => r.name === 'haunt_start'), he = rows.find((r) => r.name === 'haunt_end');
-    ok(!!hs && !!he, `${w}: haunt_start and haunt_end reach D1`, names(rows));
-    const inside = rows.filter((r) => hs && he && r.id > hs.id && r.id < he.id);
-    const alien = inside.filter((r) => !/^haunt_/.test(r.name));
-    ok(inside.length > 0 && alien.length === 0, `${w}: between start and end only haunt_* rows (${inside.length} rows)`, uniq(alien.map((r) => r.name)));
-    const forbidden = rows.filter((r) => /^(scroll_milestone|section_view|cursor_sample|cursor_idle|ui_hover|ui_click|tap|rage_click|dead_click|input_change|text_select|copy)$/.test(r.name) && hs && he && r.id > hs.id && r.id < he.id);
-    ok(forbidden.length === 0, `${w}: no scroll, section, hover, click or cursor events while the ghost runs`, uniq(forbidden.map((r) => r.name)));
-    ok(y0 === y1, `${w}: scroll position unchanged (${y0} to ${y1})`);
-    ok(srv.rows('SELECT COUNT(*) AS n FROM cursor_bins WHERE test = ?', t)[0].n === 0, `${w}: zero cursor_bins rows from the ghost`);
-    const ses = srv.rows('SELECT active_ms FROM sessions WHERE test = ?', t)[0];
-    ok(ses && ses.active_ms < 3000, `${w}: the ghost adds no active time (${ses && ses.active_ms} ms)`);
-    // positive control: the same page with a real mouse does produce cursor rows, so the zeros above are not a blind spot
-    for (let k = 0; k < 8; k++) { await p.mouse.move(200 + k * 90, 250 + (k % 3) * 70); await p.waitForTimeout(320); }
-    await p.goto('/about.html', { waitUntil: 'load' });
-    await until(() => srv.rows('SELECT COUNT(*) AS n FROM cursor_bins WHERE test = ?', t)[0].n > 0, 8000);
-    ok(srv.rows("SELECT COUNT(*) AS n FROM cursor_bins WHERE test = ? AND path = '/'", t)[0].n > 0, `${w}: positive control, a real mouse after the ghost ends produces cursor_bins rows (cursor_sample is folded into bins, never stored as events)`, { names: uniq(ev('test = ?', t).map((r) => r.name + '@' + r.path)), bins: srv.rows('SELECT path, kind, n FROM cursor_bins WHERE test = ?', t) });
-    await c.close();
-  }
+  group('ghost: the auto cursor is gone and an idle home visit stores no synthetic activity');
+  const t = T('ghost-');
+  const c = await ctx({ region: 'US', stored: 'granted', test: t, viewport: { width: 1440, height: 900 } }); const p = await c.newPage();
+  await p.goto('/?haunt=fast', { waitUntil: 'load' }); await ready(p, 800);
+  await p.waitForTimeout(8000); await flush(p, 700);
+  ok(await p.evaluate(() => !window.__haunt && !document.querySelector('.sk-ghost')), 'no auto cursor on the page');
+  const rows = ev('test = ?', t);
+  ok(rows.length > 0 && !rows.some((r) => /^haunt_/.test(r.name)), 'no haunt rows', names(rows));
+  ok(!rows.some((r) => /^(scroll_milestone|cursor_sample|ui_hover|ui_click|tap)$/.test(r.name)), 'no click, hover, scroll or cursor rows from an idle visit', names(rows));
+  ok(srv.rows('SELECT COUNT(*) AS n FROM cursor_bins WHERE test = ?', t)[0].n === 0, 'zero cursor_bins rows from an idle visit');
+  for (let k = 0; k < 8; k++) { await p.mouse.move(200 + k * 90, 250 + (k % 3) * 70); await p.waitForTimeout(320); }
+  await p.goto('/about.html', { waitUntil: 'load' });
+  await until(() => srv.rows('SELECT COUNT(*) AS n FROM cursor_bins WHERE test = ?', t)[0].n > 0, 8000);
+  ok(srv.rows("SELECT COUNT(*) AS n FROM cursor_bins WHERE test = ? AND path = '/'", t)[0].n > 0, 'positive control: a real mouse does produce cursor rows');
+  await c.close();
 }
 
 // ================================================================ privacy canaries
@@ -801,6 +786,7 @@ if (want('auth')) {
     const r2 = await p.goto('/ops/'); ok(r2.status() === 403, 'a browser opening /ops/ with no login gets 403');
     await c.close(); }
   const dist = path.join(ROOT, DIST_REL);
+  ok(!fs.existsSync(path.join(dist, 'ops')), 'no dashboard file exists as a static file, so a Functions outage or limit cannot expose it');
   const routes = JSON.parse(fs.readFileSync(path.join(dist, '_routes.json'), 'utf8'));
   ok(routes.include.includes('/*') && !routes.exclude.some((r) => /^\/ops/.test(r)), '_routes.json never excludes /ops from the Functions gate');
 }

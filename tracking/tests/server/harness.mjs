@@ -32,11 +32,8 @@ function freePort() {
 
 // Small fixture site so tests start fast. The real build is checked separately.
 function makeFixtureSite(dir) {
-  fs.mkdirSync(path.join(dir, 'ops'), { recursive: true });
   fs.writeFileSync(path.join(dir, 'index.html'), '<!doctype html><html lang="en"><head><title>fixture</title></head><body>home</body></html>');
   fs.writeFileSync(path.join(dir, 'work.html'), '<!doctype html><html lang="en"><head><title>work</title></head><body>work</body></html>');
-  fs.writeFileSync(path.join(dir, 'ops', 'index.html'), '<!doctype html><html><body>dashboard shell</body></html>');
-  fs.writeFileSync(path.join(dir, 'ops', 'app.js'), 'console.log("ops");');
   fs.writeFileSync(path.join(dir, 'style.css'), 'body{}');
   const real404 = path.join(ROOT, '404.html');
   if (fs.existsSync(real404)) fs.copyFileSync(real404, path.join(dir, '404.html'));
