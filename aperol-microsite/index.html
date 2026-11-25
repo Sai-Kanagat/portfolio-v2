@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-page-type="aperol">
 <head>
 <!-- Consent Mode v2 default — denied inside EEA/UK/Switzerland (GDPR), granted elsewhere -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
@@ -541,39 +541,39 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MRGXD7ZC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-<nav>
+<nav data-zone="nav">
   <div class="brand">Aperol · The Golden Hour</div>
   <div class="links">
-    <a href="#manifesto">Manifesto</a>
-    <a href="#film">Film</a>
-    <a href="#hour-india">The Hour</a>
-    <a href="#terraces">Terraces</a>
-    <a href="#report">Report</a>
+    <a href="#manifesto" data-track="nav.manifesto">Manifesto</a>
+    <a href="#film" data-track="nav.film">Film</a>
+    <a href="#hour-india" data-track="nav.the-hour">The Hour</a>
+    <a href="#terraces" data-track="nav.terraces">Terraces</a>
+    <a href="#report" data-track="nav.report">Report</a>
   </div>
 </nav>
 
 <!-- HERO -->
-<section id="hero">
+<section id="hero" data-section="hero" data-zone="hero">
   <div class="container">
     <div class="hero-city" id="hero-city">MUMBAI</div>
     <div class="hero-prefix">The hour begins in</div>
     <div id="countdown" class="tabular">—</div>
     <div class="hero-quote">Pour. Sit. Look out.</div>
     <div class="city-picker" id="city-picker">
-      <span data-city="mumbai" data-lat="19.076" data-lng="72.8777" class="active">MUMBAI</span>
+      <span data-city="mumbai" data-lat="19.076" data-lng="72.8777" class="active" data-track="hero.city-mumbai">MUMBAI</span>
       <span class="sep">·</span>
-      <span data-city="bangalore" data-lat="12.9716" data-lng="77.5946">BANGALORE</span>
+      <span data-city="bangalore" data-lat="12.9716" data-lng="77.5946" data-track="hero.city-bangalore">BANGALORE</span>
       <span class="sep">·</span>
-      <span data-city="delhi" data-lat="28.6139" data-lng="77.209">DELHI</span>
+      <span data-city="delhi" data-lat="28.6139" data-lng="77.209" data-track="hero.city-delhi">DELHI</span>
       <span class="sep">·</span>
-      <span data-city="goa" data-lat="15.2993" data-lng="74.124">GOA</span>
+      <span data-city="goa" data-lat="15.2993" data-lng="74.124" data-track="hero.city-goa">GOA</span>
     </div>
   </div>
   <div class="scroll-prompt">SCROLL</div>
 </section>
 
 <!-- MANIFESTO -->
-<section id="manifesto">
+<section id="manifesto" data-section="manifesto" data-zone="manifesto">
   <div class="container">
     <div class="manifesto-line">Between the day and the night,</div>
     <div class="manifesto-line">there is an hour with no name.</div>
@@ -594,7 +594,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 </section>
 
 <!-- THE FILM -->
-<section id="film">
+<section id="film" data-section="film" data-zone="film">
   <div class="container">
     <div class="section-label reveal">THE FILM</div>
     <div class="section-title reveal">An hour, in four cities.</div>
@@ -607,7 +607,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 </section>
 
 <!-- HOUR IN INDIA -->
-<section id="hour-india">
+<section id="hour-india" data-section="hour-india" data-zone="hour-india">
   <div class="container">
     <div class="section-label reveal">THE HOUR, IN INDIA</div>
     <div class="section-title reveal">Look at the light.<br>It's the same color we put in the bottle.</div>
@@ -650,7 +650,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 </section>
 
 <!-- TERRACES -->
-<section id="terraces">
+<section id="terraces" data-section="terraces" data-zone="terraces">
   <div class="container">
     <div class="section-label reveal" style="color: var(--cream)">THE GOLDEN HOUR TERRACES</div>
     <div class="section-title reveal" style="color: var(--cream)">Four rooftops. Four cities.<br>Open only between 6 and 9.</div>
@@ -706,7 +706,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 </section>
 
 <!-- SUNSET REPORT -->
-<section id="report">
+<section id="report" data-section="report" data-zone="report">
   <div class="container">
     <div class="section-label reveal">THE SUNSET REPORT</div>
     <div class="section-title reveal">Every day. Four cities.<br>The minute the hour begins.</div>
@@ -729,25 +729,25 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
         <div class="time tabular">—</div>
       </div>
     </div>
-    <div class="follow-link reveal">Follow the report → <a href="https://instagram.com" target="_blank" rel="noopener">@aperol_thegoldenhour</a></div>
+    <div class="follow-link reveal">Follow the report → <a href="https://instagram.com" target="_blank" rel="noopener" data-track="report.instagram">@aperol_thegoldenhour</a></div>
   </div>
 </section>
 
 <!-- EMAIL -->
-<section id="email-cap">
+<section id="email-cap" data-section="email-cap" data-zone="email-cap">
   <div class="container">
     <div class="section-title" style="margin-bottom: 8px;">Get the Sunset Report.</div>
     <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;opacity:0.85;">One email a week. Just the time.</div>
-    <form class="email-form" id="email-form">
-      <input type="email" required placeholder="your email">
-      <button type="submit">→</button>
+    <form class="email-form" id="email-form" data-form="aperol_mock" data-zone="aperol-mock">
+      <input type="email" required placeholder="your email" data-track="aperol-mock.email">
+      <button type="submit" data-track="aperol-mock.button">→</button>
     </form>
     <div id="email-status"></div>
   </div>
 </section>
 
 <!-- CREDITS -->
-<section id="credits">
+<section id="credits" data-section="credits" data-zone="credits">
   <div class="brand-end">Aperol. The Golden Hour.</div>
   <div class="credit-block">
     A speculative campaign by Sai Kanagat<br>
@@ -768,7 +768,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     This work is speculative. It is not affiliated with, endorsed by, or commissioned by Campari Group or Aperol. All trademarks belong to their respective owners. © Sai Kanagat, 2026.
   </div>
   <div class="credit-contact">
-    <a href="mailto:saikanagat1117@gmail.com">saikanagat1117@gmail.com</a>
+    <a href="mailto:saikanagat1117@gmail.com" data-track="credits.email">saikanagat1117@gmail.com</a>
   </div>
 </section>
 
@@ -903,7 +903,8 @@ window.addEventListener('scroll', () => {
 });
 </script>
 
-<script src="/js/consent.js" defer></script>
-<script src="/js/analytics.js" defer></script>
+<script>window.SK_CLARITY_ID='zir45wg6mm';</script>
+<script src="/js/consent.js?v=7f703b6c" defer></script>
+<script src="/js/analytics.js?v=1964af25" defer></script>
 </body>
 </html>

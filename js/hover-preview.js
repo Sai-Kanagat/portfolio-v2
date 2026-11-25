@@ -59,9 +59,35 @@
   // Which images get hover preview
   var TARGETS = '.v3-gallery-frame img, .panel-gallery img, .work-grid .work-card img, .full-grid .work-card img, .work-card .card-img, .gallery-grid img, .gallery-masonry img, .we-preview img';
 
+  // Tracking: project_preview with the project id only (never alt text or the image path).
+  // The id comes from the closest [data-project], or from the case study panel that is open.
+  var previews = 0;
+  function projectOf(img) {
+    var el = img.closest && img.closest('[data-project]');
+    var id = el ? el.getAttribute('data-project') : (typeof openId !== 'undefined' && openId ? openId : '');
+    if (!id) {  // home page cards: the project is in the link, either its #hash or its page name
+      var card = img.closest && img.closest('.work-card[href]');
+      var h = card ? String(card.getAttribute('href') || '') : '';
+      var m = /#([a-z0-9_-]+)$/i.exec(h) || /([a-z0-9_-]+?)(?:\.html)?\/?$/i.exec(h.split('#')[0].split('?')[0]);
+      id = m ? m[1] : '';
+    }
+    return /^[a-z0-9_-]{1,40}$/i.test(id || '') ? id : '';
+  }
+  function track(img) {
+    try {
+      if (previews >= 60) return;
+      var id = projectOf(img);
+      if (!id) return;
+      previews++;
+      var p = { project_id: id };
+      window.sk ? sk.track('project_preview', p) : (window.skq = window.skq || []).push(['track', 'project_preview', p]);
+    } catch (e) {}
+  }
+
   function showFor(img) {
     var src = img.currentSrc || img.src;
     if (!src) return;
+    if (current !== img) track(img);
     current = img;
     pImg.src = src;
     pImg.alt = img.alt || '';

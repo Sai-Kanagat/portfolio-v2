@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-page-type="gallery">
 <head>
   <!-- Consent Mode v2 default — denied inside EEA/UK/Switzerland (GDPR), granted elsewhere -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
@@ -72,39 +72,39 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MRGXD7ZC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
-<a href="#main" class="skip-link">Skip to content</a>
+<a href="#main" class="skip-link" data-track="page.skip-to-content">Skip to content</a>
 
 <!-- NAV -->
-<nav class="nav">
-  <a href="index.html" class="nav-logo">SK<span>.</span></a>
+<nav class="nav" data-zone="nav">
+  <a href="index.html" class="nav-logo" data-track="nav.home">SK<span>.</span></a>
   <div class="nav-links" id="navLinks">
-    <a href="work.html" data-en="Work" data-it="Lavori">Work</a>
-    <a href="process.html" data-en="Process" data-it="Processo">Process</a>
-    <a href="gallery.html" class="active" data-en="Gallery" data-it="Galleria">Gallery</a>
-    <a href="blog.html" data-en="Blog" data-it="Blog">Blog</a>
-    <a href="about.html" data-en="About" data-it="Chi Sono">About</a>
-    <a href="demos.html" data-en="Demos" data-it="Demo">Demos</a>
-    <a href="contact.html" data-en="Contact" data-it="Contatti">Contact</a>
-    <a href="brand-identity.html" class="nav-score-btn" data-en="View Brandbook" data-it="Vedi Brandbook">View Brandbook</a>
+    <a href="work.html" data-en="Work" data-it="Lavori" data-track="nav.work">Work</a>
+    <a href="process.html" data-en="Process" data-it="Processo" data-track="nav.process">Process</a>
+    <a href="gallery.html" class="active" data-en="Gallery" data-it="Galleria" data-track="nav.gallery">Gallery</a>
+    <a href="blog.html" data-en="Blog" data-it="Blog" data-track="nav.blog">Blog</a>
+    <a href="about.html" data-en="About" data-it="Chi Sono" data-track="nav.about">About</a>
+    <a href="demos.html" data-en="Demos" data-it="Demo" data-track="nav.demos">Demos</a>
+    <a href="contact.html" data-en="Contact" data-it="Contatti" data-track="nav.contact">Contact</a>
+    <a href="brand-identity.html" class="nav-score-btn" data-en="View Brandbook" data-it="Vedi Brandbook" data-track="nav.brand-identity">View Brandbook</a>
   </div>
-  <div class="lang-toggle" aria-label="Language"><button type="button" data-l="en" class="is-active">EN</button><span>/</span><button type="button" data-l="it">IT</button></div>
+  <div class="lang-toggle" aria-label="Language"><button type="button" data-l="en" class="is-active" data-track="nav.en">EN</button><span>/</span><button type="button" data-l="it" data-track="nav.it">IT</button></div>
   <div class="nav-tag">Available — EU &amp; Remote</div>
-  <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu" data-track="nav.menu">
     <span></span><span></span><span></span>
   </button>
 </nav>
 
 <!-- PROJECT PANEL (reused from work.html) -->
 <div class="panel-backdrop" id="backdrop"></div>
-<aside class="project-panel" id="projectPanel" role="dialog" aria-modal="true" aria-label="Project details">
+<aside class="project-panel" id="projectPanel" role="dialog" aria-modal="true" aria-label="Project details" data-zone="panel">
   <div class="panel-close">
-    <button class="panel-close-btn" id="panelClose">
+    <button class="panel-close-btn" id="panelClose" data-track="panel.close">
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 1l12 12M13 1L1 13"/></svg>
       Close
     </button>
     <div style="display:flex; gap:8px;">
-      <button class="btn btn-outline" id="prevProject" style="padding:8px 14px;font-size:0.6rem;">← Prev</button>
-      <button class="btn btn-outline" id="nextProject" style="padding:8px 14px;font-size:0.6rem;">Next →</button>
+      <button class="btn btn-outline" id="prevProject" style="padding:8px 14px;font-size:0.6rem;" data-track="panel.prev">← Prev</button>
+      <button class="btn btn-outline" id="nextProject" style="padding:8px 14px;font-size:0.6rem;" data-track="panel.next">Next →</button>
     </div>
   </div>
   <div class="panel-content" id="panelContent"></div>
@@ -124,39 +124,39 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 
   <!-- FILTER -->
   <div class="gallery-filter-bar">
-    <button class="filter-pill active" data-filter="all">All</button>
-    <button class="filter-pill" data-filter="interiors"><span data-en="Interiors" data-it="Interni">Interiors</span></button>
-    <button class="filter-pill" data-filter="sculpture"><span data-en="Sculpture" data-it="Scultura">Sculpture</span></button>
-    <button class="filter-pill" data-filter="product">Product</button>
-    <button class="filter-pill" data-filter="marketing">Marketing</button>
+    <button class="filter-pill active" data-filter="all" data-track="page.filter-all">All</button>
+    <button class="filter-pill" data-filter="interiors" data-track="page.filter-interiors"><span data-en="Interiors" data-it="Interni">Interiors</span></button>
+    <button class="filter-pill" data-filter="sculpture" data-track="page.filter-sculpture"><span data-en="Sculpture" data-it="Scultura">Sculpture</span></button>
+    <button class="filter-pill" data-filter="product" data-track="page.filter-product">Product</button>
+    <button class="filter-pill" data-filter="marketing" data-track="page.filter-marketing">Marketing</button>
   </div>
 
   <!-- GALLERY GRID -->
   <div class="gallery-grid" id="galleryGrid">
 
     <!-- Carlos Mota — Interiors -->
-    <div class="gallery-item tall" data-category="interiors" data-project="casamota">
+    <div class="gallery-item tall" data-category="interiors" data-project="casamota" data-track="page.project-casamota">
       <img src="assets/images/CASAMOTA/img_p4_1.jpeg" alt="Carlos Mota Interiors" loading="lazy" />
       <div class="gallery-item-overlay">
         <div class="gallery-item-title">Carlos Mota — Interiors</div>
         <div class="gallery-item-cat">Interior Design · 2023</div>
       </div>
     </div>
-    <div class="gallery-item" data-category="interiors" data-project="casamota">
+    <div class="gallery-item" data-category="interiors" data-project="casamota" data-track="page.project-casamota-2">
       <img src="assets/images/CASAMOTA/img_p6_1.jpeg" alt="Carlos Mota Detail" loading="lazy" />
       <div class="gallery-item-overlay">
         <div class="gallery-item-title">Carlos Mota — Verde Collection</div>
         <div class="gallery-item-cat">Interior Design · 2023</div>
       </div>
     </div>
-    <div class="gallery-item" data-category="interiors" data-project="casamota">
+    <div class="gallery-item" data-category="interiors" data-project="casamota" data-track="page.project-casamota-3">
       <img src="assets/images/CASAMOTA/img_p7_1.jpeg" alt="Carlos Mota Textile" loading="lazy" />
       <div class="gallery-item-overlay">
         <div class="gallery-item-title">Carlos Mota — Textiles</div>
         <div class="gallery-item-cat">Interior Design · 2023</div>
       </div>
     </div>
-    <div class="gallery-item" data-category="interiors" data-project="casamota">
+    <div class="gallery-item" data-category="interiors" data-project="casamota" data-track="page.project-casamota-4">
       <img src="assets/images/CASAMOTA/img_p8_1.jpeg" alt="Carlos Mota Space" loading="lazy" />
       <div class="gallery-item-overlay">
         <div class="gallery-item-title">Carlos Mota — Spatial Detail</div>
@@ -165,28 +165,28 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     </div>
 
     <!-- Steel Flower — Sculpture -->
-    <div class="gallery-item wide" data-category="sculpture" data-project="flower">
+    <div class="gallery-item wide" data-category="sculpture" data-project="flower" data-track="page.project-flower">
       <img src="assets/images/FLOWER/img_p14_1.jpeg" alt="Steel Flower Sculpture" loading="lazy" />
       <div class="gallery-item-overlay">
         <div class="gallery-item-title">Steel Flower — Metalwork</div>
         <div class="gallery-item-cat">Sculpture · 2021</div>
       </div>
     </div>
-    <div class="gallery-item" data-category="sculpture" data-project="flower">
+    <div class="gallery-item" data-category="sculpture" data-project="flower" data-track="page.project-flower-2">
       <img src="assets/images/FLOWER/img_p10_1.jpeg" alt="Steel Flower Detail" loading="lazy" />
       <div class="gallery-item-overlay">
         <div class="gallery-item-title">Steel Flower — Petal Detail</div>
         <div class="gallery-item-cat">Sculpture · 2021</div>
       </div>
     </div>
-    <div class="gallery-item" data-category="sculpture" data-project="flower">
+    <div class="gallery-item" data-category="sculpture" data-project="flower" data-track="page.project-flower-3">
       <img src="assets/images/FLOWER/img_p11_1.jpeg" alt="Steel Flower Process" loading="lazy" />
       <div class="gallery-item-overlay">
         <div class="gallery-item-title">Steel Flower — Fabrication</div>
         <div class="gallery-item-cat">Sculpture · 2021</div>
       </div>
     </div>
-    <div class="gallery-item" data-category="sculpture" data-project="flower">
+    <div class="gallery-item" data-category="sculpture" data-project="flower" data-track="page.project-flower-4">
       <img src="assets/images/FLOWER/img_p12_1.jpeg" alt="Steel Flower Install" loading="lazy" />
       <div class="gallery-item-overlay">
         <div class="gallery-item-title">Steel Flower — Installed</div>
@@ -195,21 +195,21 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     </div>
 
     <!-- Arte Povera — Installation -->
-    <div class="gallery-item tall" data-category="sculpture" data-project="povera">
+    <div class="gallery-item tall" data-category="sculpture" data-project="povera" data-track="page.project-povera">
       <img src="assets/images/POVERA/img_p15_1.jpeg" alt="Arte Povera Installation" loading="lazy" />
       <div class="gallery-item-overlay">
         <div class="gallery-item-title">Arte Povera — Installation</div>
         <div class="gallery-item-cat">Experimental Design · 2021</div>
       </div>
     </div>
-    <div class="gallery-item" data-category="sculpture" data-project="povera">
+    <div class="gallery-item" data-category="sculpture" data-project="povera" data-track="page.project-povera-2">
       <img src="assets/images/POVERA/img_p22_1.jpeg" alt="Arte Povera Detail" loading="lazy" />
       <div class="gallery-item-overlay">
         <div class="gallery-item-title">Arte Povera — Wire Form</div>
         <div class="gallery-item-cat">Experimental Design · 2021</div>
       </div>
     </div>
-    <div class="gallery-item" data-category="sculpture" data-project="povera">
+    <div class="gallery-item" data-category="sculpture" data-project="povera" data-track="page.project-povera-3">
       <img src="assets/images/POVERA/img_p23_1.jpeg" alt="Arte Povera Material" loading="lazy" />
       <div class="gallery-item-overlay">
         <div class="gallery-item-title">Arte Povera — Material Study</div>
@@ -218,28 +218,28 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     </div>
 
     <!-- T-Desk — Product -->
-    <div class="gallery-item wide" data-category="product" data-project="desk">
+    <div class="gallery-item wide" data-category="product" data-project="desk" data-track="page.project-desk">
       <img src="assets/images/TABLE/img_p16_1.jpeg" alt="T-Desk Workstation" loading="lazy" />
       <div class="gallery-item-overlay">
         <div class="gallery-item-title">T-Desk — Adaptive Workstation</div>
         <div class="gallery-item-cat">Product Design · 2022</div>
       </div>
     </div>
-    <div class="gallery-item" data-category="product" data-project="desk">
+    <div class="gallery-item" data-category="product" data-project="desk" data-track="page.project-desk-2">
       <img src="assets/images/TABLE/img_p17_1.jpeg" alt="T-Desk Detail" loading="lazy" />
       <div class="gallery-item-overlay">
         <div class="gallery-item-title">T-Desk — Tilt Mechanism</div>
         <div class="gallery-item-cat">Product Design · 2022</div>
       </div>
     </div>
-    <div class="gallery-item" data-category="product" data-project="desk">
+    <div class="gallery-item" data-category="product" data-project="desk" data-track="page.project-desk-3">
       <img src="assets/images/TABLE/img_p18_1.jpeg" alt="T-Desk Render" loading="lazy" />
       <div class="gallery-item-overlay">
         <div class="gallery-item-title">T-Desk — Render</div>
         <div class="gallery-item-cat">Product Design · 2022</div>
       </div>
     </div>
-    <div class="gallery-item" data-category="product" data-project="desk">
+    <div class="gallery-item" data-category="product" data-project="desk" data-track="page.project-desk-4">
       <img src="assets/images/TABLE/img_p19_1.jpeg" alt="T-Desk Assembly" loading="lazy" />
       <div class="gallery-item-overlay">
         <div class="gallery-item-title">T-Desk — Flat-Pack</div>
@@ -248,28 +248,28 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     </div>
 
     <!-- Juicy Chemistry — Marketing -->
-    <div class="gallery-item tall" data-category="marketing" data-project="juicy">
+    <div class="gallery-item tall" data-category="marketing" data-project="juicy" data-track="page.project-juicy">
       <img src="assets/images/VM/img_p20_1.jpeg" alt="Juicy Chemistry VM" loading="lazy" />
       <div class="gallery-item-overlay">
         <div class="gallery-item-title">Juicy Chemistry — Brand Activation</div>
         <div class="gallery-item-cat">Visual Merchandising · 2023</div>
       </div>
     </div>
-    <div class="gallery-item" data-category="marketing" data-project="juicy">
+    <div class="gallery-item" data-category="marketing" data-project="juicy" data-track="page.project-juicy-2">
       <img src="assets/images/VM/img_p21_1.jpeg" alt="Juicy Chemistry Display" loading="lazy" />
       <div class="gallery-item-overlay">
         <div class="gallery-item-title">Juicy Chemistry — Display</div>
         <div class="gallery-item-cat">Visual Merchandising · 2023</div>
       </div>
     </div>
-    <div class="gallery-item" data-category="marketing" data-project="juicy">
+    <div class="gallery-item" data-category="marketing" data-project="juicy" data-track="page.project-juicy-3">
       <img src="assets/images/VM/img_p104_1.jpeg" alt="Juicy Chemistry Detail" loading="lazy" />
       <div class="gallery-item-overlay">
         <div class="gallery-item-title">Juicy Chemistry — Product Sightline</div>
         <div class="gallery-item-cat">Visual Merchandising · 2023</div>
       </div>
     </div>
-    <div class="gallery-item" data-category="marketing" data-project="juicy">
+    <div class="gallery-item" data-category="marketing" data-project="juicy" data-track="page.project-juicy-4">
       <img src="assets/images/VM/img_p105_1.jpeg" alt="Juicy Chemistry Pop-up" loading="lazy" />
       <div class="gallery-item-overlay">
         <div class="gallery-item-title">Juicy Chemistry — Pop-up</div>
@@ -280,13 +280,13 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   </div>
 
   <!-- FOOTER -->
-  <footer class="footer">
+  <footer class="footer" data-zone="footer">
     <div class="footer-logo">SK<span>.</span></div>
     <p class="footer-copy">© 2026 Sai Kanagat. All rights reserved.</p>
     <div class="footer-socials">
-      <a href="https://linkedin.com/in/sai-kanagat" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://github.com/Sai-Kanagat" target="_blank" rel="noopener">GitHub</a>
-      <a href="mailto:saikanagat1117@gmail.com">Email</a>
+      <a href="https://linkedin.com/in/sai-kanagat" target="_blank" rel="noopener" data-track="footer.linkedin">LinkedIn</a>
+      <a href="https://github.com/Sai-Kanagat" target="_blank" rel="noopener" data-track="footer.github">GitHub</a>
+      <a href="mailto:saikanagat1117@gmail.com" data-track="footer.email">Email</a>
     </div>
   </footer>
 
@@ -372,7 +372,8 @@ document.querySelectorAll('.filter-pill').forEach(pill => {
 <script src="js/lightbox.js"></script>
 <script src="js/hover-preview.js"></script>
 <script src="js/interactions.js"></script>
-<script src="js/consent.js" defer></script>
-<script src="js/analytics.js" defer></script>
+<script>window.SK_CLARITY_ID='zir45wg6mm';</script>
+<script src="js/consent.js?v=7f703b6c" defer></script>
+<script src="js/analytics.js?v=1964af25" defer></script>
 </body>
 </html>

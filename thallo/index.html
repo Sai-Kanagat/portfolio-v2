@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-page-type="thallo">
 <head>
 <!-- Consent Mode v2 default: denied inside EEA/UK/Switzerland (GDPR), granted elsewhere -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
@@ -63,15 +63,15 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MRGXD7ZC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
-<a class="skip" href="#main">Skip to content</a>
+<a class="skip" href="#main" data-track="page.skip-to-content">Skip to content</a>
 
-<header class="bar">
+<header class="bar" data-zone="nav">
   <div class="page">
-    <a class="back" href="/">&larr; saikanagat.com</a>
-    <nav aria-label="Thallo">
-      <a class="hide-sm" href="#capabilities">What it does</a>
-      <a class="hide-sm" href="#trust">Trust</a>
-      <a class="btn btn-accent btn-sm" href="#join" id="navJoin">Join the waitlist</a>
+    <a class="back" href="/" data-track="nav.home">&larr; saikanagat.com</a>
+    <nav aria-label="Thallo" data-zone="nav">
+      <a class="hide-sm" href="#capabilities" data-track="nav.what-it-does">What it does</a>
+      <a class="hide-sm" href="#trust" data-track="nav.trust">Trust</a>
+      <a class="btn btn-accent btn-sm" href="#join" id="navJoin" data-track="nav.join-the-waitlist">Join the waitlist</a>
     </nav>
   </div>
 </header>
@@ -79,7 +79,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 <main id="main">
 <div class="page stage">
 <div class="stage-main">
-<section class="hero">
+<section class="hero" data-section="hero" data-zone="hero">
     <h1><svg viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="6" fill="#0E1116"/><path class="leaf" d="M18 82 C18 44 44 18 82 18 C82 56 56 82 18 82 Z" fill="#3D5CF0"/><line x1="18" y1="82" x2="82" y2="18" stroke="#0E1116" stroke-width="2.5"/></svg><span>Thallo</span><em class="tagline">Grown, not <i>generated.</i></em></h1>
     <p class="lede">An AI system that runs a brand&rsquo;s marketing end to end, and keeps the receipts.</p>
     <div class="wl wl-hero" id="join">
@@ -87,11 +87,11 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
         <input type="hidden" name="_subject" value="Thallo waitlist signup" />
         <input type="hidden" name="source" value="saikanagat.com/thallo hero" />
         <input type="hidden" name="_next" value="https://saikanagat.com/thallo?sent=1" />
-        <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" data-track="hero.gotcha" />
         <label class="sr" for="heroEmail">Email</label>
         <div class="pill">
-          <input id="heroEmail" type="email" name="email" placeholder="Your work email" autocomplete="email" required />
-          <button class="btn btn-accent" type="submit">Join the waitlist</button>
+          <input id="heroEmail" type="email" name="email" placeholder="Your work email" autocomplete="email" required data-track="hero.email" />
+          <button class="btn btn-accent" type="submit" data-track="hero.join-the-waitlist">Join the waitlist</button>
         </div>
         <p class="msg" role="alert" hidden></p>
       </form>
@@ -99,7 +99,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     </div>
 </section>
 
-<section class="sec" id="capabilities">
+<section class="sec" id="capabilities" data-zone="capabilities">
     <h2>Four jobs, <em>one</em> system.</h2>
     <ol class="caps">
       <li><span class="n">01</span><h3>It writes for every channel</h3><p>One brief becomes the post, the email, the ad copy and the caption, each written for its channel and in the brand&rsquo;s own voice.</p></li>
@@ -128,7 +128,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 </aside>
 </div>
 
-<section class="band cobalt" id="waitlist">
+<section class="band cobalt" id="waitlist" data-zone="waitlist">
   <div class="page wrap">
     <div>
       <h2>Join the <em>waitlist</em>.</h2>
@@ -139,11 +139,11 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
         <input type="hidden" name="_subject" value="Thallo waitlist signup" />
         <input type="hidden" name="source" value="saikanagat.com/thallo" />
         <input type="hidden" name="_next" value="https://saikanagat.com/thallo?sent=1" />
-        <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" data-track="waitlist.gotcha" />
         <label class="sr" for="wlEmail">Email</label>
         <div class="line">
-          <input id="wlEmail" type="email" name="email" placeholder="you@studio.com" autocomplete="email" required />
-          <button class="btn btn-lg" type="submit">Join the waitlist</button>
+          <input id="wlEmail" type="email" name="email" placeholder="you@studio.com" autocomplete="email" required data-track="waitlist.email" />
+          <button class="btn btn-lg" type="submit" data-track="waitlist.join-the-waitlist">Join the waitlist</button>
         </div>
         <p class="msg" role="alert" hidden></p>
       </form>
@@ -152,7 +152,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   </div>
 </section>
 
-<section class="band ink" id="trust">
+<section class="band ink" id="trust" data-zone="trust">
   <div class="page">
     <h2>Every claim has a <em>source</em>. Every post has a <em>person</em>.</h2>
     <div class="trust">
@@ -168,7 +168,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   </div>
 </section>
 
-<section class="film-wrap" aria-label="Launch film">
+<section class="film-wrap" aria-label="Launch film" data-section="film-wrap" data-zone="film-wrap">
   <div class="page">
     <div class="film" id="film">
       <video controls playsinline preload="metadata" poster="/thallo/assets/thallo_poster.jpg" aria-label="Thallo launch film" width="1920" height="1080">
@@ -180,20 +180,21 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 
 </main>
 
-<footer>
+<footer data-zone="footer">
   <div class="page foot">
     <div>
       <img src="/thallo/assets/thallo-mark.svg" alt="" width="32" height="32">
-      <p>Thallo. An AI system for running a brand&rsquo;s marketing, built by <a href="/">Sai Kanagat</a> in Bologna.</p>
+      <p>Thallo. An AI system for running a brand&rsquo;s marketing, built by <a href="/" data-track="footer.home">Sai Kanagat</a> in Bologna.</p>
     </div>
     <div><h5>Status</h5><p>Early build.</p><p>Waitlist open.</p></div>
-    <div><h5>Contact</h5><p><a href="/contact">saikanagat.com/contact</a></p></div>
+    <div><h5>Contact</h5><p><a href="/contact" data-track="footer.contact">saikanagat.com/contact</a></p></div>
     <div class="colophon"><span>Set in Bricolage Grotesque, Newsreader, IBM Plex Mono</span><span>Sai Kanagat, Bologna, 2026</span></div>
   </div>
 </footer>
 
 <script src="/thallo/thallo.js" defer></script>
-<script src="/js/consent.js" defer></script>
-<script src="/js/analytics.js" defer></script>
+<script>window.SK_CLARITY_ID='zir45wg6mm';</script>
+<script src="/js/consent.js?v=7f703b6c" defer></script>
+<script src="/js/analytics.js?v=1964af25" defer></script>
 </body>
 </html>

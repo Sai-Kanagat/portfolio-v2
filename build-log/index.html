@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-page-type="build-log">
 <head>
 <!-- Consent Mode v2 default: denied inside EEA/UK/Switzerland (GDPR), granted elsewhere -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
@@ -115,13 +115,13 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MRGXD7ZC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-<header class="top">
+<header class="top" data-zone="nav">
   <div class="wrap">
-    <a class="logo" href="/">SK<span>.</span></a>
+    <a class="logo" href="/" data-track="nav.home">SK<span>.</span></a>
     <span class="mono">Build log</span>
-    <nav>
-      <a href="/work.html">Work</a>
-      <a href="/contact.html">Contact</a>
+    <nav data-zone="nav">
+      <a href="/work.html" data-track="nav.work">Work</a>
+      <a href="/contact.html" data-track="nav.contact">Contact</a>
     </nav>
   </div>
 </header>
@@ -138,7 +138,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     </div>
   </div>
 
-  <section id="status">
+  <section id="status" data-zone="status">
     <div class="wrap">
       <div class="mono">Where it stands</div>
       <h2>Current status</h2>
@@ -154,7 +154,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     </div>
   </section>
 
-  <section id="plan">
+  <section id="plan" data-zone="plan">
     <div class="wrap">
       <div class="mono">Course of action</div>
       <h2>The plan: 8 waves</h2>
@@ -163,7 +163,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     </div>
   </section>
 
-  <section id="changelog">
+  <section id="changelog" data-zone="changelog">
     <div class="wrap">
       <div class="mono">Dated, newest first</div>
       <h2>Changelog</h2>
@@ -173,8 +173,8 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   </section>
 </main>
 
-<footer>
-  <div class="wrap">Sai Kanagat · <a href="/work.html">Work</a> · <a href="/contact.html">Contact</a></div>
+<footer data-zone="footer">
+  <div class="wrap">Sai Kanagat · <a href="/work.html" data-track="footer.work">Work</a> · <a href="/contact.html" data-track="footer.contact">Contact</a></div>
 </footer>
 
 <script>
@@ -224,10 +224,12 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   }
 
   fetch("/build-log/status.json",{cache:"no-cache"}).then(function(r){if(!r.ok)throw new Error(r.status);return r.json();}).then(render)
-    .catch(function(){$("log").innerHTML='<p class="sub err">The log could not load. Refresh to try again.</p>';});
+    .catch(function(){$("log").innerHTML='<p class="sub err">The log could not load. Refresh to try again.</p>';
+      try{var a=['pg.build-log','status_fetch_failed'];window.sk?sk.demo.apply(sk,a):(window.skq=window.skq||[]).push(['demo'].concat(a));}catch(e){}});
 })();
 </script>
-<script src="/js/consent.js" defer></script>
-<script src="/js/analytics.js" defer></script>
+<script>window.SK_CLARITY_ID='zir45wg6mm';</script>
+<script src="/js/consent.js?v=7f703b6c" defer></script>
+<script src="/js/analytics.js?v=1964af25" defer></script>
 </body>
 </html>

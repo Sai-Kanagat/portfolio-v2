@@ -33,6 +33,13 @@
     return clamp((value - a) / (b - a), 0, 1);
   }
 
+  // Tracking: shutter progress at 25, 50, 75 and 100 percent, each once per visit (at most four calls).
+  function T(){ try { var a = [].slice.call(arguments); window.sk ? sk.demo.apply(sk, a) : (window.skq = window.skq || []).push(['demo'].concat(a)); } catch (e) {} }
+  var sent = {};
+  function milestone(pct){
+    [25, 50, 75, 100].forEach(function(m){ if (pct >= m && !sent[m]) { sent[m] = 1; T('pg.home', 'shutter_progress', { value: m }); } });
+  }
+
   var ticking = false;
   function update(){
     var rect = experience.getBoundingClientRect();
@@ -50,6 +57,7 @@
     // Shutter slat rotations (0..1 maps to 0..180 with stagger)
     var shutterStart = 0.18, shutterEnd = 0.78;
     var shutterT = mapRange(progress, shutterStart, shutterEnd);
+    milestone(Math.floor(shutterT * 100));
     for (var i = 0; i < louvers.length; i++) {
       var stagger = i * 0.07;
       var local = clamp((shutterT - stagger) / (1 - stagger * 0.5), 0, 1);

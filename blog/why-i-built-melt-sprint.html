@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-page-type="post">
 <head>
   <!-- Consent Mode v2 default: denied inside EEA/UK/Switzerland (GDPR), granted elsewhere -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
@@ -46,16 +46,16 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MRGXD7ZC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
-<a href="#main" class="skip-link">Skip to content</a>
-<nav class="nav">
-  <a href="../index.html" class="nav-logo">SK<span>.</span></a>
+<a href="#main" class="skip-link" data-track="page.skip-to-content">Skip to content</a>
+<nav class="nav" data-zone="nav">
+  <a href="../index.html" class="nav-logo" data-track="nav.home">SK<span>.</span></a>
   <div class="nav-links" id="navLinks">
-    <a href="../work.html">Work</a><a href="../process.html">Process</a><a href="../gallery.html">Gallery</a>
-    <a href="../blog.html" class="active">Blog</a><a href="../about.html">About</a><a href="../demos.html">Demos</a>
-    <a href="../contact.html">Contact</a>
+    <a href="../work.html" data-track="nav.work">Work</a><a href="../process.html" data-track="nav.process">Process</a><a href="../gallery.html" data-track="nav.gallery">Gallery</a>
+    <a href="../blog.html" class="active" data-track="nav.blog">Blog</a><a href="../about.html" data-track="nav.about">About</a><a href="../demos.html" data-track="nav.demos">Demos</a>
+    <a href="../contact.html" data-track="nav.contact">Contact</a>
   </div>
   <div class="nav-tag">Available: EU &amp; Remote</div>
-  <button class="nav-hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu" data-track="nav.menu"><span></span><span></span><span></span></button>
 </nav>
 
 <main id="main" class="page" role="main">
@@ -66,13 +66,13 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     <h1 class="post-title reveal">Why I Built a<br><span style="color: var(--accent);">Video Game</span><br>for My Portfolio</h1>
   </header>
 
-  <article class="post-body">
-    <p>A few weeks ago I watched a short video of a movement shooter: rocket jumps, grappling hooks, a combo counter climbing while the player never touched the ground. I wanted that feeling, so I built my own version with completely original art and put it on my portfolio. It is called Melt Sprint, and you can play it right now at <a href="/melt">saikanagat.com/melt</a>.</p>
+  <article class="post-body" data-zone="article">
+    <p>A few weeks ago I watched a short video of a movement shooter: rocket jumps, grappling hooks, a combo counter climbing while the player never touched the ground. I wanted that feeling, so I built my own version with completely original art and put it on my portfolio. It is called Melt Sprint, and you can play it right now at <a href="/melt" data-track="article.melt">saikanagat.com/melt</a>.</p>
 
     <p>I am a marketing person with an industrial design background. Building a game is not an obvious move. Here is the reasoning, and what it taught me.</p>
 
     <h2>Attention is the scarce resource</h2>
-    <p>In <a href="portfolios-are-products.html">Portfolios Are Products</a> I argued that a portfolio should have a job to do for the visitor. The hard part of that job is attention. A hiring manager gives a page a few seconds, and a case study asks for trust before it has earned any. A game asks for one click and then holds you for three minutes.</p>
+    <p>In <a href="portfolios-are-products.html" data-track="article.portfolios-are-products">Portfolios Are Products</a> I argued that a portfolio should have a job to do for the visitor. The hard part of that job is attention. A hiring manager gives a page a few seconds, and a case study asks for trust before it has earned any. A game asks for one click and then holds you for three minutes.</p>
 
     <p>I do not have numbers on whether this works for job hunting, and I will not pretend otherwise. It is a bet. My Hand Cursor gesture demo was a hit, and that was enough to make me want to push the idea further.</p>
 
@@ -95,16 +95,16 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     <h2>Play it, then beat my score</h2>
     <p>Melt Sprint works with mouse and keyboard (it captures your pointer) and on your phone. Your best score is saved in your own browser, so the first opponent is whoever played before you.</p>
 
-    <p><a href="/melt">Play Melt Sprint at saikanagat.com/melt</a>, bank a big combo, and then try to beat mine. If you do, <a href="../contact.html">send me your number</a>. I would like to know which zone broke you first.</p>
+    <p><a href="/melt" data-track="article.melt-2">Play Melt Sprint at saikanagat.com/melt</a>, bank a big combo, and then try to beat mine. If you do, <a href="../contact.html" data-track="article.contact">send me your number</a>. I would like to know which zone broke you first.</p>
   </article>
 
-  <footer class="footer">
+  <footer class="footer" data-zone="footer">
     <div class="footer-logo">SK<span>.</span></div>
     <p class="footer-copy">© 2026 Sai Kanagat. All rights reserved.</p>
     <div class="footer-socials">
-      <a href="https://linkedin.com/in/sai-kanagat" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://github.com/Sai-Kanagat" target="_blank" rel="noopener">GitHub</a>
-      <a href="mailto:saikanagat1117@gmail.com">Email</a>
+      <a href="https://linkedin.com/in/sai-kanagat" target="_blank" rel="noopener" data-track="footer.linkedin">LinkedIn</a>
+      <a href="https://github.com/Sai-Kanagat" target="_blank" rel="noopener" data-track="footer.github">GitHub</a>
+      <a href="mailto:saikanagat1117@gmail.com" data-track="footer.email">Email</a>
     </div>
   </footer>
 </main>
@@ -116,8 +116,9 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 <script src="../js/lang.js"></script>
 <script src="../js/interactions.js"></script>
 <script src="../js/blink-scroll.js?v=2" defer></script>
-<script src="../js/consent.js" defer></script>
-<script src="../js/analytics.js" defer></script>
+<script>window.SK_CLARITY_ID='zir45wg6mm';</script>
+<script src="../js/consent.js?v=7f703b6c" defer></script>
+<script src="../js/analytics.js?v=1964af25" defer></script>
 <script src="/js/newsletter.js?v=6" defer></script>
 </body>
 </html>

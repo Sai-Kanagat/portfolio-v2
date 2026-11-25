@@ -86,3 +86,24 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 })();
+
+/* Tracking: dwell on the home page marquee (600 ms or more), as ms rounded to 100. Capped at three per visit. */
+(function(){
+  if (window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
+  function init(){
+    var m = document.querySelector('.marquee-wrap');
+    if (!m) return;
+    var t0 = 0, sent = 0;
+    m.addEventListener('mouseenter', function(e){ if (e.isTrusted) t0 = Date.now(); });
+    m.addEventListener('mouseleave', function(){
+      var ms = t0 ? Date.now() - t0 : 0; t0 = 0;
+      if (ms < 600 || sent >= 3) return;
+      sent++;
+      try {
+        var a = ['pg.home', 'marquee_hover', { ms: Math.round(ms / 100) * 100 }];
+        window.sk ? sk.demo.apply(sk, a) : (window.skq = window.skq || []).push(['demo'].concat(a));
+      } catch (e) {}
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();

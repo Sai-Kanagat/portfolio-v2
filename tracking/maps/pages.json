@@ -1,0 +1,779 @@
+{
+ "version": 1,
+ "owner": "pages",
+ "note": "Selectors map controls that cannot carry data-track. listeners are keyed by file; n is the most sites of that type allowed, so one new listener fails the gate. The media.json map only checks that a listener type appears (weaker); tools.json matches by source line.",
+ "common": {
+  "controls": {
+   "[data-consent-open]": {
+    "events": [
+     "consent_reopened"
+    ],
+    "note": "footer button from js/consent.js (client)"
+   },
+   ".lb-overlay button": {
+    "events": [
+     "lightbox_nav",
+     "lightbox_close"
+    ],
+    "note": "lightbox buttons built by js/lightbox.js (client)"
+   },
+   "#sk-news input, #sk-news button, #sk-news-fab": {
+    "events": [
+     "newsletter_fab_click",
+     "newsletter_start",
+     "newsletter_invalid",
+     "newsletter_request",
+     "newsletter_failed"
+    ],
+    "note": "newsletter box built by js/newsletter.js (client)"
+   }
+  }
+ },
+ "pages": {
+  "work.html": {
+   "controls": {
+    "#panelContent a, #panelContent button": {
+     "events": [
+      "ui_click",
+      "outbound_click"
+     ],
+     "note": "runtime markup built by script, so it cannot carry a static id: js/track.js names it zone.tag.label (ui_click) and the owning script emits the specific event"
+    }
+   },
+   "states": [
+    {
+     "name": "panel",
+     "steps": [
+      {
+       "eval": "openPanel('cyrano')",
+       "wait": 600
+      }
+     ]
+    }
+   ]
+  },
+  "gallery.html": {
+   "controls": {
+    "#panelContent a, #panelContent button": {
+     "events": [
+      "ui_click"
+     ],
+     "note": "runtime markup built by script, so it cannot carry a static id: js/track.js names it zone.tag.label (ui_click) and the owning script emits the specific event"
+    }
+   },
+   "states": [
+    {
+     "name": "panel",
+     "steps": [
+      {
+       "eval": "openPanel('casamota')",
+       "wait": 600
+      }
+     ]
+    }
+   ]
+  },
+  "build-log/index.html": {
+   "controls": {
+    "#s-links a, #s-last a, #log a": {
+     "events": [
+      "ui_click",
+      "outbound_click"
+     ],
+     "note": "runtime markup built by script, so it cannot carry a static id: js/track.js names it zone.tag.label (ui_click) and the owning script emits the specific event"
+    }
+   }
+  },
+  "index.html": {
+   "controls": {
+    "canvas#ambientFloat": {
+     "ignored": "decorative icon field, aria-hidden, no pointer events; its cursor push is demo_action pg.home icons_pushed"
+    }
+   }
+  },
+  "thallo/index.html": {
+   "controls": {
+    "video[aria-label=\"Thallo launch film\"]": {
+     "events": [
+      "video_state",
+      "video_progress"
+     ],
+     "note": "native controls; js/track.js reads play, pause, ended, mute, fullscreen and 25/50/75/100 on any video with controls"
+    }
+   }
+  }
+ },
+ "plan_rows": {
+  "Home": {
+   "hero_view and hero_settled": "demo_action pg.home hero_view, hero_settled(ms) from js/hero-loop.js",
+   "hero_cta": "ui_click hero-experience.*",
+   "work card view and open": "section_view work-section, ui_click work-section.*",
+   "marquee hover": "demo_action pg.home marquee_hover(ms) from js/interactions.js",
+   "louvre shutter progress": "demo_action pg.home shutter_progress 25|50|75|100",
+   "discipline split view": "section_view discipline-split",
+   "about teaser click": "ui_click about-teaser.about",
+   "skills ball": "demo_action pg.home icons_pushed, icons_pushed_seconds (the home icon field has no throw mechanic)"
+  },
+  "Work": {
+   "filter, open, close, prev, next, dwell": "client wired in work.html (filter_apply, project_*)",
+   "project hover preview": "project_preview from js/hover-preview.js and js/work-editorial.js"
+  },
+  "Gallery": {
+   "filter, open, close, prev, next, dwell, lightbox": "client wired",
+   "project hover preview": "project_preview from js/hover-preview.js"
+  },
+  "About": {
+   "portrait, bio, timeline item, certificate, skills, achievements views": "section_view (data-section stamped by the codemod, items timeline-N and cert-N)",
+   "skills-ball": "no such control on about.html"
+  },
+  "Process": {
+   "intro and step views": "section_view process-intro, step-N",
+   "furthest step": "demo_action pg.process furthest_step"
+  },
+  "Demos index": {
+   "category filter": "filter_apply list_id=demos",
+   "tile view and hover": "section_view tile-*, ui_hover",
+   "open": "ui_click tile links",
+   "return after demo": "demo_action pg.demos return_from_demo item=slug"
+  },
+  "Blog": {
+   "card open": "ui_click",
+   "article start, 25/50/75/complete, read s": "article_progress, article_complete (track.js, no start event in the catalogue)",
+   "next post, share or copy link": "no such controls in the markup; copy is the generic copy event",
+   "blink-to-scroll": "client wired"
+  },
+  "Contact": {
+   "all": "client wired (form_*)"
+  },
+  "Brand identity": {
+   "sections with dwell": "section_view on 17 sections (plan said 14)",
+   "nav jump": "ui_click intro.*",
+   "token or colour copy": "generic copy event; no copy buttons exist",
+   "asset download": "no download link exists (the template tile is not a link)",
+   "component tried": "ui_click components.*"
+  },
+  "Aperol": {
+   "section views": "section_view",
+   "deck and memo download": "file_download pptx, docx",
+   "microsite open": "ui_click",
+   "menu jump": "ui_click",
+   "film view": "ui_click on the play placeholder (no video exists)",
+   "mock signup attempt": "form_submit_attempt form_id=aperol_mock; never a success"
+  },
+  "Thallo": {
+   "section views, menu jumps": "section_view, ui_click",
+   "waitlist forms, film": "client wired (thallo.js forms, track.js video)"
+  },
+  "Monocular paper": {
+   "section views, PDF download, citation and Zenodo clicks": "section_view, file_download, outbound_click",
+   "figure zoom": "no figures with zoom exist"
+  },
+  "Build log": {
+   "status, plan, changelog views": "section_view status, plan, changelog",
+   "link clicks": "ui_click, outbound_click",
+   "status fetch failure": "demo_action pg.build-log status_fetch_failed"
+  }
+ },
+ "listeners": {
+  "aperol-microsite/index.html": [
+   {
+    "type": "click",
+    "n": 2,
+    "events": [
+     "ui_click by track.js (city picker and film placeholder)"
+    ]
+   },
+   {
+    "type": "submit",
+    "n": 1,
+    "events": [
+     "form_submit_attempt, form aperol_mock (via data-form)"
+    ]
+   },
+   {
+    "type": "scroll",
+    "n": 1,
+    "ignored": "nav fade, no event"
+   }
+  ],
+  "contact.html": [
+   {
+    "type": "submit",
+    "n": 1,
+    "events": [
+     "form_submit_attempt",
+     "form_submit_success",
+     "form_submit_failure (via sk.form)"
+    ]
+   }
+  ],
+  "demos.html": [
+   {
+    "type": "click",
+    "n": 2,
+    "events": [
+     "menu_toggle (track.js)",
+     "filter_apply list_id=demos"
+    ]
+   }
+  ],
+  "gallery.html": [
+   {
+    "type": "click",
+    "n": 6,
+    "events": [
+     "project_open",
+     "project_close",
+     "project_prev",
+     "project_next",
+     "filter_apply"
+    ]
+   },
+   {
+    "type": "keydown",
+    "n": 1,
+    "events": [
+     "project_close method=escape"
+    ]
+   }
+  ],
+  "js/animations.js": [
+   {
+    "type": "mousemove",
+    "n": 2,
+    "ignored": "hero tilt and button magnet, visual only, no event"
+   },
+   {
+    "type": "mouseleave",
+    "n": 2,
+    "ignored": "visual only, no event"
+   },
+   {
+    "type": "scroll",
+    "n": 3,
+    "ignored": "scroll visuals (progress bar, reveal), no event; scroll depth comes from track.js"
+   },
+   {
+    "type": "click",
+    "n": 2,
+    "events": [
+     "menu_toggle (from track.js on #hamburger)"
+    ]
+   }
+  ],
+  "js/blink-scroll.js": [
+   {
+    "type": "getusermedia",
+    "n": 2,
+    "events": [
+     "media_result",
+     "demo_action"
+    ]
+   },
+   {
+    "type": "click",
+    "n": 1,
+    "events": [
+     "demo_action toggle (client)"
+    ]
+   },
+   {
+    "type": "visibilitychange",
+    "n": 1,
+    "events": [
+     "demo_action stop (client)"
+    ]
+   }
+  ],
+  "js/consent.js": [
+   {
+    "type": "storage",
+    "n": 1,
+    "ignored": "consent state sync across tabs, no event"
+   },
+   {
+    "type": "click",
+    "n": 2,
+    "events": [
+     "consent_choice",
+     "consent_reopened"
+    ]
+   },
+   {
+    "type": "sk",
+    "n": 2,
+    "ignored": "custom event sk:consent, dispatch and listen"
+   },
+   {
+    "type": "domcontentloaded",
+    "n": 1,
+    "events": [
+     "consent_shown"
+    ]
+   }
+  ],
+  "js/cursor.js": [
+   {
+    "type": "mousemove",
+    "n": 1,
+    "ignored": "custom cursor visual, no event; cursor_enabled is client wired"
+   },
+   {
+    "type": "mouseover",
+    "n": 1,
+    "ignored": "custom cursor visual, no event; cursor_enabled is client wired"
+   },
+   {
+    "type": "mouseout",
+    "n": 1,
+    "ignored": "custom cursor visual, no event; cursor_enabled is client wired"
+   },
+   {
+    "type": "mouseleave",
+    "n": 1,
+    "ignored": "custom cursor visual, no event; cursor_enabled is client wired"
+   },
+   {
+    "type": "mouseenter",
+    "n": 1,
+    "ignored": "custom cursor visual, no event; cursor_enabled is client wired"
+   }
+  ],
+  "js/haunted.js": [
+   {
+    "type": "pagehide",
+    "n": 1,
+    "events": [
+     "haunt_end"
+    ]
+   },
+   {
+    "type": "sk",
+    "n": 1,
+    "ignored": "sk:consent listener"
+   },
+   {
+    "type": "click",
+    "n": 1,
+    "events": [
+     "haunt_stop_click"
+    ]
+   },
+   {
+    "type": "visibilitychange",
+    "n": 1,
+    "events": [
+     "haunt_end"
+    ]
+   }
+  ],
+  "js/hover-preview.js": [
+   {
+    "type": "mousemove",
+    "n": 1,
+    "ignored": "positions the preview, visual only, no event"
+   },
+   {
+    "type": "mouseover",
+    "n": 1,
+    "events": [
+     "project_preview"
+    ]
+   },
+   {
+    "type": "mouseout",
+    "n": 1,
+    "ignored": "hides the preview"
+   },
+   {
+    "type": "mouseleave",
+    "n": 1,
+    "ignored": "hides the preview"
+   },
+   {
+    "type": "scroll",
+    "n": 1,
+    "ignored": "hides the preview while scrolling"
+   }
+  ],
+  "js/interactions.js": [
+   {
+    "type": "mousemove",
+    "n": 2,
+    "ignored": "magnet and tilt, visual only, no event"
+   },
+   {
+    "type": "mouseleave",
+    "n": 3,
+    "ignored": "visual only, no event"
+   },
+   {
+    "type": "domcontentloaded",
+    "n": 2,
+    "ignored": "init"
+   },
+   {
+    "type": "mouseenter",
+    "n": 1,
+    "events": [
+     "demo_action marquee_hover"
+    ]
+   }
+  ],
+  "js/lang.js": [
+   {
+    "type": "click",
+    "n": 1,
+    "events": [
+     "lang_toggle (from track.js on .lang-toggle [data-l])"
+    ]
+   },
+   {
+    "type": "domcontentloaded",
+    "n": 1,
+    "ignored": "init, no event"
+   }
+  ],
+  "js/lightbox.js": [
+   {
+    "type": "click",
+    "n": 6,
+    "events": [
+     "lightbox_open",
+     "lightbox_nav",
+     "lightbox_close"
+    ]
+   },
+   {
+    "type": "keydown",
+    "n": 1,
+    "events": [
+     "lightbox_nav",
+     "lightbox_close"
+    ]
+   },
+   {
+    "type": "domcontentloaded",
+    "n": 1,
+    "ignored": "init"
+   }
+  ],
+  "js/loader.js": [
+   {
+    "type": "domcontentloaded",
+    "n": 2,
+    "events": [
+     "intro_shown",
+     "intro_completed",
+     "intro_skipped (client)"
+    ]
+   }
+  ],
+  "js/louvre-shutter.js": [
+   {
+    "type": "scroll",
+    "n": 1,
+    "events": [
+     "demo_action shutter_progress (25,50,75,100, once each)"
+    ]
+   },
+   {
+    "type": "resize",
+    "n": 1,
+    "ignored": "layout only"
+   }
+  ],
+  "js/newsletter.js": [
+   {
+    "type": "scroll",
+    "n": 1,
+    "events": [
+     "newsletter_view",
+     "newsletter_fab_shown",
+     "newsletter_fab_click",
+     "newsletter_start",
+     "newsletter_invalid",
+     "newsletter_request",
+     "newsletter_failed"
+    ]
+   },
+   {
+    "type": "click",
+    "n": 1,
+    "events": [
+     "newsletter_view",
+     "newsletter_fab_shown",
+     "newsletter_fab_click",
+     "newsletter_start",
+     "newsletter_invalid",
+     "newsletter_request",
+     "newsletter_failed"
+    ]
+   },
+   {
+    "type": "focus",
+    "n": 1,
+    "events": [
+     "newsletter_view",
+     "newsletter_fab_shown",
+     "newsletter_fab_click",
+     "newsletter_start",
+     "newsletter_invalid",
+     "newsletter_request",
+     "newsletter_failed"
+    ]
+   },
+   {
+    "type": "submit",
+    "n": 1,
+    "events": [
+     "newsletter_view",
+     "newsletter_fab_shown",
+     "newsletter_fab_click",
+     "newsletter_start",
+     "newsletter_invalid",
+     "newsletter_request",
+     "newsletter_failed"
+    ]
+   }
+  ],
+  "js/skills-bounce.js": [
+   {
+    "type": "visibilitychange",
+    "n": 2,
+    "events": [
+     "demo_action icons_pushed_seconds"
+    ]
+   },
+   {
+    "type": "pagehide",
+    "n": 1,
+    "events": [
+     "demo_action icons_pushed_seconds"
+    ]
+   },
+   {
+    "type": "mousemove",
+    "n": 1,
+    "ignored": "cursor position for the icon field, no event"
+   },
+   {
+    "type": "mouseleave",
+    "n": 1,
+    "ignored": "visual only, no event"
+   },
+   {
+    "type": "scroll",
+    "n": 1,
+    "ignored": "parallax, no event"
+   },
+   {
+    "type": "resize",
+    "n": 1,
+    "ignored": "layout only"
+   },
+   {
+    "type": "domcontentloaded",
+    "n": 1,
+    "ignored": "init"
+   }
+  ],
+  "js/track.js": [
+   {
+    "type": "sk",
+    "n": 2,
+    "ignored": "the collector itself: it is the listener behind ui_click, ui_hover, scroll, copy, forms, video, errors and page_leave"
+   },
+   {
+    "type": "scroll",
+    "n": 2,
+    "ignored": "the collector itself: it is the listener behind ui_click, ui_hover, scroll, copy, forms, video, errors and page_leave"
+   },
+   {
+    "type": "click",
+    "n": 1,
+    "ignored": "the collector itself: it is the listener behind ui_click, ui_hover, scroll, copy, forms, video, errors and page_leave"
+   },
+   {
+    "type": "mouseover",
+    "n": 1,
+    "ignored": "the collector itself: it is the listener behind ui_click, ui_hover, scroll, copy, forms, video, errors and page_leave"
+   },
+   {
+    "type": "mouseout",
+    "n": 1,
+    "ignored": "the collector itself: it is the listener behind ui_click, ui_hover, scroll, copy, forms, video, errors and page_leave"
+   },
+   {
+    "type": "mousemove",
+    "n": 1,
+    "ignored": "the collector itself: it is the listener behind ui_click, ui_hover, scroll, copy, forms, video, errors and page_leave"
+   },
+   {
+    "type": "selectionchange",
+    "n": 1,
+    "ignored": "the collector itself: it is the listener behind ui_click, ui_hover, scroll, copy, forms, video, errors and page_leave"
+   },
+   {
+    "type": "copy",
+    "n": 1,
+    "ignored": "the collector itself: it is the listener behind ui_click, ui_hover, scroll, copy, forms, video, errors and page_leave"
+   },
+   {
+    "type": "input",
+    "n": 1,
+    "ignored": "the collector itself: it is the listener behind ui_click, ui_hover, scroll, copy, forms, video, errors and page_leave"
+   },
+   {
+    "type": "focusin",
+    "n": 1,
+    "ignored": "the collector itself: it is the listener behind ui_click, ui_hover, scroll, copy, forms, video, errors and page_leave"
+   },
+   {
+    "type": "invalid",
+    "n": 1,
+    "ignored": "the collector itself: it is the listener behind ui_click, ui_hover, scroll, copy, forms, video, errors and page_leave"
+   },
+   {
+    "type": "submit",
+    "n": 1,
+    "ignored": "the collector itself: it is the listener behind ui_click, ui_hover, scroll, copy, forms, video, errors and page_leave"
+   },
+   {
+    "type": "fullscreenchange",
+    "n": 1,
+    "ignored": "the collector itself: it is the listener behind ui_click, ui_hover, scroll, copy, forms, video, errors and page_leave"
+   },
+   {
+    "type": "error",
+    "n": 1,
+    "ignored": "the collector itself: it is the listener behind ui_click, ui_hover, scroll, copy, forms, video, errors and page_leave"
+   },
+   {
+    "type": "unhandledrejection",
+    "n": 1,
+    "ignored": "the collector itself: it is the listener behind ui_click, ui_hover, scroll, copy, forms, video, errors and page_leave"
+   },
+   {
+    "type": "visibilitychange",
+    "n": 1,
+    "ignored": "the collector itself: it is the listener behind ui_click, ui_hover, scroll, copy, forms, video, errors and page_leave"
+   },
+   {
+    "type": "pagehide",
+    "n": 1,
+    "ignored": "the collector itself: it is the listener behind ui_click, ui_hover, scroll, copy, forms, video, errors and page_leave"
+   },
+   {
+    "type": "pageshow",
+    "n": 1,
+    "ignored": "the collector itself: it is the listener behind ui_click, ui_hover, scroll, copy, forms, video, errors and page_leave"
+   },
+   {
+    "type": "domcontentloaded",
+    "n": 1,
+    "ignored": "the collector itself: it is the listener behind ui_click, ui_hover, scroll, copy, forms, video, errors and page_leave"
+   }
+  ],
+  "js/transitions.js": [
+   {
+    "type": "load",
+    "n": 1,
+    "ignored": "page fade in, no event"
+   },
+   {
+    "type": "click",
+    "n": 1,
+    "ignored": "fade out on link click; the click itself is ui_click and nav_click from track.js"
+   },
+   {
+    "type": "domcontentloaded",
+    "n": 1,
+    "ignored": "init"
+   }
+  ],
+  "js/work-editorial.js": [
+   {
+    "type": "click",
+    "n": 2,
+    "events": [
+     "project_open (via openPanel in work.html)"
+    ]
+   },
+   {
+    "type": "mousemove",
+    "n": 1,
+    "ignored": "preview position"
+   },
+   {
+    "type": "mouseenter",
+    "n": 1,
+    "events": [
+     "project_preview"
+    ]
+   },
+   {
+    "type": "mouseleave",
+    "n": 1,
+    "ignored": "hides the preview"
+   }
+  ],
+  "process.html": [
+   {
+    "type": "visibilitychange",
+    "n": 1,
+    "events": [
+     "demo_action furthest_step"
+    ]
+   },
+   {
+    "type": "pagehide",
+    "n": 1,
+    "events": [
+     "demo_action furthest_step"
+    ]
+   },
+   {
+    "type": "domcontentloaded",
+    "n": 1,
+    "ignored": "init"
+   }
+  ],
+  "thallo/thallo.js": [
+   {
+    "type": "click",
+    "n": 1,
+    "ignored": "logo click scrolls to top; ui_click from track.js"
+   },
+   {
+    "type": "submit",
+    "n": 1,
+    "events": [
+     "form_submit_attempt",
+     "form_submit_success",
+     "form_submit_failure (via sk.form)"
+    ]
+   }
+  ],
+  "work.html": [
+   {
+    "type": "click",
+    "n": 6,
+    "events": [
+     "project_open",
+     "project_close",
+     "project_prev",
+     "project_next",
+     "filter_apply"
+    ]
+   },
+   {
+    "type": "keydown",
+    "n": 1,
+    "events": [
+     "project_close method=escape"
+    ]
+   }
+  ]
+ }
+}

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-page-type="post">
 <head>
   <!-- Consent Mode v2 default — denied inside EEA/UK/Switzerland (GDPR), granted elsewhere -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
@@ -46,22 +46,22 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MRGXD7ZC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
-<a href="#main" class="skip-link">Skip to content</a>
+<a href="#main" class="skip-link" data-track="page.skip-to-content">Skip to content</a>
 
-<nav class="nav">
-  <a href="../index.html" class="nav-logo">SK<span>.</span></a>
+<nav class="nav" data-zone="nav">
+  <a href="../index.html" class="nav-logo" data-track="nav.home">SK<span>.</span></a>
   <div class="nav-links" id="navLinks">
-    <a href="../work.html">Work</a>
-    <a href="../process.html">Process</a>
-    <a href="../gallery.html">Gallery</a>
-    <a href="../blog.html" class="active">Blog</a>
-    <a href="../about.html">About</a>
-    <a href="../demos.html">Demos</a>
-    <a href="../contact.html">Contact</a>
-    <a href="https://content-vigilante-vercel.vercel.app" target="_blank" rel="noopener" class="nav-score-btn">Content Vigilante</a>
+    <a href="../work.html" data-track="nav.work">Work</a>
+    <a href="../process.html" data-track="nav.process">Process</a>
+    <a href="../gallery.html" data-track="nav.gallery">Gallery</a>
+    <a href="../blog.html" class="active" data-track="nav.blog">Blog</a>
+    <a href="../about.html" data-track="nav.about">About</a>
+    <a href="../demos.html" data-track="nav.demos">Demos</a>
+    <a href="../contact.html" data-track="nav.contact">Contact</a>
+    <a href="https://content-vigilante-vercel.vercel.app" target="_blank" rel="noopener" class="nav-score-btn" data-track="nav.vercel">Content Vigilante</a>
   </div>
   <div class="nav-tag">Available — EU &amp; Remote</div>
-  <button class="nav-hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu" data-track="nav.menu"><span></span><span></span><span></span></button>
 </nav>
 
 <main id="main" class="page" role="main">
@@ -74,7 +74,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     <h1 class="post-title reveal">Why Italy,<br>and <span style="color: var(--accent);">Why Now</span></h1>
   </header>
 
-  <article class="post-body">
+  <article class="post-body" data-zone="article">
     <p>I get asked this every time someone reads my CV. India to Italy is a long way. Industrial design to digital marketing is a long way too. Doing both at once looks, on paper, like a person who can't make up his mind.</p>
 
     <p>It isn't. Both moves are the same move.</p>
@@ -100,13 +100,13 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     <p>If you're hiring for that kind of seat, or know someone who is, my email is in the footer.</p>
   </article>
 
-  <footer class="footer">
+  <footer class="footer" data-zone="footer">
     <div class="footer-logo">SK<span>.</span></div>
     <p class="footer-copy">© 2026 Sai Kanagat. All rights reserved.</p>
     <div class="footer-socials">
-      <a href="https://linkedin.com/in/sai-kanagat" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://github.com/Sai-Kanagat" target="_blank" rel="noopener">GitHub</a>
-      <a href="mailto:saikanagat1117@gmail.com">Email</a>
+      <a href="https://linkedin.com/in/sai-kanagat" target="_blank" rel="noopener" data-track="footer.linkedin">LinkedIn</a>
+      <a href="https://github.com/Sai-Kanagat" target="_blank" rel="noopener" data-track="footer.github">GitHub</a>
+      <a href="mailto:saikanagat1117@gmail.com" data-track="footer.email">Email</a>
     </div>
   </footer>
 </div>
@@ -115,8 +115,9 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 <script src="../js/lightbox.js"></script>
 <script src="../js/interactions.js"></script>
 <script src="../js/blink-scroll.js?v=2" defer></script>
-<script src="../js/consent.js" defer></script>
-<script src="../js/analytics.js" defer></script>
+<script>window.SK_CLARITY_ID='zir45wg6mm';</script>
+<script src="../js/consent.js?v=7f703b6c" defer></script>
+<script src="../js/analytics.js?v=1964af25" defer></script>
 <script src="/js/newsletter.js?v=6" defer></script>
 </body>
 </html>

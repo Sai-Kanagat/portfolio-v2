@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-page-type="aperol">
 <head>
   <!-- Consent Mode v2 default — denied inside EEA/UK/Switzerland (GDPR), granted elsewhere -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
@@ -81,30 +81,30 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MRGXD7ZC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
-<a href="#main" class="skip-link">Skip to content</a>
+<a href="#main" class="skip-link" data-track="page.skip-to-content">Skip to content</a>
 
 <!-- ===== Portfolio NAV (matches site chrome) ===== -->
-<nav class="nav">
-  <a href="index.html" class="nav-logo">SK<span>.</span></a>
+<nav class="nav" data-zone="nav">
+  <a href="index.html" class="nav-logo" data-track="nav.home">SK<span>.</span></a>
   <div class="nav-links" id="navLinks">
-    <a href="work.html" class="active" data-en="Work" data-it="Lavori">Work</a>
-    <a href="process.html" data-en="Process" data-it="Processo">Process</a>
-    <a href="gallery.html" data-en="Gallery" data-it="Galleria">Gallery</a>
-    <a href="blog.html" data-en="Blog" data-it="Blog">Blog</a>
-    <a href="about.html" data-en="About" data-it="Chi Sono">About</a>
-    <a href="demos.html" data-en="Demos" data-it="Demo">Demos</a>
-    <a href="contact.html" data-en="Contact" data-it="Contatti">Contact</a>
-    <a href="https://content-vigilante-vercel.vercel.app" target="_blank" rel="noopener" class="nav-score-btn">Content Vigilante</a>
+    <a href="work.html" class="active" data-en="Work" data-it="Lavori" data-track="nav.work">Work</a>
+    <a href="process.html" data-en="Process" data-it="Processo" data-track="nav.process">Process</a>
+    <a href="gallery.html" data-en="Gallery" data-it="Galleria" data-track="nav.gallery">Gallery</a>
+    <a href="blog.html" data-en="Blog" data-it="Blog" data-track="nav.blog">Blog</a>
+    <a href="about.html" data-en="About" data-it="Chi Sono" data-track="nav.about">About</a>
+    <a href="demos.html" data-en="Demos" data-it="Demo" data-track="nav.demos">Demos</a>
+    <a href="contact.html" data-en="Contact" data-it="Contatti" data-track="nav.contact">Contact</a>
+    <a href="https://content-vigilante-vercel.vercel.app" target="_blank" rel="noopener" class="nav-score-btn" data-track="nav.vercel">Content Vigilante</a>
   </div>
-  <div class="lang-toggle" aria-label="Language"><button type="button" data-l="en" class="is-active">EN</button><span>/</span><button type="button" data-l="it">IT</button></div>
+  <div class="lang-toggle" aria-label="Language"><button type="button" data-l="en" class="is-active" data-track="nav.en">EN</button><span>/</span><button type="button" data-l="it" data-track="nav.it">IT</button></div>
   <div class="nav-tag">Available — EU &amp; Remote</div>
-  <button class="nav-hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu" data-track="nav.menu"><span></span><span></span><span></span></button>
 </nav>
 
 <main id="main" role="main">
 
   <!-- ===== HERO ===== -->
-  <section class="ap-hero">
+  <section class="ap-hero" data-section="ap-hero" data-zone="ap-hero">
     <div class="ap-hero-content">
       <div class="ap-eyebrow">— Case Study · May 2026 · Speculative</div>
       <h1 class="ap-hero-title">APEROL.<br><em>The Golden Hour.</em></h1>
@@ -120,7 +120,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   </section>
 
   <!-- ===== TL;DR PANEL ===== -->
-  <section style="padding: 80px 24px 0;">
+  <section style="padding: 80px 24px 0;" data-section="section-1" data-zone="section-1">
     <div class="ap-tldr">
       <div>
         <div class="ap-tldr-label">Role</div>
@@ -146,7 +146,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   </section>
 
   <!-- ===== 01 · THE PROBLEM ===== -->
-  <section class="ap-section">
+  <section class="ap-section" data-section="ap-section" data-zone="ap-section">
     <div class="ap-container">
       <div class="ap-section-head">
         <div class="ap-num">01 / the problem</div>
@@ -180,7 +180,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   </section>
 
   <!-- ===== 02 · THE INSIGHT (big editorial pull) ===== -->
-  <section class="ap-section ap-section--orange">
+  <section class="ap-section ap-section--orange" data-section="ap-section-2" data-zone="ap-section-2">
     <div class="ap-container">
       <div class="ap-pullquote" style="color: white;">
         India has chai. India has dinner.<br>
@@ -191,7 +191,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   </section>
 
   <!-- ===== 03 · THE STRATEGIC MOVE ===== -->
-  <section class="ap-section">
+  <section class="ap-section" data-section="ap-section-3" data-zone="ap-section-3">
     <div class="ap-container">
       <div class="ap-section-head">
         <div class="ap-num">02 / the move</div>
@@ -204,7 +204,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   </section>
 
   <!-- ===== 04 · THE BIG IDEA + MANIFESTO ===== -->
-  <section class="ap-section ap-section--orange">
+  <section class="ap-section ap-section--orange" data-section="ap-section-4" data-zone="ap-section-4">
     <div class="ap-container--narrow">
       <div class="ap-eyebrow" style="text-align:center; margin-bottom: 48px;">— THE PLATFORM</div>
       <div style="text-align:center; font-family:'Unbounded', sans-serif; font-weight:800; font-size: clamp(56px, 9vw, 120px); line-height: 0.95; letter-spacing: -0.04em; text-transform: uppercase; margin-bottom: 80px;">
@@ -223,7 +223,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   </section>
 
   <!-- ===== 05 · GALLERY · The hour, in India ===== -->
-  <section class="ap-section">
+  <section class="ap-section" data-section="ap-section-5" data-zone="ap-section-5">
     <div class="ap-container">
       <div class="ap-section-head">
         <div class="ap-num">03 / the hour, in india</div>
@@ -267,7 +267,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   </section>
 
   <!-- ===== 06 · HERO FILM ===== -->
-  <section class="ap-section ap-section--dark">
+  <section class="ap-section ap-section--dark" data-section="ap-section-6" data-zone="ap-section-6">
     <div class="ap-container">
       <div class="ap-section-head">
         <div class="ap-num" style="opacity:0.5;">04 / the film</div>
@@ -291,7 +291,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   </section>
 
   <!-- ===== 07 · ACTIVATION · The Terraces ===== -->
-  <section class="ap-section ap-section--dark">
+  <section class="ap-section ap-section--dark" data-section="ap-section-7" data-zone="ap-section-7">
     <div class="ap-container">
       <div class="ap-section-head">
         <div class="ap-num" style="opacity:0.5;">05 / the activation</div>
@@ -343,7 +343,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   </section>
 
   <!-- ===== 08 · MEDIA PLAN ===== -->
-  <section class="ap-section">
+  <section class="ap-section" data-section="ap-section-8" data-zone="ap-section-8">
     <div class="ap-container">
       <div class="ap-section-head">
         <div class="ap-num">06 / the spend</div>
@@ -372,7 +372,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   </section>
 
   <!-- ===== 09 · KPIs ===== -->
-  <section class="ap-section ap-section--dark">
+  <section class="ap-section ap-section--dark" data-section="ap-section-9" data-zone="ap-section-9">
     <div class="ap-container">
       <div class="ap-section-head">
         <div class="ap-num" style="opacity:0.5;">07 / the targets</div>
@@ -403,7 +403,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   </section>
 
   <!-- ===== 10 · METHOD ===== -->
-  <section class="ap-section">
+  <section class="ap-section" data-section="ap-section-10" data-zone="ap-section-10">
     <div class="ap-container">
       <div class="ap-section-head">
         <div class="ap-num">08 / the method</div>
@@ -454,30 +454,31 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   </section>
 
   <!-- ===== 11 · CTA / DELIVERABLES ===== -->
-  <section class="ap-cta">
+  <section class="ap-cta" data-section="ap-cta" data-zone="ap-cta">
     <div class="ap-cta-title">The full work, three ways.</div>
     <div class="ap-cta-buttons">
-      <a href="aperol-microsite/index.html" class="ap-btn">↗ View the live microsite</a>
-      <a href="assets/downloads/Aperol_Golden_Hour_Case_Study.pptx" class="ap-btn outline" download>↓ Case study deck (.pptx)</a>
-      <a href="assets/downloads/Aperol_Golden_Hour_Strategy_Memo.docx" class="ap-btn outline" download>↓ Strategy memo (.docx)</a>
+      <a href="aperol-microsite/index.html" class="ap-btn" data-track="ap-cta.view-the-live-microsite">↗ View the live microsite</a>
+      <a href="assets/downloads/Aperol_Golden_Hour_Case_Study.pptx" class="ap-btn outline" download data-track="ap-cta.aperol-golden-hour-case">↓ Case study deck (.pptx)</a>
+      <a href="assets/downloads/Aperol_Golden_Hour_Strategy_Memo.docx" class="ap-btn outline" download data-track="ap-cta.aperol-golden-hour">↓ Strategy memo (.docx)</a>
     </div>
   </section>
 
   <!-- ===== DISCLAIMER ===== -->
-  <section class="ap-disclaimer">
+  <section class="ap-disclaimer" data-section="ap-disclaimer" data-zone="ap-disclaimer">
     <div>
       This work is speculative. It is not affiliated with, endorsed by, or commissioned by Campari Group or Aperol.<br>
       All trademarks belong to their respective owners. <span class="em">© Sai Kanagat, 2026.</span>
     </div>
     <div style="margin-top: 24px;">
-      Bologna, May 2026 · <a href="mailto:saikanagat1117@gmail.com" style="color: var(--ap-orange); text-decoration: underline;">saikanagat1117@gmail.com</a>
+      Bologna, May 2026 · <a href="mailto:saikanagat1117@gmail.com" style="color: var(--ap-orange); text-decoration: underline;" data-track="ap-disclaimer.email">saikanagat1117@gmail.com</a>
     </div>
   </section>
 
 </main>
 
 <script src="js/lang.js" defer></script>
-<script src="js/consent.js" defer></script>
-<script src="js/analytics.js" defer></script>
+<script>window.SK_CLARITY_ID='zir45wg6mm';</script>
+<script src="js/consent.js?v=7f703b6c" defer></script>
+<script src="js/analytics.js?v=1964af25" defer></script>
 </body>
 </html>

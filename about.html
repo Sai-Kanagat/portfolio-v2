@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-page-type="about">
 <head>
   <!-- Consent Mode v2 default — denied inside EEA/UK/Switzerland (GDPR), granted elsewhere -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
@@ -100,24 +100,24 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MRGXD7ZC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
-<a href="#main" class="skip-link">Skip to content</a>
+<a href="#main" class="skip-link" data-track="page.skip-to-content">Skip to content</a>
 
 <!-- NAV -->
-<nav class="nav">
-  <a href="index.html" class="nav-logo">SK<span>.</span></a>
+<nav class="nav" data-zone="nav">
+  <a href="index.html" class="nav-logo" data-track="nav.home">SK<span>.</span></a>
   <div class="nav-links" id="navLinks">
-    <a href="work.html" data-en="Work" data-it="Lavori">Work</a>
-    <a href="process.html" data-en="Process" data-it="Processo">Process</a>
-    <a href="gallery.html" data-en="Gallery" data-it="Galleria">Gallery</a>
-    <a href="blog.html" data-en="Blog" data-it="Blog">Blog</a>
-    <a href="about.html" class="active" data-en="About" data-it="Chi Sono">About</a>
-    <a href="demos.html" data-en="Demos" data-it="Demo">Demos</a>
-    <a href="contact.html" data-en="Contact" data-it="Contatti">Contact</a>
-    <a href="brand-identity.html" class="nav-score-btn" data-en="View Brandbook" data-it="Vedi Brandbook">View Brandbook</a>
+    <a href="work.html" data-en="Work" data-it="Lavori" data-track="nav.work">Work</a>
+    <a href="process.html" data-en="Process" data-it="Processo" data-track="nav.process">Process</a>
+    <a href="gallery.html" data-en="Gallery" data-it="Galleria" data-track="nav.gallery">Gallery</a>
+    <a href="blog.html" data-en="Blog" data-it="Blog" data-track="nav.blog">Blog</a>
+    <a href="about.html" class="active" data-en="About" data-it="Chi Sono" data-track="nav.about">About</a>
+    <a href="demos.html" data-en="Demos" data-it="Demo" data-track="nav.demos">Demos</a>
+    <a href="contact.html" data-en="Contact" data-it="Contatti" data-track="nav.contact">Contact</a>
+    <a href="brand-identity.html" class="nav-score-btn" data-en="View Brandbook" data-it="Vedi Brandbook" data-track="nav.brand-identity">View Brandbook</a>
   </div>
-  <div class="lang-toggle" aria-label="Language"><button type="button" data-l="en" class="is-active">EN</button><span>/</span><button type="button" data-l="it">IT</button></div>
+  <div class="lang-toggle" aria-label="Language"><button type="button" data-l="en" class="is-active" data-track="nav.en">EN</button><span>/</span><button type="button" data-l="it" data-track="nav.it">IT</button></div>
   <div class="nav-tag">Available — EU &amp; Remote</div>
-  <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu" data-track="nav.menu">
     <span></span><span></span><span></span>
   </button>
 </nav>
@@ -149,7 +149,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   </div>
 
   <!-- PORTRAIT -->
-  <section class="about-portraits about-portraits-single">
+  <section class="about-portraits about-portraits-single" data-section="about-portraits" data-zone="about-portraits">
     <figure class="about-portrait about-portrait--solo reveal">
       <img src="assets/images/portraits/portrait-outdoor.png" alt="Sai Kanagat — Bologna, 2026" loading="lazy">
       <figcaption>Bologna, 2026</figcaption>
@@ -157,7 +157,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   </section>
 
   <!-- BIO -->
-  <section class="about-bio">
+  <section class="about-bio" data-section="about-bio" data-zone="about-bio">
     <div class="about-bio-intro reveal">
       Industrial Designer.<br>
       Digital Marketer.<br>
@@ -183,49 +183,49 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   </section>
 
   <!-- EXPERIENCE TIMELINE -->
-  <section class="timeline-section">
+  <section class="timeline-section" data-section="timeline-section" data-zone="timeline-section">
     <div class="section-label">
       <span class="num">002</span> Experience
     </div>
     <h2 class="reveal" data-en="Timeline" data-it="Percorso">Timeline</h2>
     <div class="timeline">
 
-      <div class="timeline-item reveal">
+      <div class="timeline-item reveal" data-section="timeline-1">
         <div class="timeline-year">2019–2023</div>
         <div class="timeline-role">B.Des — Industrial Design</div>
         <div class="timeline-company">DJ Academy of Design, Alagappa University — Coimbatore, India</div>
         <p class="timeline-desc">Four-year undergraduate programme in industrial design covering materials science, fabrication, CMF research, design methodology, branding and user research. Founded and hosted Pratibimb — a campus club conducting thought experiments, film screenings and creative discussions. Graduated with a strong portfolio spanning product design, furniture and spatial experience.</p>
       </div>
 
-      <div class="timeline-item reveal">
+      <div class="timeline-item reveal" data-section="timeline-2">
         <div class="timeline-year">May–Jul 2022</div>
         <div class="timeline-role">Furniture &amp; Set Design Intern</div>
         <div class="timeline-company">Carlos Mota — Mumbai, India</div>
         <p class="timeline-desc">Contributed to visual storytelling and branding through furniture and set design for renowned designer Carlos Mota's debut textile line "Verde". Work was featured in Architectural Digest. Responsibilities included spatial layout, material sourcing and on-site installation coordination.</p>
       </div>
 
-      <div class="timeline-item reveal">
+      <div class="timeline-item reveal" data-section="timeline-3">
         <div class="timeline-year">Mar–Aug 2023</div>
         <div class="timeline-role">Sustainable Furniture Designer &amp; Digital Marketer</div>
         <div class="timeline-company">Auroville Bamboo Center — Auroville, India</div>
         <p class="timeline-desc">Designed the 'ARABELLA' bamboo furniture line — a sustainable, affordable collection for the Indian middle-class market built with local artisans. Ran market research and user studies to inform ergonomic decisions. Simultaneously managed digital branding, content creation and social media strategy for the centre.</p>
       </div>
 
-      <div class="timeline-item reveal">
+      <div class="timeline-item reveal" data-section="timeline-4">
         <div class="timeline-year">Jan 2024–Present</div>
         <div class="timeline-role">Founder &amp; Digital Marketing Strategist</div>
         <div class="timeline-company">Nishta — India</div>
         <p class="timeline-desc">Founded a digital marketing practice specialising in social media advertising, web design, branding and content strategy. Led integrated campaigns blending creative design with digital outreach. Clients included BikeWo (EV dealership) and Vijay Gas Service — driving measurable increases in leads, engagement and brand visibility.</p>
       </div>
 
-      <div class="timeline-item reveal">
+      <div class="timeline-item reveal" data-section="timeline-5">
         <div class="timeline-year">Mar 2024–Present</div>
         <div class="timeline-role">Design &amp; Marketing — Concurrent Clients</div>
         <div class="timeline-company">Vijay Gas Service &amp; BikeWo — Coimbatore, India</div>
         <p class="timeline-desc">At Vijay Gas: managed digital marketing strategy, social media campaigns and data-driven logistics planning, reducing marketing expenses by 25%. At BikeWo (multi-brand EV dealership): spearheaded social media marketing that drastically increased leads and customer engagement; created and managed content aligned with EV trends.</p>
       </div>
 
-      <div class="timeline-item reveal">
+      <div class="timeline-item reveal" data-section="timeline-6">
         <div class="timeline-year">2025–Present</div>
         <div class="timeline-role">MSc Digital Marketing &amp; Communication</div>
         <div class="timeline-company">Bologna Business School — Bologna, Italy</div>
@@ -236,70 +236,70 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   </section>
 
   <!-- CERTIFICATIONS -->
-  <section class="certs-section">
+  <section class="certs-section" data-section="certs-section" data-zone="certs-section">
     <div class="section-label">
       <span class="num">003</span> Credentials
     </div>
     <h2 class="reveal"><span data-en="Certifications" data-it="Certificazioni">Certifications</span></h2>
     <div class="certs-grid">
 
-      <div class="cert-card reveal">
+      <div class="cert-card reveal" data-section="cert-1">
         <div class="cert-icon">BDes</div>
         <div class="cert-name">B.Des — Industrial Design</div>
         <div class="cert-issuer">DJ Academy of Design / Alagappa University</div>
         <div class="cert-year">2023 · Coimbatore, India</div>
       </div>
 
-      <div class="cert-card reveal reveal-delay-1">
+      <div class="cert-card reveal reveal-delay-1" data-section="cert-2">
         <div class="cert-icon">BBS</div>
         <div class="cert-name">MSc Digital Marketing &amp; Communication</div>
         <div class="cert-issuer">Bologna Business School</div>
         <div class="cert-year">2025–2026 · Bologna, Italy</div>
       </div>
 
-      <div class="cert-card reveal reveal-delay-2">
+      <div class="cert-card reveal reveal-delay-2" data-section="cert-3">
         <div class="cert-icon">BBS</div>
         <div class="cert-name">Digital Marketing — Course Certificate</div>
         <div class="cert-issuer">Bologna Business School</div>
         <div class="cert-year">2026</div>
       </div>
 
-      <div class="cert-card reveal">
+      <div class="cert-card reveal" data-section="cert-4">
         <div class="cert-icon">BBS</div>
         <div class="cert-name">Branding &amp; Corporate Communication</div>
         <div class="cert-issuer">Bologna Business School</div>
         <div class="cert-year">2026</div>
       </div>
 
-      <div class="cert-card reveal reveal-delay-1">
+      <div class="cert-card reveal reveal-delay-1" data-section="cert-5">
         <div class="cert-icon">BBS</div>
         <div class="cert-name">Industry Structure of Digital Advertising</div>
         <div class="cert-issuer">Bologna Business School</div>
         <div class="cert-year">2025</div>
       </div>
 
-      <div class="cert-card pending reveal reveal-delay-2">
+      <div class="cert-card pending reveal reveal-delay-2" data-section="cert-6">
         <div class="cert-icon">GA4</div>
         <div class="cert-name">Google Analytics Certification</div>
         <div class="cert-issuer">Google — In Progress</div>
         <div class="cert-year">2026</div>
       </div>
 
-      <div class="cert-card pending reveal">
+      <div class="cert-card pending reveal" data-section="cert-7">
         <div class="cert-icon">GDS</div>
         <div class="cert-name">Google Ads Search Certification</div>
         <div class="cert-issuer">Google — In Progress</div>
         <div class="cert-year">2026</div>
       </div>
 
-      <div class="cert-card pending reveal reveal-delay-1">
+      <div class="cert-card pending reveal reveal-delay-1" data-section="cert-8">
         <div class="cert-icon">META</div>
         <div class="cert-name">Meta Blueprint — Media Buying</div>
         <div class="cert-issuer">Meta — In Progress</div>
         <div class="cert-year">2026</div>
       </div>
 
-      <div class="cert-card pending reveal reveal-delay-2">
+      <div class="cert-card pending reveal reveal-delay-2" data-section="cert-9">
         <div class="cert-icon">HBS</div>
         <div class="cert-name">Content Marketing Certification</div>
         <div class="cert-issuer">HubSpot Academy — Planned</div>
@@ -310,7 +310,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   </section>
 
   <!-- SKILLS -->
-  <section class="skills-section">
+  <section class="skills-section" data-section="skills-section" data-zone="skills-section">
     <div class="section-label" style="color: rgba(10,10,10,0.5);">
       <span class="num" style="color:var(--ink);">004</span> Skills
     </div>
@@ -350,7 +350,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   </section>
 
   <!-- ACHIEVEMENTS -->
-  <section class="achievements">
+  <section class="achievements" data-section="achievements" data-zone="achievements">
     <div class="section-label">
       <span class="num">005</span> Results
     </div>
@@ -380,7 +380,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   </section>
 
   <!-- CTA -->
-  <section style="padding: var(--pad-section) var(--pad-x); border-top: 1px solid var(--grey-line); display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;">
+  <section style="padding: var(--pad-section) var(--pad-x); border-top: 1px solid var(--grey-line); display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;" data-section="ready-to-work-together" data-zone="ready-to-work-together">
     <div class="reveal">
       <div class="section-label"><span class="num">006</span> Contact</div>
       <h2 style="font-family: var(--font-display); font-weight: 900; font-size: clamp(32px, 5vw, 64px); letter-spacing: -0.04em; text-transform: uppercase; line-height: 0.95; margin-bottom: 32px;">
@@ -388,10 +388,10 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
         <span style="color: var(--accent);">Work Together?</span>
       </h2>
       <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-        <a href="contact.html" class="btn btn-primary">Get in Touch</a>
-        <a href="work.html" class="btn btn-outline">View Work</a>
+        <a href="contact.html" class="btn btn-primary" data-track="ready-to-work-together.contact">Get in Touch</a>
+        <a href="work.html" class="btn btn-outline" data-track="ready-to-work-together.work">View Work</a>
       </div>
-      <p style="margin-top: 24px; font-size: 16px; line-height: 1.5;">Hiring? <a href="hire" style="color: var(--accent); font-weight: 600; text-decoration: underline; text-underline-offset: 4px;">Get a tailored one-pager for your role</a></p>
+      <p style="margin-top: 24px; font-size: 16px; line-height: 1.5;">Hiring? <a href="hire" style="color: var(--accent); font-weight: 600; text-decoration: underline; text-underline-offset: 4px;" data-track="ready-to-work-together.hire">Get a tailored one-pager for your role</a></p>
     </div>
     <div class="reveal reveal-delay-1" style="border-left: 1px solid var(--grey-line); padding-left: 80px;">
       <p style="font-family: var(--font-display); font-weight: 600; font-size: clamp(16px, 1.5vw, 20px); letter-spacing: -0.01em; line-height: 1.6; color: rgba(10,10,10,0.75);">
@@ -402,13 +402,13 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   </section>
 
   <!-- FOOTER -->
-  <footer class="footer">
+  <footer class="footer" data-zone="footer">
     <div class="footer-logo">SK<span>.</span></div>
     <p class="footer-copy">© 2026 Sai Kanagat. All rights reserved.</p>
     <div class="footer-socials">
-      <a href="https://linkedin.com/in/sai-kanagat" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://github.com/Sai-Kanagat" target="_blank" rel="noopener">GitHub</a>
-      <a href="mailto:saikanagat1117@gmail.com">Email</a>
+      <a href="https://linkedin.com/in/sai-kanagat" target="_blank" rel="noopener" data-track="footer.linkedin">LinkedIn</a>
+      <a href="https://github.com/Sai-Kanagat" target="_blank" rel="noopener" data-track="footer.github">GitHub</a>
+      <a href="mailto:saikanagat1117@gmail.com" data-track="footer.email">Email</a>
     </div>
   </footer>
 
@@ -431,7 +431,8 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 <script src="js/lightbox.js"></script>
 <script src="js/hover-preview.js"></script>
 <script src="js/interactions.js"></script>
-<script src="js/consent.js" defer></script>
-<script src="js/analytics.js" defer></script>
+<script>window.SK_CLARITY_ID='zir45wg6mm';</script>
+<script src="js/consent.js?v=7f703b6c" defer></script>
+<script src="js/analytics.js?v=1964af25" defer></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-page-type="work">
 <head>
   <!-- Consent Mode v2 default — denied inside EEA/UK/Switzerland (GDPR), granted elsewhere -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
@@ -93,41 +93,41 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MRGXD7ZC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
-<a href="#main" class="skip-link">Skip to content</a>
+<a href="#main" class="skip-link" data-track="page.skip-to-content">Skip to content</a>
 
 <!-- NAV -->
-<nav class="nav">
-  <a href="index.html" class="nav-logo">SK<span>.</span></a>
+<nav class="nav" data-zone="nav">
+  <a href="index.html" class="nav-logo" data-track="nav.home">SK<span>.</span></a>
   <div class="nav-links" id="navLinks">
-    <a href="work.html" class="active" data-en="Work" data-it="Lavori">Work</a>
-    <a href="process.html" data-en="Process" data-it="Processo">Process</a>
-    <a href="gallery.html" data-en="Gallery" data-it="Galleria">Gallery</a>
-    <a href="blog.html" data-en="Blog" data-it="Blog">Blog</a>
-    <a href="about.html" data-en="About" data-it="Chi Sono">About</a>
-    <a href="demos.html" data-en="Demos" data-it="Demo">Demos</a>
-    <a href="contact.html" data-en="Contact" data-it="Contatti">Contact</a>
-    <a href="brand-identity.html" class="nav-score-btn" data-en="View Brandbook" data-it="Vedi Brandbook">View Brandbook</a>
+    <a href="work.html" class="active" data-en="Work" data-it="Lavori" data-track="nav.work">Work</a>
+    <a href="process.html" data-en="Process" data-it="Processo" data-track="nav.process">Process</a>
+    <a href="gallery.html" data-en="Gallery" data-it="Galleria" data-track="nav.gallery">Gallery</a>
+    <a href="blog.html" data-en="Blog" data-it="Blog" data-track="nav.blog">Blog</a>
+    <a href="about.html" data-en="About" data-it="Chi Sono" data-track="nav.about">About</a>
+    <a href="demos.html" data-en="Demos" data-it="Demo" data-track="nav.demos">Demos</a>
+    <a href="contact.html" data-en="Contact" data-it="Contatti" data-track="nav.contact">Contact</a>
+    <a href="brand-identity.html" class="nav-score-btn" data-en="View Brandbook" data-it="Vedi Brandbook" data-track="nav.brand-identity">View Brandbook</a>
   </div>
-  <div class="lang-toggle" aria-label="Language"><button type="button" data-l="en" class="is-active">EN</button><span>/</span><button type="button" data-l="it">IT</button></div>
+  <div class="lang-toggle" aria-label="Language"><button type="button" data-l="en" class="is-active" data-track="nav.en">EN</button><span>/</span><button type="button" data-l="it" data-track="nav.it">IT</button></div>
   <div class="nav-tag">Available — EU &amp; Remote</div>
-  <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu" data-track="nav.menu">
     <span></span><span></span><span></span>
   </button>
 </nav>
 
 <!-- PROJECT DETAIL PANEL -->
 <div class="panel-backdrop" id="backdrop"></div>
-<aside class="project-panel" id="projectPanel" role="dialog" aria-modal="true" aria-label="Project details">
+<aside class="project-panel" id="projectPanel" role="dialog" aria-modal="true" aria-label="Project details" data-zone="panel">
   <div class="panel-close">
-    <button class="panel-close-btn" id="panelClose">
+    <button class="panel-close-btn" id="panelClose" data-track="panel.close">
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2">
         <path d="M1 1l12 12M13 1L1 13"/>
       </svg>
       Close
     </button>
     <div id="panelNav" style="display:flex; gap:8px;">
-      <button class="btn btn-outline" id="prevProject" style="padding: 8px 14px; font-size: 0.6rem;" data-en="← Prev" data-it="← Prec">← Prev</button>
-      <button class="btn btn-outline" id="nextProject" style="padding: 8px 14px; font-size: 0.6rem;" data-en="Next →" data-it="Succ →">Next →</button>
+      <button class="btn btn-outline" id="prevProject" style="padding: 8px 14px; font-size: 0.6rem;" data-en="← Prev" data-it="← Prec" data-track="panel.prev">← Prev</button>
+      <button class="btn btn-outline" id="nextProject" style="padding: 8px 14px; font-size: 0.6rem;" data-en="Next →" data-it="Succ →" data-track="panel.next">Next →</button>
     </div>
   </div>
   <div class="panel-content" id="panelContent"></div>
@@ -141,10 +141,10 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     <div class="work-page-sub">
       <p><span data-en="Selected projects across industrial design, product development, systems design, visual merchandising and sustainability. Click any project to explore." data-it="Una selezione di progetti tra design industriale, sviluppo prodotto, design dei sistemi, visual merchandising e sostenibilità. Clicca un progetto per esplorarlo.">Selected projects across industrial design, product development, systems design, visual merchandising and sustainability. Click any project to explore.</span></p>
       <div class="filter-pills">
-        <button class="filter-pill active" data-filter="all" data-en="All" data-it="Tutti">All</button>
-        <button class="filter-pill" data-filter="design" data-en="Design" data-it="Design">Design</button>
-        <button class="filter-pill" data-filter="marketing" data-en="Marketing" data-it="Marketing">Marketing</button>
-        <button class="filter-pill" data-filter="systems" data-en="Systems" data-it="Sistemi">Systems</button>
+        <button class="filter-pill active" data-filter="all" data-en="All" data-it="Tutti" data-track="page.filter-all">All</button>
+        <button class="filter-pill" data-filter="design" data-en="Design" data-it="Design" data-track="page.filter-design">Design</button>
+        <button class="filter-pill" data-filter="marketing" data-en="Marketing" data-it="Marketing" data-track="page.filter-marketing">Marketing</button>
+        <button class="filter-pill" data-filter="systems" data-en="Systems" data-it="Sistemi" data-track="page.filter-systems">Systems</button>
       </div>
     </div>
   </header>
@@ -153,7 +153,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   <div class="work-full-grid">
     <div class="full-grid" id="workGrid">
 
-      <a href="/thallo" class="work-card feature reveal" data-category="systems" data-project="thallo" id="thallo" style="display:block; text-decoration:none; color:inherit; position:relative; overflow:hidden;">
+      <a href="/thallo" class="work-card feature reveal" data-category="systems" data-project="thallo" id="thallo" style="display:block; text-decoration:none; color:inherit; position:relative; overflow:hidden;" data-track="page.project-thallo">
         <div style="width:100%;height:100%;background:#F2EFE8;display:flex;flex-direction:column;justify-content:space-between;padding:24px 28px;position:relative;overflow:hidden;border-bottom:1px solid #0A0A0A;">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#0A0A0A;">
             <span>THALLO // WAITLIST OPEN</span>
@@ -178,7 +178,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
         </div>
       </a>
 
-      <a href="#cyrano" class="work-card feature reveal" data-category="systems" data-project="cyrano" id="cyrano" style="display:block; text-decoration:none; color:inherit; position:relative; overflow:hidden;">
+      <a href="#cyrano" class="work-card feature reveal" data-category="systems" data-project="cyrano" id="cyrano" style="display:block; text-decoration:none; color:inherit; position:relative; overflow:hidden;" data-track="page.project-cyrano">
         <div style="width:100%; height:100%; background:#0E1116; display:flex; flex-direction:column; justify-content:space-between; padding:28px; position:relative; overflow:hidden; border-bottom:1px solid #0A0A0A;">
           <div style="display:flex; justify-content:space-between; align-items:flex-start; font-family:'IBM Plex Mono','Geist Mono', monospace; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:rgba(244,243,239,0.6);">
             <span>CYRANO // SYS.001 · v0</span>
@@ -202,7 +202,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
         </div>
       </a>
 
-      <a href="aperol-golden-hour.html" class="work-card feature reveal" data-category="marketing" data-project="aperol" id="aperol" style="display:block; text-decoration:none; color:inherit; position:relative; overflow:hidden;">
+      <a href="aperol-golden-hour.html" class="work-card feature reveal" data-category="marketing" data-project="aperol" id="aperol" style="display:block; text-decoration:none; color:inherit; position:relative; overflow:hidden;" data-track="page.project-aperol">
         <div style="width:100%; height:100%; background:linear-gradient(180deg, #E55D34 0%, #C84A26 100%); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;">
           <div style="position:absolute; inset:0; background:url('assets/images/APEROL/hero.jpg') center/cover; opacity:0.28; mix-blend-mode:luminosity;"></div>
           <div style="position:relative; z-index:2; text-align:center; padding:24px;">
@@ -222,7 +222,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
         </div>
       </a>
 
-      <a href="#biomechanics" class="work-card feature reveal" data-category="systems" data-project="biomechanics" id="biomechanics" style="display:block; text-decoration:none; color:inherit; position:relative; overflow:hidden;">
+      <a href="#biomechanics" class="work-card feature reveal" data-category="systems" data-project="biomechanics" id="biomechanics" style="display:block; text-decoration:none; color:inherit; position:relative; overflow:hidden;" data-track="page.project-biomechanics">
         <div style="width:100%; height:100%; background:linear-gradient(180deg, #0a0a0a 0%, #1a1a2e 100%); display:flex; flex-direction:column; justify-content:space-between; padding:28px; position:relative; overflow:hidden; border-bottom:1px solid #0A0A0A;">
           <div style="display:flex; justify-content:space-between; align-items:flex-start; font-family:'IBM Plex Mono','Geist Mono', monospace; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(244,243,239,0.65);">
             <span>RESEARCH // PAPER.001</span>
@@ -247,7 +247,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
         </div>
       </a>
 
-      <div class="work-card feature reveal" data-category="marketing" data-project="adlib" id="adlib">
+      <div class="work-card feature reveal" data-category="marketing" data-project="adlib" id="adlib" data-track="page.project-adlib">
         <div style="width:100%;height:100%;background:#F2EFE8;display:flex;flex-direction:column;justify-content:space-between;padding:24px 28px;position:relative;overflow:hidden;border-bottom:1px solid #0A0A0A;">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;font-family:'IBM Plex Mono','Geist Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#0A0A0A;">
             <span>ADLIB // DOC.0001 / REV.00</span>
@@ -273,7 +273,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
         </div>
       </div>
 
-      <div class="work-card feature reveal" data-category="systems" data-project="inkwell" id="inkwell">
+      <div class="work-card feature reveal" data-category="systems" data-project="inkwell" id="inkwell" data-track="page.project-inkwell">
         <div style="width:100%;height:100%;background:linear-gradient(135deg,var(--paper) 0%,var(--n-200) 100%); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;">
           <div style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:160px; height:160px; background:oklch(0.16 0.012 260); border-radius:50%; opacity:0.92;"></div>
           <div style="position:relative; z-index:2; font-family:'Newsreader', Georgia, serif; font-style:italic; font-weight:500; color:var(--paper); font-size:clamp(36px, 5vw, 64px); letter-spacing:-0.02em; line-height:1;">inkwell<span style="color:oklch(0.42 0.21 265)">.</span></div>
@@ -289,7 +289,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
         </div>
       </div>
 
-      <div class="work-card feature reveal" data-category="marketing" data-project="vigilante" id="vigilante">
+      <div class="work-card feature reveal" data-category="marketing" data-project="vigilante" id="vigilante" data-track="page.project-vigilante">
         <img class="card-img" src="assets/images/VIGILANTE/cv-landing.png" alt="Content Vigilante — Marketing OS" loading="lazy" />
         <div class="work-card-overlay">
           <div class="work-card-number">01 — Marketing OS · Live</div>
@@ -302,7 +302,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
         </div>
       </div>
 
-      <div class="work-card feature reveal" data-category="design" data-project="casamota" id="casamota">
+      <div class="work-card feature reveal" data-category="design" data-project="casamota" id="casamota" data-track="page.project-casamota">
         <img class="card-img" src="assets/images/CASAMOTA/img_p4_1.jpeg" alt="Carlos Mota Verde Collection" loading="lazy" />
         <div class="work-card-overlay">
           <div class="work-card-number">01 — Design Collaboration</div>
@@ -315,7 +315,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
         </div>
       </div>
 
-      <div class="work-card feature reveal reveal-delay-1" data-category="marketing" data-project="juicy" id="juicy">
+      <div class="work-card feature reveal reveal-delay-1" data-category="marketing" data-project="juicy" id="juicy" data-track="page.project-juicy">
         <img class="card-img" src="assets/images/VM/img_p21_1.jpeg" alt="Juicy Chemistry Visual Merchandising" loading="lazy" />
         <div class="work-card-overlay">
           <div class="work-card-number">02 — Visual Merchandising</div>
@@ -328,7 +328,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
         </div>
       </div>
 
-      <div class="work-card feature reveal reveal-delay-2" data-category="design" data-project="arabella" id="arabella">
+      <div class="work-card feature reveal reveal-delay-2" data-category="design" data-project="arabella" id="arabella" data-track="page.project-arabella">
         <img class="card-img" src="assets/images/ARABELLA/hero.jpg" alt="ARABellA Bamboo Furniture" loading="lazy" />
         <div class="work-card-overlay">
           <div class="work-card-number">03 — Graduation Thesis</div>
@@ -341,7 +341,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
         </div>
       </div>
 
-      <div class="work-card feature reveal" data-category="marketing" data-project="backpack" id="backpack">
+      <div class="work-card feature reveal" data-category="marketing" data-project="backpack" id="backpack" data-track="page.project-backpack">
         <img class="card-img" src="assets/images/BACKPACK/01-hero.png" alt="Backpack & Bottle — campaign landing page" loading="lazy" />
         <div class="work-card-overlay">
           <div class="work-card-number">04 — Campaign · Live</div>
@@ -354,7 +354,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
         </div>
       </div>
 
-      <div class="work-card feature reveal" data-category="systems" data-project="agora" id="agora">
+      <div class="work-card feature reveal" data-category="systems" data-project="agora" id="agora" data-track="page.project-agora">
         <div style="width:100%;height:100%;background:radial-gradient(circle at 30% 30%, var(--n-800) 0%, var(--ink) 70%); display:flex; align-items:center; justify-content:center; flex-direction: column; gap: 12px; position:relative; overflow:hidden;">
           <div style="position:absolute; inset:0; background-image: radial-gradient(circle at 22% 35%, var(--accent) 0%, transparent 4%), radial-gradient(circle at 65% 55%, var(--accent-up) 0%, transparent 3%), radial-gradient(circle at 45% 70%, var(--accent) 0%, transparent 3%), radial-gradient(circle at 75% 25%, var(--paper) 0%, transparent 2.5%), radial-gradient(circle at 35% 50%, var(--accent) 0%, transparent 2%), radial-gradient(circle at 80% 75%, var(--accent) 0%, transparent 3%); opacity: 0.85;"></div>
           <div style="font-family: var(--font-display); font-weight: 900; font-size: clamp(26px, 3.8vw, 46px); letter-spacing: -0.04em; color: var(--accent); text-align: center; line-height: 1; padding: 24px; z-index: 2; position: relative;">AGORA<br><span style="font-size: 0.42em; letter-spacing: 0.15em; color: transparent; -webkit-text-stroke: 1px var(--paper);">OPINION SANDBOX</span></div>
@@ -370,7 +370,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
         </div>
       </div>
 
-      <div class="work-card reveal reveal-delay-1" data-category="systems" data-project="handcursor" id="handcursor-card">
+      <div class="work-card reveal reveal-delay-1" data-category="systems" data-project="handcursor" id="handcursor-card" data-track="page.project-handcursor">
         <div style="width:100%;height:100%;background:linear-gradient(135deg,var(--ink) 0%,var(--n-800) 100%); display:flex; align-items:center; justify-content:center; flex-direction: column; gap: 12px;">
           <div style="font-family: var(--font-display); font-weight: 900; font-size: clamp(26px, 3.8vw, 46px); letter-spacing: -0.04em; color: var(--accent); text-align: center; line-height: 1; padding: 24px;">HAND CURSOR<br><span style="font-size: 0.42em; letter-spacing: 0.15em; color: transparent; -webkit-text-stroke: 1px var(--paper);">GESTURE × CODE</span></div>
         </div>
@@ -384,7 +384,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
         </div>
       </div>
 
-      <div class="work-card reveal reveal-delay-2" data-category="systems" data-project="dropballs" id="dropballs-card">
+      <div class="work-card reveal reveal-delay-2" data-category="systems" data-project="dropballs" id="dropballs-card" data-track="page.project-dropballs">
         <div style="width:100%;height:100%;background:linear-gradient(135deg,var(--ink) 0%,var(--n-800) 100%); display:flex; align-items:center; justify-content:center; flex-direction: column; gap: 12px;">
           <div style="font-family: var(--font-display); font-weight: 900; font-size: clamp(26px, 3.8vw, 46px); letter-spacing: -0.04em; color: var(--accent); text-align: center; line-height: 1; padding: 24px;">COLOUR PHYSICS<br><span style="font-size: 0.42em; letter-spacing: 0.15em; color: transparent; -webkit-text-stroke: 1px var(--paper);">WEBCAM GREENSCREEN</span></div>
         </div>
@@ -398,7 +398,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
         </div>
       </div>
 
-      <div class="work-card reveal" data-category="design" data-project="desk" id="desk">
+      <div class="work-card reveal" data-category="design" data-project="desk" id="desk" data-track="page.project-desk">
         <img class="card-img" src="assets/images/TABLE/img_p16_1.jpeg" alt="Adjustable Classroom Table" loading="lazy" />
         <div class="work-card-overlay">
           <div class="work-card-number">04 — Product Design</div>
@@ -411,7 +411,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
         </div>
       </div>
 
-      <div class="work-card reveal reveal-delay-1" data-category="design" data-project="cigarette" id="cigarette">
+      <div class="work-card reveal reveal-delay-1" data-category="design" data-project="cigarette" id="cigarette" data-track="page.project-cigarette">
         <div style="width:100%;height:100%;background:linear-gradient(135deg,var(--n-900) 0%,var(--n-800) 100%); display:flex; align-items:center; justify-content:center; flex-direction: column; gap: 12px;">
           <div style="font-family: var(--font-display); font-weight: 900; font-size: clamp(26px, 3.8vw, 46px); letter-spacing: -0.04em; color: var(--accent); text-align: center; line-height: 1; padding: 24px;">BUDDY<br><span style="font-size: 0.42em; letter-spacing: 0.15em; color: transparent; -webkit-text-stroke: 1px var(--paper);">SUSTAINABLE CIGARETTE</span></div>
         </div>
@@ -426,7 +426,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
         </div>
       </div>
 
-      <div class="work-card reveal reveal-delay-2" data-category="systems" data-project="vijay" id="vijay">
+      <div class="work-card reveal reveal-delay-2" data-category="systems" data-project="vijay" id="vijay" data-track="page.project-vijay">
         <div style="width:100%;height:100%;background:linear-gradient(135deg,var(--n-900) 0%,var(--n-800) 100%); display:flex; align-items:center; justify-content:center; flex-direction: column; gap: 12px;">
           <div style="font-family: var(--font-display); font-weight: 900; font-size: clamp(26px, 3.8vw, 46px); letter-spacing: -0.04em; color: var(--accent); text-align: center; line-height: 1; padding: 24px;">VIJAY CNG<br><span style="font-size: 0.42em; letter-spacing: 0.15em; color: transparent; -webkit-text-stroke: 1px var(--paper);">SYSTEMS DESIGN</span></div>
         </div>
@@ -441,7 +441,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
         </div>
       </div>
 
-      <div class="work-card reveal" data-category="design" data-project="flower" id="flower">
+      <div class="work-card reveal" data-category="design" data-project="flower" id="flower" data-track="page.project-flower">
         <img class="card-img" src="assets/images/FLOWER/img_p14_1.jpeg" alt="Steel Flower Sculpture" loading="lazy" />
         <div class="work-card-overlay">
           <div class="work-card-number">07 — Metalwork</div>
@@ -453,7 +453,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
         </div>
       </div>
 
-      <div class="work-card reveal reveal-delay-1" data-category="design" data-project="povera" id="povera">
+      <div class="work-card reveal reveal-delay-1" data-category="design" data-project="povera" id="povera" data-track="page.project-povera">
         <img class="card-img" src="assets/images/POVERA/img_p15_1.jpeg" alt="Arte Povera Installation" loading="lazy" />
         <div class="work-card-overlay">
           <div class="work-card-number">08 — Installation</div>
@@ -465,7 +465,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
         </div>
       </div>
 
-      <div class="work-card reveal reveal-delay-2" data-category="marketing" data-project="razer" id="razer">
+      <div class="work-card reveal reveal-delay-2" data-category="marketing" data-project="razer" id="razer" data-track="page.project-razer">
         <div style="width:100%;height:100%;background:linear-gradient(135deg,var(--ink) 0%,var(--n-800) 60%,var(--n-700) 100%); display:flex; align-items:center; justify-content:center; flex-direction: column; gap: 12px;">
           <div style="font-family: var(--font-display); font-weight: 900; font-size: clamp(26px, 3.8vw, 46px); letter-spacing: -0.04em; color: var(--accent); text-align: center; line-height: 1; padding: 24px;">RAZER × 100T<br><span style="font-size: 0.42em; letter-spacing: 0.15em; color: transparent; -webkit-text-stroke: 1px var(--paper);">PRODUCT GRAPHICS</span></div>
         </div>
@@ -480,7 +480,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
         </div>
       </div>
 
-      <a href="brand-identity.html" class="work-card reveal" data-category="design" data-project="brand" id="brand" style="text-decoration:none;color:inherit;">
+      <a href="brand-identity.html" class="work-card reveal" data-category="design" data-project="brand" id="brand" style="text-decoration:none;color:inherit;" data-track="page.project-brand">
         <img class="card-img" src="assets/images/BRAND/01-cover.jpg" alt="Sai Kanagat — personal brand identity" loading="lazy" />
         <div class="work-card-overlay">
           <div class="work-card-number">— Brand Identity · 2026</div>
@@ -497,13 +497,13 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   </div>
 
   <!-- FOOTER -->
-  <footer class="footer">
+  <footer class="footer" data-zone="footer">
     <div class="footer-logo">SK<span>.</span></div>
     <p class="footer-copy">© 2026 Sai Kanagat. All rights reserved.</p>
     <div class="footer-socials">
-      <a href="https://linkedin.com/in/sai-kanagat" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://github.com/Sai-Kanagat" target="_blank" rel="noopener">GitHub</a>
-      <a href="mailto:saikanagat1117@gmail.com">Email</a>
+      <a href="https://linkedin.com/in/sai-kanagat" target="_blank" rel="noopener" data-track="footer.linkedin">LinkedIn</a>
+      <a href="https://github.com/Sai-Kanagat" target="_blank" rel="noopener" data-track="footer.github">GitHub</a>
+      <a href="mailto:saikanagat1117@gmail.com" data-track="footer.email">Email</a>
     </div>
   </footer>
 
@@ -1046,7 +1046,8 @@ window.openPanel = openPanel;
 <script src="js/hover-preview.js"></script>
 <script src="js/interactions.js"></script>
 <script src="js/work-editorial.js"></script>
-<script src="js/consent.js" defer></script>
-<script src="js/analytics.js" defer></script>
+<script>window.SK_CLARITY_ID='zir45wg6mm';</script>
+<script src="js/consent.js?v=7f703b6c" defer></script>
+<script src="js/analytics.js?v=1964af25" defer></script>
 </body>
 </html>
