@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" data-page-type="not-found">
+<head>
+  <!-- Consent Mode v2 default - denied inside EEA/UK/Switzerland (GDPR), granted elsewhere -->
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+// Default: granted everywhere (for non-EEA traffic - recruiters in US/India/etc)
+gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'granted','functionality_storage':'granted','security_storage':'granted','wait_for_update':500});
+// Override: denied for EEA, UK, Switzerland (legally required until user accepts)
+gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied','region':['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH'],'wait_for_update':500});
+try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_consent_v2')){localStorage.setItem('sk_consent_v2','denied');}localStorage.removeItem('sk_consent');var c=localStorage.getItem('sk_consent_v2');if(c==='granted'){gtag('consent','update',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'granted'});}else if(c==='denied'){gtag('consent','update',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied'});}}catch(e){}</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Page not found | Sai Kanagat</title>
+  <meta name="description" content="This address has no page on saikanagat.com. Pick a real page from the list." />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=IBM+Plex+Mono:wght@400;500&display=swap" />
+  <style>
+    :root{--ink:oklch(0.16 0.012 260);--paper:oklch(0.975 0.004 260);--accent:oklch(0.42 0.21 265);--rule:oklch(0.88 0.008 260);--body:oklch(0.32 0.012 260);
+      --sans:'Bricolage Grotesque',ui-sans-serif,system-ui,sans-serif;--mono:'IBM Plex Mono',ui-monospace,monospace}
+    @media (prefers-color-scheme:dark){:root{--ink:oklch(0.975 0.004 260);--paper:oklch(0.16 0.012 260);--accent:oklch(0.55 0.22 262);--rule:oklch(0.30 0.01 260);--body:oklch(0.86 0.008 260)}}
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5}
+    main{max-width:1240px;margin:0 auto;padding:96px 24px 96px;display:grid;grid-template-columns:3fr 2fr;gap:48px;align-items:start}
+    h1{font-size:clamp(36px,6vw,88px);line-height:1.02;font-weight:600;letter-spacing:-0.02em;margin:0 0 24px}
+    p{color:var(--body);max-width:52ch;margin:0 0 16px}
+    code{font-family:var(--mono);font-size:14px;color:var(--ink);overflow-wrap:anywhere}
+    .path{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:12px 0;margin:32px 0}
+    .home{display:inline-block;background:var(--ink);color:var(--paper);padding:12px 24px;border-radius:999px;text-decoration:none;font-weight:500}
+    .home:hover{background:var(--accent);color:#fff}
+    a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+    ul{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
+    li a{display:flex;justify-content:space-between;gap:16px;padding:16px 0;border-bottom:1px solid var(--rule);color:var(--ink);text-decoration:none;font-size:22px;font-weight:500}
+    li a span{font-family:var(--mono);font-size:14px;color:var(--body);font-weight:400}
+    li a:hover{color:var(--accent)}
+    h2{font-size:14px;font-weight:500;margin:0 0 16px;color:var(--body)}
+    @media (max-width:760px){main{grid-template-columns:1fr;padding:48px 16px 64px;gap:48px}}
+  </style>
+</head>
+<body>
+  <main>
+    <section data-section="no-page-lives-at-this" data-zone="no-page-lives-at-this">
+      <h1>No page lives at this address.</h1>
+      <p>The link may be old, or one character off. The address you asked for:</p>
+      <div class="path"><code id="missing" data-no-track>/</code></div>
+      <a class="home" href="/" data-track="notfound.home">Go to the home page</a>
+    </section>
+    <nav aria-label="Pages that exist" data-zone="subnav">
+      <h2>Pages that do exist</h2>
+      <ul>
+        <li><a href="/work" data-track="notfound.work">Selected work <span>/work</span></a></li>
+        <li><a href="/demos" data-track="notfound.demos">Working demos <span>/demos</span></a></li>
+        <li><a href="/process" data-track="notfound.process">How I work <span>/process</span></a></li>
+        <li><a href="/contact" data-track="notfound.contact">Write to me <span>/contact</span></a></li>
+      </ul>
+    </nav>
+  </main>
+  <script>
+    (function(){
+      var p=location.pathname.split('?')[0].split('#')[0];
+      try{document.getElementById('missing').textContent=p.slice(0,200);}catch(e){}
+      (window.skq=window.skq||[]).push([function(){try{window.sk&&window.sk.track('page_not_found',{missing_path:p.slice(0,120)});}catch(e){}}]);
+    })();
+  </script>
+  <script>window.SK_CLARITY_ID='zir45wg6mm';</script>
+  <script src="/js/consent.js?v=2789cf42" defer></script>
+  <script src="/js/analytics.js?v=9f2bad85" defer></script>
+</body>
+</html>

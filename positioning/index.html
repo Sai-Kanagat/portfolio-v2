@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-page-type="tool">
 <head>
 <!-- Consent Mode v2 default: denied inside EEA/UK/Switzerland (GDPR), granted elsewhere -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
@@ -8,9 +8,6 @@ gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_pers
 // Override: denied for EEA, UK, Switzerland (legally required until user accepts)
 gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied','region':['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH'],'wait_for_update':500});
 try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_consent_v2')){localStorage.setItem('sk_consent_v2','denied');}localStorage.removeItem('sk_consent');var c=localStorage.getItem('sk_consent_v2');if(c==='granted'){gtag('consent','update',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'granted'});}else if(c==='denied'){gtag('consent','update',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied'});}}catch(e){}</script>
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MRGXD7ZC');</script>
-<!-- End Google Tag Manager -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Positioning Mapper | Sai Kanagat</title>
@@ -118,63 +115,62 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MRGXD7ZC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<a href="../demos.html" class="demo-back">← Demos</a>
+<a href="../demos.html" class="demo-back" data-track="pos.back">← Demos</a>
 
-<div class="wrap">
+<div class="wrap" data-zone="positioning">
   <h1>Positioning Mapper</h1>
   <p class="lede">Paste each competitor's homepage headline, tagline and price. The page scores them on five axes from the copy, shows its reasoning, lets you overrule any number, and maps two axes at a time. Then it finds the crowded zones and the white space, drafts a positioning statement and lists the claims everyone makes versus the claims nobody makes. Nothing leaves your browser.</p>
 
   <div class="bar" role="group" aria-label="Start from a sample market">
     <span class="lbl">Start from</span>
-    <button class="pbtn" data-mk="coffee" type="button">Sample: Italian specialty coffee D2C</button>
-    <button class="pbtn" data-mk="fintech" type="button">Sample: Fintech app</button>
-    <button class="pbtn" data-mk="blank" type="button">Blank market</button>
+    <button class="pbtn" data-track="pos.sample.coffee" data-mk="coffee" type="button">Sample: Italian specialty coffee D2C</button>
+    <button class="pbtn" data-track="pos.sample.fintech" data-mk="fintech" type="button">Sample: Fintech app</button>
+    <button class="pbtn" data-track="pos.sample.blank" data-mk="blank" type="button">Blank market</button>
   </div>
 
   <div class="grid">
-    <section aria-label="Competitors">
+    <section aria-label="Competitors" data-section="competitors" data-zone="competitors">
       <h2>Competitors</h2>
       <p class="sub">Up to 8, including your own brand. Copy the words from each homepage by hand: this page cannot fetch other sites. Sample brands are fictional.</p>
       <div id="cards"></div>
-      <button class="pbtn" id="add" type="button">Add competitor</button>
+      <button class="pbtn" id="add" data-track="pos.add" type="button">Add competitor</button>
     </section>
 
-    <section class="sticky panel" aria-label="Positioning map">
+    <section class="sticky panel" aria-label="Positioning map" data-section="sticky" data-zone="sticky">
       <div class="mapctl">
-        <div><label class="f" for="axx">Horizontal axis</label><select id="axx"></select></div>
-        <div><label class="f" for="axy">Vertical axis</label><select id="axy"></select></div>
+        <div><label class="f" for="axx">Horizontal axis</label><select id="axx" data-track="pos.axis_x"></select></div>
+        <div><label class="f" for="axy">Vertical axis</label><select id="axy" data-track="pos.axis_y"></select></div>
       </div>
-      <div class="mapwrap"><canvas id="map" role="img" aria-label="Positioning map"></canvas></div>
+      <div class="mapwrap"><canvas id="map" data-track="pos.map" role="img" aria-label="Positioning map"></canvas></div>
       <div class="legend"><span><i style="background:#3FE07A"></i>Us</span><span><i style="background:rgba(245,240,232,0.5)"></i>Competitor</span><span><i style="background:rgba(229,72,59,0.6)"></i>Crowded</span><span><i style="background:rgba(244,169,61,0.7)"></i>White space</span></div>
       <p class="sub" style="margin-bottom:10px">Drag any bubble to set its score on the two shown axes. Bubbles nudge apart so labels stay readable; a thin line points back to the true spot.</p>
       <div id="insights" aria-live="polite"></div>
       <div class="acts">
-        <button class="pbtn go" id="png" type="button">Export map PNG</button>
-        <button class="pbtn go" id="pdf" type="button">Export analysis PDF</button>
-        <button class="pbtn" id="share" type="button">Copy share link</button>
+        <button class="pbtn go" id="png" data-track="pos.png" type="button">Export map PNG</button>
+        <button class="pbtn go" id="pdf" data-track="pos.pdf" type="button">Export analysis PDF</button>
+        <button class="pbtn" id="share" data-track="pos.share" type="button">Copy share link</button>
       </div>
-      <input type="text" id="shareurl" readonly aria-label="Share link">
+      <input type="text" id="shareurl" data-track="pos.shareurl" readonly aria-label="Share link">
       <div id="msg" role="status"></div>
     </section>
   </div>
 
-  <section class="sec" id="statement" aria-label="Positioning statement">
+  <section class="sec" id="statement" aria-label="Positioning statement" data-section="statement" data-zone="statement">
     <h2>Positioning statement draft</h2>
     <p class="sub">Fill the blanks. Empty ones stay as amber placeholders. If you leave the alternative empty, the nearest rival on the map is used.</p>
     <div class="fields">
-      <div><label class="f" for="st-t">For (target customer)</label><input type="text" id="st-t" data-st="t" placeholder="e.g. home brewers in Italy"></div>
-      <div><label class="f" for="st-n">who (their need)</label><input type="text" id="st-n" data-st="n" placeholder="e.g. want fresh specialty coffee"></div>
-      <div><label class="f" for="st-c">is the (category)</label><input type="text" id="st-c" data-st="c" placeholder="e.g. roast-to-order subscription"></div>
-      <div><label class="f" for="st-b">that (key benefit)</label><input type="text" id="st-b" data-st="b" placeholder="e.g. ships within 48 hours of roasting"></div>
-      <div><label class="f" for="st-a">unlike (alternative)</label><input type="text" id="st-a" data-st="a" list="names" placeholder="blank = nearest rival on the map"><datalist id="names"></datalist></div>
+      <div><label class="f" for="st-t">For (target customer)</label><input type="text" id="st-t" data-track="pos.statement.t" data-st="t" placeholder="e.g. home brewers in Italy"></div>
+      <div><label class="f" for="st-n">who (their need)</label><input type="text" id="st-n" data-track="pos.statement.n" data-st="n" placeholder="e.g. want fresh specialty coffee"></div>
+      <div><label class="f" for="st-c">is the (category)</label><input type="text" id="st-c" data-track="pos.statement.c" data-st="c" placeholder="e.g. roast-to-order subscription"></div>
+      <div><label class="f" for="st-b">that (key benefit)</label><input type="text" id="st-b" data-track="pos.statement.b" data-st="b" placeholder="e.g. ships within 48 hours of roasting"></div>
+      <div><label class="f" for="st-a">unlike (alternative)</label><input type="text" id="st-a" data-track="pos.statement.a" data-st="a" list="names" placeholder="blank = nearest rival on the map"><datalist id="names"></datalist></div>
     </div>
     <div class="stmt" id="stmt"></div>
     <div id="stcheck" class="sub"></div>
-    <button class="pbtn" id="copystmt" type="button">Copy statement</button>
+    <button class="pbtn" id="copystmt" data-track="pos.copy_statement" type="button">Copy statement</button>
   </section>
 
-  <section class="sec" id="gaps" aria-label="Messaging gap table">
+  <section class="sec" id="gaps" aria-label="Messaging gap table" data-section="gaps" data-zone="gaps">
     <h2>Messaging gap table</h2>
     <p class="sub">Claim themes found in the headlines and taglines (English keyword match). "Everyone says it" is a claim at least half the set makes, three or more brands. "Nobody says it" is open ground, worth testing before you assume it is open for a reason.</p>
     <div class="cols"><div><h3>Everyone says it</h3><ul id="g-all"></ul></div><div><h3>Nobody says it</h3><ul id="g-none"></ul></div></div>
@@ -184,6 +180,47 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   <p class="foot">How the scoring works: each axis has a small keyword lexicon with weights. Matches add or subtract points, the sum is squashed to a score between -100 and 100, and for premium versus accessible the price rank inside your set is added as one more signal. It is a transparent first pass, not a verdict. Move any slider and your number wins. The lexicon is English only. Sample markets and brands are invented for demonstration.</p>
 </div>
 
+<script>
+/* Tracking helper. Sends ids, buckets, counts and ms only: never typed text, names, file names or URL state. */
+(function(){
+  var DID='positioning',t0=Date.now(),Q=[],QT=0,QN=0,P={},HK=[];
+  var S={first:0,start:0,ended:0,eng:0,act:0,er:0};
+  function send(m,a){var s=window.sk;if(s&&typeof s[m]==='function'){try{s[m].apply(s,a);}catch(e){}return true;}return false;}
+  function flush(){while(Q.length&&send(Q[0][0],Q[0][1]))Q.shift();}
+  function emit(m,a){try{if(Q.length<80)Q.push([m,a]);flush();if(Q.length&&!QT){QN=0;QT=setInterval(function(){flush();if(!Q.length||++QN>24){clearInterval(QT);QT=0;Q.length=0;}},500);}}catch(e){}}
+  var TRK=window.TRK={
+    id:DID,
+    a:function(action,p){emit('demo',[DID,action,p||{}]);},
+    e:function(name,p){var o={demo_id:DID};if(p)for(var k in p)o[k]=p[k];emit('track',[name,o]);},
+    raw:function(name,p){emit('track',[name,p||{}]);},
+    start:function(mode){if(S.start)return;S.start=1;TRK.e('demo_start',{mode:mode});},
+    err:function(code){if(S.er++<3)TRK.e('demo_error',{code:code});},
+    model:function(state,ms){emit('model',[DID,state,{ms:ms,delegate:'CPU'}]);},
+    lb:function(n){return n<=0?'0':n<=20?'1-20':n<=80?'21-80':n<=300?'81-300':'300+';},
+    cb:function(n){return n<=0?'0':n===1?'1':n<=5?'2-5':n<=20?'6-20':'21+';},
+    q5:function(v,lo,hi){var p=(v-lo)/((hi-lo)||1);return 'q'+Math.min(5,Math.max(1,Math.floor(p*5)+1));},
+    deb:function(key,ms,fn){if(P[key])clearTimeout(P[key].t);P[key]={fn:fn,t:setTimeout(function(){var f=P[key];delete P[key];try{f&&f.fn();}catch(e){}},ms)};},
+    flush:function(){Object.keys(P).forEach(function(k){var f=P[k];delete P[k];clearTimeout(f.t);try{f.fn();}catch(e){}});},
+    onend:function(fn){HK.push(fn);},
+    nav:function(){try{return performance.getEntriesByType('navigation')[0].type;}catch(e){return 'navigate';}},
+    end:function(reason){if(S.ended)return;S.ended=1;TRK.flush();HK.forEach(function(f){try{f();}catch(e){}});TRK.e('demo_end',{ms:Date.now()-t0,reason:reason});}
+  };
+  function active(){S.act=Date.now();}
+  ['pointermove','scroll','wheel','touchmove'].forEach(function(ev){window.addEventListener(ev,active,{passive:true,capture:true});});
+  ['pointerdown','keydown','input','change'].forEach(function(ev){document.addEventListener(ev,function(){active();if(!S.first){S.first=1;TRK.a('first_interaction',{value:Math.round((Date.now()-t0)/1000)});}},true);});
+  setInterval(function(){if(document.hidden||!S.act||Date.now()-S.act>5000)return;S.eng++;if(S.eng===10||S.eng===60)TRK.e('demo_engaged',{seconds:S.eng});},1000);
+  document.addEventListener('visibilitychange',function(){if(document.hidden)TRK.end('hidden');else S.ended=0;});
+  window.addEventListener('pagehide',function(){TRK.end('leave');});
+  document.addEventListener('click',function(e){var a=e.target&&e.target.closest&&e.target.closest('a[data-track]');if(!a)return;var id=a.getAttribute('data-track')||'';if(/\.(back|home)$/.test(id))TRK.end(id.split('.').pop());},true);
+  window.addEventListener('error',function(ev){if(ev&&ev.filename&&ev.filename.indexOf(location.origin)!==0)return;TRK.err('js');});
+  window.addEventListener('unhandledrejection',function(){TRK.err('promise');});
+  TRK.e('demo_open');
+  /* return visit: a local flag, written only once analytics consent is granted */
+  var RV=0;
+  function rv(){try{if(RV||!window.sk||sk.consent!=='granted')return;RV=1;var k='sk_seen_'+DID;if(localStorage.getItem(k))TRK.a('return_visit',{item:TRK.nav()});else localStorage.setItem(k,'1');}catch(e){}}
+  setTimeout(rv,1500);window.addEventListener('sk:consent',function(){setTimeout(rv,50);});
+})();
+</script>
 <script>
 (function(){
 'use strict';
@@ -461,7 +498,7 @@ function syncTargets(snap){
   if(L[i].fresh||snap){L[i].x=p[0]+(i%3-1)*0.6;L[i].y=p[1]+(i%2)*0.4;L[i].fresh=false;}
  });
 }
-var dragI=-1;
+var dragI=-1,dragMoved=0,dragT=0;
 function frame(){
  raf=0;
  var m=stepLayout(L,CW,CH,1,3,dragI);
@@ -476,29 +513,29 @@ function hit(X,Y){for(var i=L.length-1;i>=0;i--){if(i===S.u)continue;}
  var best=-1,bd=1e9;L.forEach(function(p,i){var d=Math.hypot(p.x-X,p.y-Y);if(d<20&&d<bd){bd=d;best=i;}});return best;}
 cv.addEventListener('pointerdown',function(e){
  var p=evPos(e),i=hit(p[0],p[1]);if(i<0)return;
- dragI=i;cv.setPointerCapture(e.pointerId);cv.classList.add('drag');e.preventDefault();kick();
+ dragI=i;dragMoved=0;dragT=Date.now();cv.setPointerCapture(e.pointerId);cv.classList.add('drag');e.preventDefault();kick();
 });
 cv.addEventListener('pointermove',function(e){
  var p=evPos(e);
  if(dragI<0){cv.style.cursor=hit(p[0],p[1])>=0?'grab':'default';return;}
  var g=geom(CW,CH,1),s=fromPx(g,p[0],p[1]),c=S.c[dragI];
- c.ov[S.x]=s[0];c.ov[S.y]=s[1];
+ c.ov[S.x]=s[0];c.ov[S.y]=s[1];dragMoved=1;
  refresh(true);
 });
-function endDrag(){if(dragI<0)return;dragI=-1;cv.classList.remove('drag');kick();}
+function endDrag(){if(dragI<0)return;if(dragMoved){dragMoved=0;TRK.start('drag');TRK.a('dot_drag',{ms:Date.now()-dragT});}dragI=-1;cv.classList.remove('drag');kick();}
 cv.addEventListener('pointerup',endDrag);cv.addEventListener('pointercancel',endDrag);
 
 /* ---------- cards ---------- */
 var cardsEl=document.getElementById('cards');
 function axRows(i){
- return AX.map(function(a){return '<div class="ax" data-k="'+a.k+'" data-i="'+i+'"><div class="ax-top"><span class="ax-name">'+esc(a.lo)+' / '+esc(a.hi)+'</span><span><button class="mini" type="button" data-act="reset" data-i="'+i+'" data-k="'+a.k+'" hidden>manual: reset to auto</button> <span class="ax-val"></span></span></div><input type="range" min="-100" max="100" step="1" value="0" data-i="'+i+'" data-k="'+a.k+'" aria-label="'+esc(a.lo+' to '+a.hi)+' score"><div class="poles"><span>'+esc(a.lo)+'</span><span>'+esc(a.hi)+'</span></div><div class="why"></div></div>';}).join('');
+ return AX.map(function(a){return '<div class="ax" data-k="'+a.k+'" data-i="'+i+'"><div class="ax-top"><span class="ax-name">'+esc(a.lo)+' / '+esc(a.hi)+'</span><span><button class="mini" type="button" data-track="pos.card.reset.'+a.k+'" data-act="reset" data-i="'+i+'" data-k="'+a.k+'" hidden>manual: reset to auto</button> <span class="ax-val"></span></span></div><input type="range" data-track="pos.card.score.'+a.k+'" min="-100" max="100" step="1" value="0" data-i="'+i+'" data-k="'+a.k+'" aria-label="'+esc(a.lo+' to '+a.hi)+' score"><div class="poles"><span>'+esc(a.lo)+'</span><span>'+esc(a.hi)+'</span></div><div class="why"></div></div>';}).join('');
 }
 function cardHTML(c,i){
- return '<div class="comp" data-i="'+i+'"><div class="ctop"><label class="radio"><input type="radio" name="us" data-act="us" data-i="'+i+'"'+(i===S.u?' checked':'')+'> This is us</label><button class="rm" type="button" data-act="rm" data-i="'+i+'">Remove</button></div>'+
- '<div class="row"><div><label class="f" for="n'+i+'">Brand name</label><input type="text" id="n'+i+'" data-f="n" data-i="'+i+'" value="'+esc(c.n)+'" maxlength="40"></div><div><label class="f" for="p'+i+'">Price point</label><input type="text" id="p'+i+'" data-f="p" data-i="'+i+'" value="'+esc(c.p)+'" maxlength="30" placeholder="€12 / pack"></div></div>'+
- '<div class="row one"><div><label class="f" for="h'+i+'">Homepage headline</label><textarea id="h'+i+'" rows="2" data-f="h" data-i="'+i+'" maxlength="220">'+esc(c.h)+'</textarea></div></div>'+
- '<div class="row one"><div><label class="f" for="t'+i+'">Tagline</label><input type="text" id="t'+i+'" data-f="t" data-i="'+i+'" value="'+esc(c.t)+'" maxlength="120"></div></div>'+
- '<details class="sc"><summary>Scores and reasoning (adjustable)</summary>'+axRows(i)+'</details></div>';
+ return '<div class="comp" data-i="'+i+'"><div class="ctop"><label class="radio"><input type="radio" name="us" data-track="pos.card.us" data-act="us" data-i="'+i+'"'+(i===S.u?' checked':'')+'> This is us</label><button class="rm" type="button" data-track="pos.card.remove" data-act="rm" data-i="'+i+'">Remove</button></div>'+
+ '<div class="row"><div><label class="f" for="n'+i+'">Brand name</label><input type="text" id="n'+i+'" data-track="pos.card.name" data-f="n" data-i="'+i+'" value="'+esc(c.n)+'" maxlength="40"></div><div><label class="f" for="p'+i+'">Price point</label><input type="text" id="p'+i+'" data-track="pos.card.price" data-f="p" data-i="'+i+'" value="'+esc(c.p)+'" maxlength="30" placeholder="€12 / pack"></div></div>'+
+ '<div class="row one"><div><label class="f" for="h'+i+'">Homepage headline</label><textarea id="h'+i+'" rows="2" data-track="pos.card.headline" data-f="h" data-i="'+i+'" maxlength="220">'+esc(c.h)+'</textarea></div></div>'+
+ '<div class="row one"><div><label class="f" for="t'+i+'">Tagline</label><input type="text" id="t'+i+'" data-track="pos.card.tagline" data-f="t" data-i="'+i+'" value="'+esc(c.t)+'" maxlength="120"></div></div>'+
+ '<details class="sc"><summary data-track="pos.card.scores_toggle">Scores and reasoning (adjustable)</summary>'+axRows(i)+'</details></div>';
 }
 function renderCards(){
  cardsEl.innerHTML=S.c.map(cardHTML).join('');
@@ -599,41 +636,41 @@ function fillAxisSelects(){
  var opts=AX.map(function(a){return '<option value="'+a.k+'">'+esc(a.lo+' / '+a.hi)+'</option>';}).join('');
  axx.innerHTML=opts;axy.innerHTML=opts;axx.value=S.x;axy.value=S.y;
 }
-axx.addEventListener('change',function(){S.x=axx.value;if(S.y===S.x){S.y=AX.filter(function(a){return a.k!==S.x;})[0].k;axy.value=S.y;}refresh();});
-axy.addEventListener('change',function(){S.y=axy.value;if(S.x===S.y){S.x=AX.filter(function(a){return a.k!==S.y;})[0].k;axx.value=S.x;}refresh();});
+axx.addEventListener('change',function(){TRK.start('axis');TRK.a('axis_x',{item:axx.value});S.x=axx.value;if(S.y===S.x){S.y=AX.filter(function(a){return a.k!==S.x;})[0].k;axy.value=S.y;}refresh();});
+axy.addEventListener('change',function(){TRK.start('axis');TRK.a('axis_y',{item:axy.value});S.y=axy.value;if(S.x===S.y){S.x=AX.filter(function(a){return a.k!==S.y;})[0].k;axx.value=S.x;}refresh();});
 cardsEl.addEventListener('input',function(e){
  var t=e.target,i=+t.getAttribute('data-i');
- if(t.getAttribute('data-f')){S.c[i][t.getAttribute('data-f')]=t.value;refresh();}
- else if(t.type==='range'){S.c[i].ov[t.getAttribute('data-k')]=+t.value;refresh();}
+ if(t.getAttribute('data-f')){var ff=t.getAttribute('data-f');S.c[i][ff]=t.value;refresh();TRK.start('edit');TRK.deb('f:'+ff,700,function(){TRK.a({n:'name_edit',p:'price_edit',h:'headline_edit',t:'tagline_edit'}[ff],{bucket:TRK.lb(t.value.length)});});}
+ else if(t.type==='range'){var kk=t.getAttribute('data-k');S.c[i].ov[kk]=+t.value;refresh();TRK.start('score');TRK.deb('s:'+kk,600,function(){TRK.a('score',{item:kk,bucket:TRK.q5(+t.value,-100,100)});});}
 });
 cardsEl.addEventListener('change',function(e){
- var t=e.target;if(t.getAttribute('data-act')==='us'){S.u=+t.getAttribute('data-i');refresh();}
+ var t=e.target;if(t.getAttribute('data-act')==='us'){TRK.start('us');TRK.a('us_set');S.u=+t.getAttribute('data-i');refresh();}
 });
 cardsEl.addEventListener('click',function(e){
  var b=e.target.closest('button[data-act]');if(!b)return;
  var i=+b.getAttribute('data-i'),a=b.getAttribute('data-act');
- if(a==='reset'){delete S.c[i].ov[b.getAttribute('data-k')];refresh();}
- if(a==='rm'&&S.c.length>2){S.c.splice(i,1);if(S.u===i)S.u=0;else if(S.u>i)S.u--;L.splice(i,1);renderCards();refresh();}
+ if(a==='reset'){TRK.a('score_reset',{item:b.getAttribute('data-k')});delete S.c[i].ov[b.getAttribute('data-k')];refresh();}
+ if(a==='rm'&&S.c.length>2){TRK.a('competitor_remove',{bucket:TRK.cb(S.c.length-1)});S.c.splice(i,1);if(S.u===i)S.u=0;else if(S.u>i)S.u--;L.splice(i,1);renderCards();refresh();}
 });
 document.getElementById('add').addEventListener('click',function(){
- if(S.c.length>=MAX)return;var c=blank();c.n='Competitor '+String.fromCharCode(64+S.c.length);S.c.push(c);renderCards();refresh();
+ if(S.c.length>=MAX)return;TRK.start('add');TRK.a('competitor_add',{bucket:TRK.cb(S.c.length+1)});var c=blank();c.n='Competitor '+String.fromCharCode(64+S.c.length);S.c.push(c);renderCards();refresh();
  var last=cardsEl.lastElementChild;if(last&&last.scrollIntoView)last.scrollIntoView({block:'nearest',behavior:'smooth'});
 });
 Array.prototype.forEach.call(document.querySelectorAll('[data-mk]'),function(b){b.addEventListener('click',function(){
- loadSample(b.getAttribute('data-mk'));L=[];fillAxisSelects();fillStatementFields();renderCards();refresh();syncTargets(true);kick();mark();
+ TRK.start('sample');TRK.a('sample',{item:b.getAttribute('data-mk')});loadSample(b.getAttribute('data-mk'));L=[];fillAxisSelects();fillStatementFields();renderCards();refresh();syncTargets(true);kick();mark();
 });});
 function mark(){Array.prototype.forEach.call(document.querySelectorAll('[data-mk]'),function(b){b.classList.toggle('on',b.getAttribute('data-mk')===S.m);});}
-var stMap={t:0,n:1,c:2,b:3,a:4};
+var stMap={t:0,n:1,c:2,b:3,a:4},stSeen={};
 function fillStatementFields(){Object.keys(stMap).forEach(function(k){document.getElementById('st-'+k).value=S.s[stMap[k]]||'';});}
-Array.prototype.forEach.call(document.querySelectorAll('[data-st]'),function(el){el.addEventListener('input',function(){S.s[stMap[el.getAttribute('data-st')]]=el.value;renderStatement();clearTimeout(saveT);saveT=setTimeout(save,300);});});
+Array.prototype.forEach.call(document.querySelectorAll('[data-st]'),function(el){el.addEventListener('input',function(){var sk0=el.getAttribute('data-st');if(!stSeen[sk0]){stSeen[sk0]=1;TRK.start('statement');TRK.a('statement_start',{item:sk0});}S.s[stMap[el.getAttribute('data-st')]]=el.value;renderStatement();clearTimeout(saveT);saveT=setTimeout(save,300);});});
 var msg=document.getElementById('msg');
 function say(t){msg.textContent=t;clearTimeout(say.t);say.t=setTimeout(function(){msg.textContent='';},4000);}
 function copyText(t,ok){
  function fb(){var inp=document.getElementById('shareurl');inp.style.display='block';inp.value=t;inp.focus();inp.select();say('Select and copy the text above.');}
  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(function(){say(ok);},fb);}else fb();
 }
-document.getElementById('share').addEventListener('click',function(){save();copyText(location.href,'Share link copied. It carries every input and score.');});
-document.getElementById('copystmt').addEventListener('click',function(){copyText(stmtText(),'Statement copied.');});
+document.getElementById('share').addEventListener('click',function(){TRK.start('share');TRK.a('share_link');save();copyText(location.href,'Share link copied. It carries every input and score.');});
+document.getElementById('copystmt').addEventListener('click',function(){TRK.start('copy');TRK.a('copy_statement');copyText(stmtText(),'Statement copied.');});
 
 /* ---------- exports ---------- */
 function mapCanvas(W,H,u){
@@ -645,17 +682,17 @@ function mapCanvas(W,H,u){
 }
 function download(href,name){var a=document.createElement('a');a.href=href;a.download=name;document.body.appendChild(a);a.click();a.remove();}
 document.getElementById('png').addEventListener('click',function(){
- var W=1600,H=1200,u=1.9,m=mapCanvas(W,H-120,u),c=document.createElement('canvas');c.width=W;c.height=H;var x=c.getContext('2d');
+ TRK.start('png');TRK.a('png');var W=1600,H=1200,u=1.9,m=mapCanvas(W,H-120,u),c=document.createElement('canvas');c.width=W;c.height=H;var x=c.getContext('2d');
  x.fillStyle='#0a0a0a';x.fillRect(0,0,W,H);x.drawImage(m,0,120);
  x.fillStyle='#f5f0e8';x.font='bold 40px sans-serif';x.textAlign='left';x.fillText('Positioning map',48,64);
  x.font='22px monospace';x.fillStyle='rgba(245,240,232,0.75)';
  x.fillText(axName(axOf(S.x))+'  x  '+axName(axOf(S.y))+(S.m==='coffee'||S.m==='fintech'?'   |   fictional sample brands':''),48,100);
  x.textAlign='right';x.fillText('saikanagat.com/positioning',W-48,64);
- c.toBlob(function(b){if(!b){say('PNG export failed in this browser.');return;}var u2=URL.createObjectURL(b);download(u2,'positioning-map.png');setTimeout(function(){URL.revokeObjectURL(u2);},4000);say('Map PNG saved.');});
+ c.toBlob(function(b){if(!b){TRK.err('png');say('PNG export failed in this browser.');return;}var u2=URL.createObjectURL(b);download(u2,'positioning-map.png');setTimeout(function(){URL.revokeObjectURL(u2);},4000);say('Map PNG saved.');});
 });
 function pdfSafe(s){return String(s==null?'':s).replace(/\u20ac/g,'EUR ').replace(/[\u2018\u2019]/g,"'").replace(/[\u201c\u201d]/g,'"').replace(/[\u2013\u2014]/g,'-').replace(/\u2194/g,'/').replace(/[^\x20-\x7e\xa0-\xff]/g,'');}
 document.getElementById('pdf').addEventListener('click',function(){
- var J=window.jspdf;if(!J||!J.jsPDF){say('PDF library is still loading. Try again in a moment.');return;}
+ var J=window.jspdf;if(!J||!J.jsPDF){TRK.err('pdf_lib');say('PDF library is still loading. Try again in a moment.');return;}TRK.start('pdf');TRK.a('pdf');
  var doc=new J.jsPDF({unit:'mm',format:'a4'}),M=15,CWd=180,y=16;
  function ensure(h){if(y+h>281){doc.addPage();y=16;}}
  function T(txt,size,bold,col,indent){
@@ -705,16 +742,20 @@ document.getElementById('pdf').addEventListener('click',function(){
 
 /* ---------- boot ---------- */
 var h0=(location.hash.match(/[#&]s=([A-Za-z0-9_-]+)/)||[])[1],parsed=h0?dec(h0):null;
-if(parsed)S=parsed;else loadSample('coffee');
+if(parsed){S=parsed;TRK.a('share_open');}else loadSample('coffee');
 fillAxisSelects();fillStatementFields();renderCards();size();AN=analyze();syncTargets(true);
 refresh();mark();
 var rt=0;
 window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(function(){size();syncTargets(false);kick();},80);});
+/* tracking: first time a panel is on screen (no per-frame work) */
+if('IntersectionObserver' in window){var seenV={};var io=new IntersectionObserver(function(es){es.forEach(function(en){var k=en.target.getAttribute('data-view');if(en.isIntersecting&&!seenV[k]){seenV[k]=1;io.unobserve(en.target);TRK.a(k);}});},{threshold:0.4});
+ [['insights','insight_view'],['g-none','white_space_view']].forEach(function(x){var el=document.getElementById(x[0]);if(el){el.setAttribute('data-view',x[1]);io.observe(el);}});}
 if('ResizeObserver' in window)new ResizeObserver(function(){clearTimeout(rt);rt=setTimeout(function(){size();syncTargets(false);kick();},60);}).observe(cv.parentNode);
-window.addEventListener('hashchange',function(){var h=(location.hash.match(/[#&]s=([A-Za-z0-9_-]+)/)||[])[1],p=h?dec(h):null;if(p&&enc()!==h){S=p;L=[];fillAxisSelects();fillStatementFields();renderCards();refresh();syncTargets(true);mark();}});
+window.addEventListener('hashchange',function(){var h=(location.hash.match(/[#&]s=([A-Za-z0-9_-]+)/)||[])[1],p=h?dec(h):null;if(p&&enc()!==h){TRK.a('share_open');S=p;L=[];fillAxisSelects();fillStatementFields();renderCards();refresh();syncTargets(true);mark();}});
 })();
 </script>
-<script src="../js/consent.js" defer></script>
-<script src="../js/analytics.js" defer></script>
+<script>window.SK_CLARITY_ID='zir45wg6mm';</script>
+<script src="../js/consent.js?v=2789cf42" defer></script>
+<script src="../js/analytics.js?v=9f2bad85" defer></script>
 </body>
 </html>

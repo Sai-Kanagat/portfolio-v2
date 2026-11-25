@@ -10,6 +10,12 @@
 
   var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // Tracking: ids and ms only. Two calls per visit, none inside the animation frame.
+  function T(){ try { var a = [].slice.call(arguments); window.sk ? sk.demo.apply(sk, a) : (window.skq = window.skq || []).push(['demo'].concat(a)); } catch (e) {} }
+  var settledSent = false;
+  function settled(ms){ if (settledSent) return; settledSent = true; T('pg.home', 'hero_settled', { ms: Math.round(ms) }); }
+  T('pg.home', 'hero_view');
+
   // Brand tokens (from shared.jsx)
   var INK    = 'oklch(0.16 0.012 260)';
   var PAPER  = 'oklch(0.975 0.004 260)';
@@ -106,7 +112,7 @@
     wordmark.style.clipPath = 'inset(0 0% 0 0)';
   }
 
-  if (prefersReduced){ paintFinal(); return; }
+  if (prefersReduced){ paintFinal(); settled(0); return; }
 
   // ---------- Direction B animation timeline ----------
   // 0.40–1.40 ink half sweeps in (upper-left diagonal)
@@ -167,7 +173,8 @@
     var t = (now - start) / 1000;
     if (t >= TOTAL){
       paintFinal();
-      return; // Animation ends — holds the final composition forever
+      settled(t * 1000);
+      return; // Animation ends, holds the final composition forever
     }
     frame(t);
     requestAnimationFrame(tick);

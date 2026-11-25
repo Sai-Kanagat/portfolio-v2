@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-page-type="build-log">
 <head>
 <!-- Consent Mode v2 default: denied inside EEA/UK/Switzerland (GDPR), granted elsewhere -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
@@ -8,9 +8,6 @@ gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_pers
 // Override: denied for EEA, UK, Switzerland (legally required until user accepts)
 gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied','region':['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH'],'wait_for_update':500});
 try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_consent_v2')){localStorage.setItem('sk_consent_v2','denied');}localStorage.removeItem('sk_consent');var c=localStorage.getItem('sk_consent_v2');if(c==='granted'){gtag('consent','update',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'granted'});}else if(c==='denied'){gtag('consent','update',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied'});}}catch(e){}</script>
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MRGXD7ZC');</script>
-<!-- End Google Tag Manager -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Thallo build log | Sai Kanagat</title>
@@ -113,15 +110,14 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 </style>
 </head>
 <body>
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MRGXD7ZC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-<header class="top">
+<header class="top" data-zone="nav">
   <div class="wrap">
-    <a class="logo" href="/">SK<span>.</span></a>
+    <a class="logo" href="/" data-track="nav.home">SK<span>.</span></a>
     <span class="mono">Build log</span>
-    <nav>
-      <a href="/work.html">Work</a>
-      <a href="/contact.html">Contact</a>
+    <nav data-zone="nav">
+      <a href="/work.html" data-track="nav.work">Work</a>
+      <a href="/contact.html" data-track="nav.contact">Contact</a>
     </nav>
   </div>
 </header>
@@ -138,7 +134,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     </div>
   </div>
 
-  <section id="status">
+  <section id="status" data-zone="status">
     <div class="wrap">
       <div class="mono">Where it stands</div>
       <h2>Current status</h2>
@@ -154,7 +150,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     </div>
   </section>
 
-  <section id="plan">
+  <section id="plan" data-zone="plan">
     <div class="wrap">
       <div class="mono">Course of action</div>
       <h2>The plan: 8 waves</h2>
@@ -163,7 +159,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     </div>
   </section>
 
-  <section id="changelog">
+  <section id="changelog" data-zone="changelog">
     <div class="wrap">
       <div class="mono">Dated, newest first</div>
       <h2>Changelog</h2>
@@ -173,8 +169,8 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   </section>
 </main>
 
-<footer>
-  <div class="wrap">Sai Kanagat · <a href="/work.html">Work</a> · <a href="/contact.html">Contact</a></div>
+<footer data-zone="footer">
+  <div class="wrap">Sai Kanagat · <a href="/work.html" data-track="footer.work">Work</a> · <a href="/contact.html" data-track="footer.contact">Contact</a></div>
 </footer>
 
 <script>
@@ -224,10 +220,12 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   }
 
   fetch("/build-log/status.json",{cache:"no-cache"}).then(function(r){if(!r.ok)throw new Error(r.status);return r.json();}).then(render)
-    .catch(function(){$("log").innerHTML='<p class="sub err">The log could not load. Refresh to try again.</p>';});
+    .catch(function(){$("log").innerHTML='<p class="sub err">The log could not load. Refresh to try again.</p>';
+      try{var a=['pg.build-log','status_fetch_failed'];window.sk?sk.demo.apply(sk,a):(window.skq=window.skq||[]).push(['demo'].concat(a));}catch(e){}});
 })();
 </script>
-<script src="/js/consent.js" defer></script>
-<script src="/js/analytics.js" defer></script>
+<script>window.SK_CLARITY_ID='zir45wg6mm';</script>
+<script src="/js/consent.js?v=2789cf42" defer></script>
+<script src="/js/analytics.js?v=9f2bad85" defer></script>
 </body>
 </html>

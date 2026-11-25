@@ -1,0 +1,1087 @@
+{
+ "_schema": "pages -> controls (selector -> events or ignored reason) and listeners (type@target -> events or ignored reason). Keys are stable, not line numbers. Every page also carries the shared helper events: demo_open, first_interaction, demo_start, demo_engaged (10 s, 60 s), demo_end (reason back|home|leave), demo_error (js|promise|load|play|audio), demo_action fps (bucket), return_visit, revisit, gate_exit. Camera and mic pages add media_result and model_state.",
+ "demos/hands.html": {
+  "controls": {
+   "#startBtn[data-track=\"hands.start\"]": {
+    "events": [
+     "demo_action:start_camera",
+     "demo_action:retry",
+     "media_result",
+     "model_state",
+     "demo_start"
+    ],
+    "n": 1
+   },
+   "a[data-track=\"hands.home\"]": {
+    "events": [
+     "demo_end:home"
+    ],
+    "also": "nav_click by track.js",
+    "n": 1
+   },
+   "a[data-track=\"hands.back\"]": {
+    "events": [
+     "demo_end:back"
+    ],
+    "also": "nav_click by track.js",
+    "n": 1
+   },
+   "canvas#overlay[data-track=\"hands.overlay\"]": {
+    "ignored": "display only, pointer-events none",
+    "n": 1
+   },
+   "video#cam[data-track=\"hands.cam\"]": {
+    "ignored": "camera preview, display only, never read",
+    "n": 1
+   },
+   "#cursor, .target": {
+    "ignored": "virtual cursor and targets, driven by hand landmarks, hits tracked as target_hit",
+    "optional": true
+   }
+  },
+  "listeners": [
+   {
+    "type": "pagehide",
+    "match": "window\\.addEventListener\\('pagehide',function\\(\\)\\{MT\\.end\\('leave'\\);\\}\\);",
+    "n": 1,
+    "events": [
+     "demo_end",
+     "media_result:stopped"
+    ],
+    "as": "pagehide@window"
+   },
+   {
+    "type": "pageshow",
+    "match": "window\\.addEventListener\\('pageshow',function\\(e\\)\\{if\\(e&&e\\.persisted\\)S\\.end",
+    "n": 1,
+    "ignored": "re-arms demo_end after bfcache restore, no event",
+    "as": "pageshow@window"
+   },
+   {
+    "type": "click",
+    "match": "document\\.addEventListener\\('click',function\\(e\\)\\{var a=e\\.target&&e\\.target",
+    "n": 1,
+    "events": [
+     "demo_end"
+    ],
+    "as": "click@document(capture) back/home"
+   },
+   {
+    "type": "error",
+    "match": "window\\.addEventListener\\('error',function\\(ev\\)\\{try\\{var t=ev&&ev\\.target;i",
+    "n": 1,
+    "events": [
+     "demo_error"
+    ],
+    "as": "error@window"
+   },
+   {
+    "type": "unhandledrejection",
+    "match": "window\\.addEventListener\\('unhandledrejection',function\\(\\)\\{MT\\.err\\('promis",
+    "n": 1,
+    "events": [
+     "demo_error"
+    ],
+    "as": "unhandledrejection@window"
+   },
+   {
+    "type": "resize",
+    "match": "resize\\(\\); addEventListener\\('resize', resize\\);",
+    "n": 1,
+    "ignored": "layout only",
+    "as": "resize@window"
+   },
+   {
+    "type": "onclick",
+    "match": "document\\.getElementById\\('startBtn'\\)\\.onclick = async \\(\\) => \\{",
+    "n": 1,
+    "events": [
+     "demo_action:start_camera",
+     "demo_action:retry"
+    ],
+    "as": "onclick@#startBtn"
+   }
+  ],
+  "behaviour": {
+   "pointerdown|keydown|touchstart@document(capture)": {
+    "events": [
+     "demo_action:first_interaction"
+    ]
+   },
+   "setInterval 1s": {
+    "events": [
+     "demo_engaged"
+    ]
+   },
+   "consent controls (sk-consent-*)": {
+    "ignored": "owned by js/consent.js"
+   },
+   "camera.start (getUserMedia inside MediaPipe Camera)": {
+    "events": [
+     "media_result:prompt|granted|denied|dismissed|unavailable|failed"
+    ]
+   },
+   "hands.onResults (landmarks)": {
+    "events": [
+     "model_state:loaded",
+     "demo_action:hand_found",
+     "demo_action:hand_lost",
+     "demo_action:target_hit",
+     "demo_action:first_hit",
+     "demo_action:all_targets_done",
+     "demo_action:pinch_count",
+     "demo_action:misses",
+     "demo_action:targets_cleared"
+    ],
+    "note": "transitions only, loss debounced 700 ms, summaries debounced 1.5 s; landmarks never sent"
+   }
+  }
+ },
+ "demos/balls.html": {
+  "controls": {
+   "#startBtn[data-track=\"balls.start\"]": {
+    "events": [
+     "demo_action:start_camera",
+     "demo_action:retry",
+     "media_result",
+     "demo_start"
+    ],
+    "n": 1
+   },
+   "a[data-track=\"balls.home\"]": {
+    "events": [
+     "demo_end:home"
+    ],
+    "n": 1
+   },
+   "a[data-track=\"balls.back\"]": {
+    "events": [
+     "demo_end:back"
+    ],
+    "n": 1
+   },
+   ".swatch[data-track^=\"balls.swatch.\"]": {
+    "events": [
+     "demo_action:color_picked"
+    ],
+    "note": "only when the colour changes",
+    "n": 4
+   },
+   "#rainBtn[data-track=\"balls.rain\"]": {
+    "events": [
+     "demo_action:rain_balls",
+     "demo_action:ball_count"
+    ],
+    "n": 1
+   },
+   "#clearBtn[data-track=\"balls.clear\"]": {
+    "events": [
+     "demo_action:clear",
+     "demo_action:ball_count"
+    ],
+    "n": 1
+   },
+   "canvas#stage[data-track=\"balls.stage\"]": {
+    "ignored": "display only, pointer-events none",
+    "n": 1
+   },
+   "video#cam[data-track=\"balls.cam\"]": {
+    "ignored": "camera preview, display only, never read for upload",
+    "n": 1
+   }
+  },
+  "listeners": [
+   {
+    "type": "pagehide",
+    "match": "window\\.addEventListener\\('pagehide',function\\(\\)\\{MT\\.end\\('leave'\\);\\}\\);",
+    "n": 1,
+    "events": [
+     "demo_end",
+     "media_result:stopped"
+    ],
+    "as": "pagehide@window"
+   },
+   {
+    "type": "pageshow",
+    "match": "window\\.addEventListener\\('pageshow',function\\(e\\)\\{if\\(e&&e\\.persisted\\)S\\.end",
+    "n": 1,
+    "ignored": "re-arms demo_end after bfcache restore, no event",
+    "as": "pageshow@window"
+   },
+   {
+    "type": "click",
+    "match": "document\\.addEventListener\\('click',function\\(e\\)\\{var a=e\\.target&&e\\.target",
+    "n": 1,
+    "events": [
+     "demo_end"
+    ],
+    "as": "click@document(capture) back/home"
+   },
+   {
+    "type": "error",
+    "match": "window\\.addEventListener\\('error',function\\(ev\\)\\{try\\{var t=ev&&ev\\.target;i",
+    "n": 1,
+    "events": [
+     "demo_error"
+    ],
+    "as": "error@window"
+   },
+   {
+    "type": "unhandledrejection",
+    "match": "window\\.addEventListener\\('unhandledrejection',function\\(\\)\\{MT\\.err\\('promis",
+    "n": 1,
+    "events": [
+     "demo_error"
+    ],
+    "as": "unhandledrejection@window"
+   },
+   {
+    "type": "resize",
+    "match": "resize\\(\\); addEventListener\\('resize', resize\\);",
+    "n": 1,
+    "ignored": "layout only",
+    "as": "resize@window"
+   },
+   {
+    "type": "onclick",
+    "match": "s\\.onclick = \\(\\) => \\{",
+    "n": 1,
+    "events": [
+     "demo_action:color_picked"
+    ],
+    "as": "onclick@.swatch"
+   },
+   {
+    "type": "onclick",
+    "match": "document\\.getElementById\\('clearBtn'\\)\\.onclick = \\(\\) => \\{ balls\\.length = 0",
+    "n": 1,
+    "events": [
+     "demo_action:clear"
+    ],
+    "as": "onclick@#clearBtn"
+   },
+   {
+    "type": "onclick",
+    "match": "document\\.getElementById\\('rainBtn'\\)\\.onclick = \\(\\) => \\{ for \\(let i = 0; i",
+    "n": 1,
+    "events": [
+     "demo_action:rain_balls"
+    ],
+    "as": "onclick@#rainBtn"
+   },
+   {
+    "type": "onclick",
+    "match": "document\\.getElementById\\('startBtn'\\)\\.onclick = async \\(\\) => \\{",
+    "n": 1,
+    "events": [
+     "demo_action:start_camera"
+    ],
+    "as": "onclick@#startBtn"
+   },
+   {
+    "type": "getusermedia",
+    "match": "const stream = await navigator\\.mediaDevices\\.getUserMedia\\(\\{ video: \\{ wi",
+    "n": 1,
+    "events": [
+     "media_result:prompt|granted|denied|dismissed|unavailable|failed"
+    ],
+    "as": "getUserMedia (video)"
+   }
+  ],
+  "behaviour": {
+   "pointerdown|keydown|touchstart@document(capture)": {
+    "events": [
+     "demo_action:first_interaction"
+    ]
+   },
+   "setInterval 1s": {
+    "events": [
+     "demo_engaged"
+    ]
+   },
+   "consent controls (sk-consent-*)": {
+    "ignored": "owned by js/consent.js"
+   },
+   "loop: colour mask": {
+    "events": [
+     "demo_action:match_found",
+     "demo_action:match_lost",
+     "demo_action:balls_caught_bucket",
+     "demo_action:balls_caught",
+     "demo_action:fps"
+    ],
+    "note": "600 ms hold before a match flips, caught = unique balls that touched the paddle, bucket on change only; pixels never sent"
+   }
+  }
+ },
+ "demos/audio.html": {
+  "controls": {
+   "a[data-track=\"audio.back\"]": {
+    "events": [
+     "demo_end:back"
+    ],
+    "n": 1
+   },
+   "#useMic[data-track=\"audio.mic\"]": {
+    "events": [
+     "demo_action:use_mic",
+     "media_result",
+     "demo_start:mic"
+    ],
+    "n": 1
+   },
+   "#useDemo[data-track=\"audio.demo\"]": {
+    "events": [
+     "demo_action:demo_tone",
+     "demo_start:tone"
+    ],
+    "n": 1
+   },
+   "canvas#viz[data-track=\"audio.viz\"]": {
+    "ignored": "display only",
+    "n": 1
+   }
+  },
+  "listeners": [
+   {
+    "type": "pagehide",
+    "match": "window\\.addEventListener\\('pagehide',function\\(\\)\\{MT\\.end\\('leave'\\);\\}\\);",
+    "n": 1,
+    "events": [
+     "demo_end",
+     "media_result:stopped"
+    ],
+    "as": "pagehide@window"
+   },
+   {
+    "type": "pageshow",
+    "match": "window\\.addEventListener\\('pageshow',function\\(e\\)\\{if\\(e&&e\\.persisted\\)S\\.end",
+    "n": 1,
+    "ignored": "re-arms demo_end after bfcache restore, no event",
+    "as": "pageshow@window"
+   },
+   {
+    "type": "click",
+    "match": "document\\.addEventListener\\('click',function\\(e\\)\\{var a=e\\.target&&e\\.target",
+    "n": 1,
+    "events": [
+     "demo_end"
+    ],
+    "as": "click@document(capture) back/home"
+   },
+   {
+    "type": "error",
+    "match": "window\\.addEventListener\\('error',function\\(ev\\)\\{try\\{var t=ev&&ev\\.target;i",
+    "n": 1,
+    "events": [
+     "demo_error"
+    ],
+    "as": "error@window"
+   },
+   {
+    "type": "unhandledrejection",
+    "match": "window\\.addEventListener\\('unhandledrejection',function\\(\\)\\{MT\\.err\\('promis",
+    "n": 1,
+    "events": [
+     "demo_error"
+    ],
+    "as": "unhandledrejection@window"
+   },
+   {
+    "type": "visibilitychange",
+    "match": "document\\.addEventListener\\('visibilitychange',function\\(\\)\\{$",
+    "n": 1,
+    "events": [
+     "demo_action:tab_hidden",
+     "demo_action:tab_resumed"
+    ],
+    "as": "visibilitychange@document"
+   },
+   {
+    "type": "resize",
+    "match": "resize\\(\\);window\\.addEventListener\\('resize',resize\\);",
+    "n": 1,
+    "ignored": "layout only",
+    "as": "resize@window"
+   },
+   {
+    "type": "getusermedia",
+    "match": "if\\(navigator\\.mediaDevices&&navigator\\.mediaDevices\\.getUserMedia\\)MT\\.medi",
+    "n": 1,
+    "events": [
+     "media_result:prompt|granted|denied|dismissed|unavailable|failed"
+    ],
+    "as": "getUserMedia (audio)"
+   },
+   {
+    "type": "getusermedia",
+    "match": "navigator\\.mediaDevices\\.getUserMedia\\(\\{audio:true\\}\\)\\.then\\(function\\(stream",
+    "n": 1,
+    "events": [
+     "media_result:prompt|granted|denied|dismissed|unavailable|failed"
+    ],
+    "as": "getUserMedia (audio)"
+   },
+   {
+    "type": "visibilitychange",
+    "match": "document\\.addEventListener\\('visibilitychange',function\\(\\)\\{if\\(!document\\.h",
+    "n": 1,
+    "events": [
+     "demo_action:tab_hidden",
+     "demo_action:tab_resumed"
+    ],
+    "as": "visibilitychange@document"
+   },
+   {
+    "type": "onclick",
+    "match": "document\\.getElementById\\('useMic'\\)\\.onclick=startMic;",
+    "n": 1,
+    "events": [
+     "demo_action:use_mic"
+    ],
+    "as": "onclick@#useMic"
+   },
+   {
+    "type": "onclick",
+    "match": "document\\.getElementById\\('useDemo'\\)\\.onclick=startDemo;",
+    "n": 1,
+    "events": [
+     "demo_action:demo_tone"
+    ],
+    "as": "onclick@#useDemo"
+   }
+  ],
+  "behaviour": {
+   "pointerdown|keydown|touchstart@document(capture)": {
+    "events": [
+     "demo_action:first_interaction"
+    ]
+   },
+   "setInterval 1s": {
+    "events": [
+     "demo_engaged"
+    ]
+   },
+   "consent controls (sk-consent-*)": {
+    "ignored": "owned by js/consent.js"
+   },
+   "loop: analyser": {
+    "events": [
+     "demo_action:sound_detected:yes",
+     "demo_action:sound_detected:no",
+     "demo_action:seconds_running",
+     "demo_action:fps"
+    ],
+    "note": "only a yes or no latch and seconds; levels and audio never leave the page"
+   }
+  }
+ },
+ "shadow-theatre/index.html": {
+  "controls": {
+   "#startBtn[data-track=\"shadow.start\"]": {
+    "events": [
+     "demo_action:start_show",
+     "demo_action:retry",
+     "media_result",
+     "model_state",
+     "demo_start:camera"
+    ],
+    "n": 1
+   },
+   "#demoBtn[data-track=\"shadow.demo\"]": {
+    "events": [
+     "demo_action:demo_without_camera",
+     "demo_start:nocamera"
+    ],
+    "n": 1
+   },
+   "#guideBtn[data-track=\"shadow.guide\"]": {
+    "events": [
+     "demo_action:guide_toggle"
+    ],
+    "n": 1
+   },
+   "a#home[data-track=\"shadow.home\"]": {
+    "events": [
+     "demo_end:home"
+    ],
+    "n": 1
+   },
+   "a#back[data-track=\"shadow.back\"]": {
+    "events": [
+     "demo_action:back_to_demos",
+     "demo_end:back"
+    ],
+    "n": 1
+   },
+   ".shape[data-track^=\"shadow.guide.\"]": {
+    "events": [
+     "demo_action:guide_shape"
+    ],
+    "note": "once per card after 500 ms on screen",
+    "n": 30
+   },
+   ".shape canvas": {
+    "ignored": "guide drawings, covered by the parent .shape data-track",
+    "n": 30
+   },
+   "canvas#wall[data-track=\"shadow.wall\"]": {
+    "ignored": "display only",
+    "n": 1
+   },
+   "video#cam[data-track=\"shadow.cam\"]": {
+    "ignored": "camera preview, display only",
+    "n": 1
+   }
+  },
+  "listeners": [
+   {
+    "type": "pagehide",
+    "match": "window\\.addEventListener\\('pagehide',function\\(\\)\\{MT\\.end\\('leave'\\);\\}\\);",
+    "n": 1,
+    "events": [
+     "demo_end",
+     "media_result:stopped"
+    ],
+    "as": "pagehide@window"
+   },
+   {
+    "type": "pageshow",
+    "match": "window\\.addEventListener\\('pageshow',function\\(e\\)\\{if\\(e&&e\\.persisted\\)S\\.end",
+    "n": 1,
+    "ignored": "re-arms demo_end after bfcache restore, no event",
+    "as": "pageshow@window"
+   },
+   {
+    "type": "click",
+    "match": "document\\.addEventListener\\('click',function\\(e\\)\\{var a=e\\.target&&e\\.target",
+    "n": 1,
+    "events": [
+     "demo_end"
+    ],
+    "as": "click@document(capture) back/home"
+   },
+   {
+    "type": "error",
+    "match": "window\\.addEventListener\\('error',function\\(ev\\)\\{try\\{var t=ev&&ev\\.target;i",
+    "n": 1,
+    "events": [
+     "demo_error"
+    ],
+    "as": "error@window"
+   },
+   {
+    "type": "unhandledrejection",
+    "match": "window\\.addEventListener\\('unhandledrejection',function\\(\\)\\{MT\\.err\\('promis",
+    "n": 1,
+    "events": [
+     "demo_error"
+    ],
+    "as": "unhandledrejection@window"
+   },
+   {
+    "type": "click",
+    "match": "window\\.addEventListener\\('click', function \\(e\\) \\{",
+    "n": 1,
+    "events": [
+     "demo_action:back_to_demos"
+    ],
+    "as": "click@window #back"
+   },
+   {
+    "type": "getusermedia",
+    "match": "if \\(!navigator\\.mediaDevices \\|\\| !navigator\\.mediaDevices\\.getUserMedia\\) t",
+    "n": 1,
+    "events": [
+     "media_result:prompt|granted|denied|dismissed|unavailable|failed"
+    ],
+    "as": "getUserMedia (x2 lines)"
+   },
+   {
+    "type": "getusermedia",
+    "match": "var stream = await navigator\\.mediaDevices\\.getUserMedia\\(\\{ video: \\{ faci",
+    "n": 1,
+    "events": [
+     "media_result:prompt|granted|denied|dismissed|unavailable|failed"
+    ],
+    "as": "getUserMedia (x2 lines)"
+   },
+   {
+    "type": "click",
+    "match": "guideBtn\\.addEventListener\\('click', function \\(\\) \\{ var o = guide\\.classLi",
+    "n": 1,
+    "events": [
+     "demo_action:guide_toggle"
+    ],
+    "as": "click@#guideBtn"
+   },
+   {
+    "type": "click",
+    "match": "document\\.getElementById\\('startBtn'\\)\\.addEventListener\\('click', startCam",
+    "n": 1,
+    "events": [
+     "demo_action:start_show"
+    ],
+    "as": "click@#startBtn"
+   },
+   {
+    "type": "click",
+    "match": "document\\.getElementById\\('demoBtn'\\)\\.addEventListener\\('click', function ",
+    "n": 1,
+    "events": [
+     "demo_action:demo_without_camera"
+    ],
+    "as": "click@#demoBtn"
+   },
+   {
+    "type": "resize",
+    "match": "addEventListener\\('resize', resize\\);",
+    "n": 1,
+    "ignored": "layout only",
+    "as": "resize@window"
+   }
+  ],
+  "behaviour": {
+   "pointerdown|keydown|touchstart@document(capture)": {
+    "events": [
+     "demo_action:first_interaction"
+    ]
+   },
+   "setInterval 1s": {
+    "events": [
+     "demo_engaged"
+    ]
+   },
+   "consent controls (sk-consent-*)": {
+    "ignored": "owned by js/consent.js"
+   },
+   "IntersectionObserver .shape": {
+    "events": [
+     "demo_action:guide_shape"
+    ]
+   },
+   "recognise() in live mode only": {
+    "events": [
+     "demo_action:hand_detected",
+     "demo_action:hands",
+     "demo_action:idle_tip",
+     "demo_action:no_match",
+     "demo_action:shape_recognised",
+     "demo_action:creature_spawned",
+     "demo_action:shape_new",
+     "demo_action:all_found",
+     "demo_action:creatures_total",
+     "demo_action:shapes_found"
+    ],
+    "note": "suppressed in no-camera rehearsal; hands count stable 600 ms; landmarks never sent"
+   },
+   "model load": {
+    "events": [
+     "model_state:loaded|failed"
+    ]
+   },
+   "frame loop": {
+    "events": [
+     "demo_action:fps"
+    ]
+   }
+  }
+ },
+ "melt/index.html": {
+  "controls": {
+   "#playBtn[data-track=\"melt.play\"]": {
+    "events": [
+     "demo_action:play",
+     "demo_action:run_start",
+     "demo_start"
+    ],
+    "n": 1
+   },
+   "#sens[data-track=\"melt.sensitivity\"]": {
+    "events": [
+     "demo_action:sensitivity"
+    ],
+    "note": "debounced 600 ms, bucket q1..q5",
+    "n": 1
+   },
+   "#fx[data-track=\"melt.fx\"]": {
+    "events": [
+     "demo_action:fx_toggle"
+    ],
+    "n": 1
+   },
+   "#snd[data-track=\"melt.sound\"]": {
+    "events": [
+     "demo_action:sound_toggle"
+    ],
+    "n": 1
+   },
+   "#resumeBtn[data-track=\"melt.resume\"]": {
+    "events": [
+     "demo_action:resume"
+    ],
+    "n": 1
+   },
+   "#quitBtn[data-track=\"melt.quit\"]": {
+    "events": [
+     "demo_action:quit_run",
+     "demo_action:run_end:abandoned"
+    ],
+    "n": 1
+   },
+   "#againBtn[data-track=\"melt.again\"]": {
+    "events": [
+     "demo_action:run_again",
+     "demo_action:run_start"
+    ],
+    "n": 1
+   },
+   "#menuBtn[data-track=\"melt.menu\"]": {
+    "events": [
+     "demo_action:back_to_title"
+    ],
+    "n": 1
+   },
+   "#bPause[data-track=\"melt.touch.pause\"]": {
+    "events": [
+     "demo_action:pause:button"
+    ],
+    "n": 1
+   },
+   "#bJump, #bBlast, #bHook, #bSlide": {
+    "ignored": "gameplay input, touchstart with preventDefault, counted through trick_count; #touch is data-no-track so rapid presses are not rage clicks",
+    "n": 4
+   },
+   "canvas[data-no-track]": {
+    "ignored": "gameplay surface; firing by clicking would read as rage clicks",
+    "n": 1,
+    "optional": true,
+    "note": "three.js renderer canvas, added by melt itself with data-no-track. The gate blocks the CDN, so it only exists in a real browser and in the joined test."
+   }
+  },
+  "listeners": [
+   {
+    "type": "pagehide",
+    "match": "window\\.addEventListener\\('pagehide',function\\(\\)\\{MT\\.end\\('leave'\\);\\}\\);",
+    "n": 1,
+    "events": [
+     "demo_end",
+     "media_result:stopped"
+    ],
+    "as": "pagehide@window"
+   },
+   {
+    "type": "pageshow",
+    "match": "window\\.addEventListener\\('pageshow',function\\(e\\)\\{if\\(e&&e\\.persisted\\)S\\.end",
+    "n": 1,
+    "ignored": "re-arms demo_end after bfcache restore, no event",
+    "as": "pageshow@window"
+   },
+   {
+    "type": "click",
+    "match": "document\\.addEventListener\\('click',function\\(e\\)\\{var a=e\\.target&&e\\.target",
+    "n": 1,
+    "events": [
+     "demo_end"
+    ],
+    "as": "click@document(capture) back/home"
+   },
+   {
+    "type": "error",
+    "match": "window\\.addEventListener\\('error',function\\(ev\\)\\{try\\{var t=ev&&ev\\.target;i",
+    "n": 1,
+    "events": [
+     "demo_error"
+    ],
+    "as": "error@window"
+   },
+   {
+    "type": "unhandledrejection",
+    "match": "window\\.addEventListener\\('unhandledrejection',function\\(\\)\\{MT\\.err\\('promis",
+    "n": 1,
+    "events": [
+     "demo_error"
+    ],
+    "as": "unhandledrejection@window"
+   },
+   {
+    "type": "resize",
+    "match": "addEventListener\\('resize', \\(\\) => \\{",
+    "n": 1,
+    "ignored": "layout only",
+    "as": "resize@window"
+   },
+   {
+    "type": "animationend",
+    "match": "d\\.addEventListener\\('animationend', \\(\\) => d\\.remove\\(\\)\\); wrap\\.appendChild",
+    "n": 1,
+    "ignored": "cosmetic",
+    "as": "animationend@pops"
+   },
+   {
+    "type": "input",
+    "match": "\\$\\('sens'\\)\\.addEventListener\\('input', e => \\{ sens = \\+e\\.target\\.value; sto",
+    "n": 1,
+    "events": [
+     "demo_action:sensitivity"
+    ],
+    "as": "input@#sens"
+   },
+   {
+    "type": "change",
+    "match": "\\$\\('fx'\\)\\.addEventListener\\('change', e => \\{ fxOn = e\\.target\\.checked; sto",
+    "n": 1,
+    "events": [
+     "demo_action:fx_toggle"
+    ],
+    "as": "change@#fx"
+   },
+   {
+    "type": "change",
+    "match": "\\$\\('snd'\\)\\.addEventListener\\('change', e => setSound\\(e\\.target\\.checked\\)\\);",
+    "n": 1,
+    "events": [
+     "demo_action:sound_toggle"
+    ],
+    "as": "change@#snd"
+   },
+   {
+    "type": "keydown",
+    "match": "addEventListener\\('keydown', e => \\{",
+    "n": 1,
+    "events": [
+     "demo_action:respawn (KeyR)",
+     "demo_action:sound_toggle (KeyM)"
+    ],
+    "note": "movement, jump, slide, hook keys are gameplay input, ignored; aggregated as trick_count",
+    "as": "keydown@window"
+   },
+   {
+    "type": "keyup",
+    "match": "addEventListener\\('keyup', e => \\{",
+    "n": 1,
+    "ignored": "gameplay input",
+    "as": "keyup@window"
+   },
+   {
+    "type": "contextmenu",
+    "match": "canvas\\.addEventListener\\('contextmenu', e => e\\.preventDefault\\(\\)\\);",
+    "n": 1,
+    "ignored": "suppresses menu in play, no event",
+    "as": "contextmenu@window,canvas"
+   },
+   {
+    "type": "contextmenu",
+    "match": "addEventListener\\('contextmenu', e => \\{ if \\(state === 'playing'\\) e\\.prev",
+    "n": 1,
+    "ignored": "suppresses menu in play, no event",
+    "as": "contextmenu@window,canvas"
+   },
+   {
+    "type": "mousemove",
+    "match": "document\\.addEventListener\\('mousemove', e => \\{ if \\(state === 'playing' ",
+    "n": 1,
+    "ignored": "look input, per frame rate",
+    "as": "mousemove@document"
+   },
+   {
+    "type": "mousedown",
+    "match": "document\\.addEventListener\\('mousedown', e => \\{",
+    "n": 1,
+    "ignored": "fire and hook input, aggregated through run summaries",
+    "as": "mousedown|mouseup@document"
+   },
+   {
+    "type": "mouseup",
+    "match": "document\\.addEventListener\\('mouseup', e => \\{ if \\(e\\.button === 0\\) In\\.fir",
+    "n": 1,
+    "ignored": "fire and hook input, aggregated through run summaries",
+    "as": "mousedown|mouseup@document"
+   },
+   {
+    "type": ".requestpointerlock",
+    "match": "function lockPointer\\(\\) \\{ try \\{ const r = canvas\\.requestPointerLock\\(\\); ",
+    "n": 1,
+    "events": [
+     "demo_action:pointer_lock:granted|lost|denied"
+    ],
+    "as": "requestPointerLock"
+   },
+   {
+    "type": "pointerlockchange",
+    "match": "document\\.addEventListener\\('pointerlockchange', \\(\\) => \\{",
+    "n": 1,
+    "events": [
+     "demo_action:pointer_lock",
+     "demo_action:pause:lock_lost"
+    ],
+    "as": "pointerlockchange@document"
+   },
+   {
+    "type": "pointerlockerror",
+    "match": "document\\.addEventListener\\('pointerlockerror', \\(\\) => \\{ if \\(\\+\\+lockN <= 3",
+    "n": 1,
+    "events": [
+     "demo_action:pointer_lock:denied"
+    ],
+    "as": "pointerlockerror@document"
+   },
+   {
+    "type": "visibilitychange",
+    "match": "document\\.addEventListener\\('visibilitychange', \\(\\) => \\{ if \\(document\\.hid",
+    "n": 1,
+    "events": [
+     "demo_action:pause:hidden"
+    ],
+    "as": "visibilitychange@document"
+   },
+   {
+    "type": "touchstart",
+    "match": "el\\.addEventListener\\('touchstart', e => \\{ e\\.preventDefault\\(\\); e\\.stopPro",
+    "n": 1,
+    "ignored": "virtual stick and look drag, gameplay input",
+    "as": "touchstart|touchmove|touchend|touchcancel@window"
+   },
+   {
+    "type": "touchend",
+    "match": "el\\.addEventListener\\('touchend', end, \\{ passive: false \\}\\); el\\.addEventL",
+    "n": 1,
+    "ignored": "virtual stick and look drag, gameplay input",
+    "as": "touchstart|touchmove|touchend|touchcancel@window"
+   },
+   {
+    "type": "touchcancel",
+    "match": "el\\.addEventListener\\('touchend', end, \\{ passive: false \\}\\); el\\.addEventL",
+    "n": 1,
+    "ignored": "virtual stick and look drag, gameplay input",
+    "as": "touchstart|touchmove|touchend|touchcancel@window"
+   },
+   {
+    "type": "touchstart",
+    "match": "addEventListener\\('touchstart', e => \\{",
+    "n": 1,
+    "ignored": "virtual stick and look drag, gameplay input",
+    "as": "touchstart|touchmove|touchend|touchcancel@window"
+   },
+   {
+    "type": "touchmove",
+    "match": "addEventListener\\('touchmove', e => \\{",
+    "n": 1,
+    "ignored": "virtual stick and look drag, gameplay input",
+    "as": "touchstart|touchmove|touchend|touchcancel@window"
+   },
+   {
+    "type": "touchend",
+    "match": "addEventListener\\('touchend', touchEnd\\); addEventListener\\('touchcancel'",
+    "n": 1,
+    "ignored": "virtual stick and look drag, gameplay input",
+    "as": "touchstart|touchmove|touchend|touchcancel@window"
+   },
+   {
+    "type": "touchcancel",
+    "match": "addEventListener\\('touchend', touchEnd\\); addEventListener\\('touchcancel'",
+    "n": 1,
+    "ignored": "virtual stick and look drag, gameplay input",
+    "as": "touchstart|touchmove|touchend|touchcancel@window"
+   },
+   {
+    "type": "click",
+    "match": "\\$\\('playBtn'\\)\\.addEventListener\\('click', \\(\\) => \\{ T\\('play'\\); startRun\\(\\); ",
+    "n": 1,
+    "events": [
+     "demo_action:play",
+     "demo_action:run_start",
+     "demo_start"
+    ],
+    "as": "CTRL#playBtn"
+   },
+   {
+    "type": "click",
+    "match": "\\$\\('againBtn'\\)\\.addEventListener\\('click', \\(\\) => \\{ T\\('run_again'\\); startR",
+    "n": 1,
+    "events": [
+     "demo_action:run_again",
+     "demo_action:run_start"
+    ],
+    "as": "CTRL#againBtn"
+   },
+   {
+    "type": "click",
+    "match": "\\$\\('menuBtn'\\)\\.addEventListener\\('click', \\(\\) => \\{ T\\('back_to_title'\\); toT",
+    "n": 1,
+    "events": [
+     "demo_action:back_to_title"
+    ],
+    "as": "CTRL#menuBtn"
+   },
+   {
+    "type": "click",
+    "match": "\\$\\('resumeBtn'\\)\\.addEventListener\\('click', resumeGame\\);",
+    "n": 1,
+    "events": [
+     "demo_action:resume"
+    ],
+    "as": "CTRL#resumeBtn"
+   },
+   {
+    "type": "click",
+    "match": "\\$\\('quitBtn'\\)\\.addEventListener\\('click', \\(\\) => \\{ T\\('quit_run'\\); if \\(runL",
+    "n": 1,
+    "events": [
+     "demo_action:quit_run",
+     "demo_action:run_end:abandoned"
+    ],
+    "as": "CTRL#quitBtn"
+   }
+  ],
+  "behaviour": {
+   "pointerdown|keydown|touchstart@document(capture)": {
+    "events": [
+     "demo_action:first_interaction"
+    ]
+   },
+   "setInterval 1s": {
+    "events": [
+     "demo_engaged"
+    ]
+   },
+   "consent controls (sk-consent-*)": {
+    "ignored": "owned by js/consent.js"
+   },
+   "physics fall": {
+    "events": [
+     "demo_action:fall"
+    ],
+    "note": "first 10 per run, total in run_falls"
+   },
+   "hitTarget": {
+    "events": [
+     "demo_action:target_hit"
+    ],
+    "note": "first 30 per run"
+   },
+   "trick()": {
+    "events": [
+     "demo_action:trick_count"
+    ],
+    "note": "one event per trick name per run, at run end"
+   },
+   "endRun / quit / pagehide": {
+    "events": [
+     "demo_action:run_end",
+     "demo_action:run_score",
+     "demo_action:run_best_combo",
+     "demo_action:run_crystals",
+     "demo_action:run_tricks",
+     "demo_action:run_falls",
+     "demo_action:run_respawns"
+    ]
+   },
+   "frame loop": {
+    "events": [
+     "demo_action:fps"
+    ]
+   }
+  }
+ }
+}

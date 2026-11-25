@@ -1,0 +1,20 @@
+{
+  "name": "saikanagat-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Static site on Cloudflare Pages with Functions, D1 and a cron Worker.",
+  "scripts": {
+    "build": "node tracking/build-dist.mjs",
+    "db:migrate:local": "wrangler d1 migrations apply DB --local --persist-to .wrangler/state",
+    "dev": "npm run build && wrangler pages dev dist --d1 DB --persist-to .wrangler/state",
+    "test:server": "node --test --test-concurrency=1 tracking/tests/server/*.test.mjs",
+    "link": "node tools/link/index.mjs"
+  },
+  "devDependencies": {
+    "wrangler": "4.168.0"
+  },
+  "dependencies": {
+    "qrcode-generator": "^2.0.4"
+  }
+}

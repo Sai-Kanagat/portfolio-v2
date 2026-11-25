@@ -6,6 +6,7 @@
   var ACTION = 'https://4495a9bb.sibforms.com/serve/MUIFABgx6BoYTDFdnBJKDw66k5nMUKvwUbaPp1NFGeSC2F1o_LQNEgbFvzn6Uu_kOZD-lFKx1CZ2y_Cic0NAHG8jyL1WuBnrL7DyWs27LHx3qgsXykn5RuZJaHuEujAHpMTn8a0e3ZR_6d5I8NV_yBQsm2zo2tlBTQ6EI6nnqzj1g0NQI-hVsr_b5U-SXDn6gKME5GVMSU5kDBOX7Q==?isAjax=1';
   var footer = document.querySelector('footer.footer');
   if (!footer) return;
+  function T(n) { try { var a = [n, { page_path: location.pathname }]; window.sk ? sk.track.apply(sk, a) : (window.skq = window.skq || []).push(['track'].concat(a)); } catch (e) {} }
 
   var css = document.createElement('style');
   css.textContent =
@@ -62,20 +63,27 @@
   document.body.appendChild(fab);
 
   var boxVisible = false;
-  function syncFab() { fab.classList.toggle('is-on', window.scrollY > 300 && !boxVisible); }
+  var fabSeen = false, viewSeen = false;
+  function syncFab() {
+    var on = window.scrollY > 300 && !boxVisible;
+    fab.classList.toggle('is-on', on);
+    if (on && !fabSeen) { fabSeen = true; T('newsletter_fab_shown'); }
+  }
   window.addEventListener('scroll', syncFab, { passive: true });
   new IntersectionObserver(function (entries) {
     boxVisible = entries[0].isIntersecting;
+    if (boxVisible && !viewSeen) { viewSeen = true; T('newsletter_view'); }
     syncFab();
   }).observe(box);
   fab.addEventListener('click', function () {
     var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     box.scrollIntoView({ behavior: calm ? 'auto' : 'smooth', block: 'center' });
     box.querySelector('input[type=email]').focus({ preventScroll: true });
-    if (window.skTrack) window.skTrack('cta_click', { cta_text: 'newsletter_fab', page_path: location.pathname });
+    T('newsletter_fab_click');
   });
 
-  var form = box.querySelector('form');
+  var form = box.querySelector('form'), started = false;
+  form.EMAIL.addEventListener('focus', function () { if (!started) { started = true; T('newsletter_start'); } });
   var status = box.querySelector('.sk-news-s');
   var btn = box.querySelector('button');
   function it() { return document.documentElement.getAttribute('lang') === 'it'; }
@@ -86,6 +94,7 @@
     var email = form.EMAIL.value.trim();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       say('Please enter a valid email.', 'Inserisci una email valida.');
+      T('newsletter_invalid');
       return;
     }
     form.locale.value = it() ? 'it' : 'en';
@@ -93,9 +102,10 @@
     fetch(ACTION, { method: 'POST', mode: 'no-cors', body: new FormData(form) }).then(function () {
       say('Almost there. Check your inbox to confirm.', 'Ci siamo quasi. Controlla la posta per confermare.');
       form.reset();
-      if (window.skTrack) window.skTrack('newsletter_signup', { page_path: location.pathname });
+      T('newsletter_request');
     }).catch(function () {
       say('Something went wrong. Please try again.', 'Qualcosa è andato storto. Riprova.');
+      T('newsletter_failed');
     }).finally(function () { btn.disabled = false; });
   });
 })();

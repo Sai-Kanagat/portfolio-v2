@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-page-type="demo">
 <head>
   <!-- Consent Mode v2 default — denied inside EEA/UK/Switzerland (GDPR), granted elsewhere -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
@@ -8,9 +8,6 @@ gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_pers
 // Override: denied for EEA, UK, Switzerland (legally required until user accepts)
 gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied','region':['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH'],'wait_for_update':500});
 try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_consent_v2')){localStorage.setItem('sk_consent_v2','denied');}localStorage.removeItem('sk_consent');var c=localStorage.getItem('sk_consent_v2');if(c==='granted'){gtag('consent','update',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'granted'});}else if(c==='denied'){gtag('consent','update',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied'});}}catch(e){}</script>
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MRGXD7ZC');</script>
-<!-- End Google Tag Manager -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hand Cursor — Sai Kanagat</title>
@@ -70,33 +67,103 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 <meta name="twitter:card" content="summary_large_image" />
 </head>
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MRGXD7ZC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
 
-<div id="setup">
+<div id="setup" data-zone="hands.setup">
   <small>Live Demo · Hand-Tracked Cursor</small>
   <h1>Move your<br>cursor with<br>your hand.</h1>
   <p>Allow camera access. Point your index finger to move the dot. Pinch your thumb and index to "click" — try popping the targets. Camera feed stays in your browser, nothing is uploaded.</p>
-  <button id="startBtn">Start Camera</button>
+  <button id="startBtn" data-track="hands.start">Start Camera</button>
 </div>
 
 <div id="cursor"></div>
 <div class="targets" id="targets"></div>
-<canvas id="overlay"></canvas>
-<video id="cam" autoplay playsinline muted></video>
+<canvas id="overlay" data-track="hands.overlay"></canvas>
+<video id="cam" data-track="hands.cam" autoplay playsinline muted></video>
 
-<div class="demo-hud">
+<div class="demo-hud" data-zone="hands.hud">
   <strong id="status">Awaiting start…</strong>
   <small>Pinch thumb + index to click</small>
 </div>
-<a href="../index.html" class="demo-back" style="left:18px; right:auto;"><strong style="color:var(--accent)">SK</strong> · Home</a>
-<a href="../work.html#handcursor" class="demo-back">← Back to Work</a>
+<a href="../index.html" class="demo-back" data-track="hands.home" style="left:18px; right:auto;"><strong style="color:var(--accent)">SK</strong> · Home</a>
+<a href="../work.html#handcursor" class="demo-back" data-track="hands.back">← Back to Work</a>
 
+<script>
+/* Tracking helper (media). Sends ids, buckets, counts and ms only: never camera, mic, landmarks, audio levels, typed text or URL state. */
+(function(){
+  var DID='hands',t0=Date.now(),Q=[],QT=0,QN=0,P={},HK=[],F={n:0,t:0};
+  var S={first:0,start:0,startAt:0,ended:0,eng:0,er:0,fps:0,rv:0};
+  function send(m,a){var s=window.sk;if(s&&typeof s[m]==='function'){try{s[m].apply(s,a);}catch(e){}return true;}return false;}
+  function flush(){while(Q.length&&send(Q[0][0],Q[0][1]))Q.shift();}
+  function emit(m,a){try{if(Q.length<80)Q.push([m,a]);flush();if(Q.length&&!QT){QN=0;QT=setInterval(function(){flush();if(!Q.length||++QN>24){clearInterval(QT);QT=0;Q.length=0;}},500);}}catch(e){}}
+  var MT=window.MT={
+    id:DID,
+    act:function(){return true;},
+    a:function(action,p){emit('demo',[DID,action,p||{}]);},
+    e:function(name,p){var o={demo_id:DID};if(p)for(var k in p)o[k]=p[k];emit('track',[name,o]);},
+    media:function(kind,state){emit('media',[DID,kind,state]);},
+    model:function(state,ms,delegate){var o={ms:Math.max(0,Math.round(ms||0))};if(delegate)o.delegate=delegate;emit('model',[DID,state,o]);},
+    start:function(mode){if(S.start)return;S.start=1;S.startAt=Date.now();MT.e('demo_start',{mode:mode});MT.rv();},
+    started:function(){return S.start;},
+    err:function(code){if(S.er++<3)MT.e('demo_error',{code:code});},
+    lb:function(n){return n<=0?'0':n<=20?'1-20':n<=80?'21-80':n<=300?'81-300':'300+';},
+    cb:function(n){return n<=0?'0':n===1?'1':n<=5?'2-5':n<=20?'6-20':'21+';},
+    q5:function(v,lo,hi){var p=(v-lo)/((hi-lo)||1);return 'q'+Math.min(5,Math.max(1,Math.floor(p*5)+1));},
+    deb:function(key,ms,fn){if(P[key])clearTimeout(P[key].t);P[key]={fn:fn,t:setTimeout(function(){var f=P[key];delete P[key];try{f&&f.fn();}catch(e){}},ms)};},
+    flush:function(){Object.keys(P).forEach(function(k){var f=P[k];delete P[k];clearTimeout(f.t);try{f.fn();}catch(e){}});},
+    onend:function(fn){HK.push(fn);},
+    nav:function(){try{return performance.getEntriesByType('navigation')[0].type;}catch(e){return 'navigate';}},
+    rv:function(){try{if(S.rv||!window.sk||sk.consent!=='granted')return;S.rv=1;var k='sk_seen_'+DID;if(localStorage.getItem(k))MT.a('return_visit',{item:MT.nav()});else localStorage.setItem(k,'1');}catch(e){}},
+    since:function(){return Date.now()-(S.startAt||t0);},
+    tick:function(){if(S.fps||!S.start||document.hidden){F.n=0;F.t=0;return;}var n=performance.now();if(!F.t){F.t=n;F.n=0;return;}F.n++;if(n-F.t>=4000){S.fps=1;var f=F.n*1000/(n-F.t);MT.a('fps',{bucket:f<20?'lt20':f<40?'20-40':f<55?'40-55':'55+'});}},
+    end:function(reason){if(S.ended)return;S.ended=1;MT.flush();HK.forEach(function(f){try{f();}catch(e){}});if(!S.start)MT.a('gate_exit',{ms:Date.now()-t0});MT.e('demo_end',{ms:MT.since(),reason:reason});}
+  };
+  function ui(t){return t&&t.closest&&t.closest('[id^="sk-consent"],[data-consent-open]');}
+  ['pointerdown','keydown','touchstart'].forEach(function(ev){document.addEventListener(ev,function(e){if(S.first||ui(e.target))return;S.first=1;MT.a('first_interaction',{value:Math.round((Date.now()-t0)/1000)});},true);});
+  setInterval(function(){if(document.hidden||!S.start)return;var on=false;try{on=MT.act();}catch(e){}if(!on)return;S.eng++;if(S.eng===10||S.eng===60)MT.e('demo_engaged',{seconds:S.eng});},1000);
+  window.addEventListener('pagehide',function(){MT.end('leave');});
+  window.addEventListener('pageshow',function(e){if(e&&e.persisted)S.ended=0;});
+  document.addEventListener('click',function(e){var a=e.target&&e.target.closest&&e.target.closest('a[data-track]');if(!a)return;var id=a.getAttribute('data-track')||'';if(/\.(back|home)$/.test(id))MT.end(id.split('.').pop());},true);
+  window.addEventListener('error',function(ev){try{var t=ev&&ev.target;if(t&&t!==window&&t.tagName){if(t.tagName==='SCRIPT'&&!/googletagmanager|google-analytics|clarity\.ms/.test(t.src||''))MT.err('load');return;}if(ev&&ev.filename&&ev.filename.indexOf(location.origin)!==0)return;MT.err('js');}catch(e){}},true);
+  window.addEventListener('unhandledrejection',function(){MT.err('promise');});
+  MT.e('demo_open');
+  var nv=MT.nav();if(nv==='reload'||nv==='back_forward')MT.a('revisit',{item:nv});
+})();
+</script>
 <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1675469240/hands.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils@0.3.1675466862/camera_utils.js"></script>
 <script>
 (function(){
+  const T = MT.a;
+  // tracking state: transitions and debounced counts only, nothing per frame
+  let tModel0 = 0, modelDone = 0, camOn = 0, handOn = false, lostT = 0, foundN = 0, lostN = 0;
+  let pinches = 0, misses = 0, hits = 0, firstHit = 0, round = 1, roundT0 = Date.now(), sent = {p:-1,m:-1,h:-1};
+  MT.act = function(){ return handOn; };
+  function seen(on){
+    if (on){
+      if (lostT){ clearTimeout(lostT); lostT = 0; }
+      if (!handOn){ handOn = true; if (++foundN <= 40) T('hand_found', foundN === 1 ? {value:foundN, ms:MT.since()} : {value:foundN}); }
+    } else if (handOn && !lostT){
+      lostT = setTimeout(function(){ lostT = 0; handOn = false; if (++lostN <= 40) T('hand_lost', {value:lostN}); }, 700);
+    }
+  }
+  function sumPinch(){
+    MT.deb('pinch', 1500, function(){
+      if (pinches !== sent.p){ sent.p = pinches; T('pinch_count', {value:pinches}); }
+      if (misses !== sent.m){ sent.m = misses; T('misses', {value:misses}); }
+      if (hits !== sent.h){ sent.h = hits; T('targets_cleared', {value:hits}); }
+    });
+  }
+  function failKind(e){
+    const n = e && e.name, m = String(e && e.message || '').toLowerCase();
+    if (!navigator.mediaDevices) return 'unavailable';
+    if (n === 'NotAllowedError' || n === 'SecurityError' || n === 'PermissionDeniedError') return /dismiss/.test(m) ? 'dismissed' : 'denied';
+    if (n === 'NotFoundError' || n === 'DevicesNotFoundError' || n === 'OverconstrainedError') return 'unavailable';
+    return 'failed';
+  }
+  MT.onend(function(){
+    if (camOn) MT.media('camera', 'stopped');
+    if (camOn && tModel0 && !modelDone && Date.now() - tModel0 > 8000){ modelDone = -1; MT.model('failed', Date.now() - tModel0); }
+  });
   const cursor = document.getElementById('cursor');
   const status = document.getElementById('status');
   const targetsEl = document.getElementById('targets');
@@ -135,11 +202,14 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   }
 
   function onResults(results){
+    if (modelDone === 0){ modelDone = 1; MT.model('loaded', Date.now() - (tModel0 || Date.now()), 'GPU'); }
     octx.clearRect(0, 0, overlay.width, overlay.height);
     if (!results.multiHandLandmarks || !results.multiHandLandmarks.length){
+      seen(false);
       status.textContent = 'Show your hand…';
       return;
     }
+    seen(true);
     const lm = results.multiHandLandmarks[0];
     const tip = lm[8];   // index fingertip
     const thumb = lm[4]; // thumb tip
@@ -157,16 +227,27 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 
     if (pinching && !lastPinch){
       // click: hit any target within 60px
+      let hitNow = 0;
+      pinches++;
       for (const t of targets){
         if (t.hit) continue;
         const dx = t.x - sx, dy = t.y - sy;
         if (dx*dx + dy*dy < 60*60){
           t.hit = true;
           t.el.classList.add('hit');
+          hitNow++; hits++;
+          T('target_hit', {item:t.el.textContent, value:hits});
+          if (!firstHit){ firstHit = 1; T('first_hit', {ms:MT.since()}); }
         }
       }
+      // between rounds there is nothing to hit: a pinch then is neither a miss nor a second finish
+      if (!hitNow && targets.some(t => !t.hit)) misses++;
+      sumPinch();
       const remaining = targets.filter(t => !t.hit).length;
-      if (remaining === 0) setTimeout(spawnTargets, 700);
+      if (remaining === 0){
+        if (hitNow){ T('all_targets_done', {value:round, ms:Date.now() - roundT0}); round++; roundT0 = Date.now() + 700; }
+        setTimeout(spawnTargets, 700);
+      }
     }
     lastPinch = pinching;
 
@@ -175,26 +256,39 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 
   document.getElementById('startBtn').onclick = async () => {
     const setup = document.getElementById('setup');
+    T(setup.querySelector('#startBtn').textContent === 'Retry' ? 'retry' : 'start_camera');
     setup.querySelector('#startBtn').textContent = 'Loading model…';
+    let stage = 'init';
     try {
       const hands = new Hands({ locateFile: f => `https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1675469240/${f}` });
       hands.setOptions({ maxNumHands: 1, modelComplexity: 1, minDetectionConfidence: 0.6, minTrackingConfidence: 0.6 });
       hands.onResults(onResults);
       const camera = new Camera(cam, {
-        onFrame: async () => { await hands.send({ image: cam }); },
+        onFrame: async () => {
+          if (!tModel0) tModel0 = Date.now();
+          try { await hands.send({ image: cam }); }
+          catch (e){ if (!modelDone){ modelDone = -1; MT.model('failed', Date.now() - tModel0); } throw e; }
+        },
         width: 640, height: 480
       });
+      stage = 'camera';
+      MT.media('camera', 'prompt');
       await camera.start();
+      camOn = 1;
+      MT.media('camera', 'granted'); MT.start('camera');
       setup.style.display = 'none';
       status.textContent = 'Show your hand…';
     } catch (err){
+      if (stage === 'camera') MT.media('camera', failKind(err));
+      else { MT.model('failed', 0); }
       setup.querySelector('p').textContent = 'Camera access failed — check browser permissions and reload. ' + err.message;
       setup.querySelector('#startBtn').textContent = 'Retry';
     }
   };
 })();
 </script>
-<script src="../js/consent.js" defer></script>
-<script src="../js/analytics.js" defer></script>
+<script>window.SK_CLARITY_ID='zir45wg6mm';</script>
+<script src="../js/consent.js?v=2789cf42" defer></script>
+<script src="../js/analytics.js?v=9f2bad85" defer></script>
 </body>
 </html>

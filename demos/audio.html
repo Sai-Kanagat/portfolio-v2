@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-page-type="demo">
 <head>
 <!-- Consent Mode v2 default — denied inside EEA/UK/Switzerland (GDPR), granted elsewhere -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
@@ -8,9 +8,6 @@ gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_pers
 // Override: denied for EEA, UK, Switzerland (legally required until user accepts)
 gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied','region':['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH'],'wait_for_update':500});
 try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_consent_v2')){localStorage.setItem('sk_consent_v2','denied');}localStorage.removeItem('sk_consent');var c=localStorage.getItem('sk_consent_v2');if(c==='granted'){gtag('consent','update',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'granted'});}else if(c==='denied'){gtag('consent','update',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied'});}}catch(e){}</script>
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MRGXD7ZC');</script>
-<!-- End Google Tag Manager -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Audio Visualizer — Sai Kanagat</title>
@@ -43,24 +40,84 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MRGXD7ZC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<a href="../demos.html" class="demo-back">← Demos</a>
-<div class="hud" id="hud"></div>
-<canvas id="viz"></canvas>
+<a href="../demos.html" class="demo-back" data-track="audio.back">← Demos</a>
+<div class="hud" id="hud" data-zone="audio.hud"></div>
+<canvas id="viz" data-track="audio.viz"></canvas>
 
-<div class="gate" id="gate">
+<div class="gate" id="gate" data-zone="audio.gate">
   <div class="eyebrow">Interactive · Web Audio</div>
   <h1>Audio Visualizer</h1>
   <p>A radial frequency bloom that reacts to live sound — clap, talk, or play music near your mic and watch it breathe. Everything runs in your browser; no audio is recorded or sent anywhere.</p>
   <div>
-    <button id="useMic">🎤 Use Microphone</button>
-    <button class="ghost" id="useDemo">▶ Demo Tone</button>
+    <button id="useMic" data-track="audio.mic">🎤 Use Microphone</button>
+    <button class="ghost" id="useDemo" data-track="audio.demo">▶ Demo Tone</button>
   </div>
   <div class="hint">Mic permission is asked once and stays on your device.</div>
 </div>
 
 <script>
+/* Tracking helper (media). Sends ids, buckets, counts and ms only: never camera, mic, landmarks, audio levels, typed text or URL state. */
 (function(){
+  var DID='audio',t0=Date.now(),Q=[],QT=0,QN=0,P={},HK=[],F={n:0,t:0};
+  var S={first:0,start:0,startAt:0,ended:0,eng:0,er:0,fps:0,rv:0};
+  function send(m,a){var s=window.sk;if(s&&typeof s[m]==='function'){try{s[m].apply(s,a);}catch(e){}return true;}return false;}
+  function flush(){while(Q.length&&send(Q[0][0],Q[0][1]))Q.shift();}
+  function emit(m,a){try{if(Q.length<80)Q.push([m,a]);flush();if(Q.length&&!QT){QN=0;QT=setInterval(function(){flush();if(!Q.length||++QN>24){clearInterval(QT);QT=0;Q.length=0;}},500);}}catch(e){}}
+  var MT=window.MT={
+    id:DID,
+    act:function(){return true;},
+    a:function(action,p){emit('demo',[DID,action,p||{}]);},
+    e:function(name,p){var o={demo_id:DID};if(p)for(var k in p)o[k]=p[k];emit('track',[name,o]);},
+    media:function(kind,state){emit('media',[DID,kind,state]);},
+    model:function(state,ms,delegate){var o={ms:Math.max(0,Math.round(ms||0))};if(delegate)o.delegate=delegate;emit('model',[DID,state,o]);},
+    start:function(mode){if(S.start)return;S.start=1;S.startAt=Date.now();MT.e('demo_start',{mode:mode});MT.rv();},
+    started:function(){return S.start;},
+    err:function(code){if(S.er++<3)MT.e('demo_error',{code:code});},
+    lb:function(n){return n<=0?'0':n<=20?'1-20':n<=80?'21-80':n<=300?'81-300':'300+';},
+    cb:function(n){return n<=0?'0':n===1?'1':n<=5?'2-5':n<=20?'6-20':'21+';},
+    q5:function(v,lo,hi){var p=(v-lo)/((hi-lo)||1);return 'q'+Math.min(5,Math.max(1,Math.floor(p*5)+1));},
+    deb:function(key,ms,fn){if(P[key])clearTimeout(P[key].t);P[key]={fn:fn,t:setTimeout(function(){var f=P[key];delete P[key];try{f&&f.fn();}catch(e){}},ms)};},
+    flush:function(){Object.keys(P).forEach(function(k){var f=P[k];delete P[k];clearTimeout(f.t);try{f.fn();}catch(e){}});},
+    onend:function(fn){HK.push(fn);},
+    nav:function(){try{return performance.getEntriesByType('navigation')[0].type;}catch(e){return 'navigate';}},
+    rv:function(){try{if(S.rv||!window.sk||sk.consent!=='granted')return;S.rv=1;var k='sk_seen_'+DID;if(localStorage.getItem(k))MT.a('return_visit',{item:MT.nav()});else localStorage.setItem(k,'1');}catch(e){}},
+    since:function(){return Date.now()-(S.startAt||t0);},
+    tick:function(){if(S.fps||!S.start||document.hidden){F.n=0;F.t=0;return;}var n=performance.now();if(!F.t){F.t=n;F.n=0;return;}F.n++;if(n-F.t>=4000){S.fps=1;var f=F.n*1000/(n-F.t);MT.a('fps',{bucket:f<20?'lt20':f<40?'20-40':f<55?'40-55':'55+'});}},
+    end:function(reason){if(S.ended)return;S.ended=1;MT.flush();HK.forEach(function(f){try{f();}catch(e){}});if(!S.start)MT.a('gate_exit',{ms:Date.now()-t0});MT.e('demo_end',{ms:MT.since(),reason:reason});}
+  };
+  function ui(t){return t&&t.closest&&t.closest('[id^="sk-consent"],[data-consent-open]');}
+  ['pointerdown','keydown','touchstart'].forEach(function(ev){document.addEventListener(ev,function(e){if(S.first||ui(e.target))return;S.first=1;MT.a('first_interaction',{value:Math.round((Date.now()-t0)/1000)});},true);});
+  setInterval(function(){if(document.hidden||!S.start)return;var on=false;try{on=MT.act();}catch(e){}if(!on)return;S.eng++;if(S.eng===10||S.eng===60)MT.e('demo_engaged',{seconds:S.eng});},1000);
+  window.addEventListener('pagehide',function(){MT.end('leave');});
+  window.addEventListener('pageshow',function(e){if(e&&e.persisted)S.ended=0;});
+  document.addEventListener('click',function(e){var a=e.target&&e.target.closest&&e.target.closest('a[data-track]');if(!a)return;var id=a.getAttribute('data-track')||'';if(/\.(back|home)$/.test(id))MT.end(id.split('.').pop());},true);
+  window.addEventListener('error',function(ev){try{var t=ev&&ev.target;if(t&&t!==window&&t.tagName){if(t.tagName==='SCRIPT'&&!/googletagmanager|google-analytics|clarity\.ms/.test(t.src||''))MT.err('load');return;}if(ev&&ev.filename&&ev.filename.indexOf(location.origin)!==0)return;MT.err('js');}catch(e){}},true);
+  window.addEventListener('unhandledrejection',function(){MT.err('promise');});
+  MT.e('demo_open');
+  var nv=MT.nav();if(nv==='reload'||nv==='back_forward')MT.a('revisit',{item:nv});
+})();
+</script>
+<script>
+(function(){
+  var T=MT.a;
+  // tracking state: transitions and latches only, nothing per frame. Only a yes or no is derived from the mic; levels never leave the page.
+  var micOn=0,heard=0,heardN=0,hiddenAt=0,hiddenTot=0;
+  function failKind(e){
+    var n=e&&e.name,m=String(e&&e.message||'').toLowerCase();
+    if(n==='NotAllowedError'||n==='SecurityError'||n==='PermissionDeniedError')return /dismiss/.test(m)?'dismissed':'denied';
+    if(n==='NotFoundError'||n==='DevicesNotFoundError'||n==='OverconstrainedError')return 'unavailable';
+    return 'failed';
+  }
+  MT.onend(function(){
+    if(!MT.started())return;
+    T('seconds_running',{value:Math.max(0,Math.round((MT.since()-hiddenTot)/1000))});
+    if(micOn){if(!heard)T('sound_detected',{item:'no'});MT.media('mic','stopped');}
+  });
+  document.addEventListener('visibilitychange',function(){
+    if(!MT.started())return;
+    if(document.hidden){hiddenAt=Date.now();T('tab_hidden');}
+    else if(hiddenAt){var d=Date.now()-hiddenAt;hiddenAt=0;hiddenTot+=d;T('tab_resumed',{ms:d});}
+  });
   var cv=document.getElementById('viz'),cx=cv.getContext('2d');
   var W,H,DPR=Math.min(window.devicePixelRatio||1,1.5);
   function resize(){W=window.innerWidth;H=window.innerHeight;cv.width=W*DPR;cv.height=H*DPR;cv.style.width=W+'px';cv.style.height=H+'px';cx.setTransform(DPR,0,0,DPR,0,0);}
@@ -70,14 +127,18 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   function setupAnalyser(){analyser=actx.createAnalyser();analyser.fftSize=512;analyser.smoothingTimeConstant=0.82;freq=new Uint8Array(analyser.frequencyBinCount);}
 
   function startMic(){
+    T('use_mic');
     actx=new (window.AudioContext||window.webkitAudioContext)();
     setupAnalyser();
+    if(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia)MT.media('mic','prompt');else MT.media('mic','unavailable');
     navigator.mediaDevices.getUserMedia({audio:true}).then(function(stream){
+      micOn=1;MT.media('mic','granted');
       actx.createMediaStreamSource(stream).connect(analyser);
-      go('MIC LIVE');
-    }).catch(function(){document.getElementById('hud').textContent='mic blocked — try demo tone';});
+      go('MIC LIVE');MT.start('mic');
+    }).catch(function(e){if(!micOn)MT.media('mic',failKind(e));else MT.err('audio');document.getElementById('hud').textContent='mic blocked — try demo tone';});
   }
   function startDemo(){
+    T('demo_tone');
     actx=new (window.AudioContext||window.webkitAudioContext)();
     setupAnalyser();
     osc=actx.createOscillator();var g=actx.createGain();g.gain.value=0.0001;
@@ -86,7 +147,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     // sweep a little melody so there's motion
     var notes=[220,277,330,440,330,277],i=0;
     setInterval(function(){osc.frequency.setValueAtTime(notes[i%notes.length]*(1+Math.random()*0.4),actx.currentTime);i++;},380);
-    go('DEMO TONE');
+    go('DEMO TONE');MT.start('tone');
   }
   function go(label){
     document.getElementById('gate').style.display='none';
@@ -100,6 +161,8 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     analyser.getByteFrequencyData(freq);
     // average energy for global pulse
     var sum=0;for(var k=0;k<freq.length;k++)sum+=freq[k];var avg=sum/freq.length/255;
+    MT.tick();
+    if(micOn&&!heard){if(avg>0.01&&++heardN>15){heard=1;T('sound_detected',{item:'yes',ms:MT.since()});}}
     // fade trails
     cx.fillStyle='rgba(6,7,13,0.16)';cx.fillRect(0,0,W,H);
     var cxm=W/2,cym=H/2;
@@ -132,7 +195,8 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   document.getElementById('useDemo').onclick=startDemo;
 })();
 </script>
-<script src="../js/consent.js" defer></script>
-<script src="../js/analytics.js" defer></script>
+<script>window.SK_CLARITY_ID='zir45wg6mm';</script>
+<script src="../js/consent.js?v=2789cf42" defer></script>
+<script src="../js/analytics.js?v=9f2bad85" defer></script>
 </body>
 </html>

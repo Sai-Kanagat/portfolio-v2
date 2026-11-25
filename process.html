@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-page-type="process">
 <head>
   <!-- Consent Mode v2 default — denied inside EEA/UK/Switzerland (GDPR), granted elsewhere -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
@@ -8,9 +8,6 @@ gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_pers
 // Override: denied for EEA, UK, Switzerland (legally required until user accepts)
 gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied','region':['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH'],'wait_for_update':500});
 try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_consent_v2')){localStorage.setItem('sk_consent_v2','denied');}localStorage.removeItem('sk_consent');var c=localStorage.getItem('sk_consent_v2');if(c==='granted'){gtag('consent','update',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'granted'});}else if(c==='denied'){gtag('consent','update',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied'});}}catch(e){}</script>
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MRGXD7ZC');</script>
-<!-- End Google Tag Manager -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Process — Sai Kanagat | How I Work: Discover, Define, Design, Deploy, Measure</title>
@@ -76,27 +73,24 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   <link rel="alternate" hreflang="x-default" href="https://saikanagat.com/process" />
 </head>
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MRGXD7ZC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-<a href="#main" class="skip-link">Skip to content</a>
+<a href="#main" class="skip-link" data-track="page.skip-to-content">Skip to content</a>
 
 <!-- NAV -->
-<nav class="nav">
-  <a href="index.html" class="nav-logo">SK<span>.</span></a>
+<nav class="nav" data-zone="nav">
+  <a href="index.html" class="nav-logo" data-track="nav.home">SK<span>.</span></a>
   <div class="nav-links" id="navLinks">
-    <a href="work.html" data-en="Work" data-it="Lavori">Work</a>
-    <a href="process.html" class="active" data-en="Process" data-it="Processo">Process</a>
-    <a href="gallery.html" data-en="Gallery" data-it="Galleria">Gallery</a>
-    <a href="blog.html" data-en="Blog" data-it="Blog">Blog</a>
-    <a href="about.html" data-en="About" data-it="Chi Sono">About</a>
-    <a href="demos.html" data-en="Demos" data-it="Demo">Demos</a>
-    <a href="contact.html" data-en="Contact" data-it="Contatti">Contact</a>
-    <a href="brand-identity.html" class="nav-score-btn" data-en="View Brandbook" data-it="Vedi Brandbook">View Brandbook</a>
+    <a href="work.html" data-en="Work" data-it="Lavori" data-track="nav.work">Work</a>
+    <a href="process.html" class="active" data-en="Process" data-it="Processo" data-track="nav.process">Process</a>
+    <a href="gallery.html" data-en="Gallery" data-it="Galleria" data-track="nav.gallery">Gallery</a>
+    <a href="blog.html" data-en="Blog" data-it="Blog" data-track="nav.blog">Blog</a>
+    <a href="about.html" data-en="About" data-it="Chi Sono" data-track="nav.about">About</a>
+    <a href="demos.html" data-en="Demos" data-it="Demo" data-track="nav.demos">Demos</a>
+    <a href="contact.html" data-en="Contact" data-it="Contatti" data-track="nav.contact">Contact</a>
+    <a href="brand-identity.html" class="nav-score-btn" data-en="View Brandbook" data-it="Vedi Brandbook" data-track="nav.brand-identity">View Brandbook</a>
   </div>
-  <div class="lang-toggle" aria-label="Language"><button type="button" data-l="en" class="is-active">EN</button><span>/</span><button type="button" data-l="it">IT</button></div>
+  <div class="lang-toggle" aria-label="Language"><button type="button" data-l="en" class="is-active" data-track="nav.en">EN</button><span>/</span><button type="button" data-l="it" data-track="nav.it">IT</button></div>
   <div class="nav-tag">Available — EU &amp; Remote</div>
-  <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu" data-track="nav.menu">
     <span></span><span></span><span></span>
   </button>
 </nav>
@@ -126,7 +120,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   </div>
 
   <!-- INTRO -->
-  <section class="process-intro">
+  <section class="process-intro" data-section="process-intro" data-zone="process-intro">
     <div class="process-intro-label reveal">
       Every project starts<br>the same way —<br>
       <span style="color: var(--accent);">with a question,<br>not an answer.</span>
@@ -142,9 +136,9 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   </section>
 
   <!-- STEPS -->
-  <section class="process-steps">
+  <section class="process-steps" data-section="process-steps" data-zone="process-steps">
 
-    <div class="process-step reveal">
+    <div class="process-step reveal" data-section="step-1">
       <div class="process-step-num" data-label="Phase 01">01</div>
       <div class="process-step-content">
         <div class="process-step-title"><span data-en="Discover" data-it="Scoprire">Discover</span></div>
@@ -165,7 +159,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
       </div>
     </div>
 
-    <div class="process-step reveal">
+    <div class="process-step reveal" data-section="step-2">
       <div class="process-step-num" data-label="Phase 02">02</div>
       <div class="process-step-content">
         <div class="process-step-title"><span data-en="Define" data-it="Definire">Define</span></div>
@@ -186,7 +180,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
       </div>
     </div>
 
-    <div class="process-step reveal">
+    <div class="process-step reveal" data-section="step-3">
       <div class="process-step-num" data-label="Phase 03">03</div>
       <div class="process-step-content">
         <div class="process-step-title"><span data-en="Design" data-it="Progettare">Design</span></div>
@@ -207,7 +201,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
       </div>
     </div>
 
-    <div class="process-step reveal">
+    <div class="process-step reveal" data-section="step-4">
       <div class="process-step-num" data-label="Phase 04">04</div>
       <div class="process-step-content">
         <div class="process-step-title"><span data-en="Deploy" data-it="Distribuire">Deploy</span></div>
@@ -228,7 +222,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
       </div>
     </div>
 
-    <div class="process-step reveal">
+    <div class="process-step reveal" data-section="step-5">
       <div class="process-step-num" data-label="Phase 05">05</div>
       <div class="process-step-content">
         <div class="process-step-title"><span data-en="Measure" data-it="Misurare">Measure</span></div>
@@ -252,27 +246,27 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   </section>
 
   <!-- CTA -->
-  <section style="background: var(--accent); color: var(--ink); padding: var(--pad-section) var(--pad-x); border-top: 2px solid var(--ink);">
+  <section style="background: var(--accent); color: var(--ink); padding: var(--pad-section) var(--pad-x); border-top: 2px solid var(--ink);" data-section="want-to-seethis-in-action" data-zone="want-to-seethis-in">
     <h2 style="font-family: var(--font-display); font-weight: 900; font-size: clamp(36px, 6vw, 88px); letter-spacing: -0.05em; text-transform: uppercase; line-height: 0.9; margin-bottom: 40px;" class="reveal">
       Want to see<br>this in action?
     </h2>
     <div style="display: flex; gap: 16px; flex-wrap: wrap;" class="reveal reveal-delay-1">
-      <a href="work.html" class="btn" style="background: var(--ink); color: var(--accent); border-color: var(--ink);">
+      <a href="work.html" class="btn" style="background: var(--ink); color: var(--accent); border-color: var(--ink);" data-track="want-to-seethis-in.work">
         View Projects
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
       </a>
-      <a href="contact.html" class="btn" style="background: transparent; color: var(--ink); border-color: var(--ink);">Let's Work Together</a>
+      <a href="contact.html" class="btn" style="background: transparent; color: var(--ink); border-color: var(--ink);" data-track="want-to-seethis-in.contact">Let's Work Together</a>
     </div>
   </section>
 
   <!-- FOOTER -->
-  <footer class="footer">
+  <footer class="footer" data-zone="footer">
     <div class="footer-logo">SK<span>.</span></div>
     <p class="footer-copy">© 2026 Sai Kanagat. All rights reserved.</p>
     <div class="footer-socials">
-      <a href="https://linkedin.com/in/sai-kanagat" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://github.com/Sai-Kanagat" target="_blank" rel="noopener">GitHub</a>
-      <a href="mailto:saikanagat1117@gmail.com">Email</a>
+      <a href="https://linkedin.com/in/sai-kanagat" target="_blank" rel="noopener" data-track="footer.linkedin">LinkedIn</a>
+      <a href="https://github.com/Sai-Kanagat" target="_blank" rel="noopener" data-track="footer.github">GitHub</a>
+      <a href="mailto:saikanagat1117@gmail.com" data-track="footer.email">Email</a>
     </div>
   </footer>
 
@@ -286,7 +280,35 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 <script src="js/lightbox.js"></script>
 <script src="js/hover-preview.js"></script>
 <script src="js/interactions.js"></script>
-<script src="js/consent.js" defer></script>
-<script src="js/analytics.js" defer></script>
+<script>
+/* Tracking: the furthest process step the visitor reached, sent once when the page is hidden.
+   Registered here, ahead of js/track.js, so the summary is queued before track.js flushes. */
+(function(){
+  var max = 0, sent = 0;
+  function steps(){ return [].slice.call(document.querySelectorAll('.process-step')); }
+  function init(){
+    if (!window.IntersectionObserver) return;
+    var list = steps();
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(en){ if (en.isIntersecting) { var i = list.indexOf(en.target) + 1; if (i > max) max = i; } });
+    }, { rootMargin: '0px 0px -30% 0px', threshold: 0 });
+    list.forEach(function(el){ io.observe(el); });
+  }
+  function report(){
+    try {
+      if (max < 1 || max === sent) return;
+      sent = max;
+      var a = ['pg.process', 'furthest_step', { value: max }];
+      window.sk ? sk.demo.apply(sk, a) : (window.skq = window.skq || []).push(['demo'].concat(a));
+    } catch (e) {}
+  }
+  document.addEventListener('visibilitychange', function(){ if (document.hidden) report(); });
+  window.addEventListener('pagehide', report);
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
+</script>
+<script>window.SK_CLARITY_ID='zir45wg6mm';</script>
+<script src="js/consent.js?v=2789cf42" defer></script>
+<script src="js/analytics.js?v=9f2bad85" defer></script>
 </body>
 </html>

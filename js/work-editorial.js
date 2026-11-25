@@ -71,6 +71,7 @@
     row.dataset.category = cat;
     row.href = '#' + id; // always internal — case study opens in panel; external CTA lives inside
     row.setAttribute('data-cover', cover || '');
+    row.setAttribute('data-track', 'work.row.' + id);
 
     row.innerHTML = '\
       <span class="we-num">' + num + '</span>\
@@ -121,10 +122,20 @@
     mx = e.clientX; my = e.clientY;
     if (!raf) raf = requestAnimationFrame(updatePreviewPos);
   });
+  var rowPreviews = 0;
   list.querySelectorAll('.we-row').forEach(function(row){
     row.addEventListener('mouseenter', function(){
       var src = row.getAttribute('data-cover');
       showPreview(src);
+      // Tracking: one project_preview per row hover that shows an image, id only, capped.
+      try {
+        var pid = row.dataset.project;
+        if (src && rowPreviews < 60 && /^[a-z0-9_-]{1,40}$/i.test(pid || '')) {
+          rowPreviews++;
+          var q = { project_id: pid };
+          window.sk ? sk.track('project_preview', q) : (window.skq = window.skq || []).push(['track', 'project_preview', q]);
+        }
+      } catch (e) {}
     });
     row.addEventListener('mouseleave', function(){
       hidePreview();

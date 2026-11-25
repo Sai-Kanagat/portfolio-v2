@@ -42,6 +42,8 @@
   }
 
   var state = { images: [], index: 0, overlay: null, imgEl: null, captionEl: null };
+  function T(n, p) { try { window.sk ? sk.track(n, p) : (window.skq = window.skq || []).push(['track', n, p]); } catch (e) {} }
+  function imgId(i) { var im = state.images[i]; return im ? String(im.src || '').split('?')[0].split('/').pop().replace(/\.[a-z0-9]+$/i, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 40) : ''; }
 
   function ensureOverlay(){
     if (state.overlay) return;
@@ -56,22 +58,23 @@
     state.overlay = o;
     state.imgEl = document.getElementById('lbImg');
     state.captionEl = document.getElementById('lbCap');
-    document.getElementById('lbClose').addEventListener('click', close);
+    document.getElementById('lbClose').addEventListener('click', function(){ close('button'); });
     document.getElementById('lbPrev').addEventListener('click', function(){ nav(-1); });
     document.getElementById('lbNext').addEventListener('click', function(){ nav(1); });
-    o.addEventListener('click', function(e){ if (e.target === o) close(); });
+    o.addEventListener('click', function(e){ if (e.target === o) close('backdrop'); });
     document.addEventListener('keydown', function(e){
       if (!o.classList.contains('is-on')) return;
-      if (e.key === 'Escape') close();
+      if (e.key === 'Escape') close('escape');
       else if (e.key === 'ArrowLeft') nav(-1);
       else if (e.key === 'ArrowRight') nav(1);
     });
   }
 
-  function show(index){
+  function show(index, evt){
     var img = state.images[index];
     if (!img) return;
     state.index = index;
+    if (evt) T(evt.name, evt.dir ? { image_id: imgId(index), dir: evt.dir } : { image_id: imgId(index) });
     state.imgEl.src = img.src;
     state.imgEl.alt = img.alt || '';
     var total = state.images.length;
@@ -81,7 +84,9 @@
     state.overlay.classList.add('is-on');
     document.body.style.overflow = 'hidden';
   }
-  function close(){
+  function close(method){
+    if (!state.overlay.classList.contains('is-on')) return;
+    T('lightbox_close', { method: typeof method === 'string' ? method : 'button' });
     state.overlay.classList.remove('is-on');
     document.body.style.overflow = '';
     // Restore scroll position of the host the user came from (project panel, etc.)
@@ -91,7 +96,7 @@
   }
   function nav(dir){
     var n = state.images.length;
-    show((state.index + dir + n) % n);
+    show((state.index + dir + n) % n, { name: 'lightbox_nav', dir: dir < 0 ? 'prev' : 'next' });
   }
 
   function openFromCluster(clickedEl){
@@ -106,7 +111,7 @@
     if (!imgs || imgs.length === 0) imgs = [clickedEl];
     state.images = imgs.map(function(im){ return { src: im.currentSrc || im.src, alt: im.alt }; });
     var idx = imgs.indexOf(clickedEl);
-    show(idx === -1 ? 0 : idx);
+    show(idx === -1 ? 0 : idx, { name: 'lightbox_open' });
   }
 
   function shouldBind(img){

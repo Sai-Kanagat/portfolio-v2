@@ -7,7 +7,7 @@
 (function(){
   try {
     var h = window.location.hostname;
-    if (/\.pages\.dev$/i.test(h)) {
+    if (h === 'saikanagat-7yg.pages.dev') { // the exact production host only: previews must be testable
       window.location.replace('https://saikanagat.com' + window.location.pathname + window.location.search + window.location.hash);
     }
   } catch(e) {}
@@ -59,9 +59,12 @@
   }
 
   document.documentElement.classList.add('loading');
+  function T(n, p) { try { window.sk ? sk.track(n, p) : (window.skq = window.skq || []).push(['track', n, p]); } catch (e) {} }
 
   document.addEventListener('DOMContentLoaded', function() {
     document.body.prepend(loader);
+    loader.setAttribute('data-no-track', '');
+    T('intro_shown');
     var count = document.getElementById('loaderCount');
     var bar = document.getElementById('loaderBar');
     var phase = document.getElementById('loaderPhase');
@@ -90,6 +93,7 @@
         requestAnimationFrame(step);
       } else {
         sessionStorage.setItem('sk_loader_shown', '1');
+        T('intro_completed', { ms: Math.round(performance.now() - start) });
         setTimeout(function() {
           loader.classList.add('done');
           setTimeout(function() {

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-page-type="blog">
 <head>
   <!-- Consent Mode v2 default — denied inside EEA/UK/Switzerland (GDPR), granted elsewhere -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
@@ -8,9 +8,6 @@ gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_pers
 // Override: denied for EEA, UK, Switzerland (legally required until user accepts)
 gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied','region':['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH'],'wait_for_update':500});
 try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_consent_v2')){localStorage.setItem('sk_consent_v2','denied');}localStorage.removeItem('sk_consent');var c=localStorage.getItem('sk_consent_v2');if(c==='granted'){gtag('consent','update',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'granted'});}else if(c==='denied'){gtag('consent','update',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied'});}}catch(e){}</script>
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MRGXD7ZC');</script>
-<!-- End Google Tag Manager -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Blog — Sai Kanagat | Writing on Design, Marketing & the Space Between</title>
@@ -82,27 +79,24 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   <link rel="alternate" hreflang="x-default" href="https://saikanagat.com/blog" />
 </head>
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MRGXD7ZC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-<a href="#main" class="skip-link">Skip to content</a>
+<a href="#main" class="skip-link" data-track="page.skip-to-content">Skip to content</a>
 
 <!-- NAV -->
-<nav class="nav">
-  <a href="index.html" class="nav-logo">SK<span>.</span></a>
+<nav class="nav" data-zone="nav">
+  <a href="index.html" class="nav-logo" data-track="nav.home">SK<span>.</span></a>
   <div class="nav-links" id="navLinks">
-    <a href="work.html" data-en="Work" data-it="Lavori">Work</a>
-    <a href="process.html" data-en="Process" data-it="Processo">Process</a>
-    <a href="gallery.html" data-en="Gallery" data-it="Galleria">Gallery</a>
-    <a href="blog.html" class="active" data-en="Blog" data-it="Blog">Blog</a>
-    <a href="about.html" data-en="About" data-it="Chi Sono">About</a>
-    <a href="demos.html" data-en="Demos" data-it="Demo">Demos</a>
-    <a href="contact.html" data-en="Contact" data-it="Contatti">Contact</a>
-    <a href="brand-identity.html" class="nav-score-btn" data-en="View Brandbook" data-it="Vedi Brandbook">View Brandbook</a>
+    <a href="work.html" data-en="Work" data-it="Lavori" data-track="nav.work">Work</a>
+    <a href="process.html" data-en="Process" data-it="Processo" data-track="nav.process">Process</a>
+    <a href="gallery.html" data-en="Gallery" data-it="Galleria" data-track="nav.gallery">Gallery</a>
+    <a href="blog.html" class="active" data-en="Blog" data-it="Blog" data-track="nav.blog">Blog</a>
+    <a href="about.html" data-en="About" data-it="Chi Sono" data-track="nav.about">About</a>
+    <a href="demos.html" data-en="Demos" data-it="Demo" data-track="nav.demos">Demos</a>
+    <a href="contact.html" data-en="Contact" data-it="Contatti" data-track="nav.contact">Contact</a>
+    <a href="brand-identity.html" class="nav-score-btn" data-en="View Brandbook" data-it="Vedi Brandbook" data-track="nav.brand-identity">View Brandbook</a>
   </div>
-  <div class="lang-toggle" aria-label="Language"><button type="button" data-l="en" class="is-active">EN</button><span>/</span><button type="button" data-l="it">IT</button></div>
+  <div class="lang-toggle" aria-label="Language"><button type="button" data-l="en" class="is-active" data-track="nav.en">EN</button><span>/</span><button type="button" data-l="it" data-track="nav.it">IT</button></div>
   <div class="nav-tag">Available — EU &amp; Remote</div>
-  <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu" data-track="nav.menu">
     <span></span><span></span><span></span>
   </button>
 </nav>
@@ -132,7 +126,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   <!-- BLOG LIST -->
   <div class="blog-list">
 
-    <a href="blog/why-i-built-melt-sprint.html" class="blog-row reveal">
+    <a href="blog/why-i-built-melt-sprint.html" class="blog-row reveal" data-track="page.why-i-built-melt-sprint">
       <div class="blog-row-date">Nov 2026</div>
       <div class="blog-row-main">
         <div class="blog-row-tag">Build</div>
@@ -142,7 +136,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
       <div class="blog-row-cta">Read →</div>
     </a>
 
-    <a href="papers/monocular-biomechanics.html" class="blog-row reveal">
+    <a href="papers/monocular-biomechanics.html" class="blog-row reveal" data-track="page.monocular-biomechanics">
       <div class="blog-row-date">May 2026</div>
       <div class="blog-row-main">
         <div class="blog-row-tag">Research</div>
@@ -152,7 +146,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
       <div class="blog-row-cta">Read →</div>
     </a>
 
-    <a href="blog/building-nishta.html" class="blog-row reveal">
+    <a href="blog/building-nishta.html" class="blog-row reveal" data-track="page.building-nishta">
       <div class="blog-row-date">May 2026</div>
       <div class="blog-row-main">
         <div class="blog-row-tag">Founder</div>
@@ -162,7 +156,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
       <div class="blog-row-cta">Read →</div>
     </a>
 
-    <a href="blog/bologna-business-school-marketing-reality.html" class="blog-row reveal">
+    <a href="blog/bologna-business-school-marketing-reality.html" class="blog-row reveal" data-track="page.bologna-business-school">
       <div class="blog-row-date">May 2026</div>
       <div class="blog-row-main">
         <div class="blog-row-tag">Education</div>
@@ -172,7 +166,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
       <div class="blog-row-cta">Read →</div>
     </a>
 
-    <a href="blog/carlos-mota-studio-lesson.html" class="blog-row reveal">
+    <a href="blog/carlos-mota-studio-lesson.html" class="blog-row reveal" data-track="page.carlos-mota-studio">
       <div class="blog-row-date">May 2026</div>
       <div class="blog-row-main">
         <div class="blog-row-tag">Craft</div>
@@ -182,7 +176,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
       <div class="blog-row-cta">Read →</div>
     </a>
 
-    <a href="blog/why-industrial-designers-make-better-marketers.html" class="blog-row reveal">
+    <a href="blog/why-industrial-designers-make-better-marketers.html" class="blog-row reveal" data-track="page.why-industrial">
       <div class="blog-row-date">Apr 2026</div>
       <div class="blog-row-main">
         <div class="blog-row-tag">Design × Marketing</div>
@@ -192,7 +186,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
       <div class="blog-row-cta">Read →</div>
     </a>
 
-    <a href="blog/what-15k-meta-ads-taught-me.html" class="blog-row reveal">
+    <a href="blog/what-15k-meta-ads-taught-me.html" class="blog-row reveal" data-track="page.what-15k-meta-ads">
       <div class="blog-row-date">Mar 2026</div>
       <div class="blog-row-main">
         <div class="blog-row-tag">Paid Media</div>
@@ -202,7 +196,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
       <div class="blog-row-cta">Read →</div>
     </a>
 
-    <a href="blog/the-brief-as-a-design-object.html" class="blog-row reveal">
+    <a href="blog/the-brief-as-a-design-object.html" class="blog-row reveal" data-track="page.the-brief-as-a-design">
       <div class="blog-row-date">Feb 2026</div>
       <div class="blog-row-main">
         <div class="blog-row-tag">Strategy</div>
@@ -212,7 +206,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
       <div class="blog-row-cta">Read →</div>
     </a>
 
-    <a href="blog/agora-and-the-rehearsal-of-public-opinion.html" class="blog-row reveal">
+    <a href="blog/agora-and-the-rehearsal-of-public-opinion.html" class="blog-row reveal" data-track="page.agora-and-the-rehearsal">
       <div class="blog-row-date">Apr 2026</div>
       <div class="blog-row-main">
         <div class="blog-row-tag">AI × Marketing</div>
@@ -222,7 +216,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
       <div class="blog-row-cta">Read →</div>
     </a>
 
-    <a href="blog/why-italy-and-why-now.html" class="blog-row reveal">
+    <a href="blog/why-italy-and-why-now.html" class="blog-row reveal" data-track="page.why-italy-and-why-now">
       <div class="blog-row-date">Mar 2026</div>
       <div class="blog-row-main">
         <div class="blog-row-tag">Personal</div>
@@ -232,7 +226,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
       <div class="blog-row-cta">Read →</div>
     </a>
 
-    <a href="blog/portfolios-are-products.html" class="blog-row reveal">
+    <a href="blog/portfolios-are-products.html" class="blog-row reveal" data-track="page.portfolios-are-products">
       <div class="blog-row-date">Feb 2026</div>
       <div class="blog-row-main">
         <div class="blog-row-tag">Craft</div>
@@ -245,13 +239,13 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   </div>
 
   <!-- FOOTER -->
-  <footer class="footer">
+  <footer class="footer" data-zone="footer">
     <div class="footer-logo">SK<span>.</span></div>
     <p class="footer-copy">© 2026 Sai Kanagat. All rights reserved.</p>
     <div class="footer-socials">
-      <a href="https://linkedin.com/in/sai-kanagat" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://github.com/Sai-Kanagat" target="_blank" rel="noopener">GitHub</a>
-      <a href="mailto:saikanagat1117@gmail.com">Email</a>
+      <a href="https://linkedin.com/in/sai-kanagat" target="_blank" rel="noopener" data-track="footer.linkedin">LinkedIn</a>
+      <a href="https://github.com/Sai-Kanagat" target="_blank" rel="noopener" data-track="footer.github">GitHub</a>
+      <a href="mailto:saikanagat1117@gmail.com" data-track="footer.email">Email</a>
     </div>
   </footer>
 
@@ -265,8 +259,9 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 <script src="js/lightbox.js"></script>
 <script src="js/hover-preview.js"></script>
 <script src="js/interactions.js"></script>
-<script src="js/consent.js" defer></script>
-<script src="js/analytics.js" defer></script>
+<script>window.SK_CLARITY_ID='zir45wg6mm';</script>
+<script src="js/consent.js?v=2789cf42" defer></script>
+<script src="js/analytics.js?v=9f2bad85" defer></script>
 <script src="/js/newsletter.js?v=6" defer></script>
 </body>
 </html>

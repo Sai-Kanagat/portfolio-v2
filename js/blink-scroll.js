@@ -8,6 +8,8 @@
 
   var MP = 'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14';
   var MODEL = 'https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task';
+  var DID = 'blink-scroll', doubles = 0, onAt = 0;
+  function S(m) { try { var a = Array.prototype.slice.call(arguments, 1); window.sk ? sk[m].apply(sk, a) : (window.skq = window.skq || []).push([m].concat(a)); } catch (e) {} }
   var reduced = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   var css = document.createElement('style');
@@ -30,6 +32,7 @@
   var btn = document.createElement('button');
   btn.type = 'button';
   btn.className = 'bs-sticker';
+  btn.setAttribute('data-track', 'blink-scroll.toggle');
   btn.setAttribute('aria-pressed', 'false');
   btn.innerHTML = '<span class="bs-eye" aria-hidden="true"></span><span><span class="bs-main">Read with your eyes</span><span class="bs-sub">tap, then double blink to scroll</span></span>';
   document.body.appendChild(btn);
@@ -71,7 +74,7 @@
       det.closed = false; flash(false);
       var dur = t - det.closedAt;
       if (dur <= 500 && t >= det.cooldownUntil) {
-        if (t - det.lastBlink <= 900) { det.lastBlink = -1e9; det.cooldownUntil = t + 500; advance(); ev = 'double'; }
+        if (t - det.lastBlink <= 900) { det.lastBlink = -1e9; det.cooldownUntil = t + 500; doubles++; advance(); ev = 'double'; }
         else { det.lastBlink = t; ev = 'single'; }
       }
     }
@@ -82,6 +85,11 @@
   /* ---------- camera + MediaPipe (lazy) ---------- */
   var state = 'off', stream = null, video = null, landmarker = null, raf = 0, lastVideoTime = -1;
   function stop() {
+    if (state !== 'off') {
+      S('demo', DID, 'toggle', { item: 'off', ms: onAt ? Math.round(performance.now() - onAt) : 0 });
+      S('demo', DID, 'blinks', { bucket: window.sk ? sk.count(doubles) : '0' });
+      if (stream) S('media', DID, 'camera', 'stopped');
+    }
     state = 'off'; cancelAnimationFrame(raf);
     if (stream) stream.getTracks().forEach(function (tr) { tr.stop(); });
     stream = null; if (video) { video.srcObject = null; }
@@ -104,15 +112,18 @@
     if (state === 'calibrating' && out !== 'calibrating') { state = 'live'; say('Blink twice to scroll', 'live, video stays on your device', 'on'); }
   }
   async function start() {
-    state = 'loading'; btn.setAttribute('aria-pressed', 'true');
+    state = 'loading'; btn.setAttribute('aria-pressed', 'true'); doubles = 0; onAt = performance.now();
+    S('demo', DID, 'toggle', { item: 'on' }); S('media', DID, 'camera', 'prompt');
     say('Waking the camera...', 'video stays on your device');
     try {
       if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) throw new Error('nocam');
       stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user', width: { ideal: 640 }, height: { ideal: 480 }, frameRate: { ideal: 60 } }, audio: false });
+      S('media', DID, 'camera', 'granted');
       if (state !== 'loading') { stream.getTracks().forEach(function (tr) { tr.stop(); }); return; }
       video = video || Object.assign(document.createElement('video'), { muted: true, playsInline: true });
       video.setAttribute('playsinline', ''); video.srcObject = stream; await video.play();
       if (!landmarker) {
+        var mt0 = performance.now();
         say('Loading the eye model...', 'about 4MB, once');
         var vision = await import(MP + '/vision_bundle.mjs');
         var files = await vision.FilesetResolver.forVisionTasks(MP + '/wasm');
@@ -120,12 +131,16 @@
           baseOptions: { modelAssetPath: MODEL, delegate: 'GPU' }, runningMode: 'VIDEO', numFaces: 1, outputFaceBlendshapes: true
         });
       }
+      if (mt0) S('model', DID, 'loaded', { ms: Math.round(performance.now() - mt0), delegate: 'GPU' });
       if (state !== 'loading') return;
       state = 'calibrating'; det.calib = []; det.calibUntil = performance.now() + 1500; det.closed = false; det.lastBlink = -1e9;
       say('Keep your eyes open...', 'calibrating for 1.5 seconds', 'on');
       loop();
     } catch (e) {
       var denied = e && (e.name === 'NotAllowedError' || e.name === 'SecurityError');
+      var missing = e && (e.message === 'nocam' || e.name === 'NotFoundError');
+      if (!stream) S('media', DID, 'camera', denied ? 'denied' : missing ? 'unavailable' : 'failed');
+      else S('model', DID, 'failed', {});
       if (stream) stream.getTracks().forEach(function (tr) { tr.stop(); });
       stream = null; state = 'off'; btn.setAttribute('aria-pressed', 'false');
       say(denied ? 'Camera blocked' : 'No camera here', denied ? 'allow it in the address bar to try again' : 'scrolling works the usual way', 'err');

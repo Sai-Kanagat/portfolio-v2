@@ -1,14 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-page-type="demo">
 <head>
 <!-- Consent Mode v2 default: denied inside EEA/UK/Switzerland (GDPR), granted elsewhere -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
 gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'granted','functionality_storage':'granted','security_storage':'granted','wait_for_update':500});
 gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied','region':['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH'],'wait_for_update':500});
 try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_consent_v2')){localStorage.setItem('sk_consent_v2','denied');}localStorage.removeItem('sk_consent');var c=localStorage.getItem('sk_consent_v2');if(c==='granted'){gtag('consent','update',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'granted'});}else if(c==='denied'){gtag('consent','update',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied'});}}catch(e){}</script>
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MRGXD7ZC');</script>
-<!-- End Google Tag Manager -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Shadow Theatre | Sai Kanagat</title>
@@ -99,44 +96,109 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 </style>
 </head>
 <body>
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MRGXD7ZC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-<canvas id="wall" aria-label="Candlelit paper wall where your hand shadows appear"></canvas>
-<video id="cam" autoplay playsinline muted></video>
+<canvas id="wall" data-track="shadow.wall" aria-label="Candlelit paper wall where your hand shadows appear"></canvas>
+<video id="cam" data-track="shadow.cam" autoplay playsinline muted></video>
 
-<a href="/" class="chrome" id="home"><strong style="color:var(--flame)">SK</strong> · Home</a>
-<a href="/demos" class="chrome" id="back">Back to Demos</a>
-<button type="button" class="chrome" id="guideBtn" aria-expanded="false" aria-controls="guide">How to make each shadow</button>
+<a href="/" class="chrome" id="home" data-track="shadow.home"><strong style="color:var(--flame)">SK</strong> · Home</a>
+<a href="/demos" class="chrome" id="back" data-track="shadow.back">Back to Demos</a>
+<button type="button" class="chrome" id="guideBtn" data-track="shadow.guide" aria-expanded="false" aria-controls="guide">How to make each shadow</button>
 
-<div id="hud" aria-live="polite">
+<div id="hud" data-zone="shadow.hud" aria-live="polite">
   <svg id="ring" viewBox="0 0 40 40" aria-hidden="true"><circle class="track" cx="20" cy="20" r="16"/><circle class="bar" id="ringBar" cx="20" cy="20" r="16" stroke-dasharray="100.5" stroke-dashoffset="100.5"/></svg>
   <div id="status">The curtain is down<small>Press start to light the candle</small></div>
   <div id="found">0 / 30 found</div>
 </div>
 
-<aside id="guide" aria-label="How to make each shadow">
+<aside id="guide" data-zone="shadow.guide" aria-label="How to make each shadow">
   <h2>How to make each shadow</h2>
   <p>Hold a shape still for about a second and the creature steps off the wall. Many of these come from the hastas of Bharatanatyam, the hand gestures a dancer uses to draw a swan, a deer or a lotus in the air. Keep your hands a forearm's length from the camera.</p>
   <div id="guideList"></div>
 </aside>
 
-<div id="setup" role="dialog" aria-labelledby="setupTitle">
+<div id="setup" data-zone="shadow.setup" role="dialog" aria-labelledby="setupTitle">
   <div class="setup-card">
     <h1 id="setupTitle">Shadow<br><em>theatre.</em></h1>
     <p>Hold your hands up to the candle. Thirty shapes live here, many borrowed from the hastas of Bharatanatyam: a swan, a deer, a lion, a lotus, a crescent moon. Hold one still for a second and watch it step off the wall and come alive. Anything else still casts a shadow, with a little stardust.</p>
     <div class="setup-actions">
-      <button type="button" class="btn btn-main" id="startBtn">Start the show</button>
-      <button type="button" class="btn btn-ghost" id="demoBtn">Watch without a camera</button>
+      <button type="button" class="btn btn-main" id="startBtn" data-track="shadow.start">Start the show</button>
+      <button type="button" class="btn btn-ghost" id="demoBtn" data-track="shadow.demo">Watch without a camera</button>
     </div>
     <p class="privacy">The camera is only requested after you press start. Every frame is processed locally in your browser. Nothing is recorded or uploaded.</p>
     <p id="err" role="alert"></p>
   </div>
 </div>
 
+<script>
+/* Tracking helper (media). Sends ids, buckets, counts and ms only: never camera, mic, landmarks, audio levels, typed text or URL state. */
+(function(){
+  var DID='shadow-theatre',t0=Date.now(),Q=[],QT=0,QN=0,P={},HK=[],F={n:0,t:0};
+  var S={first:0,start:0,startAt:0,ended:0,eng:0,er:0,fps:0,rv:0};
+  function send(m,a){var s=window.sk;if(s&&typeof s[m]==='function'){try{s[m].apply(s,a);}catch(e){}return true;}return false;}
+  function flush(){while(Q.length&&send(Q[0][0],Q[0][1]))Q.shift();}
+  function emit(m,a){try{if(Q.length<80)Q.push([m,a]);flush();if(Q.length&&!QT){QN=0;QT=setInterval(function(){flush();if(!Q.length||++QN>24){clearInterval(QT);QT=0;Q.length=0;}},500);}}catch(e){}}
+  var MT=window.MT={
+    id:DID,
+    act:function(){return true;},
+    a:function(action,p){emit('demo',[DID,action,p||{}]);},
+    e:function(name,p){var o={demo_id:DID};if(p)for(var k in p)o[k]=p[k];emit('track',[name,o]);},
+    media:function(kind,state){emit('media',[DID,kind,state]);},
+    model:function(state,ms,delegate){var o={ms:Math.max(0,Math.round(ms||0))};if(delegate)o.delegate=delegate;emit('model',[DID,state,o]);},
+    start:function(mode){if(S.start)return;S.start=1;S.startAt=Date.now();MT.e('demo_start',{mode:mode});MT.rv();},
+    started:function(){return S.start;},
+    err:function(code){if(S.er++<3)MT.e('demo_error',{code:code});},
+    lb:function(n){return n<=0?'0':n<=20?'1-20':n<=80?'21-80':n<=300?'81-300':'300+';},
+    cb:function(n){return n<=0?'0':n===1?'1':n<=5?'2-5':n<=20?'6-20':'21+';},
+    q5:function(v,lo,hi){var p=(v-lo)/((hi-lo)||1);return 'q'+Math.min(5,Math.max(1,Math.floor(p*5)+1));},
+    deb:function(key,ms,fn){if(P[key])clearTimeout(P[key].t);P[key]={fn:fn,t:setTimeout(function(){var f=P[key];delete P[key];try{f&&f.fn();}catch(e){}},ms)};},
+    flush:function(){Object.keys(P).forEach(function(k){var f=P[k];delete P[k];clearTimeout(f.t);try{f.fn();}catch(e){}});},
+    onend:function(fn){HK.push(fn);},
+    nav:function(){try{return performance.getEntriesByType('navigation')[0].type;}catch(e){return 'navigate';}},
+    rv:function(){try{if(S.rv||!window.sk||sk.consent!=='granted')return;S.rv=1;var k='sk_seen_'+DID;if(localStorage.getItem(k))MT.a('return_visit',{item:MT.nav()});else localStorage.setItem(k,'1');}catch(e){}},
+    since:function(){return Date.now()-(S.startAt||t0);},
+    tick:function(){if(S.fps||!S.start||document.hidden){F.n=0;F.t=0;return;}var n=performance.now();if(!F.t){F.t=n;F.n=0;return;}F.n++;if(n-F.t>=4000){S.fps=1;var f=F.n*1000/(n-F.t);MT.a('fps',{bucket:f<20?'lt20':f<40?'20-40':f<55?'40-55':'55+'});}},
+    end:function(reason){if(S.ended)return;S.ended=1;MT.flush();HK.forEach(function(f){try{f();}catch(e){}});if(!S.start)MT.a('gate_exit',{ms:Date.now()-t0});MT.e('demo_end',{ms:MT.since(),reason:reason});}
+  };
+  function ui(t){return t&&t.closest&&t.closest('[id^="sk-consent"],[data-consent-open]');}
+  ['pointerdown','keydown','touchstart'].forEach(function(ev){document.addEventListener(ev,function(e){if(S.first||ui(e.target))return;S.first=1;MT.a('first_interaction',{value:Math.round((Date.now()-t0)/1000)});},true);});
+  setInterval(function(){if(document.hidden||!S.start)return;var on=false;try{on=MT.act();}catch(e){}if(!on)return;S.eng++;if(S.eng===10||S.eng===60)MT.e('demo_engaged',{seconds:S.eng});},1000);
+  window.addEventListener('pagehide',function(){MT.end('leave');});
+  window.addEventListener('pageshow',function(e){if(e&&e.persisted)S.ended=0;});
+  document.addEventListener('click',function(e){var a=e.target&&e.target.closest&&e.target.closest('a[data-track]');if(!a)return;var id=a.getAttribute('data-track')||'';if(/\.(back|home)$/.test(id))MT.end(id.split('.').pop());},true);
+  window.addEventListener('error',function(ev){try{var t=ev&&ev.target;if(t&&t!==window&&t.tagName){if(t.tagName==='SCRIPT'&&!/googletagmanager|google-analytics|clarity\.ms/.test(t.src||''))MT.err('load');return;}if(ev&&ev.filename&&ev.filename.indexOf(location.origin)!==0)return;MT.err('js');}catch(e){}},true);
+  window.addEventListener('unhandledrejection',function(){MT.err('promise');});
+  MT.e('demo_open');
+  var nv=MT.nav();if(nv==='reload'||nv==='back_forward')MT.a('revisit',{item:nv});
+})();
+</script>
 <script src="/shadow-theatre/classify.js"></script>
 <script>
 (function () {
   'use strict';
+  var T = MT.a;
+  // tracking state: transitions, latches and debounced counts only, nothing per frame
+  var camOn = 0, handSeenAt = 0, handsEmit = -1, handsCand = -1, spawned = 0, noMatchN = 0, mysStart = 0, mysSent = 0, idleStart = 0, idleN = 0, tipSent = 0, allFound = 0, handsN0 = 0;
+  function failKind(e) {
+    var n = e && e.name, m = String(e && e.message || '').toLowerCase();
+    if (e && e.message === 'nocam') return 'unavailable';
+    if (n === 'NotAllowedError' || n === 'SecurityError' || n === 'PermissionDeniedError') return /dismiss/.test(m) ? 'dismissed' : 'denied';
+    if (n === 'NotFoundError' || n === 'DevicesNotFoundError' || n === 'OverconstrainedError') return 'unavailable';
+    return 'failed';
+  }
+  function handsSeen(n) {                       // stable for 600 ms before it counts, at most 60 reports
+    if (n === handsCand) return;
+    handsCand = n;
+    MT.deb('hands', 600, function () { if (handsEmit === -1 && handsCand === 0) handsEmit = 0; else if (handsCand !== handsEmit && handsN0++ < 60) { handsEmit = handsCand; T('hands', { value: handsEmit }); } });
+  }
+  MT.onend(function () {
+    if (spawned) T('creatures_total', { value: spawned, bucket: MT.cb(spawned) });
+    if (foundN) T('shapes_found', { value: foundN });
+    if (camOn) MT.media('camera', 'stopped');
+  });
+  window.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest && e.target.closest('#back');
+    if (a) T('back_to_demos', { ms: MT.since() });
+  }, true);
   var S = window.ShadowShapes;
   var wall = document.getElementById('wall'), ctx = wall.getContext('2d');
   var shadow = document.createElement('canvas'), sctx = shadow.getContext('2d');
@@ -469,10 +531,23 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   function centroid(hands) { var x = 0, y = 0, n = 0; hands.forEach(function (h) { h.forEach(function (p) { x += p.x; y += p.y; n++; }); }); return { x: x / n, y: y / n }; }
 
   function recognise(hands, now) {
-    if (!hands.length) { holdShape = null; setRing(0); setStatus(mode === 'demo' ? 'Rehearsal' : 'Waiting for hands', 'Raise your hands between you and the candle'); return; }
+    if (mode === 'live') {
+      handsSeen(hands.length);
+      if (hands.length && !handSeenAt) { handSeenAt = 1; T('hand_detected', { ms: MT.since() }); }
+      if (hands.length) { idleStart = 0; tipSent = 0; }
+      else if (!idleStart) idleStart = now;
+      else if (!tipSent && now - idleStart >= 3000) { tipSent = 1; if (++idleN <= 6) T('idle_tip', { value: idleN }); }
+    }
+    if (!hands.length) { holdShape = null; mysStart = 0; mysSent = 0; setRing(0); setStatus(mode === 'demo' ? 'Rehearsal' : 'Waiting for hands', 'Raise your hands between you and the candle'); return; }
     var r = S.classify(hands), shape = r.shape;
     if (shape !== holdShape) { holdShape = shape; holdStart = now; }
-    if (!shape) { setRing(0); setStatus('A mystery shadow', 'Open the guide for all thirty shapes'); hands.forEach(sparkle); return; }
+    if (shape) { mysStart = 0; mysSent = 0; }
+    if (!shape) {
+      if (mode === 'live') {
+        if (!mysStart) mysStart = now;
+        else if (!mysSent && now - mysStart >= 1000) { mysSent = 1; if (++noMatchN <= 30) T('no_match', { value: noMatchN, ms: Math.round(now - mysStart) }); }
+      }
+      setRing(0); setStatus('A mystery shadow', 'Open the guide for all thirty shapes'); hands.forEach(sparkle); return; }
     var p = Math.min(1, (now - holdStart) / HOLD_MS); setRing(p);
     setStatus(NAMES[shape] + (p < 1 ? ', hold still' : '!'), MUDRA[shape] ? 'After the ' + MUDRA[shape] + ' hasta' : (p < 1 ? 'Keep the shape for a moment' : 'It is alive'));
     if (p >= 1 && now - lastSpawn > COOLDOWN_MS) {
@@ -480,12 +555,20 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
       var src = r.hand >= 0 ? [hands[r.hand]] : hands, c = centroid(src), s = Math.max(60, Math.min(handSize(src[0]) * 1.15, 170));
       var dir = r.hand >= 0 ? (src[0][9].x >= src[0][0].x ? 1 : -1) : (c.x < W / 2 ? 1 : -1); // follow the fingers
       creatures.push(new Creature(shape, Math.max(s * 1.2, Math.min(W - s * 1.2, r.hand >= 0 ? src[0][12].x + dir * s * 0.75 : c.x)), c.y - s * (shape === 'bird' ? 0.9 : 0.4), s, dir));
+      var isNew = !found[shape];
       if (!found[shape]) { found[shape] = true; foundN++; foundEl.textContent = foundN + ' / ' + S.CATALOG.length + ' found'; foundEl.classList.add('on'); var gi = document.querySelector('.shape[data-id="' + shape + '"]'); if (gi) gi.classList.add('got'); }
+      if (mode === 'live') {
+        spawned++;
+        T('shape_recognised', { item: shape, ms: Math.round(now - holdStart) });
+        T('creature_spawned', { item: shape, value: spawned, bucket: MT.cb(creatures.length) });
+        if (isNew) { T('shape_new', { item: shape, value: foundN }); if (foundN >= S.CATALOG.length && !allFound) { allFound = 1; T('all_found', { value: foundN }); } }
+      }
     }
   }
 
   // ---------- Render loop ----------
   var mode = 'idle', hands = [], targetHands = [], last = performance.now();
+  MT.act = function () { return mode === 'demo' || (mode === 'live' && hands.length > 0); };
   function lerpHands(dt) {
     if (targetHands.length !== hands.length) { hands = targetHands.map(function (h) { return h.map(function (p) { return { x: p.x, y: p.y }; }); }); return; }
     var k = 1 - Math.pow(0.0001, dt / 1000);  // frame-rate independent smoothing
@@ -496,6 +579,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 
   function frame(now) {
     var dt = Math.min(64, now - last); last = now;
+    MT.tick();
     if (mode === 'demo') demoStep(now);
     lerpHands(dt);
     if (mode !== 'idle') recognise(hands, now);
@@ -565,20 +649,28 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 
   async function startCamera() {
     var err = document.getElementById('err'), btn = document.getElementById('startBtn');
+    T(btn.textContent === 'Try again' ? 'retry' : 'start_show');
     btn.disabled = true; btn.textContent = 'Lighting the candle';
+    var stage = 'cam', tM0 = 0, usedDelegate = 'GPU';
     try {
       if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) throw new Error('nocam');
+      MT.media('camera', 'prompt');
       var stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user', width: { ideal: 640 }, height: { ideal: 480 }, frameRate: { ideal: 30, max: 30 } }, audio: false });
+      camOn = 1; MT.media('camera', 'granted'); stage = 'play';
       video.srcObject = stream; await video.play();
+      stage = 'model'; tM0 = Date.now();
       btn.textContent = 'Loading the hand tracker';
       var vision = await import('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/vision_bundle.mjs');
       var files = await vision.FilesetResolver.forVisionTasks('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm');
       var opts = function (delegate) { return { baseOptions: { modelAssetPath: 'https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task', delegate: delegate }, runningMode: 'VIDEO', numHands: 2, minHandDetectionConfidence: 0.5, minTrackingConfidence: 0.5 }; };
       try { landmarker = await vision.HandLandmarker.createFromOptions(files, opts('GPU')); }
-      catch (e) { landmarker = await vision.HandLandmarker.createFromOptions(files, opts('CPU')); }
+      catch (e) { usedDelegate = 'CPU'; landmarker = await vision.HandLandmarker.createFromOptions(files, opts('CPU')); }
+      MT.model('loaded', Date.now() - tM0, usedDelegate);
       document.getElementById('setup').style.display = 'none';
       document.body.classList.add('live'); mode = 'live'; targetHands = []; detectLoop();
+      MT.start('camera');
     } catch (e) {
+      if (stage === 'cam') MT.media('camera', failKind(e)); else if (stage === 'model') MT.model('failed', Date.now() - tM0); else MT.err('play');
       var denied = e && (e.name === 'NotAllowedError' || e.name === 'SecurityError');
       btn.disabled = false; btn.textContent = denied ? 'Try again' : 'Start the show';
       err.style.display = 'block';
@@ -589,8 +681,10 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
         : 'The camera could not start on this device (no camera found, or it is busy in another app). You can still watch without a camera.';
     }
   }
-  function startDemo() {
+  function startDemo(auto) {
     if (mode === 'live') return;
+    T('demo_without_camera', { item: auto === true ? 'auto' : 'click' });
+    MT.start('nocamera');
     document.getElementById('setup').style.display = 'none';
     mode = 'demo'; demoIdx = -1; demoUntil = 0;
   }
@@ -601,7 +695,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     S.CATALOG.forEach(function (c) {
       var hasta = !!c.mudra;
       if (hasta !== lastHasta) { html += '<p class="guide-sub">' + (hasta ? 'From the hastas' : 'Theatre originals') + '</p>'; lastHasta = hasta; }
-      html += '<div class="shape" data-id="' + c.id + '"><canvas data-pose="' + c.id + '" width="224" height="168"></canvas><div><h3>' + c.name + (c.mudra ? '<em>' + c.mudra + '</em>' : '') + '</h3><p>' + c.hint + '</p></div></div>';
+      html += '<div class="shape" data-id="' + c.id + '" data-track="shadow.guide.' + c.id + '"><canvas data-pose="' + c.id + '" width="224" height="168"></canvas><div><h3>' + c.name + (c.mudra ? '<em>' + c.mudra + '</em>' : '') + '</h3><p>' + c.hint + '</p></div></div>';
     });
     list.innerHTML = html;
     document.querySelectorAll('canvas[data-pose]').forEach(function (cv) {
@@ -617,15 +711,32 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     });
   }
 
+  // guide shape viewed: a card counts once after it has been on screen for half a second
+  function observeGuide() {
+    if (!('IntersectionObserver' in window)) return;
+    var timers = {}, done = {};
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (en) {
+        var id = en.target.getAttribute('data-id');
+        if (!id || done[id]) return;
+        if (en.isIntersecting && en.intersectionRatio >= 0.6) { if (!timers[id]) timers[id] = setTimeout(function () { done[id] = 1; io.unobserve(en.target); T('guide_shape', { item: id }); }, 500); }
+        else if (timers[id]) { clearTimeout(timers[id]); timers[id] = 0; }
+      });
+    }, { root: document.getElementById('guide'), threshold: [0, 0.6, 1] });
+    document.querySelectorAll('#guideList .shape').forEach(function (el) { io.observe(el); });
+  }
   var guide = document.getElementById('guide'), guideBtn = document.getElementById('guideBtn');
-  guideBtn.addEventListener('click', function () { var o = guide.classList.toggle('open'); guideBtn.setAttribute('aria-expanded', o); });
+  guideBtn.addEventListener('click', function () { var o = guide.classList.toggle('open'); guideBtn.setAttribute('aria-expanded', o); T('guide_toggle', { item: o ? 'open' : 'close' }); });
   document.getElementById('startBtn').addEventListener('click', startCamera);
-  document.getElementById('demoBtn').addEventListener('click', startDemo);
+  document.getElementById('demoBtn').addEventListener('click', function () { startDemo(false); });
   addEventListener('resize', resize);
-  resize(); drawGuides(); requestAnimationFrame(frame);
+  resize(); drawGuides(); observeGuide(); requestAnimationFrame(frame);
   var dm = /[?&]demo(?:=(\w+))?/.exec(location.search);
-  if (dm) { startDemo(); if (dm[1] && DEMO.indexOf(dm[1]) > 0) demoIdx = DEMO.indexOf(dm[1]) - 1; }
+  if (dm) { startDemo(true); if (dm[1] && DEMO.indexOf(dm[1]) > 0) demoIdx = DEMO.indexOf(dm[1]) - 1; }
 })();
 </script>
+<script>window.SK_CLARITY_ID='zir45wg6mm';</script>
+<script src="/js/consent.js?v=2789cf42" defer></script>
+<script src="/js/analytics.js?v=9f2bad85" defer></script>
 </body>
 </html>

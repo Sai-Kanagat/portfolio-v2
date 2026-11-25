@@ -1,0 +1,22 @@
+{
+ "version": 1,
+ "owner": "closer",
+ "note": "Elements the crawler finds that carry no data-track and are not clickable controls in their own right. Keys are exact CSS selectors per page. Each entry says why in events or ignored, and n when the count is fixed. The gate fails when a selector matches nothing (stale) or the wrong number of elements. Nothing here is a blanket ignore.",
+ "pages": {
+  "ad-autopsy/index.html": {
+   "canvas#cv": { "ignored": "the analysed ad, display only. Interaction on it is not tracked: nothing here reads pointer input.", "n": 1 },
+   "canvas#ov": { "ignored": "overlay layer drawn over the ad (heatmap, gaze, text, faces), display only. Layer toggles are the tracked buttons.", "n": 1 },
+   "canvas#abA, canvas#abB": { "ignored": "A/B preview canvases, display only. The slot pickers and files carry data-track.", "n": 2 },
+   "figure > canvas": { "ignored": "colour-vision simulation thumbnails built on analysis (typical, protan, deutan, tritan), display only", "n": 4 }
+  },
+  "demos/agora.html": {
+   "canvas#simCanvas": { "ignored": "population simulation drawing, display only. Run controls carry data-track.", "n": 1 }
+  },
+  "demos/poster.html": {
+   "canvas#poster": { "ignored": "the generated poster, display only. Palette, regenerate and PNG controls carry data-track.", "n": 1 }
+  },
+  "demos/roas.html": {
+   "canvas#chart": { "ignored": "ROAS curve drawing, display only. The sliders carry data-track.", "n": 1 }
+  }
+ }
+}

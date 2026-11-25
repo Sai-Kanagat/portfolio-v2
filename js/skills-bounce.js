@@ -8,6 +8,18 @@
   var canvas = document.getElementById('ambientFloat') || document.getElementById('skillsCanvas');
   if (!canvas) return;
 
+  // Tracking: the icon field reacts to the cursor. One event the first time an icon is pushed, and one
+  // summary (seconds of pushing) when the page is hidden. Nothing per frame.
+  function T(){ try { var a = [].slice.call(arguments); window.sk ? sk.demo.apply(sk, a) : (window.skq = window.skq || []).push(['demo'].concat(a)); } catch (e) {} }
+  var pushMs = 0, pushStarted = false, pushSent = 0, lastT = 0;
+  function reportPush(){
+    var s = Math.round((pushMs - pushSent) / 1000);
+    if (pushStarted && s >= 1) { pushSent = pushMs; T('pg.home', 'icons_pushed_seconds', { value: s }); }
+  }
+  // Registered at load, ahead of js/track.js, so the summary is queued before track.js flushes on hide.
+  document.addEventListener('visibilitychange', function(){ if (document.hidden) reportPush(); });
+  window.addEventListener('pagehide', reportPush);
+
   var ctx = canvas.getContext('2d');
   var DPR = Math.min(window.devicePixelRatio || 1, 1.5);
 
@@ -106,6 +118,7 @@
     lastScrollY = scrollY;
     ctx.clearRect(0, 0, W, H);
 
+    var touched = false;
     for (var i = 0; i < icons.length; i++) {
       var b = icons[i];
 
@@ -116,6 +129,7 @@
         var d2 = dx * dx + dy * dy;
         var range = 200;
         if (d2 < range * range && d2 > 0.001) {
+          touched = true;
           var d = Math.sqrt(d2);
           // Quadratic falloff — strongest at center, fades out gently
           var falloff = 1 - d / range;
@@ -194,6 +208,9 @@
       ctx.restore();
     }
 
+    var nowT = Date.now();
+    if (touched) { pushMs += Math.min(100, nowT - (lastT || nowT)); if (!pushStarted) { pushStarted = true; T('pg.home', 'icons_pushed'); } }
+    lastT = nowT;
     if (!document.hidden) { rafId = requestAnimationFrame(step); } else { running = false; }
   }
 

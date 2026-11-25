@@ -1,0 +1,580 @@
+{
+ "version": 1,
+ "common": [
+  "page_type",
+  "entry_link",
+  "consent_state",
+  "device_class",
+  "is_owner",
+  "site_lang"
+ ],
+ "key_events": [
+  "form_submit_success",
+  "email_click",
+  "cv_download",
+  "newsletter_confirmed",
+  "hire_pdf"
+ ],
+ "ga4_dimensions": [
+  "visible_s",
+  "active_s",
+  "max_scroll",
+  "percent",
+  "missing_path",
+  "choice",
+  "region",
+  "track_id",
+  "zone",
+  "state",
+  "to",
+  "domain",
+  "file_id",
+  "ext",
+  "link_location",
+  "project_id",
+  "method",
+  "dwell_s",
+  "filter_id",
+  "list_id",
+  "form_id",
+  "field",
+  "demo_id",
+  "kind",
+  "mode",
+  "seconds",
+  "ms",
+  "reason",
+  "action",
+  "item",
+  "value",
+  "bucket",
+  "read_s",
+  "video_id",
+  "role_bucket",
+  "page_type",
+  "entry_link",
+  "consent_state",
+  "device_class",
+  "is_owner",
+  "site_lang"
+ ],
+ "events": {
+  "page_leave": {
+   "sinks": "gd",
+   "params": [
+    "visible_s",
+    "active_s",
+    "max_scroll"
+   ]
+  },
+  "scroll_milestone": {
+   "sinks": "gd",
+   "params": [
+    "percent"
+   ]
+  },
+  "page_not_found": {
+   "sinks": "gd",
+   "params": [
+    "missing_path"
+   ]
+  },
+  "consent_choice": {
+   "sinks": "gd",
+   "params": [
+    "choice",
+    "region"
+   ]
+  },
+  "nav_click": {
+   "sinks": "gd",
+   "params": [
+    "track_id",
+    "zone"
+   ]
+  },
+  "menu_toggle": {
+   "sinks": "gd",
+   "params": [
+    "state"
+   ]
+  },
+  "lang_toggle": {
+   "sinks": "gd",
+   "params": [
+    "to"
+   ]
+  },
+  "outbound_click": {
+   "sinks": "gd",
+   "params": [
+    "domain",
+    "track_id"
+   ]
+  },
+  "email_click": {
+   "sinks": "gd",
+   "params": [
+    "track_id"
+   ]
+  },
+  "phone_click": {
+   "sinks": "gd",
+   "params": [
+    "track_id"
+   ]
+  },
+  "file_download": {
+   "sinks": "gd",
+   "params": [
+    "file_id",
+    "ext"
+   ]
+  },
+  "cv_download": {
+   "sinks": "gd",
+   "params": [
+    "file_id"
+   ]
+  },
+  "brandbook_click": {
+   "sinks": "gd",
+   "params": [
+    "link_location"
+   ]
+  },
+  "project_open": {
+   "sinks": "gd",
+   "params": [
+    "project_id"
+   ]
+  },
+  "project_close": {
+   "sinks": "gd",
+   "params": [
+    "project_id",
+    "method",
+    "dwell_s"
+   ]
+  },
+  "filter_apply": {
+   "sinks": "gd",
+   "params": [
+    "filter_id",
+    "list_id"
+   ]
+  },
+  "form_start": {
+   "sinks": "gd",
+   "params": [
+    "form_id"
+   ]
+  },
+  "form_error": {
+   "sinks": "gd",
+   "params": [
+    "form_id",
+    "field"
+   ]
+  },
+  "form_submit_attempt": {
+   "sinks": "gd",
+   "params": [
+    "form_id"
+   ]
+  },
+  "form_submit_success": {
+   "sinks": "gd",
+   "params": [
+    "form_id"
+   ]
+  },
+  "form_submit_failure": {
+   "sinks": "gd",
+   "params": [
+    "form_id"
+   ]
+  },
+  "form_abandon": {
+   "sinks": "gd",
+   "params": [
+    "form_id",
+    "field"
+   ]
+  },
+  "newsletter_request": {
+   "sinks": "gd",
+   "params": [
+    "page_path"
+   ]
+  },
+  "media_result": {
+   "sinks": "gd",
+   "params": [
+    "demo_id",
+    "kind",
+    "state"
+   ]
+  },
+  "demo_open": {
+   "sinks": "gd",
+   "params": [
+    "demo_id"
+   ]
+  },
+  "demo_start": {
+   "sinks": "gd",
+   "params": [
+    "demo_id",
+    "mode"
+   ]
+  },
+  "demo_engaged": {
+   "sinks": "gd",
+   "params": [
+    "demo_id",
+    "seconds"
+   ]
+  },
+  "demo_end": {
+   "sinks": "gd",
+   "params": [
+    "demo_id",
+    "ms",
+    "reason"
+   ]
+  },
+  "demo_action": {
+   "sinks": "gd",
+   "params": [
+    "demo_id",
+    "action",
+    "item",
+    "value",
+    "bucket",
+    "ms"
+   ]
+  },
+  "article_progress": {
+   "sinks": "gd",
+   "params": [
+    "percent"
+   ]
+  },
+  "article_complete": {
+   "sinks": "gd",
+   "params": [
+    "read_s"
+   ]
+  },
+  "video_progress": {
+   "sinks": "gd",
+   "params": [
+    "video_id",
+    "percent"
+   ]
+  },
+  "haunt_start": {
+   "sinks": "gd",
+   "params": [
+    "mode"
+   ]
+  },
+  "haunt_end": {
+   "sinks": "gd",
+   "params": [
+    "ms",
+    "reason"
+   ]
+  },
+  "js_error": {
+   "sinks": "gd",
+   "params": [
+    "kind"
+   ]
+  },
+  "hire_pdf": {
+   "sinks": "gd",
+   "params": [
+    "role_bucket"
+   ]
+  },
+  "page_view": {
+   "sinks": "d",
+   "params": [
+    "title_id"
+   ]
+  },
+  "section_view": {
+   "sinks": "d",
+   "params": [
+    "section_id",
+    "ms"
+   ]
+  },
+  "ui_click": {
+   "sinks": "d",
+   "params": [
+    "track_id",
+    "zone",
+    "x",
+    "y",
+    "nth"
+   ]
+  },
+  "ui_hover": {
+   "sinks": "d",
+   "params": [
+    "track_id",
+    "ms"
+   ]
+  },
+  "input_change": {
+   "sinks": "d",
+   "params": [
+    "field"
+   ]
+  },
+  "rage_click": {
+   "sinks": "d",
+   "params": [
+    "track_id",
+    "n"
+   ]
+  },
+  "dead_click": {
+   "sinks": "d",
+   "params": [
+    "track_id"
+   ]
+  },
+  "cursor_sample": {
+   "sinks": "d",
+   "params": [
+    "cells"
+   ]
+  },
+  "cursor_idle": {
+   "sinks": "d",
+   "params": [
+    "ms"
+   ]
+  },
+  "tap": {
+   "sinks": "d",
+   "params": [
+    "x",
+    "y",
+    "track_id"
+   ]
+  },
+  "text_select": {
+   "sinks": "d",
+   "params": [
+    "track_id"
+   ]
+  },
+  "copy": {
+   "sinks": "d",
+   "params": [
+    "track_id"
+   ]
+  },
+  "web_vital": {
+   "sinks": "d",
+   "params": [
+    "metric",
+    "value",
+    "rating"
+   ]
+  },
+  "consent_shown": {
+   "sinks": "d",
+   "params": [
+    "region"
+   ]
+  },
+  "consent_reopened": {
+   "sinks": "d",
+   "params": [
+    "from"
+   ]
+  },
+  "footer_click": {
+   "sinks": "d",
+   "params": [
+    "track_id"
+   ]
+  },
+  "form_view": {
+   "sinks": "d",
+   "params": [
+    "form_id"
+   ]
+  },
+  "form_field": {
+   "sinks": "d",
+   "params": [
+    "form_id",
+    "field"
+   ]
+  },
+  "newsletter_view": {
+   "sinks": "d",
+   "params": [
+    "page_path"
+   ]
+  },
+  "newsletter_fab_shown": {
+   "sinks": "d",
+   "params": [
+    "page_path"
+   ]
+  },
+  "newsletter_fab_click": {
+   "sinks": "d",
+   "params": [
+    "page_path"
+   ]
+  },
+  "newsletter_start": {
+   "sinks": "d",
+   "params": [
+    "page_path"
+   ]
+  },
+  "newsletter_invalid": {
+   "sinks": "d",
+   "params": [
+    "page_path"
+   ]
+  },
+  "newsletter_failed": {
+   "sinks": "d",
+   "params": [
+    "page_path"
+   ]
+  },
+  "newsletter_confirmed": {
+   "sinks": "d",
+   "params": [
+    "page_path"
+   ]
+  },
+  "project_prev": {
+   "sinks": "d",
+   "params": [
+    "project_id"
+   ]
+  },
+  "project_next": {
+   "sinks": "d",
+   "params": [
+    "project_id"
+   ]
+  },
+  "project_preview": {
+   "sinks": "d",
+   "params": [
+    "project_id"
+   ]
+  },
+  "lightbox_open": {
+   "sinks": "d",
+   "params": [
+    "image_id"
+   ]
+  },
+  "lightbox_nav": {
+   "sinks": "d",
+   "params": [
+    "image_id",
+    "dir"
+   ]
+  },
+  "lightbox_close": {
+   "sinks": "d",
+   "params": [
+    "method"
+   ]
+  },
+  "haunt_mode": {
+   "sinks": "d",
+   "params": [
+    "mode"
+   ]
+  },
+  "haunt_interrupted": {
+   "sinks": "d",
+   "params": [
+    "input",
+    "ms"
+   ]
+  },
+  "haunt_stop_click": {
+   "sinks": "d",
+   "params": [
+    "ms"
+   ]
+  },
+  "intro_shown": {
+   "sinks": "d",
+   "params": []
+  },
+  "intro_completed": {
+   "sinks": "d",
+   "params": [
+    "ms"
+   ]
+  },
+  "intro_skipped": {
+   "sinks": "d",
+   "params": [
+    "ms"
+   ]
+  },
+  "cursor_enabled": {
+   "sinks": "d",
+   "params": []
+  },
+  "video_state": {
+   "sinks": "d",
+   "params": [
+    "video_id",
+    "state"
+   ]
+  },
+  "model_state": {
+   "sinks": "d",
+   "params": [
+    "demo_id",
+    "state",
+    "ms",
+    "delegate"
+   ]
+  },
+  "demo_error": {
+   "sinks": "d",
+   "params": [
+    "demo_id",
+    "code"
+   ]
+  },
+  "tour_start": {
+   "sinks": "d",
+   "params": []
+  },
+  "tour_step": {
+   "sinks": "d",
+   "params": [
+    "step"
+   ]
+  },
+  "tour_exit": {
+   "sinks": "d",
+   "params": [
+    "reason"
+   ]
+  }
+ }
+}

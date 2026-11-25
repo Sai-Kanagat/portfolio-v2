@@ -1,13 +1,72 @@
-name: Deploy to Cloudflare Pages
+name: Test and deploy to Cloudflare Pages
 
 on:
   push:
     branches: [main]
+  pull_request:
   workflow_dispatch:
 
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
+  # Required before any deploy: coverage gate, server tests on a real local D1, client tests, and the joined-up test.
+  # Nothing here touches the real Cloudflare account: wrangler runs with --local and no token.
+  test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    env:
+      PW_FROM: ${{ github.workspace }}/package.json
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Install the test browser
+        run: |
+          npm install --no-save playwright@1.58.0
+          npx playwright install --with-deps chromium
+          sudo apt-get install -y zbar-tools
+
+      - name: Gate (every control and listener mapped, pages stamped, controls list current)
+        run: |
+          node tracking/codemod.mjs --root "$PWD" --all --check
+          node tracking/scripts/coverage.mjs --check
+          node tracking/scripts/controls.mjs --check
+          node tracking/build-ops.mjs --check
+          node --test tracking/tests/gate/negative.test.mjs
+
+      - name: Server (local D1, ingest, links, dashboard API, cron, build)
+        run: npm run test:server
+
+      - name: Client (consent matrix, forms, GTM gating)
+        run: node tracking/tests/client/run.mjs
+
+      - name: Pages, tools, media demos and dashboard UI
+        run: |
+          node tracking/tests/pages/run.mjs
+          node tracking/tests/tools/tools.test.mjs
+          node tracking/tests/media/media.test.mjs
+          node --test --test-concurrency=1 tracking/tests/ops-ui/*.test.mjs
+
+      - name: Joined-up test (real site, real Functions, local D1, headless browser)
+        run: node tracking/tests/joined/run.mjs
+
   deploy:
-    runs-on: ubuntu-latest
+    needs: test
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-24.04
     permissions:
       contents: read
       deployments: write
@@ -15,9 +74,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Build dist (only publishable files)
+        run: node tracking/build-dist.mjs
+
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy . --project-name=saikanagat --branch=main --commit-dirty=true
+          command: pages deploy dist --project-name=saikanagat --branch=main
