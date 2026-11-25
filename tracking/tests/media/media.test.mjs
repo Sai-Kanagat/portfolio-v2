@@ -100,6 +100,10 @@ async function steady(pg, label, ms = 2500) { const f = async () => (await pg.ca
     await pg.evaluate(t2 => { window.__hand = { x: 1 - t2.x / t2.w, y: t2.y / t2.h, pinch: true }; }, t); await pg.waitForTimeout(250);
     await pg.evaluate(t2 => { window.__hand = { x: 1 - t2.x / t2.w, y: t2.y / t2.h, pinch: false }; }, t); await pg.waitForTimeout(250);
   }
+  // a pinch before the next round appears (seen with a real hand) must not finish the round twice or count as a miss
+  { const m0 = await pg.evaluate(() => document.querySelectorAll('.target:not(.hit)').length);
+    await pg.evaluate(() => { window.__hand = Object.assign({}, window.__hand, { pinch: true }); }); await pg.waitForTimeout(80); await pg.evaluate(() => { window.__hand = Object.assign({}, window.__hand, { pinch: false }); });
+    ok(m0 === 0, 'the extra pinch lands between rounds'); }
   await pg.waitForTimeout(2000); cs = await pg.calls();
   ok(count(cs, 'demo', 'target_hit') === 5, 'target_hit x5 got ' + count(cs, 'demo', 'target_hit'));
   ok(count(cs, 'demo', 'first_hit') === 1, 'first_hit once');

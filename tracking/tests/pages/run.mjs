@@ -76,7 +76,7 @@ console.log('codemod');
   const rel = (() => { try { execFileSync('node', [CM, '--root', 'relative/dir'], { stdio: 'pipe' }); return 0; } catch (e) { return e.status; } })();
   ok(rel === 2, 'refuses a relative root (exit 2)');
   const a = cm(PRE_STAMPED);
-  ok(a.code === 0 && /24 pages, 24 changed/.test(a.out), 'first run stamps the unstamped baseline: ' + a.out.trim().split('\n').pop());
+  ok(a.code === 0 && /25 pages, 25 changed/.test(a.out), 'first run stamps the unstamped baseline: ' + a.out.trim().split('\n').pop());
   const snap = (root) => Object.fromEntries(PAGEFILES.filter((f) => fs.existsSync(path.join(root, f))).map((f) => [f, fs.readFileSync(path.join(root, f), 'utf8')]));
   const s1 = snap(POST);
   const b = cm(POST);

@@ -240,12 +240,12 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
           if (!firstHit){ firstHit = 1; T('first_hit', {ms:MT.since()}); }
         }
       }
-      if (!hitNow) misses++;
+      // between rounds there is nothing to hit: a pinch then is neither a miss nor a second finish
+      if (!hitNow && targets.some(t => !t.hit)) misses++;
       sumPinch();
       const remaining = targets.filter(t => !t.hit).length;
       if (remaining === 0){
-        T('all_targets_done', {value:round, ms:Date.now() - roundT0});
-        round++; roundT0 = Date.now() + 700;
+        if (hitNow){ T('all_targets_done', {value:round, ms:Date.now() - roundT0}); round++; roundT0 = Date.now() + 700; }
         setTimeout(spawnTargets, 700);
       }
     }
@@ -288,7 +288,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 })();
 </script>
 <script>window.SK_CLARITY_ID='zir45wg6mm';</script>
-<script src="../js/consent.js?v=4125e51b" defer></script>
+<script src="../js/consent.js?v=2789cf42" defer></script>
 <script src="../js/analytics.js?v=9f2bad85" defer></script>
 </body>
 </html>

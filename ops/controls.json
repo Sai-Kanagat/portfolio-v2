@@ -4,7 +4,7 @@
  "sources": {
   "coverage": {
    "found": true,
-   "controls": 711
+   "controls": 753
   },
   "pages": {
    "found": true,
@@ -20,8 +20,8 @@
   }
  },
  "counts": {
-  "controls": 722,
-  "pages": 37
+  "controls": 764,
+  "pages": 38
  },
  "controls": [
   {
@@ -53,6 +53,15 @@
   },
   {
    "id": "footer.linkedin",
+   "zone": "footer",
+   "path": "/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.privacy",
    "zone": "footer",
    "path": "/",
    "devices": [
@@ -341,6 +350,15 @@
   },
   {
    "id": "footer.linkedin",
+   "zone": "footer",
+   "path": "/about",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.privacy",
    "zone": "footer",
    "path": "/about",
    "devices": [
@@ -1033,6 +1051,15 @@
    ]
   },
   {
+   "id": "footer.privacy",
+   "zone": "footer",
+   "path": "/blog",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
    "id": "nav.about",
    "zone": "nav",
    "path": "/blog",
@@ -1294,6 +1321,15 @@
    ]
   },
   {
+   "id": "footer.privacy",
+   "zone": "footer",
+   "path": "/blog/agora-and-the-rehearsal-of-public-opinion",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
    "id": "nav.about",
    "zone": "nav",
    "path": "/blog/agora-and-the-rehearsal-of-public-opinion",
@@ -1438,6 +1474,15 @@
    ]
   },
   {
+   "id": "footer.privacy",
+   "zone": "footer",
+   "path": "/blog/bologna-business-school-marketing-reality",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
    "id": "nav.about",
    "zone": "nav",
    "path": "/blog/bologna-business-school-marketing-reality",
@@ -1556,6 +1601,15 @@
   },
   {
    "id": "footer.linkedin",
+   "zone": "footer",
+   "path": "/blog/building-nishta",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.privacy",
    "zone": "footer",
    "path": "/blog/building-nishta",
    "devices": [
@@ -1708,6 +1762,15 @@
    ]
   },
   {
+   "id": "footer.privacy",
+   "zone": "footer",
+   "path": "/blog/carlos-mota-studio-lesson",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
    "id": "nav.about",
    "zone": "nav",
    "path": "/blog/carlos-mota-studio-lesson",
@@ -1826,6 +1889,15 @@
   },
   {
    "id": "footer.linkedin",
+   "zone": "footer",
+   "path": "/blog/portfolios-are-products",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.privacy",
    "zone": "footer",
    "path": "/blog/portfolios-are-products",
    "devices": [
@@ -1961,6 +2033,15 @@
   },
   {
    "id": "footer.linkedin",
+   "zone": "footer",
+   "path": "/blog/the-brief-as-a-design-object",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.privacy",
    "zone": "footer",
    "path": "/blog/the-brief-as-a-design-object",
    "devices": [
@@ -2105,6 +2186,15 @@
   },
   {
    "id": "footer.linkedin",
+   "zone": "footer",
+   "path": "/blog/what-15k-meta-ads-taught-me",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.privacy",
    "zone": "footer",
    "path": "/blog/what-15k-meta-ads-taught-me",
    "devices": [
@@ -2293,6 +2383,15 @@
    ]
   },
   {
+   "id": "footer.privacy",
+   "zone": "footer",
+   "path": "/blog/why-i-built-melt-sprint",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
    "id": "nav.about",
    "zone": "nav",
    "path": "/blog/why-i-built-melt-sprint",
@@ -2411,6 +2510,15 @@
   },
   {
    "id": "footer.linkedin",
+   "zone": "footer",
+   "path": "/blog/why-industrial-designers-make-better-marketers",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.privacy",
    "zone": "footer",
    "path": "/blog/why-industrial-designers-make-better-marketers",
    "devices": [
@@ -2555,6 +2663,15 @@
   },
   {
    "id": "footer.linkedin",
+   "zone": "footer",
+   "path": "/blog/why-italy-and-why-now",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.privacy",
    "zone": "footer",
    "path": "/blog/why-italy-and-why-now",
    "devices": [
@@ -2950,6 +3067,15 @@
    ]
   },
   {
+   "id": "footer.privacy",
+   "zone": "footer",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
    "id": "intro.00-contents",
    "zone": "intro",
    "path": "/brand-identity",
@@ -3166,6 +3292,15 @@
    ]
   },
   {
+   "id": "footer.privacy",
+   "zone": "footer",
+   "path": "/build-log/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
    "id": "footer.work",
    "zone": "footer",
    "path": "/build-log/",
@@ -3293,6 +3428,15 @@
   },
   {
    "id": "footer.linkedin",
+   "zone": "footer",
+   "path": "/contact",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.privacy",
    "zone": "footer",
    "path": "/contact",
    "devices": [
@@ -3589,6 +3733,15 @@
    ]
   },
   {
+   "id": "footer.privacy",
+   "zone": "footer",
+   "path": "/cortex/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
    "id": "footer.email",
    "zone": "footer",
    "path": "/demos",
@@ -3608,6 +3761,15 @@
   },
   {
    "id": "footer.linkedin",
+   "zone": "footer",
+   "path": "/demos",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.privacy",
    "zone": "footer",
    "path": "/demos",
    "devices": [
@@ -4300,6 +4462,15 @@
    ]
   },
   {
+   "id": "footer.privacy",
+   "zone": "footer",
+   "path": "/gallery",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
    "id": "nav.about",
    "zone": "nav",
    "path": "/gallery",
@@ -4654,6 +4825,15 @@
    "id": "panel.prev",
    "zone": "panel",
    "path": "/gallery",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.privacy",
+   "zone": "footer",
+   "path": "/hire/",
    "devices": [
     "desktop",
     "mobile"
@@ -5209,6 +5389,15 @@
    ]
   },
   {
+   "id": "footer.privacy",
+   "zone": "footer",
+   "path": "/papers/monocular-biomechanics",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
    "id": "nav.about",
    "zone": "nav",
    "path": "/papers/monocular-biomechanics",
@@ -5614,6 +5803,168 @@
    ]
   },
   {
+   "id": "article.email",
+   "zone": "article",
+   "path": "/privacy",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.email",
+   "zone": "footer",
+   "path": "/privacy",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.github",
+   "zone": "footer",
+   "path": "/privacy",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.linkedin",
+   "zone": "footer",
+   "path": "/privacy",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.privacy",
+   "zone": "footer",
+   "path": "/privacy",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.about",
+   "zone": "nav",
+   "path": "/privacy",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.blog",
+   "zone": "nav",
+   "path": "/privacy",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.brand-identity",
+   "zone": "nav",
+   "path": "/privacy",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.contact",
+   "zone": "nav",
+   "path": "/privacy",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.demos",
+   "zone": "nav",
+   "path": "/privacy",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.en",
+   "zone": "nav",
+   "path": "/privacy",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.gallery",
+   "zone": "nav",
+   "path": "/privacy",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.home",
+   "zone": "nav",
+   "path": "/privacy",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.it",
+   "zone": "nav",
+   "path": "/privacy",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.menu",
+   "zone": "nav",
+   "path": "/privacy",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.process",
+   "zone": "nav",
+   "path": "/privacy",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.work",
+   "zone": "nav",
+   "path": "/privacy",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.skip-to-content",
+   "zone": "page",
+   "path": "/privacy",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
    "id": "footer.email",
    "zone": "footer",
    "path": "/process",
@@ -5633,6 +5984,15 @@
   },
   {
    "id": "footer.linkedin",
+   "zone": "footer",
+   "path": "/process",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.privacy",
    "zone": "footer",
    "path": "/process",
    "devices": [
@@ -5839,6 +6199,15 @@
    ]
   },
   {
+   "id": "footer.privacy",
+   "zone": "footer",
+   "path": "/thallo/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
    "id": "hero.email",
    "zone": "hero",
    "path": "/thallo/",
@@ -5957,6 +6326,15 @@
   },
   {
    "id": "footer.linkedin",
+   "zone": "footer",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.privacy",
    "zone": "footer",
    "path": "/work",
    "devices": [

@@ -243,6 +243,11 @@
         }
         var host = f.querySelector('.footer-copy') || f;
         host.appendChild(b);
+        if (!doc.querySelector('a[href="/privacy"]')) {
+          var pl = doc.createElement('a');
+          pl.href = '/privacy'; pl.className = 'sk-privacy-link'; pl.setAttribute('data-track', 'footer.privacy'); pl.textContent = 'Privacy';
+          host.appendChild(pl);
+        }
         doc.addEventListener('sk:lang-change', function () { var x = t(COPY.link); if (b.textContent !== x) b.textContent = x; });
       }
     }

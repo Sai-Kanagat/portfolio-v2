@@ -203,4 +203,10 @@
   <url>
     <loc>https://saikanagat.com/shadow-theatre</loc>
   </url>
+  <url>
+    <loc>https://saikanagat.com/privacy</loc>
+    <lastmod>2026-11-25</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
 </urlset>
