@@ -226,6 +226,7 @@ before(async () => {
   await sess(D, [['demo_open', { demo_id: 'agora' }]]); // opened, never started
   await sess(D, [['demo_start', { demo_id: 'agora', mode: 'x' }]]); // started with no open event (skipped step)
   await sess({ ...D, device: 'mobile' }, [['demo_open', { demo_id: 'agora' }], ['demo_start', { demo_id: 'agora', mode: 'x' }], ['model_state', { demo_id: 'agora', state: 'failed', delegate: 'cpu' }]]);
+  await sess({ path: '/' }, [['demo_action', { demo_id: 'pg.home', action: 'hero_settled' }], ['demo_action', { demo_id: 'pg.home', action: 'shutter_progress', value: 50 }]]); // a page action, not a demo
   // ---- forms: contact
   const F = { path: '/contact' };
   await sess(F, [['form_view', { form_id: 'contact' }], ['form_start', { form_id: 'contact' }], ['form_field', { form_id: 'contact', field: 'name' }], ['form_field', { form_id: 'contact', field: 'email' }], ['form_submit_attempt', { form_id: 'contact' }], ['form_submit_attempt', { form_id: 'contact' }], ['form_submit_success', { form_id: 'contact' }]]);
@@ -306,6 +307,15 @@ test('demos: distinct visits per step beside event counts, 10 s and 60 s apart, 
   assert.deepEqual([mob.sessions.opened, mob.sessions.started, mob.funnel.started], [1, 1, 1]);
 });
 
+test('demos: pg.* ids are page actions, never listed as demos', async () => {
+  const j = (await mget('/api/ops/demos')).json;
+  assert.ok(!j.demos.some((x) => /^pg\./.test(x.demo_id)), 'no pg.* row in demos');
+  assert.deepEqual(j.page_actions.map((x) => [x.page, x.action, x.n]).sort(), [['home', 'hero_settled', 1], ['home', 'shutter_progress', 1]]);
+  assert.ok(j.page_actions.every((x) => x.sessions === 1 && x.visitors === 1));
+  const m = (await mget('/api/ops/demos?device=mobile')).json;
+  assert.ok(!m.demos.some((x) => /^pg\./.test(x.demo_id)));
+});
+
 test('demos: model_state is aggregated per demo', async () => {
   const g = (await mget('/api/ops/demos')).json.demos.find((x) => x.demo_id === 'agora');
   assert.deepEqual([g.model.loaded, g.model.failed, g.model.loaded_sessions, g.model.failed_sessions], [2, 1, 2, 1]);
@@ -369,6 +379,7 @@ test('channel classification in SQL matches channelOf for edge cases (case, empt
     { link: null, utm: null, ref: 'copilot.microsoft.com' }, { link: null, utm: null, ref: 'www.linkedin.com' }, { link: null, utm: null, ref: 'lnkd.in' },
     { link: null, utm: null, ref: 'you.com' }, { link: null, utm: null, ref: 'phind.com' }, { link: null, utm: 'newsletter', ref: 'www.google.com' }, { link: null, utm: null, ref: 'example.org' },
     { link: null, utm: null, ref: null }, { link: null, utm: null, ref: 'duckduckgo.com' }, { link: null, utm: 'openai', ref: null },
+    { link: null, utm: null, ref: 't.co' }, { link: null, utm: null, ref: 'www.microsoft.com' }, { link: null, utm: null, ref: 'x.com' }, { link: null, utm: null, ref: 'www.box.com' }, { link: null, utm: null, ref: 'l.t.co' },
   ];
   cases.forEach((c, i) => mdb.prepare('insert into sessions (sid,vid,first_ts,last_ts,landing,ref_host,utm_source,link,country,device,owner,test,pages,events,active_ms) values (?,?,?,?,?,?,?,?,?,?,0,?,1,1,0)')
     .run('9'.repeat(8) + String(i).padStart(8, '0'), '9'.repeat(8) + String(i).padStart(8, '0'), T0 + i, T0 + i, '/', c.ref, c.utm, c.link, 'IT', 'desktop', ''));
@@ -378,6 +389,8 @@ test('channel classification in SQL matches channelOf for edge cases (case, empt
   const got = Object.fromEntries(a.channels.map((c) => [c.channel, c.sessions]));
   assert.deepEqual(got, want);
   assert.equal(channelOf({ utm_source: 'gemini' }), 'ai');
+  assert.deepEqual(['t.co', 'x.com', 'l.t.co', 'lnkd.in'].map((h) => channelOf({ ref_host: h })), ['social', 'social', 'social', 'social']);
+  assert.deepEqual(['www.microsoft.com', 'www.box.com', 'fedex.com'].map((h) => channelOf({ ref_host: h })), ['referral', 'referral', 'referral'], 't.co and x.com must not match inside other hosts');
 });
 
 test('buttons: a link click is counted once, because track.js sends ui_click beside nav_click, email_click and outbound_click', async () => {

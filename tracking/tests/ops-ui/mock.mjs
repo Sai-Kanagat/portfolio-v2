@@ -141,7 +141,8 @@ export function respond(name, sp, mode, store, hostile, method = 'GET', postBody
     }
     case 'demos':
       if (empty) return ok(wrap({ demos: [] }, sp));
-      return ok(wrap({ demos: [
+      return ok(wrap({ page_actions: [{ page: 'home', action: 'hero_settled', n: 31, sessions: 27, visitors: 25 }, { page: 'home', action: 'shutter_progress', n: 12, sessions: 9, visitors: 9 }], demos: [
+        { demo_id: 'pg.home', opens: 0, starts: 0, engaged_10: 0, engaged_60: 0, ends: 0, errors: 0, visitors: 0, avg_ms: null, sessions: { opened: 0, started: 0, engaged_10: 0, engaged_60: 0, ended: 0, errored: 0 }, funnel: { opened: 0, started: 0, engaged_10: 0, engaged_60: 0 }, skipped: { started: 0, engaged_10: 0, engaged_60: 0 }, camera: {}, camera_sessions: {}, mic: {}, mic_sessions: {}, model: { loaded: 0, failed: 0, loaded_sessions: 0, failed_sessions: 0, avg_ms: null, ms_n: 0, delegates: [] }, top_actions: [{ action: 'hero_settled', n: 31, sessions: 27 }] },
         { demo_id: 'hands', opens: 44, starts: 33, engaged_10: 18, engaged_60: 6, ends: 12, errors: 1, visitors: 25, avg_ms: 64000,
           sessions: { opened: 40, started: 31, engaged_10: 18, engaged_60: 6, ended: 12, errored: 1 }, funnel: { opened: 40, started: 30, engaged_10: 18, engaged_60: 6 }, skipped: { started: 1, engaged_10: 0, engaged_60: 0 },
           camera: { prompt: 33, granted: 24, denied: 5, dismissed: 2, unavailable: 1 }, camera_sessions: { prompt: 30, granted: 22, denied: 5, dismissed: 2, unavailable: 1 }, mic: {}, mic_sessions: {},

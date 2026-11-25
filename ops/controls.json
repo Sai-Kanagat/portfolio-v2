@@ -4,7 +4,7 @@
  "sources": {
   "coverage": {
    "found": true,
-   "controls": 0
+   "controls": 711
   },
   "pages": {
    "found": true,
@@ -12,7 +12,7 @@
   },
   "media": {
    "found": true,
-   "controls": 29
+   "controls": 25
   },
   "tools": {
    "found": true,
@@ -20,10 +20,478 @@
   }
  },
  "counts": {
-  "controls": 172,
-  "pages": 12
+  "controls": 722,
+  "pages": 37
  },
  "controls": [
+  {
+   "id": "about-teaser.about",
+   "zone": "about-teaser",
+   "path": "/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.email",
+   "zone": "footer",
+   "path": "/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.github",
+   "zone": "footer",
+   "path": "/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.linkedin",
+   "zone": "footer",
+   "path": "/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hero-experience.contact",
+   "zone": "hero-experience",
+   "path": "/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hero-experience.work",
+   "zone": "hero-experience",
+   "path": "/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "let-s-build-something.contact",
+   "zone": "let-s-build-something",
+   "path": "/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "let-s-build-something.email",
+   "zone": "let-s-build-something",
+   "path": "/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.about",
+   "zone": "nav",
+   "path": "/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.blog",
+   "zone": "nav",
+   "path": "/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.brand-identity",
+   "zone": "nav",
+   "path": "/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.contact",
+   "zone": "nav",
+   "path": "/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.demos",
+   "zone": "nav",
+   "path": "/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.en",
+   "zone": "nav",
+   "path": "/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.gallery",
+   "zone": "nav",
+   "path": "/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.home",
+   "zone": "nav",
+   "path": "/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.it",
+   "zone": "nav",
+   "path": "/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.menu",
+   "zone": "nav",
+   "path": "/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.process",
+   "zone": "nav",
+   "path": "/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.work",
+   "zone": "nav",
+   "path": "/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.skip-to-content",
+   "zone": "page",
+   "path": "/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "work-section.aperol-golden-hour",
+   "zone": "work-section",
+   "path": "/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "work-section.cortex",
+   "zone": "work-section",
+   "path": "/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "work-section.work",
+   "zone": "work-section",
+   "path": "/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "work-section.work-arabella",
+   "zone": "work-section",
+   "path": "/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "work-section.work-casamota",
+   "zone": "work-section",
+   "path": "/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "work-section.work-cigarette",
+   "zone": "work-section",
+   "path": "/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "work-section.work-vigilante",
+   "zone": "work-section",
+   "path": "/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "notfound.contact",
+   "zone": "notfound",
+   "path": "/404",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "notfound.demos",
+   "zone": "notfound",
+   "path": "/404",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "notfound.home",
+   "zone": "notfound",
+   "path": "/404",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "notfound.process",
+   "zone": "notfound",
+   "path": "/404",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "notfound.work",
+   "zone": "notfound",
+   "path": "/404",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.email",
+   "zone": "footer",
+   "path": "/about",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.github",
+   "zone": "footer",
+   "path": "/about",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.linkedin",
+   "zone": "footer",
+   "path": "/about",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.about",
+   "zone": "nav",
+   "path": "/about",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.blog",
+   "zone": "nav",
+   "path": "/about",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.brand-identity",
+   "zone": "nav",
+   "path": "/about",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.contact",
+   "zone": "nav",
+   "path": "/about",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.demos",
+   "zone": "nav",
+   "path": "/about",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.en",
+   "zone": "nav",
+   "path": "/about",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.gallery",
+   "zone": "nav",
+   "path": "/about",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.home",
+   "zone": "nav",
+   "path": "/about",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.it",
+   "zone": "nav",
+   "path": "/about",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.menu",
+   "zone": "nav",
+   "path": "/about",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.process",
+   "zone": "nav",
+   "path": "/about",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.work",
+   "zone": "nav",
+   "path": "/about",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.skip-to-content",
+   "zone": "page",
+   "path": "/about",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "ready-to-work-together.contact",
+   "zone": "ready-to-work-together",
+   "path": "/about",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "ready-to-work-together.hire",
+   "zone": "ready-to-work-together",
+   "path": "/about",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "ready-to-work-together.work",
+   "zone": "ready-to-work-together",
+   "path": "/about",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
   {
    "id": "ad.ab.file_a",
    "zone": "ad",
@@ -268,6 +736,2715 @@
    ]
   },
   {
+   "id": "ap-cta.aperol-golden-hour",
+   "zone": "ap-cta",
+   "path": "/aperol-golden-hour",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "ap-cta.aperol-golden-hour-case",
+   "zone": "ap-cta",
+   "path": "/aperol-golden-hour",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "ap-cta.view-the-live-microsite",
+   "zone": "ap-cta",
+   "path": "/aperol-golden-hour",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "ap-disclaimer.email",
+   "zone": "ap-disclaimer",
+   "path": "/aperol-golden-hour",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.about",
+   "zone": "nav",
+   "path": "/aperol-golden-hour",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.blog",
+   "zone": "nav",
+   "path": "/aperol-golden-hour",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.contact",
+   "zone": "nav",
+   "path": "/aperol-golden-hour",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.demos",
+   "zone": "nav",
+   "path": "/aperol-golden-hour",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.en",
+   "zone": "nav",
+   "path": "/aperol-golden-hour",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.gallery",
+   "zone": "nav",
+   "path": "/aperol-golden-hour",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.home",
+   "zone": "nav",
+   "path": "/aperol-golden-hour",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.it",
+   "zone": "nav",
+   "path": "/aperol-golden-hour",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.menu",
+   "zone": "nav",
+   "path": "/aperol-golden-hour",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.process",
+   "zone": "nav",
+   "path": "/aperol-golden-hour",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.vercel",
+   "zone": "nav",
+   "path": "/aperol-golden-hour",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.work",
+   "zone": "nav",
+   "path": "/aperol-golden-hour",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.skip-to-content",
+   "zone": "page",
+   "path": "/aperol-golden-hour",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "aperol-mock.button",
+   "zone": "aperol-mock",
+   "path": "/aperol-microsite/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "aperol-mock.email",
+   "zone": "aperol-mock",
+   "path": "/aperol-microsite/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "credits.email",
+   "zone": "credits",
+   "path": "/aperol-microsite/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hero.city-bangalore",
+   "zone": "hero",
+   "path": "/aperol-microsite/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hero.city-delhi",
+   "zone": "hero",
+   "path": "/aperol-microsite/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hero.city-goa",
+   "zone": "hero",
+   "path": "/aperol-microsite/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hero.city-mumbai",
+   "zone": "hero",
+   "path": "/aperol-microsite/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.film",
+   "zone": "nav",
+   "path": "/aperol-microsite/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.manifesto",
+   "zone": "nav",
+   "path": "/aperol-microsite/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.report",
+   "zone": "nav",
+   "path": "/aperol-microsite/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.terraces",
+   "zone": "nav",
+   "path": "/aperol-microsite/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.the-hour",
+   "zone": "nav",
+   "path": "/aperol-microsite/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "report.instagram",
+   "zone": "report",
+   "path": "/aperol-microsite/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.email",
+   "zone": "footer",
+   "path": "/blog",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.github",
+   "zone": "footer",
+   "path": "/blog",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.linkedin",
+   "zone": "footer",
+   "path": "/blog",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.about",
+   "zone": "nav",
+   "path": "/blog",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.blog",
+   "zone": "nav",
+   "path": "/blog",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.brand-identity",
+   "zone": "nav",
+   "path": "/blog",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.contact",
+   "zone": "nav",
+   "path": "/blog",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.demos",
+   "zone": "nav",
+   "path": "/blog",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.en",
+   "zone": "nav",
+   "path": "/blog",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.gallery",
+   "zone": "nav",
+   "path": "/blog",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.home",
+   "zone": "nav",
+   "path": "/blog",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.it",
+   "zone": "nav",
+   "path": "/blog",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.menu",
+   "zone": "nav",
+   "path": "/blog",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.process",
+   "zone": "nav",
+   "path": "/blog",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.work",
+   "zone": "nav",
+   "path": "/blog",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.agora-and-the-rehearsal",
+   "zone": "page",
+   "path": "/blog",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.bologna-business-school",
+   "zone": "page",
+   "path": "/blog",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.building-nishta",
+   "zone": "page",
+   "path": "/blog",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.carlos-mota-studio",
+   "zone": "page",
+   "path": "/blog",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.monocular-biomechanics",
+   "zone": "page",
+   "path": "/blog",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.portfolios-are-products",
+   "zone": "page",
+   "path": "/blog",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.skip-to-content",
+   "zone": "page",
+   "path": "/blog",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.the-brief-as-a-design",
+   "zone": "page",
+   "path": "/blog",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.what-15k-meta-ads",
+   "zone": "page",
+   "path": "/blog",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.why-i-built-melt-sprint",
+   "zone": "page",
+   "path": "/blog",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.why-industrial",
+   "zone": "page",
+   "path": "/blog",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.why-italy-and-why-now",
+   "zone": "page",
+   "path": "/blog",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "article.agora",
+   "zone": "article",
+   "path": "/blog/agora-and-the-rehearsal-of-public-opinion",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "blink-scroll.toggle",
+   "zone": "blink-scroll",
+   "path": "/blog/agora-and-the-rehearsal-of-public-opinion",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.email",
+   "zone": "footer",
+   "path": "/blog/agora-and-the-rehearsal-of-public-opinion",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.github",
+   "zone": "footer",
+   "path": "/blog/agora-and-the-rehearsal-of-public-opinion",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.linkedin",
+   "zone": "footer",
+   "path": "/blog/agora-and-the-rehearsal-of-public-opinion",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.about",
+   "zone": "nav",
+   "path": "/blog/agora-and-the-rehearsal-of-public-opinion",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.blog",
+   "zone": "nav",
+   "path": "/blog/agora-and-the-rehearsal-of-public-opinion",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.contact",
+   "zone": "nav",
+   "path": "/blog/agora-and-the-rehearsal-of-public-opinion",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.demos",
+   "zone": "nav",
+   "path": "/blog/agora-and-the-rehearsal-of-public-opinion",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.gallery",
+   "zone": "nav",
+   "path": "/blog/agora-and-the-rehearsal-of-public-opinion",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.home",
+   "zone": "nav",
+   "path": "/blog/agora-and-the-rehearsal-of-public-opinion",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.menu",
+   "zone": "nav",
+   "path": "/blog/agora-and-the-rehearsal-of-public-opinion",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.process",
+   "zone": "nav",
+   "path": "/blog/agora-and-the-rehearsal-of-public-opinion",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.vercel",
+   "zone": "nav",
+   "path": "/blog/agora-and-the-rehearsal-of-public-opinion",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.work",
+   "zone": "nav",
+   "path": "/blog/agora-and-the-rehearsal-of-public-opinion",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.skip-to-content",
+   "zone": "page",
+   "path": "/blog/agora-and-the-rehearsal-of-public-opinion",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "article.unibo",
+   "zone": "article",
+   "path": "/blog/bologna-business-school-marketing-reality",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "blink-scroll.toggle",
+   "zone": "blink-scroll",
+   "path": "/blog/bologna-business-school-marketing-reality",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.email",
+   "zone": "footer",
+   "path": "/blog/bologna-business-school-marketing-reality",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.github",
+   "zone": "footer",
+   "path": "/blog/bologna-business-school-marketing-reality",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.linkedin",
+   "zone": "footer",
+   "path": "/blog/bologna-business-school-marketing-reality",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.about",
+   "zone": "nav",
+   "path": "/blog/bologna-business-school-marketing-reality",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.blog",
+   "zone": "nav",
+   "path": "/blog/bologna-business-school-marketing-reality",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.contact",
+   "zone": "nav",
+   "path": "/blog/bologna-business-school-marketing-reality",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.demos",
+   "zone": "nav",
+   "path": "/blog/bologna-business-school-marketing-reality",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.gallery",
+   "zone": "nav",
+   "path": "/blog/bologna-business-school-marketing-reality",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.home",
+   "zone": "nav",
+   "path": "/blog/bologna-business-school-marketing-reality",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.menu",
+   "zone": "nav",
+   "path": "/blog/bologna-business-school-marketing-reality",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.process",
+   "zone": "nav",
+   "path": "/blog/bologna-business-school-marketing-reality",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.work",
+   "zone": "nav",
+   "path": "/blog/bologna-business-school-marketing-reality",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.skip-to-content",
+   "zone": "page",
+   "path": "/blog/bologna-business-school-marketing-reality",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "blink-scroll.toggle",
+   "zone": "blink-scroll",
+   "path": "/blog/building-nishta",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.email",
+   "zone": "footer",
+   "path": "/blog/building-nishta",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.github",
+   "zone": "footer",
+   "path": "/blog/building-nishta",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.linkedin",
+   "zone": "footer",
+   "path": "/blog/building-nishta",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.about",
+   "zone": "nav",
+   "path": "/blog/building-nishta",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.blog",
+   "zone": "nav",
+   "path": "/blog/building-nishta",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.contact",
+   "zone": "nav",
+   "path": "/blog/building-nishta",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.demos",
+   "zone": "nav",
+   "path": "/blog/building-nishta",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.gallery",
+   "zone": "nav",
+   "path": "/blog/building-nishta",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.home",
+   "zone": "nav",
+   "path": "/blog/building-nishta",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.menu",
+   "zone": "nav",
+   "path": "/blog/building-nishta",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.process",
+   "zone": "nav",
+   "path": "/blog/building-nishta",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.work",
+   "zone": "nav",
+   "path": "/blog/building-nishta",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.skip-to-content",
+   "zone": "page",
+   "path": "/blog/building-nishta",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "article.carlosmota",
+   "zone": "article",
+   "path": "/blog/carlos-mota-studio-lesson",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "article.juicychemistry",
+   "zone": "article",
+   "path": "/blog/carlos-mota-studio-lesson",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "blink-scroll.toggle",
+   "zone": "blink-scroll",
+   "path": "/blog/carlos-mota-studio-lesson",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.email",
+   "zone": "footer",
+   "path": "/blog/carlos-mota-studio-lesson",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.github",
+   "zone": "footer",
+   "path": "/blog/carlos-mota-studio-lesson",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.linkedin",
+   "zone": "footer",
+   "path": "/blog/carlos-mota-studio-lesson",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.about",
+   "zone": "nav",
+   "path": "/blog/carlos-mota-studio-lesson",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.blog",
+   "zone": "nav",
+   "path": "/blog/carlos-mota-studio-lesson",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.contact",
+   "zone": "nav",
+   "path": "/blog/carlos-mota-studio-lesson",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.demos",
+   "zone": "nav",
+   "path": "/blog/carlos-mota-studio-lesson",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.gallery",
+   "zone": "nav",
+   "path": "/blog/carlos-mota-studio-lesson",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.home",
+   "zone": "nav",
+   "path": "/blog/carlos-mota-studio-lesson",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.menu",
+   "zone": "nav",
+   "path": "/blog/carlos-mota-studio-lesson",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.process",
+   "zone": "nav",
+   "path": "/blog/carlos-mota-studio-lesson",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.work",
+   "zone": "nav",
+   "path": "/blog/carlos-mota-studio-lesson",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.skip-to-content",
+   "zone": "page",
+   "path": "/blog/carlos-mota-studio-lesson",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "blink-scroll.toggle",
+   "zone": "blink-scroll",
+   "path": "/blog/portfolios-are-products",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.email",
+   "zone": "footer",
+   "path": "/blog/portfolios-are-products",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.github",
+   "zone": "footer",
+   "path": "/blog/portfolios-are-products",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.linkedin",
+   "zone": "footer",
+   "path": "/blog/portfolios-are-products",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.about",
+   "zone": "nav",
+   "path": "/blog/portfolios-are-products",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.blog",
+   "zone": "nav",
+   "path": "/blog/portfolios-are-products",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.contact",
+   "zone": "nav",
+   "path": "/blog/portfolios-are-products",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.demos",
+   "zone": "nav",
+   "path": "/blog/portfolios-are-products",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.gallery",
+   "zone": "nav",
+   "path": "/blog/portfolios-are-products",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.home",
+   "zone": "nav",
+   "path": "/blog/portfolios-are-products",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.menu",
+   "zone": "nav",
+   "path": "/blog/portfolios-are-products",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.process",
+   "zone": "nav",
+   "path": "/blog/portfolios-are-products",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.vercel",
+   "zone": "nav",
+   "path": "/blog/portfolios-are-products",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.work",
+   "zone": "nav",
+   "path": "/blog/portfolios-are-products",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.skip-to-content",
+   "zone": "page",
+   "path": "/blog/portfolios-are-products",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "blink-scroll.toggle",
+   "zone": "blink-scroll",
+   "path": "/blog/the-brief-as-a-design-object",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.email",
+   "zone": "footer",
+   "path": "/blog/the-brief-as-a-design-object",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.github",
+   "zone": "footer",
+   "path": "/blog/the-brief-as-a-design-object",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.linkedin",
+   "zone": "footer",
+   "path": "/blog/the-brief-as-a-design-object",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.about",
+   "zone": "nav",
+   "path": "/blog/the-brief-as-a-design-object",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.blog",
+   "zone": "nav",
+   "path": "/blog/the-brief-as-a-design-object",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.contact",
+   "zone": "nav",
+   "path": "/blog/the-brief-as-a-design-object",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.gallery",
+   "zone": "nav",
+   "path": "/blog/the-brief-as-a-design-object",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.home",
+   "zone": "nav",
+   "path": "/blog/the-brief-as-a-design-object",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.menu",
+   "zone": "nav",
+   "path": "/blog/the-brief-as-a-design-object",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.process",
+   "zone": "nav",
+   "path": "/blog/the-brief-as-a-design-object",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.score",
+   "zone": "nav",
+   "path": "/blog/the-brief-as-a-design-object",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.work",
+   "zone": "nav",
+   "path": "/blog/the-brief-as-a-design-object",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.blog",
+   "zone": "page",
+   "path": "/blog/the-brief-as-a-design-object",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.contact",
+   "zone": "page",
+   "path": "/blog/the-brief-as-a-design-object",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.skip-to-content",
+   "zone": "page",
+   "path": "/blog/the-brief-as-a-design-object",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "blink-scroll.toggle",
+   "zone": "blink-scroll",
+   "path": "/blog/what-15k-meta-ads-taught-me",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.email",
+   "zone": "footer",
+   "path": "/blog/what-15k-meta-ads-taught-me",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.github",
+   "zone": "footer",
+   "path": "/blog/what-15k-meta-ads-taught-me",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.linkedin",
+   "zone": "footer",
+   "path": "/blog/what-15k-meta-ads-taught-me",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.about",
+   "zone": "nav",
+   "path": "/blog/what-15k-meta-ads-taught-me",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.blog",
+   "zone": "nav",
+   "path": "/blog/what-15k-meta-ads-taught-me",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.contact",
+   "zone": "nav",
+   "path": "/blog/what-15k-meta-ads-taught-me",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.gallery",
+   "zone": "nav",
+   "path": "/blog/what-15k-meta-ads-taught-me",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.home",
+   "zone": "nav",
+   "path": "/blog/what-15k-meta-ads-taught-me",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.menu",
+   "zone": "nav",
+   "path": "/blog/what-15k-meta-ads-taught-me",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.process",
+   "zone": "nav",
+   "path": "/blog/what-15k-meta-ads-taught-me",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.score",
+   "zone": "nav",
+   "path": "/blog/what-15k-meta-ads-taught-me",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.work",
+   "zone": "nav",
+   "path": "/blog/what-15k-meta-ads-taught-me",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.blog",
+   "zone": "page",
+   "path": "/blog/what-15k-meta-ads-taught-me",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.skip-to-content",
+   "zone": "page",
+   "path": "/blog/what-15k-meta-ads-taught-me",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.the-brief-as-a-design",
+   "zone": "page",
+   "path": "/blog/what-15k-meta-ads-taught-me",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "article.contact",
+   "zone": "article",
+   "path": "/blog/why-i-built-melt-sprint",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "article.melt",
+   "zone": "article",
+   "path": "/blog/why-i-built-melt-sprint",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "article.melt-2",
+   "zone": "article",
+   "path": "/blog/why-i-built-melt-sprint",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "article.portfolios-are-products",
+   "zone": "article",
+   "path": "/blog/why-i-built-melt-sprint",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "blink-scroll.toggle",
+   "zone": "blink-scroll",
+   "path": "/blog/why-i-built-melt-sprint",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.email",
+   "zone": "footer",
+   "path": "/blog/why-i-built-melt-sprint",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.github",
+   "zone": "footer",
+   "path": "/blog/why-i-built-melt-sprint",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.linkedin",
+   "zone": "footer",
+   "path": "/blog/why-i-built-melt-sprint",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.about",
+   "zone": "nav",
+   "path": "/blog/why-i-built-melt-sprint",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.blog",
+   "zone": "nav",
+   "path": "/blog/why-i-built-melt-sprint",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.contact",
+   "zone": "nav",
+   "path": "/blog/why-i-built-melt-sprint",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.demos",
+   "zone": "nav",
+   "path": "/blog/why-i-built-melt-sprint",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.gallery",
+   "zone": "nav",
+   "path": "/blog/why-i-built-melt-sprint",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.home",
+   "zone": "nav",
+   "path": "/blog/why-i-built-melt-sprint",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.menu",
+   "zone": "nav",
+   "path": "/blog/why-i-built-melt-sprint",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.process",
+   "zone": "nav",
+   "path": "/blog/why-i-built-melt-sprint",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.work",
+   "zone": "nav",
+   "path": "/blog/why-i-built-melt-sprint",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.skip-to-content",
+   "zone": "page",
+   "path": "/blog/why-i-built-melt-sprint",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "blink-scroll.toggle",
+   "zone": "blink-scroll",
+   "path": "/blog/why-industrial-designers-make-better-marketers",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.email",
+   "zone": "footer",
+   "path": "/blog/why-industrial-designers-make-better-marketers",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.github",
+   "zone": "footer",
+   "path": "/blog/why-industrial-designers-make-better-marketers",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.linkedin",
+   "zone": "footer",
+   "path": "/blog/why-industrial-designers-make-better-marketers",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.about",
+   "zone": "nav",
+   "path": "/blog/why-industrial-designers-make-better-marketers",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.blog",
+   "zone": "nav",
+   "path": "/blog/why-industrial-designers-make-better-marketers",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.contact",
+   "zone": "nav",
+   "path": "/blog/why-industrial-designers-make-better-marketers",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.gallery",
+   "zone": "nav",
+   "path": "/blog/why-industrial-designers-make-better-marketers",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.home",
+   "zone": "nav",
+   "path": "/blog/why-industrial-designers-make-better-marketers",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.menu",
+   "zone": "nav",
+   "path": "/blog/why-industrial-designers-make-better-marketers",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.process",
+   "zone": "nav",
+   "path": "/blog/why-industrial-designers-make-better-marketers",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.score",
+   "zone": "nav",
+   "path": "/blog/why-industrial-designers-make-better-marketers",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.work",
+   "zone": "nav",
+   "path": "/blog/why-industrial-designers-make-better-marketers",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.blog",
+   "zone": "page",
+   "path": "/blog/why-industrial-designers-make-better-marketers",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.skip-to-content",
+   "zone": "page",
+   "path": "/blog/why-industrial-designers-make-better-marketers",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.what-15k-meta-ads",
+   "zone": "page",
+   "path": "/blog/why-industrial-designers-make-better-marketers",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "blink-scroll.toggle",
+   "zone": "blink-scroll",
+   "path": "/blog/why-italy-and-why-now",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.email",
+   "zone": "footer",
+   "path": "/blog/why-italy-and-why-now",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.github",
+   "zone": "footer",
+   "path": "/blog/why-italy-and-why-now",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.linkedin",
+   "zone": "footer",
+   "path": "/blog/why-italy-and-why-now",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.about",
+   "zone": "nav",
+   "path": "/blog/why-italy-and-why-now",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.blog",
+   "zone": "nav",
+   "path": "/blog/why-italy-and-why-now",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.contact",
+   "zone": "nav",
+   "path": "/blog/why-italy-and-why-now",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.demos",
+   "zone": "nav",
+   "path": "/blog/why-italy-and-why-now",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.gallery",
+   "zone": "nav",
+   "path": "/blog/why-italy-and-why-now",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.home",
+   "zone": "nav",
+   "path": "/blog/why-italy-and-why-now",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.menu",
+   "zone": "nav",
+   "path": "/blog/why-italy-and-why-now",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.process",
+   "zone": "nav",
+   "path": "/blog/why-italy-and-why-now",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.vercel",
+   "zone": "nav",
+   "path": "/blog/why-italy-and-why-now",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.work",
+   "zone": "nav",
+   "path": "/blog/why-italy-and-why-now",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.skip-to-content",
+   "zone": "page",
+   "path": "/blog/why-italy-and-why-now",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "ads.contact",
+   "zone": "ads",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "ads.pricing",
+   "zone": "ads",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "ads.process",
+   "zone": "ads",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "ads.recent-work",
+   "zone": "ads",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "components.about",
+   "zone": "components",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "components.ads",
+   "zone": "components",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "components.an-inline-link",
+   "zone": "components",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "components.blog",
+   "zone": "components",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "components.checkbox",
+   "zone": "components",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "components.checkbox-2",
+   "zone": "components",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "components.checkbox-3",
+   "zone": "components",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "components.components",
+   "zone": "components",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "components.contact",
+   "zone": "components",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "components.default",
+   "zone": "components",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "components.disabled",
+   "zone": "components",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "components.email",
+   "zone": "components",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "components.foundations",
+   "zone": "components",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "components.gallery",
+   "zone": "components",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "components.large",
+   "zone": "components",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "components.overview",
+   "zone": "components",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "components.process",
+   "zone": "components",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "components.read-the-system",
+   "zone": "components",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "components.secondary",
+   "zone": "components",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "components.select",
+   "zone": "components",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "components.small",
+   "zone": "components",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "components.social",
+   "zone": "components",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "components.start-a-project",
+   "zone": "components",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "components.start-a-project-2",
+   "zone": "components",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "components.templates",
+   "zone": "components",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "components.text",
+   "zone": "components",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "components.textarea",
+   "zone": "components",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "components.work",
+   "zone": "components",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "intro.00-contents",
+   "zone": "intro",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "intro.01-principles",
+   "zone": "intro",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "intro.02-logo",
+   "zone": "intro",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "intro.03-color",
+   "zone": "intro",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "intro.04-typography",
+   "zone": "intro",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "intro.05-spacing",
+   "zone": "intro",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "intro.06-elevation",
+   "zone": "intro",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "intro.07-iconography",
+   "zone": "intro",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "intro.08-imagery",
+   "zone": "intro",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "intro.09-components",
+   "zone": "intro",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "intro.10-voice-tone",
+   "zone": "intro",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "intro.11-social-media",
+   "zone": "intro",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "intro.12-advertising",
+   "zone": "intro",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "intro.13-marketing",
+   "zone": "intro",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "intro.14-stationery",
+   "zone": "intro",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "intro.15-applications",
+   "zone": "intro",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "marketing.about",
+   "zone": "marketing",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "marketing.blog",
+   "zone": "marketing",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "marketing.contact",
+   "zone": "marketing",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "marketing.gallery",
+   "zone": "marketing",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "marketing.process",
+   "zone": "marketing",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "marketing.start-a-project",
+   "zone": "marketing",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "marketing.work",
+   "zone": "marketing",
+   "path": "/brand-identity",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.contact",
+   "zone": "footer",
+   "path": "/build-log/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.work",
+   "zone": "footer",
+   "path": "/build-log/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.contact",
+   "zone": "nav",
+   "path": "/build-log/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.home",
+   "zone": "nav",
+   "path": "/build-log/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.work",
+   "zone": "nav",
+   "path": "/build-log/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "contact.company",
+   "zone": "contact",
+   "path": "/contact",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "contact.email",
+   "zone": "contact",
+   "path": "/contact",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "contact.first-name",
+   "zone": "contact",
+   "path": "/contact",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "contact.gotcha",
+   "zone": "contact",
+   "path": "/contact",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "contact.last-name",
+   "zone": "contact",
+   "path": "/contact",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "contact.message",
+   "zone": "contact",
+   "path": "/contact",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "contact.send-message",
+   "zone": "contact",
+   "path": "/contact",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "contact.subject",
+   "zone": "contact",
+   "path": "/contact",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.email",
+   "zone": "footer",
+   "path": "/contact",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.github",
+   "zone": "footer",
+   "path": "/contact",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.linkedin",
+   "zone": "footer",
+   "path": "/contact",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.about",
+   "zone": "nav",
+   "path": "/contact",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.blog",
+   "zone": "nav",
+   "path": "/contact",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.brand-identity",
+   "zone": "nav",
+   "path": "/contact",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.contact",
+   "zone": "nav",
+   "path": "/contact",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.demos",
+   "zone": "nav",
+   "path": "/contact",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.en",
+   "zone": "nav",
+   "path": "/contact",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.gallery",
+   "zone": "nav",
+   "path": "/contact",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.home",
+   "zone": "nav",
+   "path": "/contact",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.it",
+   "zone": "nav",
+   "path": "/contact",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.menu",
+   "zone": "nav",
+   "path": "/contact",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.process",
+   "zone": "nav",
+   "path": "/contact",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.work",
+   "zone": "nav",
+   "path": "/contact",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.email",
+   "zone": "page",
+   "path": "/contact",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.hire",
+   "zone": "page",
+   "path": "/contact",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.linkedin",
+   "zone": "page",
+   "path": "/contact",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.skip-to-content",
+   "zone": "page",
+   "path": "/contact",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
    "id": "cortex.back",
    "zone": "cortex",
    "path": "/cortex/",
@@ -406,6 +3583,312 @@
    "id": "cortex.runlive",
    "zone": "cortex",
    "path": "/cortex/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.email",
+   "zone": "footer",
+   "path": "/demos",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.github",
+   "zone": "footer",
+   "path": "/demos",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.linkedin",
+   "zone": "footer",
+   "path": "/demos",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.about",
+   "zone": "nav",
+   "path": "/demos",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.blog",
+   "zone": "nav",
+   "path": "/demos",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.brand-identity",
+   "zone": "nav",
+   "path": "/demos",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.contact",
+   "zone": "nav",
+   "path": "/demos",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.demos",
+   "zone": "nav",
+   "path": "/demos",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.en",
+   "zone": "nav",
+   "path": "/demos",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.gallery",
+   "zone": "nav",
+   "path": "/demos",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.home",
+   "zone": "nav",
+   "path": "/demos",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.it",
+   "zone": "nav",
+   "path": "/demos",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.menu",
+   "zone": "nav",
+   "path": "/demos",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.process",
+   "zone": "nav",
+   "path": "/demos",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.work",
+   "zone": "nav",
+   "path": "/demos",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.ad-autopsy",
+   "zone": "page",
+   "path": "/demos",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.agora",
+   "zone": "page",
+   "path": "/demos",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.ai-agents",
+   "zone": "page",
+   "path": "/demos",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.all",
+   "zone": "page",
+   "path": "/demos",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.audio",
+   "zone": "page",
+   "path": "/demos",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.balls",
+   "zone": "page",
+   "path": "/demos",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.camera",
+   "zone": "page",
+   "path": "/demos",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.cortex",
+   "zone": "page",
+   "path": "/demos",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.design-sound",
+   "zone": "page",
+   "path": "/demos",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.games",
+   "zone": "page",
+   "path": "/demos",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.hands",
+   "zone": "page",
+   "path": "/demos",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.hire",
+   "zone": "page",
+   "path": "/demos",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.marketing",
+   "zone": "page",
+   "path": "/demos",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.marketing-tool",
+   "zone": "page",
+   "path": "/demos",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.melt",
+   "zone": "page",
+   "path": "/demos",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.poster",
+   "zone": "page",
+   "path": "/demos",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.roas",
+   "zone": "page",
+   "path": "/demos",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.shadow-theatre",
+   "zone": "page",
+   "path": "/demos",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.skip-to-content",
+   "zone": "page",
+   "path": "/demos",
    "devices": [
     "desktop",
     "mobile"
@@ -619,42 +4102,6 @@
    ]
   },
   {
-   "id": "balls.swatch.blue",
-   "zone": "balls",
-   "path": "/demos/balls",
-   "devices": [
-    "desktop",
-    "mobile"
-   ]
-  },
-  {
-   "id": "balls.swatch.green",
-   "zone": "balls",
-   "path": "/demos/balls",
-   "devices": [
-    "desktop",
-    "mobile"
-   ]
-  },
-  {
-   "id": "balls.swatch.red",
-   "zone": "balls",
-   "path": "/demos/balls",
-   "devices": [
-    "desktop",
-    "mobile"
-   ]
-  },
-  {
-   "id": "balls.swatch.yellow",
-   "zone": "balls",
-   "path": "/demos/balls",
-   "devices": [
-    "desktop",
-    "mobile"
-   ]
-  },
-  {
    "id": "hands.back",
    "zone": "hands",
    "path": "/demos/hands",
@@ -820,6 +4267,393 @@
    "id": "roas.slider.spend",
    "zone": "roas",
    "path": "/demos/roas",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.email",
+   "zone": "footer",
+   "path": "/gallery",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.github",
+   "zone": "footer",
+   "path": "/gallery",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.linkedin",
+   "zone": "footer",
+   "path": "/gallery",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.about",
+   "zone": "nav",
+   "path": "/gallery",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.blog",
+   "zone": "nav",
+   "path": "/gallery",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.brand-identity",
+   "zone": "nav",
+   "path": "/gallery",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.contact",
+   "zone": "nav",
+   "path": "/gallery",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.demos",
+   "zone": "nav",
+   "path": "/gallery",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.en",
+   "zone": "nav",
+   "path": "/gallery",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.gallery",
+   "zone": "nav",
+   "path": "/gallery",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.home",
+   "zone": "nav",
+   "path": "/gallery",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.it",
+   "zone": "nav",
+   "path": "/gallery",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.menu",
+   "zone": "nav",
+   "path": "/gallery",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.process",
+   "zone": "nav",
+   "path": "/gallery",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.work",
+   "zone": "nav",
+   "path": "/gallery",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.filter-all",
+   "zone": "page",
+   "path": "/gallery",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.filter-interiors",
+   "zone": "page",
+   "path": "/gallery",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.filter-marketing",
+   "zone": "page",
+   "path": "/gallery",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.filter-product",
+   "zone": "page",
+   "path": "/gallery",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.filter-sculpture",
+   "zone": "page",
+   "path": "/gallery",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.project-casamota",
+   "zone": "page",
+   "path": "/gallery",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.project-casamota-2",
+   "zone": "page",
+   "path": "/gallery",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.project-casamota-3",
+   "zone": "page",
+   "path": "/gallery",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.project-casamota-4",
+   "zone": "page",
+   "path": "/gallery",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.project-desk",
+   "zone": "page",
+   "path": "/gallery",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.project-desk-2",
+   "zone": "page",
+   "path": "/gallery",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.project-desk-3",
+   "zone": "page",
+   "path": "/gallery",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.project-desk-4",
+   "zone": "page",
+   "path": "/gallery",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.project-flower",
+   "zone": "page",
+   "path": "/gallery",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.project-flower-2",
+   "zone": "page",
+   "path": "/gallery",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.project-flower-3",
+   "zone": "page",
+   "path": "/gallery",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.project-flower-4",
+   "zone": "page",
+   "path": "/gallery",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.project-juicy",
+   "zone": "page",
+   "path": "/gallery",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.project-juicy-2",
+   "zone": "page",
+   "path": "/gallery",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.project-juicy-3",
+   "zone": "page",
+   "path": "/gallery",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.project-juicy-4",
+   "zone": "page",
+   "path": "/gallery",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.project-povera",
+   "zone": "page",
+   "path": "/gallery",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.project-povera-2",
+   "zone": "page",
+   "path": "/gallery",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.project-povera-3",
+   "zone": "page",
+   "path": "/gallery",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.skip-to-content",
+   "zone": "page",
+   "path": "/gallery",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "panel.close",
+   "zone": "panel",
+   "path": "/gallery",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "panel.next",
+   "zone": "panel",
+   "path": "/gallery",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "panel.prev",
+   "zone": "panel",
+   "path": "/gallery",
    "devices": [
     "desktop",
     "mobile"
@@ -1132,6 +4966,123 @@
    ]
   },
   {
+   "id": "nav.about",
+   "zone": "nav",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.blog",
+   "zone": "nav",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.brand-identity",
+   "zone": "nav",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.contact",
+   "zone": "nav",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.demos",
+   "zone": "nav",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.en",
+   "zone": "nav",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.gallery",
+   "zone": "nav",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.it",
+   "zone": "nav",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.menu",
+   "zone": "nav",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.process",
+   "zone": "nav",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.sk",
+   "zone": "nav",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.work",
+   "zone": "nav",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.skip-to-content",
+   "zone": "page",
+   "path": "/hire/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
    "id": "melt.again",
    "zone": "melt",
    "path": "/melt/",
@@ -1207,6 +5158,141 @@
    "id": "melt.touch.pause",
    "zone": "melt",
    "path": "/melt/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "article.doi",
+   "zone": "article",
+   "path": "/papers/monocular-biomechanics",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "article.monocular-biomechanics",
+   "zone": "article",
+   "path": "/papers/monocular-biomechanics",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "article.monocular-biomechanics-2",
+   "zone": "article",
+   "path": "/papers/monocular-biomechanics",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "article.zenodo",
+   "zone": "article",
+   "path": "/papers/monocular-biomechanics",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.contact",
+   "zone": "footer",
+   "path": "/papers/monocular-biomechanics",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.about",
+   "zone": "nav",
+   "path": "/papers/monocular-biomechanics",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.blog",
+   "zone": "nav",
+   "path": "/papers/monocular-biomechanics",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.contact",
+   "zone": "nav",
+   "path": "/papers/monocular-biomechanics",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.demos",
+   "zone": "nav",
+   "path": "/papers/monocular-biomechanics",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.gallery",
+   "zone": "nav",
+   "path": "/papers/monocular-biomechanics",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.home",
+   "zone": "nav",
+   "path": "/papers/monocular-biomechanics",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.menu",
+   "zone": "nav",
+   "path": "/papers/monocular-biomechanics",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.process",
+   "zone": "nav",
+   "path": "/papers/monocular-biomechanics",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.work",
+   "zone": "nav",
+   "path": "/papers/monocular-biomechanics",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.skip-to-content",
+   "zone": "page",
+   "path": "/papers/monocular-biomechanics",
    "devices": [
     "desktop",
     "mobile"
@@ -1528,6 +5614,168 @@
    ]
   },
   {
+   "id": "footer.email",
+   "zone": "footer",
+   "path": "/process",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.github",
+   "zone": "footer",
+   "path": "/process",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.linkedin",
+   "zone": "footer",
+   "path": "/process",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.about",
+   "zone": "nav",
+   "path": "/process",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.blog",
+   "zone": "nav",
+   "path": "/process",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.brand-identity",
+   "zone": "nav",
+   "path": "/process",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.contact",
+   "zone": "nav",
+   "path": "/process",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.demos",
+   "zone": "nav",
+   "path": "/process",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.en",
+   "zone": "nav",
+   "path": "/process",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.gallery",
+   "zone": "nav",
+   "path": "/process",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.home",
+   "zone": "nav",
+   "path": "/process",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.it",
+   "zone": "nav",
+   "path": "/process",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.menu",
+   "zone": "nav",
+   "path": "/process",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.process",
+   "zone": "nav",
+   "path": "/process",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.work",
+   "zone": "nav",
+   "path": "/process",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.skip-to-content",
+   "zone": "page",
+   "path": "/process",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "want-to-seethis-in.contact",
+   "zone": "want-to-seethis-in",
+   "path": "/process",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "want-to-seethis-in.work",
+   "zone": "want-to-seethis-in",
+   "path": "/process",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
    "id": "shadow.back",
    "zone": "shadow",
    "path": "/shadow-theatre/",
@@ -1567,6 +5815,708 @@
    "id": "shadow.start",
    "zone": "shadow",
    "path": "/shadow-theatre/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.contact",
+   "zone": "footer",
+   "path": "/thallo/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.home",
+   "zone": "footer",
+   "path": "/thallo/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hero.email",
+   "zone": "hero",
+   "path": "/thallo/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hero.gotcha",
+   "zone": "hero",
+   "path": "/thallo/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "hero.join-the-waitlist",
+   "zone": "hero",
+   "path": "/thallo/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.home",
+   "zone": "nav",
+   "path": "/thallo/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.join-the-waitlist",
+   "zone": "nav",
+   "path": "/thallo/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.trust",
+   "zone": "nav",
+   "path": "/thallo/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.what-it-does",
+   "zone": "nav",
+   "path": "/thallo/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.skip-to-content",
+   "zone": "page",
+   "path": "/thallo/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "waitlist.email",
+   "zone": "waitlist",
+   "path": "/thallo/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "waitlist.gotcha",
+   "zone": "waitlist",
+   "path": "/thallo/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "waitlist.join-the-waitlist",
+   "zone": "waitlist",
+   "path": "/thallo/",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.email",
+   "zone": "footer",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.github",
+   "zone": "footer",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "footer.linkedin",
+   "zone": "footer",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.about",
+   "zone": "nav",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.blog",
+   "zone": "nav",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.brand-identity",
+   "zone": "nav",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.contact",
+   "zone": "nav",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.demos",
+   "zone": "nav",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.en",
+   "zone": "nav",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.gallery",
+   "zone": "nav",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.home",
+   "zone": "nav",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.it",
+   "zone": "nav",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.menu",
+   "zone": "nav",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.process",
+   "zone": "nav",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "nav.work",
+   "zone": "nav",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.filter-all",
+   "zone": "page",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.filter-design",
+   "zone": "page",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.filter-marketing",
+   "zone": "page",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.filter-systems",
+   "zone": "page",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.project-adlib",
+   "zone": "page",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.project-agora",
+   "zone": "page",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.project-aperol",
+   "zone": "page",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.project-arabella",
+   "zone": "page",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.project-backpack",
+   "zone": "page",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.project-biomechanics",
+   "zone": "page",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.project-brand",
+   "zone": "page",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.project-casamota",
+   "zone": "page",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.project-cigarette",
+   "zone": "page",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.project-cyrano",
+   "zone": "page",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.project-desk",
+   "zone": "page",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.project-dropballs",
+   "zone": "page",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.project-flower",
+   "zone": "page",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.project-handcursor",
+   "zone": "page",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.project-inkwell",
+   "zone": "page",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.project-juicy",
+   "zone": "page",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.project-povera",
+   "zone": "page",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.project-razer",
+   "zone": "page",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.project-thallo",
+   "zone": "page",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.project-vigilante",
+   "zone": "page",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.project-vijay",
+   "zone": "page",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "page.skip-to-content",
+   "zone": "page",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "panel.close",
+   "zone": "panel",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "panel.next",
+   "zone": "panel",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "panel.prev",
+   "zone": "panel",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "work.row.adlib",
+   "zone": "work",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "work.row.agora",
+   "zone": "work",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "work.row.aperol",
+   "zone": "work",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "work.row.arabella",
+   "zone": "work",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "work.row.backpack",
+   "zone": "work",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "work.row.biomechanics",
+   "zone": "work",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "work.row.brand",
+   "zone": "work",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "work.row.casamota",
+   "zone": "work",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "work.row.cigarette",
+   "zone": "work",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "work.row.cyrano",
+   "zone": "work",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "work.row.desk",
+   "zone": "work",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "work.row.dropballs",
+   "zone": "work",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "work.row.flower",
+   "zone": "work",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "work.row.handcursor",
+   "zone": "work",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "work.row.inkwell",
+   "zone": "work",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "work.row.juicy",
+   "zone": "work",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "work.row.povera",
+   "zone": "work",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "work.row.razer",
+   "zone": "work",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "work.row.thallo",
+   "zone": "work",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "work.row.vigilante",
+   "zone": "work",
+   "path": "/work",
+   "devices": [
+    "desktop",
+    "mobile"
+   ]
+  },
+  {
+   "id": "work.row.vijay",
+   "zone": "work",
+   "path": "/work",
    "devices": [
     "desktop",
     "mobile"

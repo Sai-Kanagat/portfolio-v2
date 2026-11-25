@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-page-type="tool">
 <head>
 <!-- Consent Mode v2 default: denied inside EEA/UK/Switzerland (GDPR), granted elsewhere -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
@@ -8,9 +8,6 @@ gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_pers
 // Override: denied for EEA, UK, Switzerland (legally required until user accepts)
 gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied','region':['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH'],'wait_for_update':500});
 try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_consent_v2')){localStorage.setItem('sk_consent_v2','denied');}localStorage.removeItem('sk_consent');var c=localStorage.getItem('sk_consent_v2');if(c==='granted'){gtag('consent','update',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'granted'});}else if(c==='denied'){gtag('consent','update',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied'});}}catch(e){}</script>
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MRGXD7ZC');</script>
-<!-- End Google Tag Manager -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Positioning Mapper | Sai Kanagat</title>
@@ -118,7 +115,6 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MRGXD7ZC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <a href="../demos.html" class="demo-back" data-track="pos.back">← Demos</a>
 
 <div class="wrap" data-zone="positioning">
@@ -133,14 +129,14 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   </div>
 
   <div class="grid">
-    <section aria-label="Competitors">
+    <section aria-label="Competitors" data-section="competitors" data-zone="competitors">
       <h2>Competitors</h2>
       <p class="sub">Up to 8, including your own brand. Copy the words from each homepage by hand: this page cannot fetch other sites. Sample brands are fictional.</p>
       <div id="cards"></div>
       <button class="pbtn" id="add" data-track="pos.add" type="button">Add competitor</button>
     </section>
 
-    <section class="sticky panel" aria-label="Positioning map">
+    <section class="sticky panel" aria-label="Positioning map" data-section="sticky" data-zone="sticky">
       <div class="mapctl">
         <div><label class="f" for="axx">Horizontal axis</label><select id="axx" data-track="pos.axis_x"></select></div>
         <div><label class="f" for="axy">Vertical axis</label><select id="axy" data-track="pos.axis_y"></select></div>
@@ -159,7 +155,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     </section>
   </div>
 
-  <section class="sec" id="statement" aria-label="Positioning statement">
+  <section class="sec" id="statement" aria-label="Positioning statement" data-section="statement" data-zone="statement">
     <h2>Positioning statement draft</h2>
     <p class="sub">Fill the blanks. Empty ones stay as amber placeholders. If you leave the alternative empty, the nearest rival on the map is used.</p>
     <div class="fields">
@@ -174,7 +170,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     <button class="pbtn" id="copystmt" data-track="pos.copy_statement" type="button">Copy statement</button>
   </section>
 
-  <section class="sec" id="gaps" aria-label="Messaging gap table">
+  <section class="sec" id="gaps" aria-label="Messaging gap table" data-section="gaps" data-zone="gaps">
     <h2>Messaging gap table</h2>
     <p class="sub">Claim themes found in the headlines and taglines (English keyword match). "Everyone says it" is a claim at least half the set makes, three or more brands. "Nobody says it" is open ground, worth testing before you assume it is open for a reason.</p>
     <div class="cols"><div><h3>Everyone says it</h3><ul id="g-all"></ul></div><div><h3>Nobody says it</h3><ul id="g-none"></ul></div></div>
@@ -758,7 +754,8 @@ if('ResizeObserver' in window)new ResizeObserver(function(){clearTimeout(rt);rt=
 window.addEventListener('hashchange',function(){var h=(location.hash.match(/[#&]s=([A-Za-z0-9_-]+)/)||[])[1],p=h?dec(h):null;if(p&&enc()!==h){TRK.a('share_open');S=p;L=[];fillAxisSelects();fillStatementFields();renderCards();refresh();syncTargets(true);mark();}});
 })();
 </script>
-<script src="../js/consent.js" defer></script>
-<script src="../js/analytics.js" defer></script>
+<script>window.SK_CLARITY_ID='zir45wg6mm';</script>
+<script src="../js/consent.js?v=e79bc95e" defer></script>
+<script src="../js/analytics.js?v=9f2bad85" defer></script>
 </body>
 </html>

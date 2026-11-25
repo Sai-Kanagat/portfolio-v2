@@ -5,7 +5,10 @@
 //        skipped:{started,engaged_10,engaged_60},                           visits that sent the step without the steps before it (for example a start with no open event)
 //        camera:{state:events}, camera_sessions:{state:visits}, mic:{...}, mic_sessions:{...},
 //        model:{loaded,failed,loaded_sessions,failed_sessions,avg_ms,ms_n,delegates:[{delegate,loaded,failed}]},
-//        top_actions:[{action,n,sessions}] }] }
+//        top_actions:[{action,n,sessions}] }],
+//      page_actions:[{page,action,n,sessions,visitors}] }
+// Page-level interactions are sent as demo_action with a demo_id that starts with pg. (for example pg.home). They are not demos, so they
+// are kept out of demos[] and listed as page_actions.
 // Events are what was sent, visits are people-sessions: one visit that opens a demo three times is three open events and one visit.
 // demo_engaged is sent once at 10 s and once at 60 s of active time. They are kept apart (engaged_10, engaged_60).
 import { all, reply, scopeOf, rangeOf, deviceFilter, badDevice } from '../../_lib/ops.js';
@@ -70,7 +73,10 @@ export async function onRequestGet({ env, request }) {
     return d;
   };
   const endMs = new Map(); const loadMs = new Map(); const dg = new Map();
+  const isPage = (id) => typeof id === 'string' && id.startsWith('pg.');
+  const pageActions = [];
   for (const r of rows) {
+    if (isPage(r.demo_id)) { if (r.name === 'demo_action' && r.action) pageActions.push({ page: r.demo_id.slice(3), action: r.action, n: r.n, sessions: r.sessions, visitors: r.visitors }); continue; }
     const d = get(r.demo_id);
     if (r.name === 'demo_open') { d.opens += r.n; d.visitors += r.visitors; }
     else if (r.name === 'demo_start') d.starts += r.n;
@@ -90,15 +96,17 @@ export async function onRequestGet({ env, request }) {
     }
   }
   for (const f of flags) {
+    if (isPage(f.demo_id)) continue;
     const d = get(f.demo_id);
     d.sessions = { opened: f.opened || 0, started: f.started || 0, engaged_10: f.engaged_10 || 0, engaged_60: f.engaged_60 || 0, ended: f.ended || 0, errored: f.errored || 0 };
     d.funnel = { opened: f.opened || 0, started: f.f_started || 0, engaged_10: f.f_engaged_10 || 0, engaged_60: f.f_engaged_60 || 0 };
     d.skipped = { started: f.s_started || 0, engaged_10: f.s_engaged_10 || 0, engaged_60: f.s_engaged_60 || 0 };
   }
-  for (const r of modelSessions) if (r.state === 'loaded' || r.state === 'failed') get(r.demo_id).model[r.state + '_sessions'] = r.sessions;
+  for (const r of modelSessions) if (!isPage(r.demo_id) && r.state === 'loaded' || r.state === 'failed') get(r.demo_id).model[r.state + '_sessions'] = r.sessions;
   for (const x of dg.values()) get(x.demo_id).model.delegates.push({ delegate: x.delegate, loaded: x.loaded, failed: x.failed });
   for (const [id, e] of endMs) get(id).avg_ms = e.n ? e.s / e.n : null;
   for (const [id, e] of loadMs) { const mm = get(id).model; mm.avg_ms = e.n ? e.s / e.n : null; mm.ms_n = e.n; }
   const demos = [...m.values()].map((d) => ({ ...d, top_actions: d.top_actions.sort((a, b) => b.n - a.n).slice(0, 10) })).sort((a, b) => b.opens - a.opens || String(a.demo_id).localeCompare(String(b.demo_id)));
-  return reply(url, { demos }, dev.value);
+  pageActions.sort((a, b) => b.n - a.n || a.page.localeCompare(b.page) || a.action.localeCompare(b.action));
+  return reply(url, { demos, page_actions: pageActions }, dev.value);
 }

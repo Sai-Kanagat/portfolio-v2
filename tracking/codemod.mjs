@@ -8,7 +8,7 @@
 // --root is required and must be absolute: the tool never guesses which tree to write to.
 //
 // What it does to each page, and running it twice gives no diff:
-//   1. adds the standard head snippet (consent mode default, GTM) when a page has none
+//   1. adds the standard head snippet (consent mode default) when a page has none, and removes any inline GTM loader and noscript (js/consent.js loads GTM after consent)
 //   2. sets window.SK_CLARITY_ID before consent.js, and gives consent.js and analytics.js a
 //      content-hash ?v= query (analytics.js passes its query on to track.js, so that hash covers both)
 //   3. adds stable data-track ids to static controls and data-zone / data-section to containers
@@ -79,7 +79,6 @@ export function listPages(root, { all = false } = {}) {
 }
 
 // ---------- the standard head snippet (kept as it is on the existing pages, minus dashes in comments) ----------
-const GTM_ID = 'GTM-MRGXD7ZC';
 const HEAD_SNIPPET = `  <!-- Consent Mode v2 default: denied inside EEA, UK and Switzerland, granted elsewhere -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
 // Default: granted everywhere outside the regions below
@@ -87,13 +86,6 @@ gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_pers
 // Override: denied for EEA, UK and Switzerland until the visitor accepts
 gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied','region':['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH'],'wait_for_update':500});
 try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_consent_v2')){localStorage.setItem('sk_consent_v2','denied');}localStorage.removeItem('sk_consent');var c=localStorage.getItem('sk_consent_v2');if(c==='granted'){gtag('consent','update',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'granted'});}else if(c==='denied'){gtag('consent','update',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied'});}}catch(e){}</script>
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${GTM_ID}');</script>
-<!-- End Google Tag Manager -->
-`;
-const BODY_SNIPPET = `<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=${GTM_ID}" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
 `;
 
 // ---------- tokenizer ----------
@@ -297,9 +289,15 @@ function headPass(src, rel, v, stats) {
     stats.pageType++;
     return `<html${at} data-page-type="${pt}">`;
   });
-  // 2. standard head snippet and noscript
-  if (!/googletagmanager\.com\/gtm\.js/.test(out)) { out = out.replace(/<head\b[^>]*>\n?/i, (m) => m + HEAD_SNIPPET); stats.head++; }
-  if (!/googletagmanager\.com\/ns\.html/.test(out)) { out = out.replace(/<body\b[^>]*>\n?/i, (m) => m + BODY_SNIPPET); stats.head++; }
+  // 2. standard head snippet: the consent default block only. GTM is loaded by js/consent.js after consent is granted,
+  //    so the inline gtm.js loader and the noscript iframe are removed from every page (idempotent).
+  const before = out;
+  out = out.replace(/[ \t]*<!-- Google Tag Manager -->\s*<script>(?:(?!<\/script>)[\s\S])*googletagmanager\.com\/gtm\.js(?:(?!<\/script>)[\s\S])*<\/script>\s*<!-- End Google Tag Manager -->[ \t]*\n?/g, '');
+  out = out.replace(/<script>(?:(?!<\/script>)[\s\S])*googletagmanager\.com\/gtm\.js(?:(?!<\/script>)[\s\S])*<\/script>[ \t]*\n?/g, '');
+  out = out.replace(/[ \t]*<!-- Google Tag Manager \(noscript\) -->\s*<noscript>(?:(?!<\/noscript>)[\s\S])*googletagmanager\.com\/ns\.html(?:(?!<\/noscript>)[\s\S])*<\/noscript>\s*<!-- End Google Tag Manager \(noscript\) -->[ \t]*\n?/g, '');
+  out = out.replace(/<noscript>(?:(?!<\/noscript>)[\s\S])*googletagmanager\.com\/ns\.html(?:(?!<\/noscript>)[\s\S])*<\/noscript>[ \t]*\n?/g, '');
+  if (out !== before) stats.head++;
+  if (!/gtag\('consent','default'/.test(out)) { out = out.replace(/<head\b[^>]*>\n?/i, (m) => m + HEAD_SNIPPET); stats.head++; }
   // 3. consent.js and analytics.js tags with a content hash, SK_CLARITY_ID before consent.js
   const tag = (f) => new RegExp(`<script\\b[^>]*\\bsrc=["']([^"']*/)?${f}\\.js(?:\\?[^"']*)?["'][^>]*>\\s*</script>`, 'i');
   const prefix = (/<script\b[^>]*\bsrc=["']((?:\.\.\/|\/)?)js\//i.exec(out) || [0, '/'])[1];
@@ -337,7 +335,7 @@ function main() {
   const root = path.resolve(argv[ri + 1]);
   const only = argv.filter((a, i) => !a.startsWith('--') && !(ri >= 0 && i === ri + 1));
   const pages = only.length ? only : listPages(root, { all: flag('--all') });
-  const headOnly = (rel) => OTHER_OWNERS.some((r) => r.test(rel));
+  const headOnly = () => false;  // since the closing pass the codemod owns every page: ids go on static controls everywhere
   const v = versions(root);
   let changed = 0;
   const tot = { tracked: 0, zones: 0, sections: 0, pageType: 0, head: 0, scripts: 0, clarity: 0 };

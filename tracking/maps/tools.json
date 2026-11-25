@@ -11,6 +11,38 @@
    "error, unhandledrejection: demo_error js or promise, three at most",
    "sk:consent: return_visit check"
   ],
+  "sites": [
+   {
+    "type": "visibilitychange",
+    "match": "document\\.addEventListener\\('visibilitychange',function\\(\\)\\{if\\(document\\.hidden\\)TRK\\.end\\('hidden'\\)",
+    "maps": "helper: demo_end hidden"
+   },
+   {
+    "type": "pagehide",
+    "match": "window\\.addEventListener\\('pagehide',function\\(\\)\\{TRK\\.end\\('leave'\\)",
+    "maps": "helper: demo_end leave"
+   },
+   {
+    "type": "click",
+    "match": "document\\.addEventListener\\('click',function\\(e\\)\\{var a=e\\.target&&e\\.target\\.closest&&e\\.target\\.closest\\('a\\[data-track\\]'\\)",
+    "maps": "helper: demo_end back or home"
+   },
+   {
+    "type": "error",
+    "match": "window\\.addEventListener\\('error',function\\(ev\\)\\{if\\(ev&&ev\\.filename",
+    "maps": "helper: demo_error js"
+   },
+   {
+    "type": "unhandledrejection",
+    "match": "window\\.addEventListener\\('unhandledrejection',function\\(\\)\\{TRK\\.err\\('promise'\\)",
+    "maps": "helper: demo_error promise"
+   },
+   {
+    "type": "sk",
+    "match": "window\\.addEventListener\\('sk:consent',function\\(\\)\\{setTimeout\\(rv,50\\)",
+    "maps": "helper: return_visit check"
+   }
+  ],
   "shared_events": [
    "demo_open",
    "first_interaction",
@@ -638,6 +670,11 @@
     {
      "match": "\\$\\(\"runlive\"\\)\\.onclick",
      "maps": "cortex.runlive"
+    },
+    {
+     "type": "onclick",
+     "match": "data-track=\"cortex\\.hero\\.watch\" onclick=\"document\\.getElementById\\(.demo.\\)\\.scrollIntoView",
+     "maps": "cortex.hero.watch"
     }
    ]
   },
@@ -1684,6 +1721,11 @@
     {
      "match": "document\\.addEventListener\\('click', function \\(e\\)",
      "maps": "hire.sheet.*, hire.foot.*"
+    },
+    {
+     "type": "onsubmit",
+     "match": "<form class=\"hs-form\" id=\"hsForm\" onsubmit=\"return false\"",
+     "maps": "ignore: stops a native submit; the form has no submit button, tracking sits on the chips and the role field"
     }
    ]
   }

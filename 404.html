@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-page-type="not-found">
 <head>
   <!-- Consent Mode v2 default - denied inside EEA/UK/Switzerland (GDPR), granted elsewhere -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
@@ -8,9 +8,6 @@ gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_pers
 // Override: denied for EEA, UK, Switzerland (legally required until user accepts)
 gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied','region':['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH'],'wait_for_update':500});
 try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_consent_v2')){localStorage.setItem('sk_consent_v2','denied');}localStorage.removeItem('sk_consent');var c=localStorage.getItem('sk_consent_v2');if(c==='granted'){gtag('consent','update',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'granted'});}else if(c==='denied'){gtag('consent','update',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied'});}}catch(e){}</script>
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MRGXD7ZC');</script>
-<!-- End Google Tag Manager -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex" />
@@ -45,13 +42,13 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 </head>
 <body>
   <main>
-    <section>
+    <section data-section="no-page-lives-at-this" data-zone="no-page-lives-at-this">
       <h1>No page lives at this address.</h1>
       <p>The link may be old, or one character off. The address you asked for:</p>
       <div class="path"><code id="missing" data-no-track>/</code></div>
       <a class="home" href="/" data-track="notfound.home">Go to the home page</a>
     </section>
-    <nav aria-label="Pages that exist">
+    <nav aria-label="Pages that exist" data-zone="subnav">
       <h2>Pages that do exist</h2>
       <ul>
         <li><a href="/work" data-track="notfound.work">Selected work <span>/work</span></a></li>
@@ -68,7 +65,8 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
       (window.skq=window.skq||[]).push([function(){try{window.sk&&window.sk.track('page_not_found',{missing_path:p.slice(0,120)});}catch(e){}}]);
     })();
   </script>
-  <script src="/js/consent.js" defer></script>
-  <script src="/js/analytics.js" defer></script>
+  <script>window.SK_CLARITY_ID='zir45wg6mm';</script>
+  <script src="/js/consent.js?v=e79bc95e" defer></script>
+  <script src="/js/analytics.js?v=9f2bad85" defer></script>
 </body>
 </html>

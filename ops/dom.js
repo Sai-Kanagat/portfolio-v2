@@ -89,7 +89,7 @@ export const secsCell = (v, n) => avgCell(v, n, fmtSecs);
 export const rateText = (numer, den) => { const r = rate(numer, den); return r.none ? '' : (Math.round(r.pct * 10) / 10); };
 
 // ---------- table ----------
-// cols: [{key, label, num, get(row), cell(row) -> Node|string, csv(row), sort(row), wrap}]
+// cols: [{key, label, num, get(row), cell(row) -> Node|string, csv(row), sort(row), wrap, nowrap}]
 // A col may also declare csvExtra: [{label, get(row)}] for sample-size columns that exist only in the export.
 export function table({ id, title, cols, rows, csvName, sort, empty, limitNote }) {
   const state = { key: sort ? sort.key : null, dir: sort ? sort.dir : 'desc' };
@@ -144,7 +144,7 @@ export function table({ id, title, cols, rows, csvName, sort, empty, limitNote }
         let cell = c.cell ? c.cell(r) : null;
         if (cell instanceof HTMLTableCellElement) { tr.appendChild(cell); continue; }
         if (cell === null) cell = clip(c.get(r));
-        const td = h('td', { class: [c.num ? 'num' : '', c.wrap ? 'wrap' : ''].filter(Boolean).join(' ') || null });
+        const td = h('td', { class: [c.num ? 'num' : '', c.wrap ? 'wrap' : '', c.nowrap ? 'nowrap' : ''].filter(Boolean).join(' ') || null });
         if (typeof cell === 'string' && cell.length >= 160) td.setAttribute('title', String(c.get(r)).slice(0, 600));
         td.appendChild(cell instanceof Node ? cell : document.createTextNode(cell === null || cell === undefined ? '' : String(cell)));
         tr.appendChild(td);

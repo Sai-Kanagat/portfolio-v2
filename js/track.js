@@ -72,7 +72,7 @@
     if (f === 'brand-identity') return 'brand';
     if (/^aperol/.test(f)) return 'aperol';
     if (f === 'papers') return 'paper';
-    if (f === 'build-log') return 'build_log';
+    if (f === 'build-log') return 'build-log';
     if (/^(work|gallery|about|process|contact|thallo)$/.test(f)) return f;
     return 'other';
   })();
@@ -159,11 +159,15 @@
     }
     return o;
   }
+  var GK = {};  /* every key an earlier push used: GTM merges pushes, so absent keys must be reset */
   function gpush(n, p) {
+    if (ST !== 'granted') return;  /* never to the data layer unless consent is granted, drained queues included */
     var o = { event: n }, k;
     for (k in p) o[k] = p[k];
     o.page_type = PT; o.entry_link = A.l || 'none'; o.consent_state = 'granted'; o.device_class = device();
     o.is_owner = own() ? '1' : '0'; o.site_lang = lang(); o.page_location_clean = cleanUrl();
+    for (k in GK) if (!(k in o)) o[k] = undefined;
+    for (k in o) GK[k] = 1;
     (w.dataLayer = w.dataLayer || []).push(o);
   }
   function drainG() { var q = GQ; GQ = []; q.forEach(function (x) { gpush(x[0], x[1]); }); }
@@ -178,7 +182,10 @@
     if (K[n] === 3) { if (ST === 'granted') gpush(n, p); else if (GQ.length < 100) GQ.push([n, p]); }
     if (KEYEV[n]) { try { if (w.clarity) w.clarity('event', n); } catch (e) {} }
     if (Q.length < 400) Q.push({ n: n, t: t, p: p });
-    if (ST === 'granted') { if (Q.length >= 20) flush(); else if (!TM) TM = setTimeout(flush, 5000); }
+    if (ST === 'granted') {
+      if (LEFT) flush(true);  /* hidden: send now, the page may be gone before a timer fires */
+      else if (Q.length >= 20) flush(); else if (!TM) TM = setTimeout(flush, 5000);
+    }
   }
   function post(body, beacon) {
     var json = JSON.stringify(body);
@@ -577,7 +584,7 @@
 
   /* ---------- leave, hide, show ---------- */
   function onHide() {
-    if (LEFT) return;
+    if (LEFT) { if (Q.length) flush(true); return; }  /* a page handler that runs after visibilitychange still gets its events out */
     LEFT = true;
     svAll(false); endHover(); flushCursor(); sendVitals();
     Object.keys(F).forEach(function (id) { api_form(id, 'abandon'); });

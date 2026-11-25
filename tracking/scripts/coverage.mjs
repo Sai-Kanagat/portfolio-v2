@@ -56,13 +56,16 @@ const port = srv.address().port;
 
 // ---------- maps ----------
 const readJson = (f) => { try { return JSON.parse(fs.readFileSync(path.join(root, 'tracking/maps', f), 'utf8')); } catch { return {}; } };
-const MAPS = { pages: readJson('pages.json'), media: readJson('media.json'), tools: readJson('tools.json') };
+const MAPS = { pages: readJson('pages.json'), media: readJson('media.json'), tools: readJson('tools.json'), elements: readJson('elements.json') };
 const mp = MAPS.pages.pages || {};
 const selectorsFor = (p) => [
   ...Object.keys((MAPS.pages.common || {}).controls || {}),
   ...Object.keys((mp[p] || {}).controls || {}),
   ...Object.keys((MAPS.media[p] || {}).controls || {}),
+  ...Object.keys((MAPS.elements.pages || {})[p] || {}),
 ];
+// Exact entries (media.json controls, elements.json): the selector must match at least one element on the page, and exactly n when n is set.
+const exactFor = (p) => ({ ...((MAPS.media[p] || {}).controls || {}), ...((MAPS.elements.pages || {})[p] || {}) });
 const statesFor = (p) => (mp[p] || {}).states || [];
 
 // ---------- static listener scan ----------
@@ -73,7 +76,7 @@ const out = { pages: {}, listeners: {} };
 const sites = {};
 for (const f of files) {
   const l = fs.readFileSync(path.join(root, f), 'utf8').split('\n');
-  l.forEach((s, i) => { for (const m of s.matchAll(RE)) (sites[f] ||= []).push({ line: i + 1, type: (m[1] || m[2] || m[3] || m[0]).toLowerCase(), text: s.trim().slice(0, 200) }); });
+  l.forEach((s, i) => { for (const m of s.matchAll(RE)) (sites[f] ||= []).push({ line: i + 1, type: (m[1] || m[2] || m[3] || m[0]).toLowerCase(), text: s.trim().slice(0, 600) }); });
 }
 for (const [f, a] of Object.entries(sites)) out.listeners[f] = a.map((x) => `${x.line}:${x.type}`);
 
@@ -107,12 +110,14 @@ for (const [kind, opt] of [['desktop', { viewport: { width: 1440, height: 900 } 
     const pg = await ctx.newPage(); const errs = [];
     pg.on('pageerror', (e) => errs.push(e.message.slice(0, 120)));
     const sel = selectorsFor(p);
-    let controls = [], pt = '', states = [];
+    let controls = [], pt = '', states = [], selcount = {};
     try {
       await pg.goto(`http://127.0.0.1:${port}/${p}`, { waitUntil: 'load', timeout: 30000 });
       await pg.waitForTimeout(1500);
       pt = await pg.evaluate(() => document.documentElement.getAttribute('data-page-type') || '');
+      const count = async () => { const c = await pg.evaluate((keys) => keys.map((k) => { try { return document.querySelectorAll(k).length; } catch (x) { return -1; } }), Object.keys(exactFor(p))); Object.keys(exactFor(p)).forEach((k, i) => { selcount[k] = Math.max(selcount[k] || 0, c[i]); }); };
       controls = (await pg.evaluate(collect, [SEL, sel])).map((c) => ({ ...c, st: 'load' }));
+      await count();
       for (const s of statesFor(p)) {
         if (kind === 'mobile' && s.desktop_only) continue;
         try {
@@ -124,10 +129,11 @@ for (const [kind, opt] of [['desktop', { viewport: { width: 1440, height: 900 } 
           }
           const more = (await pg.evaluate(collect, [SEL, sel])).map((c) => ({ ...c, st: s.name }));
           controls.push(...more); states.push(`${s.name}:${more.length}`);
+          await count();
         } catch (e) { errs.push(`STATE ${s.name}: ${e.message.split('\n')[0].slice(0, 80)}`); }
       }
     } catch (e) { errs.push('LOAD ' + e.message.slice(0, 100)); }
-    (results[p] ||= {})[kind] = { controls, errors: errs, pt, states };
+    (results[p] ||= {})[kind] = { controls, errors: errs, pt, states, selcount };
     (out.pages[p] ||= {})[kind] = { controls: controls.map(({ ig, nt, st, ...c }) => ({ ...c, d: undefined, tr: c.tr })), errors: errs };
     await pg.close();
   }
@@ -169,6 +175,13 @@ for (const p of pages) {
     }
   }
   const dsk = results[p].desktop;
+  for (const [k, e] of Object.entries(exactFor(p))) {
+    const c = Math.max(dsk.selcount[k] ?? 0, results[p].mobile.selcount[k] ?? 0);
+    if (!e || (!e.events && !e.ignored)) fail(`${p}: map entry "${k}" needs events or an ignored reason`);
+    else if (c < 0) fail(`${p}: map entry "${k}" is not a valid CSS selector`);
+    else if (c === 0 && !e.optional) fail(`${p}: stale map entry "${k}" matches nothing on the page`);
+    else if (typeof e.n === 'number' && c !== e.n && !(e.optional && c === 0)) fail(`${p}: map entry "${k}" says ${e.n} elements but the page has ${c}`);
+  }
   const want = codemod.pageType(p);
   if (own || SCOPE === 'all') {
     if (dsk.pt !== want) fail(`${p}: data-page-type is "${dsk.pt}", expected "${want}"`);
@@ -183,32 +196,45 @@ for (const p of pages) {
   const own = !codemod.OTHER_OWNERS.some((r) => r.test(p));
   if (!own && SCOPE === 'owned') continue;
   const src = fs.readFileSync(path.join(root, p), 'utf8');
-  const res = codemod.transform(p, src, codemod.versions(root), { headOnly: !own });
-  if (res.out !== src) fail(`${p}: ${own ? 'codemod would still change this page (run node tracking/codemod.mjs)' : 'head tags stale or missing: run node tracking/codemod.mjs --all'}`);
+  const res = codemod.transform(p, src, codemod.versions(root), { headOnly: false });
+  if (res.out !== src) fail(`${p}: codemod would still change this page (run node tracking/codemod.mjs --root <abs> --all)`);
 }
 
 // listeners
 const entry = (f) => (MAPS.pages.listeners || {})[f] || [];
-const tl = (f) => ((MAPS.tools.pages || {})[f] || {}).listeners || [];
-const ml = (f) => Object.keys(((MAPS.media[f] || {}).listeners) || {});
+const helperSites = ((MAPS.tools.helper || {}).sites) || [];
+const tl = (f) => (((MAPS.tools.pages || {})[f] || {}).listeners || []).concat(((MAPS.tools.pages || {})[f] ? helperSites : []));
+const ml = (f) => (MAPS.media[f] || {}).listeners || [];
 let nSites = 0, nMapped = 0;
 const by = {};
+const mediaHits = {};
 for (const [f, a] of Object.entries(sites)) {
   const groups = {};
   for (const s of a) {
     nSites++;
     const mine = entry(f).find((e) => e.type === s.type && (!e.match || new RegExp(e.match).test(s.text)));
     const tools = tl(f).find((e) => new RegExp(e.match).test(s.text));
-    const media = ml(f).find((k) => k.split('@')[0].toLowerCase() === s.type || k.toLowerCase().includes(s.type));
+    const mi = ml(f).findIndex((e) => e.type === s.type && new RegExp(e.match).test(s.text));
     if (mine) { (groups[`${s.type}|${entry(f).indexOf(mine)}`] ||= []).push(s); nMapped++; by.pages = (by.pages || 0) + 1; }
     else if (tools) { nMapped++; by.tools = (by.tools || 0) + 1; }
-    else if (media) { nMapped++; by.media = (by.media || 0) + 1; }
+    else if (mi >= 0) { nMapped++; by.media = (by.media || 0) + 1; (mediaHits[f] ||= {})[mi] = (mediaHits[f][mi] || 0) + 1; }
     else fail(`${f}:${s.line}: listener "${s.type}" has no map entry: ${s.text.slice(0, 80)}`);
   }
   for (const [k, g] of Object.entries(groups)) {
     const e = entry(f)[+k.split('|')[1]];
     if (typeof e.n === 'number' && g.length > e.n) fail(`${f}: ${g.length} "${e.type}" listeners but ${e.n} mapped (new one at line ${g[g.length - 1].line})`);
   }
+}
+// media.json listeners are exact: each entry names a type and a regex over the source line, and says how many sites it covers.
+for (const [f, m] of Object.entries(MAPS.media)) {
+  if (f === '_schema') continue;
+  if (!served.has(f)) { fail(`media.json lists a page that no longer exists: ${f}`); continue; }
+  if (!Array.isArray(m.listeners)) { fail(`media.json ${f}: listeners must be an array of {type, match, n, events|ignored}`); continue; }
+  m.listeners.forEach((e, i) => {
+    if (!e.type || !e.match || typeof e.n !== 'number' || (!e.events && !e.ignored)) fail(`media.json ${f} listener ${i}: needs type, match, n and events or ignored`);
+    const got = (mediaHits[f] || {})[i] || 0;
+    if (got !== e.n) fail(`media.json ${f}: entry ${e.type} /${(e.match || '').slice(0, 40)}/ says ${e.n} sites, source has ${got}`);
+  });
 }
 for (const [f, es] of Object.entries(MAPS.pages.listeners || {})) {
   if (!served.has(f)) warns.push(`pages.json lists a listener file that no longer exists: ${f}`);
@@ -225,7 +251,7 @@ for (const r of rows) {
   for (const e of r.errs) warns.push(`${r.p}: ${e}`);
 }
 console.log(pad('TOTAL (' + rows.length + ' pages, desktop plus new-on-mobile)', 52) + T.map((n) => String(n).padStart(8)).join(' '));
-console.log(`listeners: ${nSites} sites, ${nMapped} mapped (pages.json ${by.pages || 0}, tools.json ${by.tools || 0}, media.json ${by.media || 0}, type-presence only)`);
+console.log(`listeners: ${nSites} sites, ${nMapped} mapped (pages.json ${by.pages || 0}, tools.json ${by.tools || 0}, media.json ${by.media || 0}, matched by type and source text)`);
 if (warns.length) { console.log(`\nwarnings (${warns.length}):`); for (const w of warns.slice(0, 40)) console.log('  ' + w); if (warns.length > 40) console.log(`  ... ${warns.length - 40} more`); }
 if (JSON_OUT) fs.writeFileSync(JSON_OUT, JSON.stringify({ rows, fails, warns }, null, 1));
 if (fails.length) { console.log(`\nGATE FAILED (${fails.length}):`); for (const f of fails.slice(0, 120)) console.log('  ' + f); if (fails.length > 120) console.log(`  ... ${fails.length - 120} more`); process.exit(1); }

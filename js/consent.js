@@ -43,6 +43,22 @@
     });
   }
 
+  /* ---------- Google Tag Manager: loaded here, only in state granted, once ---------- */
+  var GTM_ID = 'GTM-MRGXD7ZC', gtmOn = false;
+  function syncGtm() {
+    if (gtmOn || state() !== 'granted') return;
+    gtmOn = true;
+    try {
+      /* callers push gConsent(true) first. An old cached page may still carry the inline loader: never load twice */
+      if (doc.querySelector('script[src*="googletagmanager.com/gtm.js"]')) return;
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+      var j = doc.createElement('script'), f = doc.getElementsByTagName('script')[0];
+      j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + GTM_ID;
+      (f && f.parentNode ? f.parentNode : doc.head).insertBefore(j, f || null);
+    } catch (e) {}
+  }
+
   /* ---------- cookies and Clarity ---------- */
   function purgeCookies() {
     try {
@@ -85,6 +101,7 @@
     last = s;
     gConsent(s === 'granted');
     if (s === 'denied') purgeCookies();
+    syncGtm();
     syncClarity();
     window.dispatchEvent(new CustomEvent('sk:consent', { detail: { state: s } }));
   }
@@ -98,6 +115,8 @@
 
   /* a Global Privacy Control signal with no stored choice is a decline */
   if (!stored() && gpc()) { gConsent(false); purgeCookies(); }
+  if (state() === 'granted') gConsent(true);
+  syncGtm();
   syncClarity();
 
   /* ---------- the choice UI ---------- */

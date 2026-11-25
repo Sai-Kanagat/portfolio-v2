@@ -14,6 +14,8 @@ const covered = {}; const discovered = {}; const allEvents = {}; const pageError
 const { srv, port } = await serve();
 const browser = await chromium.launch();
 const ctx = await browser.newContext({ viewport: { width: 1280, height: 900 }, acceptDownloads: true });
+// nothing leaves this machine: every outside host is refused (fonts, CDNs, analytics). Routes registered below are more specific and win.
+await ctx.route((u) => !/^(127\.0\.0\.1|localhost)$/.test(u.hostname), r => r.abort());
 await ctx.route(/googletagmanager|google-analytics|clarity\.ms|formspree|sibforms/, r => r.abort());
 await ctx.route('**/api/e', r => r.fulfill({ status: 204, body: '' }));
 await ctx.route(/onrender\.com/, r => r.abort());
@@ -369,7 +371,8 @@ if (!only) {
     const uniq = [...new Set(untagged.filter(r => !(r.t === 'label' && !r.tr)).map(r => `${r.t}#${r.id}(${r.x}|${r.c})`))];
     ok(`${F} every control has data-track (untagged: ${uniq.join(', ') || 'none'})`, uniq.length === 0);
     const tags = new Set(rows.filter(r => r.tr).map(r => r.tr));
-    const unmapped = [...tags].filter(t => !spec[t]);
+    // site chrome (nav, skip link, footer) carries codemod ids nav.*, page.* and footer.*: generic ui_click and nav_click from track.js, not a tool event
+    const unmapped = [...tags].filter(t => !spec[t] && !/^(nav|page|footer)\.[a-z0-9._-]+$/.test(t));
     ok(`${F} every data-track id is in the map (${unmapped.join(', ') || 'all mapped'})`, unmapped.length === 0);
     const unexercised = Object.keys(spec).filter(id => !(covered[F] && covered[F].has(id)));
     ok(`${F} every mapped control was driven (${unexercised.join(', ') || 'all driven'})`, unexercised.length === 0);

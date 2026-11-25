@@ -5,7 +5,7 @@ import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
 import { startServer } from './harness.mjs';
 
-const require = createRequire('/Users/saikanagat/saikanagat-analytics/tools/package.json');
+import { pwRequire as require } from '../pw.mjs';
 const { chromium } = require('playwright');
 let srv, browser;
 before(async () => { srv = await startServer({ label: '404' }); browser = await chromium.launch(); });
@@ -16,8 +16,8 @@ async function open(width, path = '/no/such/page?x=1#h') {
   const page = await ctx.newPage();
   for (const pat of ['**/*googletagmanager*/**', '**/*google-analytics*/**', '**/*clarity.ms*/**', '**/*formspree*/**', '**/*sibforms*/**', '**/fonts.googleapis.com/**', '**/fonts.gstatic.com/**']) await page.route(pat, (r) => r.abort());
   await page.route('**/api/e', (r) => r.fulfill({ status: 204 }));
-  await page.route('**/js/consent.js', (r) => r.fulfill({ contentType: 'text/javascript', body: '' }));
-  await page.route('**/js/analytics.js', (r) => r.fulfill({ contentType: 'text/javascript', body: "window.__tracked=[];window.sk={track:function(n,p){window.__tracked.push([n,p])}};(window.skq||[]).forEach(function(i){try{typeof i[0]==='function'?i[0].apply(null,i.slice(1)):window.sk[i[0]].apply(window.sk,i.slice(1))}catch(e){}});" }));
+  await page.route('**/js/consent.js*', (r) => r.fulfill({ contentType: 'text/javascript', body: '' }));
+  await page.route('**/js/analytics.js*', (r) => r.fulfill({ contentType: 'text/javascript', body: "window.__tracked=[];window.sk={track:function(n,p){window.__tracked.push([n,p])}};(window.skq||[]).forEach(function(i){try{typeof i[0]==='function'?i[0].apply(null,i.slice(1)):window.sk[i[0]].apply(window.sk,i.slice(1))}catch(e){}});" }));
   const res = await page.goto(srv.base + path);
   return { ctx, page, res };
 }

@@ -8,10 +8,10 @@ import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
 import { respond, makeStore, controlsFixture } from './mock.mjs';
 
-const require = createRequire('/Users/saikanagat/saikanagat-analytics/tools/package.json');
+import { pwRequire as require } from '../pw.mjs';
 export const { chromium } = require('playwright');
 export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../..');
-export const SHOTS = path.join(os.homedir(), 'saikanagat-analytics', 'shots');
+export const SHOTS = process.env.SK_SHOTS || (fs.existsSync(path.join(os.homedir(), 'saikanagat-analytics')) ? path.join(os.homedir(), 'saikanagat-analytics', 'shots') : path.join(os.tmpdir(), 'sk-ops-shots'));
 const MIME = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.svg': 'image/svg+xml', '.json': 'application/json' };
 
 export async function startStatic() {

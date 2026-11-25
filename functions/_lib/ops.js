@@ -64,16 +64,18 @@ export function num(v) {
 // ---------- channels ----------
 // One list drives the JS classifier and the SQL one, so they cannot drift apart. Every entry matches anywhere in the host
 // (a search entry must be followed by a dot, so google. matches google.it). This is the same substring rule the old regexes had:
-// it means t.co also matches microsoft.com. That is a known limit, reported and not changed here.
+// Short domains (t.co, x.com, lnkd.in) are the exception: they match only the host itself or a subdomain, so t.co no longer
+// matches microsoft.com and x.com no longer matches box.com.
 // Order of decision: tracked link, then an assistant named in utm_source, then any other utm_source, then the referrer host.
 const AI_KEYWORDS = ['chatgpt', 'openai', 'perplexity', 'claude', 'gemini', 'copilot', 'you.com', 'phind'];
 const SEARCH_DOTS = ['google', 'bing', 'duckduckgo', 'ecosia', 'yahoo', 'brave', 'yandex', 'baidu', 'startpage'];
-const SOCIAL_KEYWORDS = ['linkedin', 'lnkd.in', 'facebook', 'instagram', 'twitter', 'x.com', 't.co', 'reddit', 'threads', 'bsky', 'youtube'];
+const SOCIAL_KEYWORDS = ['linkedin', 'facebook', 'instagram', 'twitter', 'reddit', 'threads', 'bsky', 'youtube'];
+const SOCIAL_DOMAINS = ['lnkd.in', 'x.com', 't.co'];
 
 const lc = (v) => String(v == null ? '' : v).toLowerCase();
 export const isAiHost = (v) => { const h = lc(v); return !!h && AI_KEYWORDS.some((k) => h.includes(k)); };
 export const isSearchHost = (v) => { const h = lc(v); return !!h && SEARCH_DOTS.some((k) => h.includes(k + '.')); };
-const isSocialHost = (h) => SOCIAL_KEYWORDS.some((k) => h.includes(k));
+const isSocialHost = (h) => SOCIAL_KEYWORDS.some((k) => h.includes(k)) || SOCIAL_DOMAINS.some((d) => h === d || h.endsWith('.' + d));
 
 export function channelOf(s) {
   if (s.link) return 'link:' + s.link.split('-')[0];
@@ -91,7 +93,7 @@ const likeAny = (col, kws, tail = '') => '(' + kws.map((k) => `(LOWER(${col})${t
 export const AI_SQL = (col) => likeAny(col, AI_KEYWORDS);
 // A bare tag such as utm_source=google names a search engine too, so tags are matched with a dot appended (the Search view does the same).
 export const SEARCH_SQL = (col, tag = false) => likeAny(col, SEARCH_DOTS.map((k) => k + '.'), tag ? " || '.'" : '');
-const SOCIAL_SQL = (col) => likeAny(col, SOCIAL_KEYWORDS);
+const SOCIAL_SQL = (col) => '(' + [likeAny(col, SOCIAL_KEYWORDS), ...SOCIAL_DOMAINS.map((d) => `(LOWER(${col}) = '${d}' OR LOWER(${col}) LIKE '%.${d}')`)].join(' OR ') + ')';
 export const CHANNEL_SQL = `CASE
   WHEN link IS NOT NULL AND link <> '' THEN 'link:' || CASE WHEN instr(link, '-') > 0 THEN substr(link, 1, instr(link, '-') - 1) ELSE link END
   WHEN utm_source IS NOT NULL AND utm_source <> '' THEN CASE WHEN ${AI_SQL('utm_source')} THEN 'ai' ELSE 'utm:' || utm_source END

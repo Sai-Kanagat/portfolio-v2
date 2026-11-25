@@ -380,7 +380,7 @@ export async function buttons(ctx) {
       empty: needle ? 'No control matches that text.' : 'No clicks recorded for this page in this period.',
       cols: [
         { key: 'track_id', label: 'Control', get: (r) => s(r.track_id), cell: (r) => (r.listed ? h('code', { text: clip(r.track_id, 120) }) : h('span', null, h('code', { text: clip(r.track_id, 120) }), ' ', h('span', { class: 'tag warn', text: 'not in list' }))), wrap: true },
-        { key: 'zone', label: 'Zone', get: (r) => s(r.zone) },
+        { key: 'zone', label: 'Zone', get: (r) => s(r.zone), nowrap: true },
         { key: 'path', label: 'Page', get: (r) => s(r.path), wrap: true },
         { key: 'clicks', label: 'Clicks', num: true, get: (r) => n0(r.clicks) },
         { key: 'visitors', label: 'Visitors', num: true, get: (r) => n0(r.visitors) },
@@ -583,9 +583,11 @@ const fun = (r) => obj(r.funnel);
 export async function demos(ctx) {
   const dev = deviceOf(ctx);
   const d = await ctx.get('demos', dev ? { device: dev } : {});
-  const rows = arr(d.demos).filter((x) => x && x.demo_id !== null && x.demo_id !== undefined);
+  // pg.* ids are page actions, not demos. The API already separates them; this keeps an older response from listing them as demos.
+  const rows = arr(d.demos).filter((x) => x && x.demo_id !== null && x.demo_id !== undefined && !/^pg\./.test(s(x.demo_id)));
+  const pageActs = arr(d.page_actions).filter((x) => x && x.action);
   const bar = h('div', { class: 'controls' }, deviceField(ctx, 'demos', 'demos-device'));
-  if (!rows.length) return h('div', null, scopeLine(d), bar, empty('No demo activity in this period', dev ? 'Nothing was recorded for any demo or tool on this device type. Try all devices or a longer period.' : 'Nothing was recorded for any demo or tool. Try a longer period.'));
+  if (!rows.length && !pageActs.length) return h('div', null, scopeLine(d), bar, empty('No demo activity in this period', dev ? 'Nothing was recorded for any demo or tool on this device type. Try all devices or a longer period.' : 'Nothing was recorded for any demo or tool. Try a longer period.'));
   const skippedOf = (r) => n0(obj(r.skipped).started) + n0(obj(r.skipped).engaged_10) + n0(obj(r.skipped).engaged_60);
   const mediaRate = (r, kind) => { const m = obj(r[kind + '_sessions']); return [n0(m.granted), n0(m.prompt)]; };
   const out = h('div', { class: 'stack' });
@@ -680,6 +682,18 @@ export async function demos(ctx) {
     details.appendChild(sec);
   });
   out.appendChild(details);
+  if (pageActs.length) out.appendChild(table({
+    id: 'page-actions', title: 'Page actions', csvName: 'page-actions',
+    limitNote: 'Interactions on ordinary pages (the home page animations, for example) that are not demos. Times is the number of events, Visits the distinct visits that did it.',
+    cols: [
+      { key: 'page', label: 'Page', get: (x) => s(x.page), wrap: true },
+      { key: 'action', label: 'Action', get: (x) => s(x.action), wrap: true },
+      { key: 'n', label: 'Times', num: true, get: (x) => n0(x.n) },
+      { key: 'v', label: 'Visits', num: true, get: (x) => n0(x.sessions) },
+      { key: 'vis', label: 'Visitors', num: true, get: (x) => n0(x.visitors) },
+    ],
+    rows: pageActs, sort: { key: 'n', dir: 'desc' },
+  }));
   return h('div', null, scopeLine(d), bar, out);
 }
 

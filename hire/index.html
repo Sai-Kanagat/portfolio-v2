@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-page-type="tool">
 <head>
   <!-- Consent Mode v2 default - denied inside EEA/UK/Switzerland (GDPR), granted elsewhere -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
@@ -8,9 +8,6 @@ gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_pers
 // Override: denied for EEA, UK, Switzerland (legally required until user accepts)
 gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied','region':['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH'],'wait_for_update':500});
 try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_consent_v2')){localStorage.setItem('sk_consent_v2','denied');}localStorage.removeItem('sk_consent');var c=localStorage.getItem('sk_consent_v2');if(c==='granted'){gtag('consent','update',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'granted'});}else if(c==='denied'){gtag('consent','update',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied'});}}catch(e){}</script>
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MRGXD7ZC');</script>
-<!-- End Google Tag Manager -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hire Sai: a tailored one-pager for your role | Sai Kanagat</title>
@@ -101,26 +98,23 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   </style>
 </head>
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MRGXD7ZC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-<a href="#main" class="skip-link">Skip to content</a>
+<a href="#main" class="skip-link" data-track="page.skip-to-content">Skip to content</a>
 
-<nav class="nav">
-  <a href="/index.html" class="nav-logo">SK<span>.</span></a>
+<nav class="nav" data-zone="nav">
+  <a href="/index.html" class="nav-logo" data-track="nav.sk">SK<span>.</span></a>
   <div class="nav-links" id="navLinks">
-    <a href="/work.html" data-en="Work" data-it="Lavori">Work</a>
-    <a href="/process.html" data-en="Process" data-it="Processo">Process</a>
-    <a href="/gallery.html" data-en="Gallery" data-it="Galleria">Gallery</a>
-    <a href="/blog.html" data-en="Blog" data-it="Blog">Blog</a>
-    <a href="/about.html" data-en="About" data-it="Chi Sono">About</a>
-    <a href="/demos.html" data-en="Demos" data-it="Demo">Demos</a>
-    <a href="/contact.html" data-en="Contact" data-it="Contatti">Contact</a>
-    <a href="/brand-identity.html" class="nav-score-btn" data-en="View Brandbook" data-it="Vedi Brandbook">View Brandbook</a>
+    <a href="/work.html" data-en="Work" data-it="Lavori" data-track="nav.work">Work</a>
+    <a href="/process.html" data-en="Process" data-it="Processo" data-track="nav.process">Process</a>
+    <a href="/gallery.html" data-en="Gallery" data-it="Galleria" data-track="nav.gallery">Gallery</a>
+    <a href="/blog.html" data-en="Blog" data-it="Blog" data-track="nav.blog">Blog</a>
+    <a href="/about.html" data-en="About" data-it="Chi Sono" data-track="nav.about">About</a>
+    <a href="/demos.html" data-en="Demos" data-it="Demo" data-track="nav.demos">Demos</a>
+    <a href="/contact.html" data-en="Contact" data-it="Contatti" data-track="nav.contact">Contact</a>
+    <a href="/brand-identity.html" class="nav-score-btn" data-en="View Brandbook" data-it="Vedi Brandbook" data-track="nav.brand-identity">View Brandbook</a>
   </div>
-  <div class="lang-toggle" aria-label="Language"><button type="button" data-l="en" class="is-active">EN</button><span>/</span><button type="button" data-l="it">IT</button></div>
+  <div class="lang-toggle" aria-label="Language"><button type="button" data-l="en" class="is-active" data-track="nav.en">EN</button><span>/</span><button type="button" data-l="it" data-track="nav.it">IT</button></div>
   <div class="nav-tag">Available in EU &amp; Remote</div>
-  <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu" data-track="nav.menu">
     <span></span><span></span><span></span>
   </button>
 </nav>
@@ -164,13 +158,13 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
       </div>
     </form>
 
-    <article class="hs-sheet" id="sheet" aria-live="polite"></article>
+    <article class="hs-sheet" id="sheet" aria-live="polite" data-zone="article"></article>
   </div>
 
   <p class="hs-back">Prefer to browse yourself? <a href="/work.html" data-track="hire.foot.all_work">See all the work</a> or <a href="/about.html" data-track="hire.foot.about">read about me</a>.</p>
 </div>
 
-<footer class="footer">
+<footer class="footer" data-zone="footer">
   <div class="footer-logo">SK<span>.</span></div>
   <p class="footer-copy">© 2026 Sai Kanagat. All rights reserved.</p>
   <div class="footer-socials">
@@ -572,7 +566,16 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
     if (state.goals.length) q.push('g=' + state.goals.join(','));
     return SITE + '/hire' + (q.length ? '?' + q.join('&') : '');
   }
-  function localUrl() { return shareUrl().replace(SITE + '/hire', location.pathname); }
+  // The address bar keeps the visit's entry parameters (link code, UTMs, language, test and owner switches) so tracking, which
+  // reads them after this script has run, still sees them. The share link above never carries them.
+  var KEEP = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'sk_l', 'lang', 'sk_test', 'sk_owner'];
+  function localUrl() {
+    var u = shareUrl().replace(SITE + '/hire', location.pathname), cur;
+    try { cur = new URLSearchParams(location.search); } catch (e) { return u; }
+    var add = [];
+    KEEP.forEach(function (k) { var v = cur.get(k); if (v && /^[\w.~ %+\-]{1,60}$/.test(v) && u.indexOf('?' + k + '=') < 0 && u.indexOf('&' + k + '=') < 0) add.push(k + '=' + encodeURIComponent(v)); });
+    return add.length ? u + (u.indexOf('?') < 0 ? '?' : '&') + add.join('&') : u;
+  }
   function loadFromUrl() {
     var p = new URLSearchParams(location.search);
     var r = p.get('r'), c = p.get('c'), g = p.get('g'), t = p.get('t');
@@ -779,7 +782,8 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 <script src="/js/cursor.js?v=1780100000"></script>
 <script src="/js/animations.js"></script>
 <script src="/js/lang.js"></script>
-<script src="/js/consent.js" defer></script>
-<script src="/js/analytics.js" defer></script>
+<script>window.SK_CLARITY_ID='zir45wg6mm';</script>
+<script src="/js/consent.js?v=e79bc95e" defer></script>
+<script src="/js/analytics.js?v=9f2bad85" defer></script>
 </body>
 </html>

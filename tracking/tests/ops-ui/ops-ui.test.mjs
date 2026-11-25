@@ -231,6 +231,14 @@ test('rates carry counts and sample size, and are marked under 20', async () => 
     assert.match(await body(page), /Every step counts visits \(sessions\), not events/);
     assert.match(await body(page), /10 seconds and 60 seconds of active time/);
   });
+  await run('demos', {}, async ({ page }) => {
+    await settled(page);
+    assert.doesNotMatch(await page.textContent('#demos-table'), /pg\.home/, 'a pg.* id is never listed as a demo');
+    assert.doesNotMatch(await page.textContent('#demos-events'), /pg\.home/);
+    const pa = await page.textContent('#page-actions');
+    assert.match(await body(page), /Page actions/); assert.match(pa, /home/); assert.match(pa, /hero_settled/); assert.match(pa, /shutter_progress/);
+    assert.equal(await page.locator('#page-actions tbody tr').count(), 2);
+  });
   await run('where', {}, async ({ page }) => {
     await settled(page);
     assert.match(await page.textContent('#where-channels'), /40 of 120/);
@@ -558,6 +566,15 @@ test('live: refreshes on its own, keeps old data when a refresh fails', async ()
     await page.getByRole('button', { name: 'Refresh now' }).click();
     await page.waitForFunction(() => /Refresh failed/.test(document.getElementById('view').textContent));
     assert.ok((await page.locator('table').count()) >= 1, 'previous data still shown');
+  });
+});
+
+test('buttons: the Zone column never wraps', async () => {
+  await run('buttons', { width: 700, height: 900 }, async ({ page }) => {
+    await settled(page);
+    const info = await page.$$eval('#buttons-table tbody tr', (rows) => rows.map((r) => { const td = r.children[1]; return { ws: getComputedStyle(td).whiteSpace, lines: td.getClientRects().length, h: td.getBoundingClientRect().height, rh: r.getBoundingClientRect().height, txt: td.textContent }; }));
+    assert.ok(info.length >= 4);
+    for (const i of info) { assert.equal(i.ws, 'nowrap', 'zone cell is nowrap: ' + i.txt); assert.equal(i.lines, 1, 'zone cell is one box: ' + i.txt); }
   });
 });
 

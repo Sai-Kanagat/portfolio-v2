@@ -3,7 +3,7 @@ import { createRequire } from 'node:module';
 import fs from 'node:fs';
 import http from 'node:http';
 import path from 'node:path';
-const require = createRequire('/Users/saikanagat/saikanagat-analytics/tools/package.json');
+import { pwRequire as require } from '../pw.mjs';
 export const { chromium } = require('playwright');
 export const root = path.resolve(new URL('../../..', import.meta.url).pathname);
 const types = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.svg': 'image/svg+xml', '.png': 'image/png', '.jpg': 'image/jpeg' };

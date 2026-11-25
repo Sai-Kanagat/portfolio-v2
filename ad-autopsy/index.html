@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-page-type="tool">
 <head>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
 gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'granted','functionality_storage':'granted','security_storage':'granted','wait_for_update':500});
 gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied','region':['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH'],'wait_for_update':500});
 try{var c=localStorage.getItem('sk_consent_v2');if(c==='granted'){gtag('consent','update',{'analytics_storage':'granted'});}else if(c==='denied'){gtag('consent','update',{'analytics_storage':'denied'});}}catch(e){}</script>
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MRGXD7ZC');</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ad Autopsy | Sai Kanagat</title>
@@ -127,7 +126,6 @@ try{var c=localStorage.getItem('sk_consent_v2');if(c==='granted'){gtag('consent'
 </style>
 </head>
 <body>
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MRGXD7ZC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <a href="../demos.html" class="demo-back" data-track="ad.back">&larr; Demos</a>
 
 <div class="wrap" data-zone="ad">
@@ -177,7 +175,7 @@ try{var c=localStorage.getItem('sk_consent_v2');if(c==='granted'){gtag('consent'
     </div>
   </div>
 
-  <section class="blk">
+  <section class="blk" data-section="blk" data-zone="blk">
     <h2>Feed simulator</h2>
     <p class="blk-lede">Your ad at true phone scale (a 375 point wide screen) inside generic mock feeds. Run the scroll test: the feed flicks past at a normal thumb speed with motion blur, which is all most people ever see.</p>
     <div class="row" id="feedTabs" style="margin-bottom:16px">
@@ -194,20 +192,20 @@ try{var c=localStorage.getItem('sk_consent_v2');if(c==='granted'){gtag('consent'
     </div>
   </section>
 
-  <section class="blk">
+  <section class="blk" data-section="blk-2" data-zone="blk-2">
     <h2>Platform safe zones</h2>
     <p class="blk-lede">Toggle a zone above the ad to see where platform buttons, captions and crops land. Anything important under them gets flagged here. Zones are approximate and assume the creative runs full-bleed in a 9:16 frame.</p>
     <table><thead><tr><th>Placement</th><th>What sits under the UI</th></tr></thead><tbody id="zoneTable"></tbody></table>
   </section>
 
-  <section class="blk">
+  <section class="blk" data-section="blk-3" data-zone="blk-3">
     <h2>Accessibility</h2>
     <p class="blk-lede">WCAG contrast for each detected text block, estimated type size on a phone, and how the ad reads with the three common types of colour blindness.</p>
     <table><thead><tr><th>Block</th><th>Contrast</th><th>Worst under colour blindness</th><th>Size on phone</th></tr></thead><tbody id="a11yTable"></tbody></table>
     <div class="cvd" id="cvd"></div>
   </section>
 
-  <section class="blk">
+  <section class="blk" data-section="blk-4" data-zone="blk-4">
     <h2>Brand consistency</h2>
     <p class="blk-lede">The ad's palette, pulled with k-means clustering, against the brand colours you paste in.</p>
     <div class="two">
@@ -221,7 +219,7 @@ try{var c=localStorage.getItem('sk_consent_v2');if(c==='granted'){gtag('consent'
     <div class="verdict" id="brandRes"></div>
   </section>
 
-  <section class="blk">
+  <section class="blk" data-section="blk-5" data-zone="blk-5">
     <h2>Copy check</h2>
     <p class="blk-lede">Optional. Paste the headline and primary text to score length, reading level, call to action and filler.</p>
     <div class="two">
@@ -233,7 +231,7 @@ try{var c=localStorage.getItem('sk_consent_v2');if(c==='granted'){gtag('consent'
     </div>
   </section>
 
-  <section class="blk">
+  <section class="blk" data-section="blk-6" data-zone="blk-6">
     <h2>A/B mode</h2>
     <p class="blk-lede">Two ads side by side, same checks, one verdict.</p>
     <div class="ab">
@@ -243,7 +241,7 @@ try{var c=localStorage.getItem('sk_consent_v2');if(c==='granted'){gtag('consent'
     <div class="verdict" id="abVerdict">Pick two ads.</div>
   </section>
 
-  <section class="blk">
+  <section class="blk" data-section="blk-7" data-zone="blk-7">
     <h2>Fixes, in priority order</h2>
     <p class="blk-lede">Ranked by how much each one is likely to cost you. Export the lot as a one-page PDF.</p>
     <ol class="fixes" id="fixes"></ol>
@@ -690,7 +688,8 @@ var fontsReady=document.fonts&&document.fonts.load?Promise.all([document.fonts.l
 Promise.race([fontsReady,new Promise(function(r){setTimeout(r,2500);})]).then(init);
 })();
 </script>
-<script src="../js/consent.js" defer></script>
-<script src="../js/analytics.js" defer></script>
+<script>window.SK_CLARITY_ID='zir45wg6mm';</script>
+<script src="../js/consent.js?v=e79bc95e" defer></script>
+<script src="../js/analytics.js?v=9f2bad85" defer></script>
 </body>
 </html>

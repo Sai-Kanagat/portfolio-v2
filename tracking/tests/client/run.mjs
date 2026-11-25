@@ -5,8 +5,10 @@ import http from 'http';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-const require = createRequire('/Users/saikanagat/saikanagat-analytics/tools/package.json');
+import { pwRequire as require } from '../pw.mjs';
 const { chromium } = require('playwright');
+import os from 'os';
+const SHOTS = fs.mkdtempSync(path.join(os.tmpdir(), 'sk-client-shots-'));  // screenshots go to a temp dir, never into tracked files
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../..');
 const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.svg': 'image/svg+xml', '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp' };
 const srv = http.createServer((q, r) => {
@@ -26,16 +28,19 @@ const ok = (c, m) => { if (c) { pass++; console.log('  ok   ' + m); } else { fai
 async function mk({ tz = 'America/New_York', gpc = false, stored = null, formspree = null, viewport = { width: 1440, height: 900 } } = {}) {
   const ctx = await browser.newContext({ timezoneId: tz, viewport });
   const posts = [];
-  await ctx.route(/googletagmanager|google-analytics|clarity\.ms|sibforms|fonts\.g/, r => r.abort());
+  const gtm = [], third = [];
+  await ctx.route(/googletagmanager|google-analytics|clarity\.ms|sibforms|fonts\.g/, r => { const u = r.request().url(); if (!/fonts\.g/.test(u)) third.push(u); if (/googletagmanager/.test(u)) gtm.push(u); r.abort(); });
   await ctx.route(/formspree/, r => formspree === 'abort' ? r.abort() : formspree === 'error'
     ? r.fulfill({ status: 422, contentType: 'application/json', body: '{"errors":[{"message":"bad"}]}' })
     : r.fulfill({ status: 200, contentType: 'application/json', body: '{"ok":true}' }));
   await ctx.route('**/api/e', r => { try { posts.push(JSON.parse(r.request().postData())); } catch (e) { posts.push({ bad: 1 }); } r.fulfill({ status: 204, body: '' }); });
   if (gpc) await ctx.addInitScript(() => Object.defineProperty(navigator, 'globalPrivacyControl', { value: true }));
   if (stored) await ctx.addInitScript(v => { try { localStorage.setItem('sk_consent_v2', v); } catch (e) {} }, stored);
+  // SK_TRACK_JS=<file> serves that file as js/track.js, to prove a test goes red against an older version
+  if (process.env.SK_TRACK_JS) await ctx.route(/\/js\/track\.js/, r => r.fulfill({ contentType: 'text/javascript', body: fs.readFileSync(process.env.SK_TRACK_JS, 'utf8') }));
   const page = await ctx.newPage();
   const errs = []; page.on('pageerror', e => errs.push(String(e)));
-  return { ctx, page, posts, errs };
+  return { ctx, page, posts, errs, gtm, third };
 }
 const names = posts => posts.flatMap(p => p.ev.map(e => e.n));
 async function go(page, url) {
@@ -205,7 +210,7 @@ for (const w of [1440, 1024]) {
   const vis = await t.page.evaluate(() => { const g = document.querySelector('.sk-ghost'); return { on: g.classList.contains('on'), op: getComputedStyle(g).opacity, cap: document.querySelector('.haunt-cap').innerText, mag: getComputedStyle(document.querySelector('.mag-lead') || document.body).opacity, ghostFill: document.querySelector('.sk-ghost path').getAttribute('fill') }; });
   ok(vis.on && +vis.op > 0.9 && /Auto cursor, not you/.test(vis.cap) && /Stop/.test(vis.cap), w + ': green AUTO cursor visible, caption with Stop');
   ok(vis.mag === '0', w + ': visitor cursor hidden while it runs');
-  await t.page.screenshot({ path: path.join(ROOT, 'tracking/tests/client/ghost-' + w + '.png') });
+  await t.page.screenshot({ path: path.join(SHOTS, 'ghost-' + w + '.png') });
   await t.page.waitForFunction(() => !window.__haunt.on, null, { timeout: 60000 });
   const y1 = await t.page.evaluate(() => scrollY);
   ok(y0 === y1, w + ': scrollY unchanged by ghost (' + y0 + ' to ' + y1 + ')');
@@ -233,6 +238,117 @@ for (const w of [1440, 1024]) {
   ok(!allEv(t.posts).some(e => e.n === 'ui_click' && /haunt|ghost/.test(e.p.track_id || '')), w + ': Stop click not counted as ui_click');
   await t.ctx.close();
 }
+// ---------- GTM loads only when consent is granted ----------
+console.log('GTM consent gating');
+{ // eea pending and decline: zero Google requests, no gtm script tag
+  const t = await mk({ tz: 'Europe/Rome' }); await go(t.page, '/work.html'); await t.page.waitForTimeout(800);
+  ok(t.gtm.length === 0 && t.third.length === 0, 'eea pending: no googletagmanager or other third-party request ' + t.third.join(' '));
+  ok(await t.page.evaluate(() => !document.querySelector('script[src*="googletagmanager"], iframe[src*="googletagmanager"]')), 'eea pending: no gtm script or noscript iframe in the DOM');
+  await t.page.locator('#sk-consent .sk-c-s').click(); await t.page.waitForTimeout(600);
+  ok(t.gtm.length === 0 && t.third.length === 0, 'eea decline: still zero third-party requests');
+  await t.ctx.close();
+}
+{ // GPC outside the EU
+  const t = await mk({ gpc: true }); await go(t.page, '/work.html'); await t.page.waitForTimeout(800);
+  ok(t.gtm.length === 0 && t.third.length === 0, 'GPC outside the EU: zero third-party requests');
+  await t.ctx.close();
+}
+{ // eea accept: loads once, after consent update, on a later grant in the same tab
+  const t = await mk({ tz: 'Europe/Rome' }); await go(t.page, '/work.html');
+  await t.page.locator('#sk-consent .sk-c-p').click(); await t.page.waitForTimeout(800);
+  ok(t.gtm.length === 1 && /id=GTM-MRGXD7ZC/.test(t.gtm[0]), 'eea accept: GTM-MRGXD7ZC requested exactly once (' + t.gtm.length + ')');
+  const order = await t.page.evaluate(() => { const a = [...dataLayer]; const iu = a.findIndex(x => x && x[0] === 'consent' && x[1] === 'update' && x[2] && x[2].analytics_storage === 'granted'); const gs = a.findIndex(x => x && x.event === 'gtm.js'); return [iu, gs]; });
+  ok(order[0] >= 0 && order[1] > order[0], 'consent update granted is pushed before gtm.start (' + order + ')');
+  await t.page.locator('[data-consent-open]').first().click(); await t.page.locator('#sk-consent .sk-c-p').click().catch(() => {}); await t.page.waitForTimeout(500);
+  ok(t.gtm.length === 1, 'accepting again does not load GTM twice');
+  await t.ctx.close();
+}
+{ // returning granted and other region: loads once on page load
+  for (const o of [{ tz: 'Europe/Rome', stored: 'granted' }, { tz: 'America/New_York' }]) {
+    const t = await mk(o); await go(t.page, '/work.html'); await t.page.waitForTimeout(800);
+    ok(t.gtm.length === 1, `${o.stored ? 'returning granted' : 'other region'}: GTM requested once (${t.gtm.length})`);
+    await t.ctx.close();
+  }
+}
+{ // storage event: grant in another tab
+  const t = await mk({ tz: 'Europe/Rome' }); await go(t.page, '/work.html'); await t.page.waitForTimeout(300);
+  const p2 = await t.ctx.newPage(); await p2.goto(BASE + '/about.html', { waitUntil: 'load' }); await p2.waitForFunction(() => window.sk && sk.v);
+  ok(t.gtm.length === 0, 'two tabs undecided: nothing loaded');
+  await p2.locator('#sk-consent .sk-c-p').click(); await t.page.waitForTimeout(1000);
+  ok(await t.page.evaluate(() => sk.consent) === 'granted' && t.gtm.length === 2, 'grant in tab 2 reaches tab 1 through the storage event; each tab loads GTM once (' + t.gtm.length + ' requests)');
+  await t.ctx.close();
+}
+{ // old cached page with the inline loader: no second load
+  const t = await mk({ tz: 'America/New_York' });
+  await t.ctx.route(BASE + '/old.html', r => r.fulfill({ status: 200, contentType: 'text/html', body: '<!doctype html><html><head><script>window.dataLayer=window.dataLayer||[];(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({"gtm.start":1,event:"gtm.js"});var f=d.getElementsByTagName(s)[0],j=d.createElement(s);j.async=true;j.src="https://www.googletagmanager.com/gtm.js?id="+i;f.parentNode.insertBefore(j,f);})(window,document,"script","dataLayer","GTM-MRGXD7ZC");</script></head><body><script src="/js/consent.js" defer></script><script src="/js/analytics.js" defer></script></body></html>' }));
+  await t.page.goto(BASE + '/old.html', { waitUntil: 'load' }); await t.page.waitForTimeout(1200);
+  ok(t.gtm.length === 1, 'old cached page with the inline loader: GTM requested once, not twice (' + t.gtm.length + ')');
+  await t.ctx.close();
+}
+{ // withdrawal: after denied the data layer gets no more events, queue included
+  const t = await mk({ tz: 'America/New_York' }); await go(t.page, '/work.html');
+  await t.page.evaluate(() => sk.track('ui_click', { track_id: 'x.y' }));
+  await t.page.waitForTimeout(300);
+  const n0 = await t.page.evaluate(() => dataLayer.length);
+  await t.page.locator('[data-consent-open]').first().click(); await t.page.locator('#sk-consent .sk-c-s').click(); await t.page.waitForTimeout(400);
+  const n1 = await t.page.evaluate(() => dataLayer.length);
+  await t.page.evaluate(() => { sk.demo('d1', 'a', { item: 'x' }); sk.demo('d1', 'b', {}); sk.track('page_leave', {}); }); await t.page.mouse.click(300, 300); await t.page.waitForTimeout(400);
+  const post = await t.page.evaluate((n) => dataLayer.slice(n).filter(x => x && x.event && !/^gtm\./.test(x.event)), n1);
+  ok(n1 > n0, 'withdrawal: consent update denied is pushed');
+  ok(post.length === 0, 'withdrawal: no event reaches the data layer after denied (' + post.map(x => x.event).join(',') + ')');
+  const upd = await t.page.evaluate(() => dataLayer.filter(x => x && x[0] === 'consent' && x[1] === 'update').pop()[2].analytics_storage);
+  ok(upd === 'denied', 'last consent update is denied');
+  await t.ctx.close();
+}
+{ // queued events from pending are not drained into the data layer unless granted; drain on grant is allowed
+  const t = await mk({ tz: 'Europe/Rome' }); await go(t.page, '/work.html');
+  await t.page.evaluate(() => { sk.demo('d1', 'a', { item: 'one' }); });
+  ok(await t.page.evaluate(() => dataLayer.filter(x => x && x.event === 'demo_action').length) === 0, 'pending: demo_action queued, not in the data layer');
+  await t.page.evaluate(() => { window.__lv = true; });
+  // drainG is internal: force the consent event with state still pending and check nothing leaks
+  await t.page.evaluate(() => window.dispatchEvent(new CustomEvent('sk:consent', { detail: { state: 'pending' } })));
+  ok(await t.page.evaluate(() => dataLayer.filter(x => x && x.event === 'demo_action').length) === 0, 'sk:consent while pending drains nothing');
+  await t.page.locator('#sk-consent .sk-c-s').click(); await t.page.waitForTimeout(300);
+  ok(await t.page.evaluate(() => dataLayer.filter(x => x && x.event === 'demo_action').length) === 0, 'queue dropped on decline');
+  await t.ctx.close();
+}
+{ // key union: a param from one push never leaks into the next in a GTM-like merged model
+  const t = await mk({ tz: 'America/New_York' }); await go(t.page, '/work.html');
+  await t.page.evaluate(() => { sk.demo('d1', 'pick', { item: 'swatch3', value: 7 }); });
+  await t.page.waitForTimeout(300);
+  await t.page.evaluate(() => { sk.demo('d1', 'clear', {}); });
+  await t.page.waitForTimeout(300);
+  const r = await t.page.evaluate(() => {
+    const model = {}, seen = [];
+    for (const x of dataLayer) { if (!x || typeof x !== 'object' || Array.isArray(x) || 'length' in x && x[0]) continue; Object.assign(model, x); if (x.event === 'demo_action') seen.push({ action: model.action, item: model.item, value: model.value, hasKeyItem: 'item' in x }); }
+    return seen;
+  });
+  ok(r.length === 2 && r[0].item === 'swatch3' && r[0].value === 7, 'first demo_action carries item and value in the merged model');
+  ok(r.length === 2 && r[1].item === undefined && r[1].value === undefined && r[1].hasKeyItem === true, 'second demo_action without item: item and value are explicitly undefined (merged model: ' + JSON.stringify(r[1]) + ')');
+  await t.ctx.close();
+}
+
+// ---------- events emitted after the page is hidden ----------
+console.log('events emitted while hidden');
+{
+  const t = await mk({ tz: 'America/New_York' }); await go(t.page, '/work.html'); await flush(t.page);
+  // visibilitychange to hidden first (track.js flushes and marks the page left), then a page handler emits from its own pagehide listener
+  await t.page.evaluate(() => {
+    window.addEventListener('pagehide', () => sk.demo('late', 'from_pagehide', { item: 'x' }), { once: true });
+    Object.defineProperty(document, 'hidden', { value: true, configurable: true });
+    document.dispatchEvent(new Event('visibilitychange'));
+    window.dispatchEvent(new Event('pagehide'));
+  });
+  await t.page.waitForTimeout(600);
+  ok(t.posts.some(p => (p.ev || []).some(e => e.n === 'demo_action' && e.p.action === 'from_pagehide')), 'an event emitted by a pagehide handler after visibilitychange is sent, not stranded in the queue');
+  const before = t.posts.length;
+  await t.page.evaluate(() => { for (let i = 0; i < 5; i++) sk.demo('late', 'burst' + i, {}); });
+  await t.page.waitForTimeout(600);
+  const got = t.posts.slice(before).flatMap(p => p.ev || []).filter(e => /^burst/.test(e.p.action || '')).length;
+  ok(got === 5, 'five events emitted while hidden all go out at once, none wait for the 5 s timer', { events: got, requests: t.posts.length - before });
+  await t.ctx.close();
+}
+
 console.log('\n' + pass + ' passed, ' + fail + ' failed');
 await browser.close(); srv.close();
 process.exit(fail ? 1 : 0);

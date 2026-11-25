@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-page-type="demo">
 <head>
   <!-- Consent Mode v2 default — denied inside EEA/UK/Switzerland (GDPR), granted elsewhere -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
@@ -8,9 +8,6 @@ gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_pers
 // Override: denied for EEA, UK, Switzerland (legally required until user accepts)
 gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied','region':['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH'],'wait_for_update':500});
 try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_consent_v2')){localStorage.setItem('sk_consent_v2','denied');}localStorage.removeItem('sk_consent');var c=localStorage.getItem('sk_consent_v2');if(c==='granted'){gtag('consent','update',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'granted'});}else if(c==='denied'){gtag('consent','update',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied'});}}catch(e){}</script>
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MRGXD7ZC');</script>
-<!-- End Google Tag Manager -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Agora — Sai Kanagat</title>
@@ -131,14 +128,11 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 <meta name="twitter:card" content="summary_large_image" />
 </head>
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MRGXD7ZC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
 <a href="../index.html" class="demo-home" data-track="agora.home"><strong>SK</strong> · Home</a>
 <a href="../work.html#agora" class="demo-back" data-track="agora.back">← Back to Work</a>
 
 <!-- STEP 1 -->
-<section id="step1" class="step-wrap" data-zone="agora">
+<section id="step1" class="step-wrap" data-zone="agora" data-section="step1">
   <div class="step-eyebrow"><strong>01</strong> · Seed · <span style="color:var(--accent);">Lite version</span></div>
   <h1 class="step-h">Drop a scenario.<br>Watch a crowd think it through.</h1>
   <p class="lede">Agora is a sandbox for rehearsing public reaction. Type in a question, statement, or scenario — a product launch, a policy proposal, a news event. The engine generates a synthetic crowd of personas, runs them through a multi-tick simulation of conversation and influence, then hands you a prediction report.</p>
@@ -167,7 +161,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 </section>
 
 <!-- STEP 2 -->
-<section id="step2" class="step-wrap hidden">
+<section id="step2" class="step-wrap hidden" data-section="step2" data-zone="step2">
   <div class="step-eyebrow"><strong>02</strong> · Environment</div>
   <h1 class="step-h">Your synthetic<br>crowd is ready.</h1>
   <p class="lede" id="envLede">Generated <strong id="envCount">60</strong> personas with occupations, demographics, baseline stances and personality vectors. Skim the room, then start the simulation.</p>
@@ -179,7 +173,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 </section>
 
 <!-- STEP 3 -->
-<section id="step3" class="step-wrap hidden">
+<section id="step3" class="step-wrap hidden" data-section="step3" data-zone="step3">
   <div class="step-eyebrow"><strong>03</strong> · Simulation</div>
   <h1 class="step-h">The crowd<br>is talking.</h1>
   <p class="lede">Agents move, find each other, post, react and shift opinions. The right rail is a live feed of what they're saying. Watch which colour wins ground.</p>
@@ -198,7 +192,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 </section>
 
 <!-- STEP 4 -->
-<section id="step4" class="step-wrap hidden">
+<section id="step4" class="step-wrap hidden" data-section="step4" data-zone="step4">
   <div class="step-eyebrow"><strong>04</strong> · Report</div>
   <h1 class="step-h" id="reportH">Prediction<br>complete.</h1>
   <p class="lede">Synthetic crowd of <strong id="rpCount"></strong> after <strong id="rpTicks"></strong> ticks. Below: final stance distribution, key influencer agents, dominant narrative, and a timeline of inflection points.</p>
@@ -641,7 +635,8 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   }
 })();
 </script>
-<script src="../js/consent.js" defer></script>
-<script src="../js/analytics.js" defer></script>
+<script>window.SK_CLARITY_ID='zir45wg6mm';</script>
+<script src="../js/consent.js?v=e79bc95e" defer></script>
+<script src="../js/analytics.js?v=9f2bad85" defer></script>
 </body>
 </html>

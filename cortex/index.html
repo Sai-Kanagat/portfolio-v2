@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-page-type="demo">
 <head>
 <!-- Consent Mode v2 default — denied inside EEA/UK/Switzerland (GDPR), granted elsewhere -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
@@ -8,9 +8,6 @@ gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_pers
 // Override: denied for EEA, UK, Switzerland (legally required until user accepts)
 gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied','region':['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH'],'wait_for_update':500});
 try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_consent_v2')){localStorage.setItem('sk_consent_v2','denied');}localStorage.removeItem('sk_consent');var c=localStorage.getItem('sk_consent_v2');if(c==='granted'){gtag('consent','update',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'granted'});}else if(c==='denied'){gtag('consent','update',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied'});}}catch(e){}</script>
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MRGXD7ZC');</script>
-<!-- End Google Tag Manager -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Cortex Studio — Sai Kanagat</title>
@@ -123,7 +120,6 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 <meta property="og:image" content="https://saikanagat.com/og-image.jpg" />
 </head>
 <body>
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MRGXD7ZC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div id="gate">
   <div class="box">
@@ -139,7 +135,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
 <header class="top" data-zone="cortex">
   <div class="wrap">
     <span class="logo">Cortex Studio</span>
-    <nav>
+    <nav data-zone="nav">
       <a href="#how" data-track="cortex.nav.how">How it works</a>
       <a href="#demo" data-track="cortex.nav.demo">Instant demo</a>
       <a href="#try" data-track="cortex.nav.try">Try it</a>
@@ -181,7 +177,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   </div>
 </div>
 
-<section id="what">
+<section id="what" data-section="what" data-zone="what">
   <div class="wrap">
     <div class="mono">What this is</div>
     <h2>The brief → a finished campaign kit.</h2>
@@ -198,7 +194,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   </div>
 </section>
 
-<section id="how">
+<section id="how" data-section="how" data-zone="how">
   <div class="wrap">
     <div class="mono">Architecture</div>
     <h2>A real multi-agent pipeline.</h2>
@@ -228,7 +224,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   </div>
 </section>
 
-<section id="demo">
+<section id="demo" data-section="demo" data-zone="demo">
   <div class="wrap">
     <div class="mono">Instant demo · real output</div>
     <h2>Watch a campaign build itself.</h2>
@@ -248,7 +244,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   </div>
 </section>
 
-<section id="try">
+<section id="try" data-section="try" data-zone="try">
   <div class="wrap">
     <div class="mono">Live · try it yourself</div>
     <h2>Run your own.</h2>
@@ -273,7 +269,7 @@ try{if(localStorage.getItem('sk_consent')==='denied'&&!localStorage.getItem('sk_
   </div>
 </section>
 
-<footer>
+<footer data-zone="footer">
   <div class="wrap">
     Built by Sai Kanagat — Python · FastAPI · LangGraph · Gemini + Flux · deployed on Render.
     This is a free-tier lite preview; the open-source project runs far better on a paid model.
@@ -408,7 +404,8 @@ async function runLive(){
 $("runlive").onclick=runLive;
 if(!BACKEND_URL) $("livenote").textContent="Live backend deploying soon — the instant demo above is a real run you can watch now.";
 </script>
-<script src="/js/consent.js" defer></script>
-<script src="/js/analytics.js" defer></script>
+<script>window.SK_CLARITY_ID='zir45wg6mm';</script>
+<script src="/js/consent.js?v=e79bc95e" defer></script>
+<script src="/js/analytics.js?v=9f2bad85" defer></script>
 </body>
 </html>

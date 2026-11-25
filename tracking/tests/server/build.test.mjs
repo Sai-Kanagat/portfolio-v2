@@ -24,6 +24,16 @@ test('build-dist publishes the site and nothing private', () => {
   if (fs.existsSync(path.join(ROOT, 'js/track.js'))) assert.ok(all.includes('js/track.js'), 'untracked js/track.js must be included');
   const banned = all.filter((f) => /^(tracking|_gtm|functions|migrations|workers|tools|tests|node_modules|\.git|\.github|\.claude|syndication|social-kit)\//.test(f) || /(^|\/)(package(-lock)?\.json|wrangler\.toml|\.DS_Store|CLAUDE\.md|README\.md)$/.test(f) || /\.(md|log|map|sqlite|pem|key)$/.test(f));
   assert.deepEqual(banned, []);
+  // the named list from the CI brief, checked one by one so a failure says which
+  const none = (re, what) => assert.deepEqual(all.filter((f) => re.test(f)), [], what);
+  none(/(^|\/)tracking(\/|$)/, 'no tracking/ anywhere');
+  none(/(^|\/)(tests?|__tests__)(\/|$)|\.(test|spec)\.[cm]?js$/, 'no tests');
+  none(/(^|\/)_gtm(\/|$)/, 'no _gtm');
+  none(/\.md$/i, 'no markdown');
+  none(/(^|\/)(migrations|workers|functions)(\/|$)/, 'no migrations, workers or functions source');
+  none(/(^|\/)(package(-lock)?\.json|wrangler\.toml|\.gitignore)$/, 'no package files or wrangler config');
+  none(/(^|\/)\.(github|wrangler|claude)(\/|$)/, 'no dot folders');
+  assert.ok(all.includes('ops/index.html') && all.includes('ops/app.js') && all.includes('ops/controls.json'), 'the dashboard itself ships (it is gated by Access, not hidden by the build)');
   const routes = JSON.parse(fs.readFileSync(path.join(target, '_routes.json'), 'utf8'));
   assert.deepEqual(routes.include, ['/*']);
   assert.ok(routes.exclude.length > 0 && routes.exclude.length <= 99);

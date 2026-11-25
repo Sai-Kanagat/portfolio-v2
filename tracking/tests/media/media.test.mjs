@@ -7,7 +7,7 @@ import { createRequire } from 'node:module';
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
-const require = createRequire('/Users/saikanagat/saikanagat-analytics/tools/package.json');
+import { pwRequire as require } from '../pw.mjs';
 const { chromium } = require('playwright');
 const root = process.cwd();
 const types = { '.html': 'text/html', '.js': 'text/javascript', '.mjs': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.svg': 'image/svg+xml' };
@@ -41,6 +41,8 @@ const b = await chromium.launch({ args: ['--use-fake-device-for-media-stream', '
 async function page(url, { gum = 'granted', stub = true, vp = { width: 1280, height: 800 }, fake = true, init = '' } = {}) {
   const ctx = await b.newContext({ viewport: vp, permissions: ['camera', 'microphone'] });
   await ctx.route(/googletagmanager|google-analytics|clarity\.ms|formspree|sibforms/, r => r.abort());
+  // no outside request in the default run: anything not served from this machine is refused (the fakes below are registered later and win)
+  if (!REAL && process.env.SK_REAL_CDN !== '1') await ctx.route((u) => !/^(127\.0\.0\.1|localhost)$/.test(u.hostname), r => r.abort());
   await ctx.route('**/api/e', r => r.fulfill({ status: 204 }));
   await ctx.route(/\/js\/(analytics|consent|track)\.js/, r => r.fulfill({ contentType: 'text/javascript', body: '' }));
   if (fake && !REAL) {
@@ -229,7 +231,10 @@ async function steady(pg, label, ms = 2500) { const f = async () => (await pg.ca
 }
 
 /* ---------------- MELT ---------------- */
-{
+// Melt imports three.js from jsdelivr, which is a real network fetch. It runs only with SK_REAL_CDN=1 (the owner's machine);
+// the default run, CI included, makes no outside request and says so.
+if (process.env.SK_REAL_CDN !== '1') console.log('  skip melt: needs three.js from the real CDN. Run with SK_REAL_CDN=1 to include it.');
+else {
   let pg = await page('/melt/index.html', { fake: false });
   await pg.waitForFunction(() => window.__melt && window.__melt.state === 'title', null, { timeout: 20000 }).catch(() => {});
   const st = await pg.evaluate(() => window.__melt && window.__melt.state);
@@ -281,7 +286,7 @@ async function steady(pg, label, ms = 2500) { const f = async () => (await pg.ca
   pg = await page('/demos/audio.html', { init: `window.__x=1` }); await pg.evaluate(() => { window.sk.consent = 'denied'; }); await pg.click('#useDemo'); await pg.waitForTimeout(300);
   ok(await pg.evaluate(() => localStorage.getItem('sk_seen_audio') === null), 'no return-visit flag without consent'); await pg.context().close();
   // head consent snippet and scripts present on melt and shadow theatre
-  for (const f of ['melt/index.html', 'shadow-theatre/index.html']) { const t = fs.readFileSync(f, 'utf8'); ok(/Consent Mode v2/.test(t) && /GTM-MRGXD7ZC/.test(t) && /\/js\/consent\.js/.test(t) && /\/js\/analytics\.js/.test(t), f + ' has consent snippet and scripts'); }
+  for (const f of ['melt/index.html', 'shadow-theatre/index.html']) { const t = fs.readFileSync(f, 'utf8'); ok(/Consent Mode v2/.test(t) && !/googletagmanager\.com\/(gtm|ns)/.test(t) && /\/js\/consent\.js/.test(t) && /\/js\/analytics\.js/.test(t), f + ' has the consent default, no inline GTM loader, and the scripts'); }
   for (const f of ['melt/index.html', 'shadow-theatre/index.html', 'demos/hands.html', 'demos/balls.html', 'demos/audio.html']) { const t = fs.readFileSync(f, 'utf8'); const d = (t.match(/[–—]/g) || []).length; if (f.startsWith('melt') || f.startsWith('shadow')) ok(d === 0, f + ' has no dashes in file ' + d); }
 }
 await b.close(); srv.close();

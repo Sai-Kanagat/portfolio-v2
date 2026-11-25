@@ -9,7 +9,7 @@ import os from 'os';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { execFileSync } from 'child_process';
-const require = createRequire('/Users/saikanagat/saikanagat-analytics/tools/package.json');
+import { pwRequire as require } from '../pw.mjs';
 const { chromium } = require('playwright');
 const REAL = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../..');
 const TMP = fs.mkdtempSync(path.join(os.tmpdir(), 'sk-pages-'));
@@ -86,17 +86,27 @@ console.log('codemod');
   ok(cm(POST, '--check').code === 0, '--check exits 0 on a stamped tree');
   ok(cm(PRE, '--check').code === 1, '--check exits 1 on the unstamped baseline');
   { const t = fs.mkdtempSync(path.join(TMP, 'rt-')); fs.cpSync(PRE, t, { recursive: true }); cm(t); const same = pages.every((f) => fs.readFileSync(path.join(t, f), 'utf8') === s1[f]); ok(same, 'stripping every stamp and running the codemod again reproduces the stamped pages byte for byte'); }
-  const all = cm(POST, '--all', '--check');
-  ok(all.code === 1 && /404\.html/.test(all.out) && /demos\/hands\.html/.test(all.out), '--all would add head tags to pages other agents own: ' + all.out.trim().split('\n').pop());
+  // The pages other agents own (media, tools, 404). Their baseline is the committed version, read with `git show` (read-only).
+  // Once the closing commit makes HEAD already stamped there is no baseline left, and the checks say so instead of passing.
+  const OTHER = PAGEFILES.filter((f) => CMOD.OTHER_OWNERS.some((r) => r.test(f)));
+  const old = {};
+  for (const f of OTHER) { try { old[f] = execFileSync('git', ['-C', REAL, 'show', 'HEAD:' + f], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'], maxBuffer: 1 << 26 }); } catch (e) { /* not in git */ } }
+  const usable = OTHER.filter((f) => old[f] && !/data-page-type=/.test(old[f]));
+  if (usable.length < OTHER.length) console.log(`  note: ${OTHER.length - usable.length} of ${OTHER.length} other-owner pages are already stamped at HEAD, so there is no unstamped baseline for them`);
   const dry = fs.mkdtempSync(path.join(TMP, 'all-')); fs.cpSync(POST, dry, { recursive: true });
-  const before = snap(dry); cm(dry, '--all'); const after = snap(dry);
-  const others = Object.keys(after).filter((f) => after[f] !== before[f] && !pages.includes(f));
-  ok(others.includes('404.html') && !/ns\.html\?id=GTM/.test(before['404.html']) && /ns\.html\?id=GTM/.test(after['404.html']), '404.html lacks the GTM noscript block today; --all adds it with the Clarity id and page type');
-  const onlyHead = others.filter((f) => f !== '404.html').every((f) => {
-    const strip = (x) => x.replace(/ data-page-type="[^"]*"/, '').replace(/<script>window\.SK_CLARITY_ID='[^']*';<\/script>\n?\s*/, '').replace(/(consent|analytics)\.js\?v=[0-9a-f]+/g, '$1.js');
-    return strip(after[f]) === strip(before[f]);
-  });
-  ok(others.length > 0 && onlyHead, `--all on the other owners' pages: ${others.length} files, only page type, Clarity id and ?v= changes`);
+  for (const f of usable) fs.writeFileSync(path.join(dry, f), old[f]);
+  const oldDir = fs.mkdtempSync(path.join(TMP, 'others-old-')); for (const f of usable) { fs.mkdirSync(path.dirname(path.join(oldDir, f)), { recursive: true }); fs.writeFileSync(path.join(oldDir, f), old[f]); }
+  globalThis.__OTHERS = { oldDir, dry, usable };
+  const before = snap(dry);
+  const all = cm(dry, '--all', '--check');
+  ok(usable.length > 0 && all.code === 1 && /404\.html/.test(all.out) && /demos\/hands\.html/.test(all.out), `--all would stamp the unstamped media, tools and 404 pages (${usable.length} baselines): ` + all.out.trim().split('\n').pop());
+  cm(dry, '--all'); const after = snap(dry);
+  ok(usable.includes('404.html') && /googletagmanager/.test(before['404.html']) && !/googletagmanager/.test(after['404.html']) && /data-page-type="not-found"/.test(after['404.html']) && /SK_CLARITY_ID/.test(after['404.html']), '404.html: --all removes the GTM loader and noscript and adds the page type and Clarity id');
+  const STRIPALL = (x) => x
+    .replace(/[ \t]*<!-- Google Tag Manager( \(noscript\))? -->\s*<(script|noscript)>[\s\S]*?<\/\2>\s*<!-- End Google Tag Manager( \(noscript\))? -->[ \t]*\n?/g, '')
+    .replace(/ data-(track|zone|section|page-type)="[^"]*"/g, '').replace(/<script>window\.SK_CLARITY_ID='[^']*';<\/script>\n?\s*/, '').replace(/(consent|analytics)\.js\?v=[0-9a-f]+/g, '$1.js').replace(/<!--[\s\S]*?-->/g, '').replace(/\s+/g, ' ').replace(/> </g, '><');
+  const changedOnly = usable.filter((f) => STRIPALL(after[f]) !== STRIPALL(before[f]));
+  ok(usable.length > 0 && changedOnly.length === 0, `--all on ${usable.length} media, tools and 404 pages changes only stamps: data-track, zone, section, page type, Clarity id, ?v= and the inline GTM loader` + (changedOnly.length ? ' [' + changedOnly.join(',') + ']' : ''));
   const idem = cm(dry, '--all'); ok(/, 0 changed/.test(idem.out), '--all is idempotent');
   // ids: no addresses, names, bad characters
   const ids = [];
@@ -128,7 +138,7 @@ console.log('codemod');
     const h = await pg.evaluate(() => {
       document.querySelectorAll('script,noscript').forEach((n) => n.remove());
       document.querySelectorAll('[data-track],[data-zone],[data-section],[data-page-type]').forEach((n) => { ['data-track', 'data-zone', 'data-section', 'data-page-type'].forEach((a) => n.removeAttribute(a)); });
-      return document.documentElement.outerHTML.replace(/\s+/g, ' ').replace(/> </g, '><');
+      return document.documentElement.outerHTML.replace(/<!--[\s\S]*?-->/g, '').replace(/\s+/g, ' ').replace(/> </g, '><');
     });
     await pg.close(); return h;
   };
@@ -136,6 +146,12 @@ console.log('codemod');
     // the unstamped copy has only the hand wiring (inline scripts are removed above), so equal markup is the pass condition
     const x = await dom(PRE, f), y = await dom(POST, f);
     if (x !== y) diffs.push(f);
+  }
+  { // the media, tools and 404 pages too: committed version against the stamped one, with JavaScript off
+    const { oldDir, dry, usable } = globalThis.__OTHERS;
+    const d2 = [];
+    for (const f of usable) { const x = await dom(oldDir, f), y = await dom(dry, f); if (x !== y) d2.push(f); }
+    ok(usable.length > 0 && d2.length === 0, `visible markup of ${usable.length} media, tools and 404 pages is unchanged once our attributes and scripts are removed` + (d2.length ? ' [' + d2.join(',') + ']' : ''));
   }
   await ctx.close();
   ok(diffs.length === 0, `DOM identical before and after stamping on ${pages.length} pages (JavaScript off, our attributes and script tags removed)` + (diffs.length ? ': ' + diffs.join(',') : ''));
