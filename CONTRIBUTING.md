@@ -20,7 +20,7 @@ The site is static, no build step for pages. `dist/` is built by `node tracking/
 `404.html` is served for every unknown path with status 404 (Pages). It has no GTM, no inline tracking, `data-page-type="not-found"`, the standard consent and analytics scripts, and sends one `page_not_found` with the path only. Keep it that way: the codemod stamps it with `--all`, and `tracking/tests/server/notfound.test.mjs` checks it.
 
 ## Held pages
-Funnel Pinball, Landing Page Grader and Content Repurposer are wired and tested in a scratch worktree from the local commits and are not deployed. Do not copy a held page into this tree until the owner says so. When one is released: add it, run the codemod with `--all`, add its map entries (tools.json via spec.mjs), run the gate, and add its row to the joined test.
+Funnel Pinball, Landing Page Grader and Content Repurposer are not in this branch, not wired and not deployed. Do not copy a held page into this tree until the owner says so. When one is released: add it, run the codemod with `--all`, add its map entries (tools.json via spec.mjs), run the gate, and add its row to the joined test.
 
 ## House rules
 No em or en dashes, no emoji, no AI attribution in code, commits or docs. Never collect typed text, file names, emails, camera or mic data, or share-link state. Tracking fails silently and never changes behaviour or frame rate. Zero cost: free tiers only, drop data at limits, never a paid product. Tests never touch the real Cloudflare account: wrangler with `--local` only.
