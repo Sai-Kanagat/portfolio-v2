@@ -297,6 +297,7 @@ console.log('GTM consent gating');
   await t.page.evaluate(() => { sk.demo('d1', 'a', { item: 'x' }); sk.demo('d1', 'b', {}); sk.track('page_leave', {}); }); await t.page.mouse.click(300, 300); await t.page.waitForTimeout(400);
   const post = await t.page.evaluate((n) => dataLayer.slice(n).filter(x => x && x.event && !/^gtm\./.test(x.event)), n1);
   ok(n1 > n0, 'withdrawal: consent update denied is pushed');
+  ok(await t.page.evaluate(() => window['ga-disable-G-JX9GMLCE9Z'] === true), 'withdrawal: the Google tag is switched off, so no cookieless ping on close');
   ok(post.length === 0, 'withdrawal: no event reaches the data layer after denied (' + post.map(x => x.event).join(',') + ')');
   const upd = await t.page.evaluate(() => dataLayer.filter(x => x && x[0] === 'consent' && x[1] === 'update').pop()[2].analytics_storage);
   ok(upd === 'denied', 'last consent update is denied');

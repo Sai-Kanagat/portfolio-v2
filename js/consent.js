@@ -37,6 +37,8 @@
   function q(args) { (window.skq = window.skq || []).push(args); }
 
   function gConsent(on) {
+    // after a withdrawal gtag would still send one cookieless ping when the page closes: switch it off entirely
+    try { window['ga-disable-G-JX9GMLCE9Z'] = !on; } catch (e) {}
     gtag('consent', 'update', {
       ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied',
       analytics_storage: on ? 'granted' : 'denied'
