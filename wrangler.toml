@@ -22,3 +22,14 @@ binding = "DB"
 database_name = "sk-events"
 database_id = "ffa0e060-cee7-4d8b-916d-62ebc6a23963"
 migrations_dir = "migrations"
+
+# Preview deployments use their own database, never the production one.
+[env.preview.vars]
+PRODUCTION_PAGES_HOST = "saikanagat-7yg.pages.dev"
+CANONICAL_ORIGIN = "https://saikanagat.com"
+
+[[env.preview.d1_databases]]
+binding = "DB"
+database_name = "sk-events-preview"
+database_id = "6f41b64d-f927-4f85-a77a-937066f785e5"
+migrations_dir = "migrations"
