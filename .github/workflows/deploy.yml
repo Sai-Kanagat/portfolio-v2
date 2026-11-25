@@ -14,7 +14,7 @@ jobs:
   # Required before any deploy: coverage gate, server tests on a real local D1, client tests, and the joined-up test.
   # Nothing here touches the real Cloudflare account: wrangler runs with --local and no token.
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 40
     permissions:
       contents: read
@@ -62,7 +62,7 @@ jobs:
   deploy:
     needs: test
     if: github.event_name != 'pull_request'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       contents: read
       deployments: write
