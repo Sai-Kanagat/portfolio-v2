@@ -73,12 +73,26 @@
       });
     } catch (e) {}
   }
+  // Clarity records page addresses. Hire and Positioning keep what a visitor builds or types in theirs, so it never
+  // loads there, nor where this address or the same-site referrer carries anything outside the known entry parameters.
+  var QOK = /^(utm_(source|medium|campaign|content)|sk_(l|owner|test|off)|lang)$/;
+  function plainUrl(u) {
+    try {
+      var bad = false;
+      new URL(u).searchParams.forEach(function (v, k) { if (!QOK.test(k)) bad = true; });
+      return !bad && !/[=&%]/.test(new URL(u).hash);
+    } catch (e) { return false; }
+  }
+  function clarityAllowed() {
+    if (/^\/(hire|positioning)(\/|\.html|$)/i.test(location.pathname) || !plainUrl(location.href)) return false;
+    return !doc.referrer || doc.referrer.indexOf(location.origin) !== 0 || plainUrl(doc.referrer);
+  }
   var clarityOn = false;
   function syncClarity() {
     var s = state();
     if (s === 'granted') {
       var id = window.SK_CLARITY_ID;
-      if (clarityOn || !id || !/^[a-z0-9]{6,16}$/i.test(id)) return;
+      if (clarityOn || !clarityAllowed() || !id || !/^[a-z0-9]{6,16}$/i.test(id)) return;
       clarityOn = true;
       try {
         (function (c, l, a, r, i, t, y) {

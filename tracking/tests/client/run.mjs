@@ -198,6 +198,15 @@ for (const [mode, want] of [['ok', 'form_submit_success'], ['error', 'form_submi
   await t.ctx.close();
 }
 
+// ---------- Clarity never sees addresses that hold what a visitor built or typed ----------
+console.log('Clarity addresses');
+for (const [url, want] of [['/work.html?utm_source=cv&sk_l=cv-x', true], ['/hire/index.html', false], ['/positioning/index.html', false], ['/work.html?t=CANARY', false], ['/work.html#s=CANARY', false]]) {
+  const t = await mk({ tz: 'America/New_York' }); const hit = [];
+  t.page.on('request', q => { if (/clarity\.ms/.test(q.url())) hit.push(1); });
+  await go(t.page, url); await t.page.waitForTimeout(1500);
+  ok((hit.length > 0) === want, url + ': Clarity ' + (want ? 'loads' : 'does not load'));
+  await t.ctx.close();
+}
 // ---------- auto cursor removed ----------
 console.log('auto cursor removed');
 const allEv = posts => posts.flatMap(p => p.ev);
